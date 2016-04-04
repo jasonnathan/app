@@ -5,8 +5,8 @@ import { isFunction, isObject, isString, isBoolean } from 'mout/lang';
 import { mixIn, deepMixIn, keys } from 'mout/object';
 
 export default class QueryBuilder {
-    constructor(model) {
-        this._model = model;
+    constructor(collection) {
+        this._collection = collection;
         this._selectors = [];
         this._options = {};
         this._fields = {};
@@ -23,7 +23,7 @@ export default class QueryBuilder {
 
         // In case it's a function
         if (isFunction(args[0])) {
-            f = args[0].call(this._model, this._model) || {};
+            f = args[0].call(this._collection, this._collection) || {};
         }
 
         // In case it's not
@@ -47,7 +47,7 @@ export default class QueryBuilder {
 
         // In case it's a function
         if (isFunction(args[0])) {
-            const q = args[0].call(this._model, this._model) || {};
+            const q = args[0].call(this._collection, this._collection) || {};
             s = q.selector;
             o = q.options;
         }
@@ -95,7 +95,7 @@ export default class QueryBuilder {
 
         // In case it's a function, call it
         if (isFunction(sc)) {
-            sc = sc.call(this._model, this._model);
+            sc = sc.call(this._collection, this._collection);
         }
 
         // In case it's "false", make sure find() will return false
@@ -144,7 +144,7 @@ export default class QueryBuilder {
         mixIn(o, this._options, {fields: this._fields});
 
         // Return Mongo cursor from s and o
-        return this._model.find(s, o);
+        return this._collection.find(s, o);
     }
 
     /**
