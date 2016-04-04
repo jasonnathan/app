@@ -4,7 +4,7 @@ import { DDP } from 'meteor/ddp-client';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import { get } from 'mout/object';
-import debug from './debug';
+import Debug from './Debug';
 
 check(get(Meteor.settings, 'public.server'), {
     host: String,
@@ -13,7 +13,7 @@ check(get(Meteor.settings, 'public.server'), {
 
 const address = `${Meteor.settings.public.server.host}:${Meteor.settings.public.server.port}`;
 const connection = DDP.connect(address);
-debug.conn(`Server configured as ${address}`);
+Debug.conn(`Server configured as ${address}`);
 
 const messages = {
     connecting: `Connecting to server`,
@@ -24,7 +24,7 @@ const messages = {
 
 Tracker.autorun(() => {
     const message = messages[connection.status().status];
-    debug.conn(message);
+    Debug.conn(message);
 });
 
 export default connection;
