@@ -87,11 +87,6 @@ export default class QueryBuilder {
      * (or a boolean)
      */
     criteria(sc) {
-        check(sc, Match.OneOf(
-            String,
-            Function,
-            Boolean
-        ));
 
         // In case it's a function, call it
         if (isFunction(sc)) {
@@ -99,13 +94,17 @@ export default class QueryBuilder {
         }
 
         // In case it's "false", make sure find() will return false
-        if (isBoolean(sc) && !sc) {
-            this._none = true;
+        if (isBoolean(sc)) {
+            if (!sc) {
+                this._none = true;
+            }
         }
 
-        // In case the selector is a string, assume it's an _id
-        if (isString(sc)) {
-            sc = { _id: sc };
+        // Else, in case the selector is not an object, assume it's an _id
+        else if (!isObject(sc)) {
+            sc = {
+                _id: isString(sc) ? sc : { $in: [] }
+            };
         }
 
         // Push the selector
