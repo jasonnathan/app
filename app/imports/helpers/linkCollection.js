@@ -13,19 +13,17 @@ export default (model, collection) => {
         String
     ));
 
-    let c;
+    let c = collection;
 
-    // Create collection
+    // Create Mongo collection
     if (isString(collection)) {
-        c = new Mongo.Collection(collection, api);
-    } else {
-        c = collection;
+        c = new Mongo.Collection(c, {connection: Api});
     }
 
     // Transform document to extend opts.Document
     c._transform = (doc) => new model(doc);
 
-    // Query builder
+    // Define query builder
     c.query = () => new QueryBuilder(model);
 
     // Extend model with the collection
