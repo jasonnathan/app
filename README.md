@@ -8,8 +8,17 @@ Part-up mobile app
 
 ## OS Prerequisites
 - [Meteor](https://www.meteor.com/install)
-- [NodeJS](https://nodejs.org/en/download)
 
 ## Getting started
 Before contributing, please read [CONTRIBUTING.md](https://github.com/part-up/app/blob/master/CONTRIBUTING.md) carefully.
 
+- `cd app`
+- `meteor npm install` - install all packages defined in package.json while staying in Meteor's NodeJS-container
+- `cd ..`
+- `./start` - start the application
+
+## Adding an npm package
+To add an npm package:
+
+- `cd app`
+- `meteor npm install --save my-package` - write a module to package.json and install it while staying in Meteor's NodeJS-container
