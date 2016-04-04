@@ -1,4 +1,4 @@
-# Contributing to part-up.com
+# Contributing to Part-up's mobile app
 
 This guideline details the preferred way of making contributions to the part-up mobile app codebase.
 
