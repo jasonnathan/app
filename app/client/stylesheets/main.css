@@ -3,3 +3,13 @@ body {
     color: white;
     font-family: sans-serif;
 }
+
+h3 {
+    margin: 20px 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.test-list li {
+    margin: 10px;
+}
