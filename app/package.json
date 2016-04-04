@@ -11,6 +11,7 @@
     "mout": "^1.0.0",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
-    "react-router": "^2.0.1"
+    "react-router": "^2.0.1",
+    "reset.css": "^2.0.2"
   }
 }
