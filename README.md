@@ -8,6 +8,7 @@ Part-up mobile app
 
 ## OS Prerequisites
 - [Meteor](https://www.meteor.com/install)
+- [NodeJS](https://nodejs.org/en/download)
 
 ## Getting started
 Before contributing, please read [CONTRIBUTING.md](https://github.com/part-up/app/blob/master/CONTRIBUTING.md) carefully.
