@@ -1,10 +1,10 @@
 'use strict';
 
-import _ from 'lodash';
+import { extend } from 'lodash';
 
 export default class Model {
     constructor(doc) {
-        _.extend(this, doc);
+        extend(this, doc);
     }
 
     /**

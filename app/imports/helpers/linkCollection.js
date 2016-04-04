@@ -3,7 +3,7 @@
 import { Mongo } from 'meteor/mongo';
 import { Match, check } from 'meteor/check';
 import { isString } from 'mout/lang';
-import _ from 'lodash';
+import { extend } from 'lodash';
 import QueryBuilder from '../classes/QueryBuilder';
 import Api from '../Api';
 
@@ -29,5 +29,5 @@ export default (model, collection) => {
     c.query = () => new QueryBuilder(model);
 
     // Extend model with the collection
-    _.extend(model, c);
+    extend(model, c);
 };
