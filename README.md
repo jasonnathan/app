@@ -17,8 +17,18 @@ Before contributing, please read [CONTRIBUTING.md](https://github.com/part-up/ap
 - `cd ..`
 - `./start` - start the application
 
+## Running on iOS and Android
+- `./run-ios` - start the application on a connected iOS device or in the simulator
+- `./run-android` - start the application on a connected Android device or in the simulator
+
 ## Adding an npm package
 To add an npm package:
 
 - `cd app`
 - `meteor npm install --save my-package` - write a module to package.json and install it while staying in Meteor's NodeJS-container
+
+## Adding a Cordova plugin
+To add a cordova plugin:
+
+- `cd app`
+- `meteor add cordova:<cordova-plugin-name>@<version>`

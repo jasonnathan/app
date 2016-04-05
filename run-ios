@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Improve me
+cd app;
+meteor run ios-device --port 4000 --settings ../config/development/settings.json;
