@@ -19,7 +19,7 @@ const messages = {
     connecting: `Connecting to server`,
     connected: `Connected to server`,
     failed: `Failed to connect to server`,
-    waiting: `Failed to connect and waiting to to try to reconnect to server`,
+    waiting: `Failed to connect and waiting to try to reconnect to server`,
 };
 
 Tracker.autorun(() => {
