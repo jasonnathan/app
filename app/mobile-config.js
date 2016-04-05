@@ -9,9 +9,21 @@ App.info({
 
 // Set up icons
 App.icons({
-    // 'iphone': 'icons/icon-60.png',
-    // 'iphone_2x': 'icons/icon-60@2x.png',
-    // ... more screen sizes and platforms ...
+    iphone_2x: 'resources/icons/120.png',
+    iphone_3x: 'resources/icons/180.png',
+    ipad: 'resources/icons/76.png',
+    ipad_2x: 'resources/icons/152.png',
+    ipad_pro: 'resources/icons/167.png',
+    ios_settings: 'resources/icons/29.png',
+    ios_settings_2x: 'resources/icons/58.png',
+    ios_settings_3x: 'resources/icons/87.png',
+    ios_spotlight: 'resources/icons/40.png',
+    ios_spotlight_2x: 'resources/icons/80.png',
+    android_mdpi: 'resources/icons/48.png',
+    android_hdpi: 'resources/icons/72.png',
+    android_xhdpi: 'resources/icons/96.png',
+    android_xxhdpi: 'resources/icons/144.png',
+    android_xxxhdpi: 'resources/icons/192.png'
 });
 
 // Set up launch screens
