@@ -43,7 +43,8 @@ export default class QueryBuilder {
      * (or a function returning those)
      */
     search(...args) {
-        let s, o;
+        let s;
+        let o;
 
         // In case it's a function
         if (isFunction(args[0])) {
@@ -60,7 +61,7 @@ export default class QueryBuilder {
 
         // In case the selector is not an object, assume it's an _id
         if (!isObject(s)) {
-            s = { _id: s };
+            s = {_id: s};
         }
 
         // Push selector if not empty
@@ -103,7 +104,7 @@ export default class QueryBuilder {
         // Else, in case the selector is not an object, assume it's an _id
         else if (!isObject(sc)) {
             sc = {
-                _id: isString(sc) ? sc : { $in: [] }
+                _id: isString(sc) ? sc : {$in: []}
             };
         }
 
@@ -124,8 +125,8 @@ export default class QueryBuilder {
             return false;
         }
 
-        let s = {},
-            o = {};
+        let s = {};
+        let o = {};
 
         // Compose selector from this._selectors and this._criteria
         if (this._selectors.length > 0 || this._criteria.length > 0) {

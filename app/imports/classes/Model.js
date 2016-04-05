@@ -10,7 +10,7 @@ export default class Model {
     /**
      * Check equality between documents
      *
-     * @param {Object} document
+     * @param {Object} doc
      */
     equals(doc) {
         return this._id === doc._id;
