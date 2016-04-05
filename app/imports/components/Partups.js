@@ -18,7 +18,11 @@ export default class Users extends React.Component {
 
     renderPartups() {
         return this.props.partups.map((partup) => {
-            return <li key={partup._id}>{partup.name}</li>;
+            return (
+                <li key={partup._id}>
+                    {partup.name}
+                </li>
+            );
         });
     }
 }
