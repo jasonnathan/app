@@ -149,7 +149,7 @@ export default class QueryBuilder {
     /**
      * Helper to find and fetch
      */
-    findAndFetch() {
+    fetch() {
         return this.find().fetch();
     }
 

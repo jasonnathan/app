@@ -11,7 +11,7 @@ export default createContainer((props) => {
     const partupsHandle = Api.subscribe('partups.list');
     const partupsLoading = !partupsHandle.ready();
     const partups = PartupModel.query()
-        .findAndFetch();
+        .fetch();
 
     return {
         partups,
