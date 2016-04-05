@@ -27,7 +27,18 @@ App.icons({
 });
 
 // Set up launch screens
-App.launchScreens({});
+App.launchScreens({
+    iphone_2x: 'resources/splash/iphone_2x.png',
+    iphone5: 'resources/splash/iphone5.png',
+    iphone6: 'resources/splash/iphone6.png',
+    iphone6p_portrait: 'resources/splash/iphone6p_portrait.png',
+    ipad_portrait: 'resources/splash/ipad_portrait.png',
+    ipad_portrait_2x: 'resources/splash/ipad_portrait_2x.png',
+    android_mdpi_portrait: 'resources/splash/android_mdpi_portrait.png',
+    android_hdpi_portrait: 'resources/splash/android_hdpi_portrait.png',
+    android_xhdpi_portrait: 'resources/splash/android_xhdpi_portrait.png',
+    android_xxhdpi_portrait: 'resources/splash/android_xxhdpi_portrait.png'
+});
 
 // Set PhoneGap/Cordova preferences
 App.setPreference('BackgroundColor', '0x57c0c9ff');
