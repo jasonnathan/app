@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+cd app;
+PBXPROJ=.meteor/local/cordova-build/platforms/ios/Part-up.xcodeproj/project.pbxproj;
+sed -i '' 's/webPart-up/webapp/g' $PWD/$PBXPROJ;
+sed -i '' 's/Part-upl/appl/g' $PWD/$PBXPROJ;
+sed -i '' 's/wrPart-uper/wrapper/g' $PWD/$PBXPROJ;
