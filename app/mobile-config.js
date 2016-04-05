@@ -37,6 +37,8 @@ App.launchScreens({
 App.setPreference('BackgroundColor', '0x57c0c9ff');
 App.setPreference('HideKeyboardFormAccessoryBar', true);
 App.setPreference('Orientation', 'portrait');
+App.setPreference('StatusBarOverlaysWebView', true);
+App.setPreference('StatusBarStyle', 'lightcontent');
 
 // Access rule
 App.accessRule('*');
