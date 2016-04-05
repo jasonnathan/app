@@ -1,8 +1,5 @@
 {
     "public": {
-        "server": {
-            "host": "localhost",
-            "port": "3000"
-        }
+        "server": "http://localhost:3000"
     }
 }

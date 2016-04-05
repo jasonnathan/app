@@ -1,17 +1,15 @@
 'use strict';
 
+import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp-client';
 import { check } from 'meteor/check';
 import { Tracker } from 'meteor/tracker';
 import { get } from 'mout/object';
 import Debug from './Debug';
 
-check(get(Meteor.settings, 'public.server'), {
-    host: String,
-    port: String
-});
+check(get(Meteor.settings || {}, 'public.server'), String);
 
-const address = `${Meteor.settings.public.server.host}:${Meteor.settings.public.server.port}`;
+const address = `${Meteor.settings.public.server}`;
 const connection = DDP.connect(address);
 Debug.conn(`Server configured as ${address}`);
 
