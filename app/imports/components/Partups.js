@@ -9,7 +9,7 @@ export default class Users extends React.Component {
         return (
             <article>
                 <h3>Discover part-ups</h3>
-                <ul className={classNames('test-list')}>
+                <ul className={classNames('partups')}>
                     {this.renderPartups()}
                 </ul>
             </article>
