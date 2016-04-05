@@ -9,7 +9,7 @@ import Debug from './Debug';
 
 check(get(Meteor.settings || {}, 'public.server'), String);
 
-const address = `${Meteor.settings.public.server}`;
+const address = localStorage.getItem('developmentServer') || `${Meteor.settings.public.server}`;
 const connection = DDP.connect(address);
 Debug.conn(`Server configured as ${address}`);
 
