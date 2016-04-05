@@ -3,9 +3,6 @@
 import Model from '../classes/Model';
 import linkCollection from '../helpers/linkCollection';
 
-/**
- * @class UserModel
- */
 export default class UserModel extends Model {
 
     /**
