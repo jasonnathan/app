@@ -27,11 +27,7 @@ App.icons({
 });
 
 // Set up launch screens
-App.launchScreens({
-    // 'iphone': 'splash/Default~iphone.png',
-    // 'iphone_2x': 'splash/Default@2x~iphone.png',
-    // ... more screen sizes and platforms ...
-});
+App.launchScreens({});
 
 // Set PhoneGap/Cordova preferences
 App.setPreference('BackgroundColor', '0x57c0c9ff');
