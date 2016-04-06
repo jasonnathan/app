@@ -9,21 +9,21 @@ App.info({
 
 // Set up icons
 App.icons({
-    iphone_2x: 'resources/icons/120.png',
-    iphone_3x: 'resources/icons/180.png',
-    ipad: 'resources/icons/76.png',
-    ipad_2x: 'resources/icons/152.png',
-    ipad_pro: 'resources/icons/167.png',
-    ios_settings: 'resources/icons/29.png',
-    ios_settings_2x: 'resources/icons/58.png',
-    ios_settings_3x: 'resources/icons/87.png',
-    ios_spotlight: 'resources/icons/40.png',
-    ios_spotlight_2x: 'resources/icons/80.png',
-    android_mdpi: 'resources/icons/48.png',
-    android_hdpi: 'resources/icons/72.png',
-    android_xhdpi: 'resources/icons/96.png',
-    android_xxhdpi: 'resources/icons/144.png',
-    android_xxxhdpi: 'resources/icons/192.png'
+    iphone_2x: 'resources/icons/iphone_2x.png',
+    iphone_3x: 'resources/icons/iphone_3x.png',
+    ipad: 'resources/icons/ipad.png',
+    ipad_2x: 'resources/icons/ipad_2x.png',
+    ipad_pro: 'resources/icons/ipad_pro.png',
+    ios_settings: 'resources/icons/ios_settings.png',
+    ios_settings_2x: 'resources/icons/ios_settings_2x.png',
+    ios_settings_3x: 'resources/icons/ios_settings_3x.png',
+    ios_spotlight: 'resources/icons/ios_spotlight.png',
+    ios_spotlight_2x: 'resources/icons/ios_spotlight_2x.png',
+    android_mdpi: 'resources/icons/android_mdpi.png',
+    android_hdpi: 'resources/icons/android_hdpi.png',
+    android_xhdpi: 'resources/icons/android_xhdpi.png',
+    android_xxhdpi: 'resources/icons/android_xxhdpi.png',
+    android_xxxhdpi: 'resources/icons/android_xxxhdpi.png'
 });
 
 // Set up launch screens
