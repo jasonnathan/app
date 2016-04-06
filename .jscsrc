@@ -6,5 +6,6 @@
     "maximumLineLength": null,
     "requireSemicolons": true,
     "fileExtensions": [".js", ".jsx"],
-    "esnext": true
+    "esnext": true,
+    "validateQuoteMarks": false
 }
