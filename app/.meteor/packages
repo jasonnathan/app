@@ -3,9 +3,10 @@ mobile-experience               # Packages for a great mobile UX
 mongo                           # The database Meteor supports right now
 tracker                         # Meteor's client-side reactive programming library
 
-seba:minifiers-autoprefixer     # JS/CSS minifiers (prod) and CSS-autoprefixer (dev + prod)
+standard-minifier-js            # JS
+standard-minifier-css           # CSS
+fourseven:scss                  # Sass compiler
 es5-shim                        # ECMAScript 5 compatibility for older browsers
 ecmascript                      # Enable ECMAScript2015+ syntax in app code
 static-html                     # Render static HTML files
 react-meteor-data               # Easily use a Meteor tracker inside React
-fourseven:scss

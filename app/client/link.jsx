@@ -1,10 +1,21 @@
 'use strict';
 
-import { Meteor } from 'meteor/meteor';
-import { render } from 'react-dom';
 import React from 'react';
-import Router from '../imports/Router';
+import { render } from 'react-dom';
+import App from '../imports/components/App';
+
+const startApp = () => {
+    if (window.StatusBar) {
+        window.StatusBar.styleDefault();
+    }
+
+    render(<App />, document.getElementById('react-root'));
+};
 
 Meteor.startup(() => {
-    render(<Router />, document.getElementById('react-root'));
+    if (!window.cordova) {
+        startApp();
+    } else {
+        document.addEventListener('deviceready', startApp, false);
+    }
 });
