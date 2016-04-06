@@ -1,3 +1,5 @@
+'use strict';
+
 import Container from 'react-container';
 import dialogs from 'cordova-dialogs';
 import React from 'react';
@@ -18,14 +20,14 @@ const FLAVOURS = [
 
 module.exports = React.createClass({
 	statics: {
-		navigationBar: 'main',
+		navigationBar: 'tabs',
 		getNavigation () {
 			return {
 				title: 'Forms'
 			}
 		}
 	},
-	
+
 	getInitialState () {
 		return {
 			flavourLabelSelect: 'chocolate',
@@ -33,34 +35,32 @@ module.exports = React.createClass({
 			switchValue: true
 		}
 	},
-	
+
 	handleRadioListChange (key, newValue) {
-		console.log('handleFlavourChange:', key, newValue);
 		let newState = {};
 		newState[key] = newValue;
 
 		this.setState(newState);
 	},
-	
+
 	handleLabelSelectChange (key, event) {
-		console.log('handleFlavourChange:', key, event.target.value);
 		let newState = {};
 		newState[key] = event.target.value;
 
 		this.setState(newState);
 	},
-	
+
 	handleSwitch (key, event) {
 		let newState = {};
 		newState[key] = !this.state[key];
 
 		this.setState(newState);
 	},
-	
+
 	alert (message) {
 		dialogs.alert(message, function() {}, null)
 	},
-	
+
 	// used for testing
 	renderInputTypes () {
 		return HTML5_INPUT_TYPES.map(type => {
@@ -81,7 +81,7 @@ module.exports = React.createClass({
 			return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 		}
 	},
-	
+
 	render () {
 
 		return (

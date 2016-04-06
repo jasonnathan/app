@@ -2,20 +2,20 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import App from '../imports/components/App';
+import Main from '../imports/components/Main';
 
-const startApp = () => {
+const renderMain = () => {
     if (window.StatusBar) {
         window.StatusBar.styleDefault();
     }
 
-    render(<App />, document.getElementById('react-root'));
+    render(<Main />, document.getElementById('react-root'));
 };
 
 Meteor.startup(() => {
     if (!window.cordova) {
-        startApp();
+        renderMain();
     } else {
-        document.addEventListener('deviceready', startApp, false);
+        document.addEventListener('deviceready', renderMain, false);
     }
 });

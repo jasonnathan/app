@@ -1,3 +1,5 @@
+'use strict';
+
 import Container from 'react-container';
 import React from 'react';
 import { Link, UI } from 'touchstonejs';
@@ -6,14 +8,14 @@ var scrollable = Container.initScrollable();
 
 module.exports = React.createClass({
 	statics: {
-		navigationBar: 'main',
+		navigationBar: 'tabs',
 		getNavigation () {
 			return {
 				title: 'Transitions'
 			}
 		}
 	},
-	
+
 	render () {
 		return (
 			<Container scrollable={scrollable}>

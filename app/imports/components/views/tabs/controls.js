@@ -1,3 +1,5 @@
+'use strict';
+
 import Container from 'react-container';
 import React from 'react';
 import Tappable from 'react-tappable';
@@ -7,14 +9,14 @@ import { Link, UI } from 'touchstonejs';
 module.exports = React.createClass({
 	mixins: [Timers],
 	statics: {
-		navigationBar: 'main',
+		navigationBar: 'tabs',
 		getNavigation () {
 			return {
 				title: 'Controls'
 			}
 		}
 	},
-	
+
 	getInitialState () {
 		return {
 			alertbar: {
@@ -27,7 +29,7 @@ module.exports = React.createClass({
 			}
 		}
 	},
-	
+
 	showLoadingPopup () {
 		this.setState({
 			popup: {
@@ -59,7 +61,7 @@ module.exports = React.createClass({
 			});
 		}, 3000);
 	},
-	
+
 	showAlertbar (type, text) {
 		this.setState({
 			alertbar: {
@@ -77,7 +79,7 @@ module.exports = React.createClass({
 			});
 		}, 2000);
 	},
-	
+
 	handleModeChange (newMode) {
 		let selectedItem = newMode;
 
@@ -90,7 +92,7 @@ module.exports = React.createClass({
 		});
 
 	},
-	
+
 	render () {
 		let { alertbar } = this.state;
 		return (
@@ -138,7 +140,7 @@ module.exports = React.createClass({
 				</UI.Group>
 
 				<UI.Popup visible={this.state.popup.visible}>
-					<UI.PopupIcon name={this.state.popup.iconName} type={this.state.popup.iconType} spinning={this.state.popup.loading} />		
+					<UI.PopupIcon name={this.state.popup.iconName} type={this.state.popup.iconType} spinning={this.state.popup.loading} />
 					<div><strong>{this.state.popup.header}</strong></div>
 				</UI.Popup>
 			</Container>
