@@ -4,7 +4,7 @@ import React from 'react';
 import classNames from '../helpers/classNames';
 import PartupModel from '../models/PartupModel';
 
-export default class Users extends React.Component {
+export default class Partups extends React.Component {
     render() {
         return (
             <article>
@@ -27,11 +27,11 @@ export default class Users extends React.Component {
     }
 }
 
-Users.propTypes = {
+Partups.propTypes = {
     partups: React.PropTypes.arrayOf(React.PropTypes.instanceOf(PartupModel)).isRequired,
     partupsLoading: React.PropTypes.bool
 };
 
-Users.defaultProps = {
+Partups.defaultProps = {
     partupsLoading: false
 };
