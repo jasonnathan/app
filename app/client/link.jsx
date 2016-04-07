@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import Main from '../imports/components/Main';
+import Main from '../imports/views/Main';
 
 const renderMain = () => {
     if (window.StatusBar) {
