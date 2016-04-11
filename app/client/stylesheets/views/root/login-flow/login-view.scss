@@ -21,6 +21,12 @@
         margin-right: auto;
     }
 
+    .pa-SignupLink {
+        margin-top: spacing(4);
+        margin-left: spacing(2);
+        margin-right: spacing(2);
+    }
+
     @media (min-height: 620px) {
         > .Container {
             padding-top: 140px;
@@ -28,6 +34,10 @@
 
         .pa-LoginChoice {
             margin-top: 90px;
+        }
+
+        .pa-SignupLink {
+            margin-top: spacing(8);
         }
     }
 }

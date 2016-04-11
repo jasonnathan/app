@@ -6,6 +6,7 @@ import c from 'classnames';
 
 import Logo from '../../../components/Logo';
 import LoginChoice from '../../../components/LoginChoice';
+import SignupLink from '../../../components/SignupLink';
 
 export default class LoginView extends React.Component {
     render() {
@@ -13,6 +14,7 @@ export default class LoginView extends React.Component {
             <Container fill className={c('Container NoNavigationBar')}>
                 <Logo />
                 <LoginChoice />
+                <SignupLink />
             </Container>
         );
     }
