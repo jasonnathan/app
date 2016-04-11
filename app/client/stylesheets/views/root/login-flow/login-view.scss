@@ -1,0 +1,22 @@
+.View--login {
+    background-color: $color-brand;
+    color: $color-text-on-brand;
+
+    > .Container {
+        padding-top: 60px;
+        padding-bottom: spacing(2);
+        padding-left: spacing(4);
+        padding-right: spacing(4);
+    }
+
+    .pa-Logo {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (min-height: 620px) {
+        > .Container {
+            padding-top: 140px;
+        }
+    }
+}

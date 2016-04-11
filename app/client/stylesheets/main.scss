@@ -1,8 +1,11 @@
 // Global variables
 @import "client/stylesheets/variables/colors.scss";
+@import "client/stylesheets/variables/spacings.scss";
 @import "client/stylesheets/variables/fonts.scss";
 
 // Views
 @import "client/stylesheets/views/root-view.scss";
+@import "client/stylesheets/views/root/login-flow/login-view.scss";
 
 // Components
+@import "client/stylesheets/components/Logo.scss";
