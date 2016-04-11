@@ -4,7 +4,7 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import ReactDOM from 'react-dom';
 import ReactMixin from 'react-mixin';
-import classNames from 'classnames';
+import c from 'classnames';
 import { get } from 'mout/object';
 import { createApp, View, ViewManager } from 'touchstonejs';
 
@@ -19,10 +19,8 @@ export default class RootView extends React.Component {
     }
 
     render() {
-        const appWrapperClassName = classNames(`app-wrapper device--${get(window, 'device.platform')}`);
-
         return (
-            <div className={appWrapperClassName}>
+            <div className={c(`app-wrapper device--${get(window, 'device.platform')}`)}>
                 <div className="device-silhouette">
                     <ViewManager name="root" defaultView="login-flow">
                         <View name="login-flow" component={LoginFlowView} />
