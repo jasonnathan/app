@@ -14,9 +14,20 @@
         margin-right: auto;
     }
 
+    .pa-LoginChoice {
+        margin-top: 50px;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     @media (min-height: 620px) {
         > .Container {
             padding-top: 140px;
+        }
+
+        .pa-LoginChoice {
+            margin-top: 90px;
         }
     }
 }

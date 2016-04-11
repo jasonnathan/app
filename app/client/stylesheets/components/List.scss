@@ -1,0 +1,18 @@
+.pa-List {
+    padding-left: 0;
+
+    // List CSS-trick mixin to add spacing between list items
+    // while still being able to use percentages
+    // for responsive lists
+    @mixin addSpacing($spacing: 0) {
+        margin: - ($spacing / 2);
+
+        > li {
+            padding: ($spacing / 2);
+        }
+    }
+
+    &--buttons {
+        @include addSpacing(spacing(1));
+    }
+}

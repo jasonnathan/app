@@ -8,8 +8,13 @@ import c from 'classnames';
 import { get } from 'mout/object';
 import { createApp, View, ViewManager } from 'touchstonejs';
 
+import App from '../App';
 import LoginFlowView from './root/LoginFlowView';
 import TabsView from './root/TabsView';
+import Logo from '../components/Logo';
+
+const app = createApp();
+App.set(app.getChildContext().app);
 
 export default class RootView extends React.Component {
     componentDidMount() {
@@ -36,4 +41,4 @@ RootView.childContextTypes = {
     app: React.PropTypes.object
 };
 
-ReactMixin(RootView.prototype, createApp());
+ReactMixin(RootView.prototype, app);
