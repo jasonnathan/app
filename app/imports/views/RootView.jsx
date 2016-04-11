@@ -11,10 +11,10 @@ import {
     View,
     ViewManager
 } from 'touchstonejs';
-import LoginFlowView from './views/LoginFlowView';
-import TabsView from './views/TabsView';
+import LoginFlowView from './root/LoginFlowView';
+import TabsView from './root/TabsView';
 
-export default class Main extends React.Component {
+export default class RootView extends React.Component {
     componentDidMount() {
         if (navigator.splashscreen) {
             navigator.splashscreen.hide();
@@ -27,7 +27,7 @@ export default class Main extends React.Component {
         return (
             <div className={appWrapperClassName}>
                 <div className="device-silhouette">
-                    <ViewManager name="main" defaultView="login-flow">
+                    <ViewManager name="root" defaultView="login-flow">
                         <View name="login-flow" component={LoginFlowView} />
                         <View name="tabs" component={TabsView} />
                     </ViewManager>
@@ -37,8 +37,8 @@ export default class Main extends React.Component {
     }
 };
 
-Main.childContextTypes = {
+RootView.childContextTypes = {
     app: React.PropTypes.object
 };
 
-ReactMixin(Main.prototype, createApp());
+ReactMixin(RootView.prototype, createApp());

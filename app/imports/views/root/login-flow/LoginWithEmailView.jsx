@@ -12,7 +12,7 @@ export default class LoginWithEmailView extends React.Component {
         return (
             <Container>
                 <UI.NavigationBar name="login-with-email" />
-                <Link to="main:tabs" transition="show-from-right">
+                <Link to="root:tabs" transition="show-from-right">
                     Inloggen met email
                 </Link>
             </Container>

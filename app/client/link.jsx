@@ -2,14 +2,14 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import Main from '../imports/views/Main';
+import RootView from '../imports/views/RootView';
 
 const renderMain = () => {
     if (window.StatusBar) {
         window.StatusBar.styleDefault();
     }
 
-    render(<Main />, document.getElementById('react-root'));
+    render(<RootView />, document.getElementById('react-root'));
 };
 
 Meteor.startup(() => {

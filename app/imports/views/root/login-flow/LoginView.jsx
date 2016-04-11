@@ -11,7 +11,7 @@ export default class LoginView extends React.Component {
         return (
             <Container className={'NoNavigationBar'}>
                 <br />
-                <Link to="main:tabs" transition="show-from-right">
+                <Link to="root:tabs" transition="show-from-right">
                     Inloggen
                 </Link>
                 <br />
