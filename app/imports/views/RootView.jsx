@@ -11,6 +11,7 @@ import {
     View,
     ViewManager
 } from 'touchstonejs';
+
 import LoginFlowView from './root/LoginFlowView';
 import TabsView from './root/TabsView';
 

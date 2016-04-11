@@ -1,11 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {
-    Container,
-    UI,
-    Link
-} from 'touchstonejs';
+import { Container, UI, Link } from 'touchstonejs';
 
 export default class LoginWithEmailView extends React.Component {
     render() {

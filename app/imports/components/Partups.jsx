@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+
 import classNames from '../helpers/classNames';
 import PartupModel from '../models/PartupModel';
 

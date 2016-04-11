@@ -1,12 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {
-    Container,
-    UI,
-    View,
-    ViewManager
-} from 'touchstonejs';
+import { Container, UI, View, ViewManager } from 'touchstonejs';
 
 let lastSelectedTab = 'lists';
 export default class TabsView extends React.Component {

@@ -1,12 +1,8 @@
 'use strict';
 
 import React from 'react';
-import {
-    Container,
-    Link,
-    View,
-    ViewManager
-} from 'touchstonejs';
+import { Container, View, ViewManager } from 'touchstonejs';
+
 import LoginView from './login-flow/LoginView';
 import LoginWithEmailView from './login-flow/LoginWithEmailView';
 

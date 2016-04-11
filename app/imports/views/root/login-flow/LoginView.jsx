@@ -1,10 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {
-    Container,
-    Link
-} from 'touchstonejs';
+import { Container, Link } from 'touchstonejs';
 
 export default class LoginView extends React.Component {
     render() {
