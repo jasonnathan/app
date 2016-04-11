@@ -3,6 +3,10 @@
 @import "client/stylesheets/variables/spacings.scss";
 @import "client/stylesheets/variables/fonts.scss";
 
+// Fonts
+@import "client/stylesheets/font-faces/open-sans.scss";
+@import "client/stylesheets/font-faces/proxima-nova.scss";
+
 // Views
 @import "client/stylesheets/views/root-view.scss";
 @import "client/stylesheets/views/root/login-flow/login-view.scss";
