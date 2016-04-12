@@ -46,6 +46,10 @@ App.setPreference('HideKeyboardFormAccessoryBar', true);
 App.setPreference('Orientation', 'portrait');
 App.setPreference('StatusBarOverlaysWebView', true);
 App.setPreference('StatusBarStyle', 'lightcontent');
+App.setPreference('AutoHideSplashScreen', false);
+App.setPreference('AutoHideSplashScreen', false);
+App.setPreference('ShowSplashScreenSpinner', false);
+App.setPreference('FadeSplashScreenDuration', 300);
 
 // Access rule
 App.accessRule('*');

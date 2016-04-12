@@ -1,5 +1,5 @@
 meteor-base                     # Packages every Meteor app needs to have
-mobile-experience               # Packages for a great mobile UX
+fastclick                       # Remove 300ms click delay
 mongo                           # The database Meteor supports right now
 tracker                         # Meteor's client-side reactive programming library
 
