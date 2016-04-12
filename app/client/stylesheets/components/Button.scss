@@ -13,6 +13,10 @@
     text-align: left;
     outline: none;
 
+    &:active {
+        opacity: .7;
+    }
+
     &--login {
         display: block;
         width: 100%;
