@@ -1,0 +1,23 @@
+.pa-Input {
+    input {
+        width: 100%;
+        background: $color-input-background;
+        border: 2px solid $color-input-border;
+        border-radius: 4px;
+        font-family: $font-primary;
+        font-size: 16px;
+        color: $color-text-input;
+        height: 44px;
+        padding: 12px 20px;
+        outline: none;
+        -webkit-appearance: none;
+
+        ::placeholder {
+            color: $color-text-input-placeholder;
+        }
+
+        &:focus {
+            border-color: darken($color-input-border, 5%);
+        }
+    }
+}

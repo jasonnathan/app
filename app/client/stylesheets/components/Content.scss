@@ -1,0 +1,28 @@
+.pa-Content {
+    margin-bottom: spacing(3);
+    $side-spacing: spacing(1.5);
+
+    & > &__text {
+        margin-top: spacing(3) - 5px;
+        margin-left: $side-spacing;
+        margin-right: $side-spacing;
+
+        + .pa-Content__text {
+            margin-top: spacing(3) - 12px;
+        }
+
+        + .pa-Content__block {
+            margin-top: spacing(3) - 7px;
+        }
+    }
+
+    & > &__block {
+        margin-top: spacing(3);
+        margin-left: $side-spacing;
+        margin-right: $side-spacing;
+
+       + .pa-Content__text {
+            margin-top: spacing(3) - 5px;
+        }
+    }
+}

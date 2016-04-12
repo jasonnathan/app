@@ -4,17 +4,16 @@ import React from 'react';
 import c from 'classnames';
 
 export default class Button extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
+        const className = c('pa-Button', {
+            'pa-Button--text': this.props.text,
+            'pa-Button--login': this.props.login,
+            'pa-Button--login--facebook': this.props.loginFacebook,
+            'pa-Button--login--linkedin': this.props.loginLinkedIn
+        });
+
         return (
-            <button type="button" className={c('pa-Button', {
-                'pa-Button--login': this.props.login,
-                'pa-Button--login--facebook': this.props.loginFacebook,
-                'pa-Button--login--linkedin': this.props.loginLinkedIn
-            })} onClick={this.onClick.bind(this)}>
+            <button type={this.props.submit ? "submit" : "button"} className={className} onClick={this.onClick.bind(this)}>
                 {this.props.children}
             </button>
         );
@@ -22,6 +21,20 @@ export default class Button extends React.Component {
 
     onClick(event) {
         event.preventDefault();
-        this.props.onClick();
+
+        if (this.props.onClick) {
+            this.props.onClick(event);
+        }
     }
 }
+
+Button.propTypes = {
+    onClick: React.PropTypes.func,
+    submit: React.PropTypes.bool,
+    text: React.PropTypes.bool
+};
+
+Button.defaultProps = {
+    submit: false,
+    text: false
+};

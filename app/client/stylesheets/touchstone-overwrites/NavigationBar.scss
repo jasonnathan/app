@@ -1,0 +1,50 @@
+.NavigationBar {
+    background-color: $color-navigation-bar-master;
+    color: $color-text-on-navigation-bar;
+    height: 53px;
+
+    &::after {
+        display: none;
+    }
+
+    &--detail {
+        background-color: $color-navigation-bar-detail;
+    }
+}
+
+.NavigationBarTitle {
+    height: 53px;
+    line-height: 53px;
+    font-weight: 600;
+    font-size: 18px;
+    font-family: $font-secondary;
+}
+
+.NavigationBarLeftArrow,
+.NavigationBarRightArrow {
+    color: $color-text-on-navigation-bar;
+    font-size: 10px;
+}
+
+.NavigationBarLeftArrow {
+    background: linear-gradient(to right, $color-navigation-bar-master 50%, transparent 100%);
+}
+
+.NavigationBarRightArrow {
+    background: linear-gradient(to left, $color-navigation-bar-master 50%, transparent 100%);
+}
+
+.NavigationBarLeftLabel {
+    padding-left: 0;
+    left: 15px;
+}
+
+.NavigationBarRightButton {
+    padding-right: 0;
+    right: 15px;
+}
+
+.device--iOS .NoNavigationBar,
+.device--iPhone .NoNavigationBar {
+  margin-top: 20px;
+}

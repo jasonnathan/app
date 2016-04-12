@@ -22,7 +22,7 @@ export default class LoginChoice extends React.Component {
     }
 
     loginWithEmail() {
-        App.get().transitionTo('login-flow:login-with-email', {
+        App.get().transitionTo('root:login-flow:login-with-email', {
             transition: 'show-from-right'
         });
     }

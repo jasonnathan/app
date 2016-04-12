@@ -4111,7 +4111,6 @@ MIT License: https://github.com/driftyco/ionicons
   background-image: -o-linear-gradient(left, #efeff4 50%, rgba(239, 239, 244, 0) 100%);
   background-image: linear-gradient(to right, #efeff4 50%, rgba(239, 239, 244, 0) 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffefeff4', endColorstr='#00efeff4', GradientType=1);
   display: inline-block;
   font-family: "Ionicons";
   speak: none;

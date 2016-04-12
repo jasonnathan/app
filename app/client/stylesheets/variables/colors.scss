@@ -5,10 +5,25 @@ $color-linkedin: #007ab9;
 
 // Text
 $color-text: #292929;
-$color-text-on-brand: #fff;
+$color-text-input: $color-text;
+$color-text-input-placeholder: #999;
+$color-text-on-cover: #fff;
+$color-text-on-navigation-bar: #fff;
 $color-text-on-button: #fff;
 $color-text-on-button-login: #fff;
 
+// Inputs
+$color-input-background: #fff;
+$color-input-border: #eee;
+
 // Buttons
 $color-button: #ffa725;
+$color-button-text: #999;
 $color-button-login: #38a6af;
+
+// Navigation bar
+$color-navigation-bar-master: $color-brand;
+$color-navigation-bar-detail: #38a6af; // <-- slightly darker than color-brand
+
+// 'Cover' page like login
+$color-cover-background: $color-brand;

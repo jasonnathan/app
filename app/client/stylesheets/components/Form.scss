@@ -1,0 +1,20 @@
+.pa-Form {
+    .pa-Input {
+        + .pa-Input {
+            margin-top: spacing(1);
+        }
+    }
+
+    &__footer {
+        margin-top: spacing(3);
+        @include clearfix;
+
+        &__submit {
+            float: left;
+        }
+
+        &__action {
+            float: right;
+        }
+    }
+}

@@ -8,10 +8,11 @@ import c from 'classnames';
 import { get } from 'mout/object';
 import { createApp, View, ViewManager } from 'touchstonejs';
 
-import App from '../App';
+import App from '../../App';
+import LoginView from './root/LoginView';
 import LoginFlowView from './root/LoginFlowView';
 import TabsView from './root/TabsView';
-import Logo from '../components/Logo';
+import Logo from '../Logo';
 
 const app = createApp();
 App.set(app.getChildContext().app);
@@ -21,13 +22,18 @@ export default class RootView extends React.Component {
         if (navigator.splashscreen) {
             navigator.splashscreen.hide();
         }
+
+        if (window.Keyboard && window.Keyboard.shrinkView) {
+            window.Keyboard.shrinkView(true);
+        }
     }
 
     render() {
         return (
             <div className={c(`app-wrapper device--${get(window, 'device.platform')}`)}>
                 <div className="device-silhouette">
-                    <ViewManager name="root" defaultView="login-flow">
+                    <ViewManager name="root" defaultView="login">
+                        <View name="login" component={LoginView} />
                         <View name="login-flow" component={LoginFlowView} />
                         <View name="tabs" component={TabsView} />
                     </ViewManager>

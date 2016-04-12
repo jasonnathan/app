@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { render } from 'react-dom';
-import RootView from '../imports/views/RootView';
+import RootView from '../imports/components/views/RootView';
 
 const renderMain = () => {
     render(<RootView />, document.getElementById('react-root'));

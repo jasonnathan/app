@@ -4,9 +4,9 @@ import React from 'react';
 import { Container, Link } from 'touchstonejs';
 import c from 'classnames';
 
-import Logo from '../../../components/Logo';
-import LoginChoice from '../../../components/LoginChoice';
-import SignupLink from '../../../components/SignupLink';
+import Logo from '../../Logo';
+import LoginChoice from '../../LoginChoice';
+import SignupLink from '../../SignupLink';
 
 export default class LoginView extends React.Component {
     render() {

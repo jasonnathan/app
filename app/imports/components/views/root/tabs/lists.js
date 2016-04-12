@@ -30,7 +30,7 @@ module.exports = React.createClass({
                 <UI.Group>
                     <UI.GroupHeader>Actions</UI.GroupHeader>
                     <UI.GroupBody>
-                        <Link to="root:login-flow" transition="reveal-from-right">
+                        <Link to="root:login" transition="reveal-from-right">
                             <UI.Item>
                                 <UI.ItemInner>
                                     Log out
