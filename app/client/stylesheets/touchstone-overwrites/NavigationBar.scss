@@ -34,14 +34,18 @@
     background: linear-gradient(to left, $color-navigation-bar-master 50%, transparent 100%);
 }
 
+// enlarge toucharea
 .NavigationBarLeftLabel {
-    padding-left: 0;
-    left: 15px;
+    padding-left: 15px;
+    left: 0;
+    padding-right: 15px;
 }
 
+// enlarge toucharea
 .NavigationBarRightButton {
-    padding-right: 0;
-    right: 15px;
+    padding-right: 15px;
+    right: 0;
+    padding-left: 15px;
 }
 
 .device--iOS .NoNavigationBar,
