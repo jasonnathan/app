@@ -7,13 +7,13 @@ $color-linkedin: #007ab9;
 $color-text: #292929;
 $color-text-input: $color-text;
 $color-text-input-placeholder: #999;
-$color-text-on-cover: #fff;
-$color-text-on-navigation-bar: #fff;
-$color-text-on-button: #fff;
-$color-text-on-button-login: #fff;
+$color-text-on-cover: white;
+$color-text-on-navigation-bar: white;
+$color-text-on-button: white;
+$color-text-on-button-login: white;
 
 // Inputs
-$color-input-background: #fff;
+$color-input-background: white;
 $color-input-border: #eee;
 
 // Buttons
@@ -25,5 +25,6 @@ $color-button-login: #38a6af;
 $color-navigation-bar-master: $color-brand;
 $color-navigation-bar-detail: #38a6af; // <-- slightly darker than color-brand
 
-// 'Cover' page like login
+// Background colors
+$color-background: white;
 $color-cover-background: $color-brand;
