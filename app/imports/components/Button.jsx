@@ -15,8 +15,13 @@ export default class Button extends React.Component {
             'pa-Button--login--linkedin': this.props.loginLinkedIn
         });
 
+        const dynamicProps = {};
+        !this.props.submit && (dynamicProps.type = 'button');
+        this.props.disabled && (dynamicProps.disabled = 'disabled');
+        this.props.formNoValidate && (dynamicProps.formNoValidate = 'formNoValidate');
+
         return (
-            <button type={this.props.submit ? "submit" : "button"} className={className} onClick={this.onClick.bind(this)}>
+            <button {...dynamicProps} className={className} onClick={this.onClick.bind(this)}>
                 {this.props.children}
                 <Spinner button />
             </button>
@@ -24,7 +29,9 @@ export default class Button extends React.Component {
     }
 
     onClick(event) {
-        event.preventDefault();
+        if (!this.props.submit) {
+            event.preventDefault();
+        }
 
         if (this.props.onClick) {
             this.props.onClick(event);
@@ -36,11 +43,15 @@ Button.propTypes = {
     onClick: React.PropTypes.func,
     submit: React.PropTypes.bool,
     text: React.PropTypes.bool,
+    disabled: React.PropTypes.bool,
+    formNoValidate: React.PropTypes.bool,
     loading: React.PropTypes.bool
 };
 
 Button.defaultProps = {
     submit: false,
     text: false,
+    disabled: false,
+    formNoValidate: false,
     loading: false
 };
