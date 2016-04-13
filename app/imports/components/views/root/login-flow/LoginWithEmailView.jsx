@@ -96,8 +96,6 @@ export default class LoginWithEmailView extends React.Component {
 
             Debug.methods(`User logged in: "${email}"`);
 
-            // UserModel.getAccountsClient().connection.setUserId(Meteor.userId());
-
             App.get().transitionTo('root:profile', {
                 transition: 'show-from-right'
             });

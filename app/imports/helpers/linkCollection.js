@@ -5,7 +5,6 @@ import { Match, check } from 'meteor/check';
 import { isString } from 'mout/lang';
 import { extend } from 'lodash';
 import QueryBuilder from '../classes/QueryBuilder';
-import Api from '../Api';
 
 export default (model, collection) => {
     check(collection, Match.OneOf(
@@ -17,7 +16,7 @@ export default (model, collection) => {
 
     // Create Mongo collection
     if (isString(collection)) {
-        c = new Mongo.Collection(c, {connection: Api});
+        c = new Mongo.Collection(c);
     }
 
     // Transform document to extend opts.Document

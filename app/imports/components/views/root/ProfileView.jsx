@@ -21,12 +21,14 @@ export default class ProfileView extends React.Component {
     }
 
     render() {
-        console.log('loggedInUserLoading', this.props.loggedInUserLoading);
-        console.log('loggedInUser', this.props.loggedInUser);
-
         return (
             <Container fill className={c('Container NoNavigationBar')}>
                 <Content>
+                    {this.props.loggedInUser &&
+                        <Content.Text>
+                            <Paragraph><strong>{this.props.loggedInUser.getFirstname()}</strong></Paragraph>
+                        </Content.Text>
+                    }
                     <Content.Text>
                         <Paragraph>You're succesfully logged in.</Paragraph>
                     </Content.Text>
