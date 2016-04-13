@@ -1,0 +1,6 @@
+{
+    "public": {
+        "server": "https://pu-acceptance.lifely.nl",
+        "environment": "acceptance"
+    }
+}
