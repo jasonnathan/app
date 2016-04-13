@@ -12,6 +12,7 @@ import App from '../../App';
 import LoginView from './root/LoginView';
 import LoginFlowView from './root/LoginFlowView';
 import TabsView from './root/TabsView';
+import ProfileViewContainer from '../../containers/ProfileViewContainer';
 import Logo from '../Logo';
 
 const app = createApp();
@@ -36,6 +37,7 @@ export default class RootView extends React.Component {
                         <View name="login" component={LoginView} />
                         <View name="login-flow" component={LoginFlowView} />
                         <View name="tabs" component={TabsView} />
+                        <View name="profile" component={ProfileViewContainer} />
                     </ViewManager>
                 </div>
             </div>

@@ -14,8 +14,8 @@ export default class LoginChoice extends React.Component {
             <div className={c('pa-LoginChoice')}>
                 <List buttons>
                     <ListItem><Button login onClick={() => this.loginWithEmail()}>Sign in with email</Button></ListItem>
-                    <ListItem><Button login loginFacebook onClick={this.loginWithFacebook.bind(this)}>Sign in with Facebook</Button></ListItem>
-                    <ListItem><Button login loginLinkedIn onClick={this.loginWithLinkedIn.bind(this)}>Sign in with LinkedIn</Button></ListItem>
+                    <ListItem><Button login loginFacebook disabled onClick={this.loginWithFacebook.bind(this)}>Sign in with Facebook</Button></ListItem>
+                    <ListItem><Button login loginLinkedIn disabled onClick={this.loginWithLinkedIn.bind(this)}>Sign in with LinkedIn</Button></ListItem>
                 </List>
             </div>
         );
@@ -38,7 +38,7 @@ export default class LoginChoice extends React.Component {
     }
 
     transitionIoApp() {
-        App.get().transitionTo('root:tabs', {
+        App.get().transitionTo('root:profile', {
             transition: 'show-from-right'
         });
     }

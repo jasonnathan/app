@@ -1,9 +1,13 @@
 'use strict';
 
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Container, UI, Link, ViewManager, View } from 'touchstonejs';
 import { isEmail, isLength } from 'validator';
 
+import App from '../../../../App';
+import Debug from '../../../../Debug';
+import UserModel from '../../../../models/UserModel';
 import NavButton from '../../../NavButton';
 import Content from '../../../Content';
 import Paragraph from '../../../Paragraph';
@@ -36,7 +40,7 @@ export default class LoginWithEmailView extends React.Component {
                                     <Button submit formNoValidate loading={this.state.submitting}>Sign in</Button>
                                 </Form.Footer.Submit>
                                 <Form.Footer.Action>
-                                    <Button text>Forgot password</Button>
+                                    {/*<Button text>Forgot password</Button>*/}
                                 </Form.Footer.Action>
                             </Form.Footer>
                         </Form>
@@ -53,21 +57,49 @@ export default class LoginWithEmailView extends React.Component {
             password: form.elements.password.value
         };
 
-        let syncErrorMessage = ((f) => {
-            if (!isLength(f.email, {min: 1})) return 'Please enter an email address';
-            if (!isEmail(f.email)) return 'Please enter a valid email address';
-            if (!isLength(f.password, {min: 1})) return 'Please enter a password';
-        })(fields);
+        let syncErrorMessage = (() => {
+            if (!isLength(fields.email, {min: 1})) return 'Please enter an email address';
+            if (!isEmail(fields.email)) return 'Please enter a valid email address';
+            if (!isLength(fields.password, {min: 1})) return 'Please enter a password';
+        })();
 
         if (syncErrorMessage) {
             window.alert(syncErrorMessage);
             return;
         }
 
+        this.login(fields.email, fields.password);
+    }
+
+    login(email, password) {
         this.setState({submitting: true});
-        setTimeout(() => {
+
+        Meteor.loginWithPassword(email, password, (err) => {
             this.setState({submitting: false});
-        }, 2000);
+
+            if (err) {
+                let serverErrorMessage = (() => {
+                    if (err.message === 'User not found [403]') return 'User not found';
+                    if (err.message === 'Incorrect password [403]') return 'Password is incorrect';
+
+                    Debug.methods(`Failed user login "${email}"`, err);
+                    return 'Login failed for an unknown reason';
+                })();
+
+                if (serverErrorMessage) {
+                    window.alert(serverErrorMessage);
+                    return;
+                }
+
+                return;
+            }
+
+            Debug.methods(`User logged in: "${email}"`);
+
+            App.get().transitionTo('root:profile', {
+                transition: 'show-from-right'
+            });
+        });
     }
 };
 

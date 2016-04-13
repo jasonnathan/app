@@ -11,3 +11,5 @@ ecmascript                      # Enable ECMAScript2015+ syntax in app code
 static-html                     # Render static HTML files
 react-meteor-data               # Easily use a Meteor tracker inside React
 jquery
+accounts-base
+accounts-password
