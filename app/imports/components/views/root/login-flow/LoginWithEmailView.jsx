@@ -40,7 +40,7 @@ export default class LoginWithEmailView extends React.Component {
                                     <Button submit formNoValidate loading={this.state.submitting}>Sign in</Button>
                                 </Form.Footer.Submit>
                                 <Form.Footer.Action>
-                                    {/*<Button text>Forgot password</Button>*/}
+                                    {/*TODO <Button text>Forgot password</Button>*/}
                                 </Form.Footer.Action>
                             </Form.Footer>
                         </Form>
@@ -95,6 +95,8 @@ export default class LoginWithEmailView extends React.Component {
             }
 
             Debug.methods(`User logged in: "${email}"`);
+
+            // UserModel.getAccountsClient().connection.setUserId(Meteor.userId());
 
             App.get().transitionTo('root:profile', {
                 transition: 'show-from-right'

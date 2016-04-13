@@ -1,12 +1,11 @@
 'use strict';
 
-import { AccountsClient } from 'meteor/accounts-base';
+import { Accounts } from 'meteor/accounts-base';
 
 import connection from '../Api';
 import Model from '../classes/Model';
 import linkCollection from '../helpers/linkCollection';
 
-const accountsClient = new AccountsClient({connection});
 Accounts.connection = connection;
 
 export default class UserModel extends Model {
@@ -16,9 +15,9 @@ export default class UserModel extends Model {
      *
      * @return {AccountsClient}
      */
-    static getAccountsClient() {
-        return accountsClient;
-    }
+    // static getAccountsClient() {
+    //     return accountsClient;
+    // }
 
     /**
      * Get the first name of a user
@@ -30,4 +29,4 @@ export default class UserModel extends Model {
     }
 }
 
-linkCollection(UserModel, accountsClient.users);
+linkCollection(UserModel, Accounts.users);
