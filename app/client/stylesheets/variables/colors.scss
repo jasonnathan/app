@@ -1,0 +1,30 @@
+// Brands
+$color-brand: #57c0c9;
+$color-facebook: #39579a;
+$color-linkedin: #007ab9;
+
+// Text
+$color-text: #292929;
+$color-text-input: $color-text;
+$color-text-input-placeholder: #999;
+$color-text-on-cover: white;
+$color-text-on-navigation-bar: white;
+$color-text-on-button: white;
+$color-text-on-button-login: white;
+
+// Inputs
+$color-input-background: white;
+$color-input-border: #eee;
+
+// Buttons
+$color-button: #ffa725;
+$color-button-text: #999;
+$color-button-login: #38a6af;
+
+// Navigation bar
+$color-navigation-bar-master: $color-brand;
+$color-navigation-bar-detail: #38a6af; // <-- slightly darker than color-brand
+
+// Background colors
+$color-background: white;
+$color-cover-background: $color-brand;

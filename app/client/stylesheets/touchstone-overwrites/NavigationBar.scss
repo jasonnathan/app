@@ -1,0 +1,197 @@
+.NavigationBar {
+    background-color: $color-navigation-bar-master;
+    color: $color-text-on-navigation-bar;
+    height: 53px;
+
+    &::after {
+        display: none;
+    }
+
+    &--detail {
+        background-color: $color-navigation-bar-detail;
+    }
+}
+
+.NavigationBarTitle {
+    height: 53px;
+    line-height: 53px;
+    font-weight: 600;
+    font-size: 18px;
+    font-family: $font-secondary;
+}
+
+.NavigationBarLeftArrow,
+.NavigationBarRightArrow {
+    color: $color-text-on-navigation-bar;
+    font-size: 10px;
+}
+
+.NavigationBarLeftArrow {
+    background: linear-gradient(to right, $color-navigation-bar-master 50%, transparent 100%);
+}
+
+.NavigationBarRightArrow {
+    background: linear-gradient(to left, $color-navigation-bar-master 50%, transparent 100%);
+}
+
+// enlarge toucharea
+.NavigationBarLeftLabel {
+    padding-left: 15px;
+    left: 0;
+    padding-right: 15px;
+}
+
+// enlarge toucharea
+.NavigationBarRightButton {
+    padding-right: 15px;
+    right: 0;
+    padding-left: 15px;
+}
+
+.device--iOS .NoNavigationBar,
+.device--iPhone .NoNavigationBar {
+  margin-top: 20px;
+}
+
+.NavigationBarTransition-Instant-enter,
+.NavigationBarTransition-Instant-leave,
+.NavigationBarTransition-Fade-enter,
+.NavigationBarTransition-Fade-leave,
+.NavigationBarTransition-Forwards-enter,
+.NavigationBarTransition-Forwards-leave,
+.NavigationBarTransition-Backwards-enter,
+.NavigationBarTransition-Backwards-leave {
+  -webkit-animation-duration: 500ms;
+          animation-duration: 500ms;
+  -webkit-animation-timing-function: cubic-bezier(0.36, 0.66, 0.04, 1);
+          animation-timing-function: cubic-bezier(0.36, 0.66, 0.04, 1);
+  pointer-events: none;
+}
+.NavigationBarTransition-Fade-enter {
+  -webkit-animation-name: fadeIn;
+          animation-name: fadeIn;
+}
+.NavigationBarTransition-Fade-leave {
+  -webkit-animation-name: fadeOut;
+          animation-name: fadeOut;
+}
+.NavigationBarTransition-Forwards-enter {
+  -webkit-animation-name: NavigationBarTransitionForwardsEnter;
+          animation-name: NavigationBarTransitionForwardsEnter;
+}
+.NavigationBarTransition-Forwards-leave {
+  -webkit-animation-name: NavigationBarTransitionForwardsLeave;
+          animation-name: NavigationBarTransitionForwardsLeave;
+}
+.NavigationBarTransition-Backwards-enter {
+  -webkit-animation-name: NavigationBarTransitionBackwardsEnter;
+          animation-name: NavigationBarTransitionBackwardsEnter;
+}
+.NavigationBarTransition-Backwards-leave {
+  -webkit-animation-name: NavigationBarTransitionBackwardsLeave;
+          animation-name: NavigationBarTransitionBackwardsLeave;
+}
+.NavigationBarTransition-Instant-enter {
+  -webkit-animation: fadeIn 50ms linear;
+          animation: fadeIn 50ms linear;
+}
+.NavigationBarTransition-Instant-leave {
+  -webkit-animation: fadeOut 50ms linear;
+          animation: fadeOut 50ms linear;
+}
+@-webkit-keyframes NavigationBarTransitionForwardsEnter {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(125px, 0, 1);
+            transform: translate3d(125px, 0, 1);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 1);
+            transform: translate3d(0, 0, 1);
+  }
+}
+@keyframes NavigationBarTransitionForwardsEnter {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(125px, 0, 1);
+            transform: translate3d(125px, 0, 1);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 1);
+            transform: translate3d(0, 0, 1);
+  }
+}
+@-webkit-keyframes NavigationBarTransitionForwardsLeave {
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 1);
+            transform: translate3d(0, 0, 1);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(-125px, 0, 1);
+            transform: translate3d(-125px, 0, 1);
+  }
+}
+@keyframes NavigationBarTransitionForwardsLeave {
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 1);
+            transform: translate3d(0, 0, 1);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(-125px, 0, 1);
+            transform: translate3d(-125px, 0, 1);
+  }
+}
+@-webkit-keyframes NavigationBarTransitionBackwardsEnter {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(-125px, 0, 1);
+            transform: translate3d(-125px, 0, 1);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 1);
+            transform: translate3d(0, 0, 1);
+  }
+}
+@keyframes NavigationBarTransitionBackwardsEnter {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(-125px, 0, 1);
+            transform: translate3d(-125px, 0, 1);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 1);
+            transform: translate3d(0, 0, 1);
+  }
+}
+@-webkit-keyframes NavigationBarTransitionBackwardsLeave {
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 1);
+            transform: translate3d(0, 0, 1);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(125px, 0, 1);
+            transform: translate3d(125px, 0, 1);
+  }
+}
+@keyframes NavigationBarTransitionBackwardsLeave {
+  from {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 1);
+            transform: translate3d(0, 0, 1);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(125px, 0, 1);
+            transform: translate3d(125px, 0, 1);
+  }
+}

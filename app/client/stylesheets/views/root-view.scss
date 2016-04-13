@@ -1,0 +1,17 @@
+html, body, body > #react-root {
+    height: 100%;
+}
+
+body {
+    color: $color-text;
+    font-family: $font-primary;
+    font-size: 14px;
+    line-height: 22px;
+    // This background color is only seen on desktop
+    // where a device silhouette is used
+    background-color: #555;
+
+    p {
+        line-height: 22px;
+    }
+}

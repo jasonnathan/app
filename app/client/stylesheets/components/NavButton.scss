@@ -1,0 +1,39 @@
+.pa-NavButton {
+    font-size: 18px;
+    white-space: nowrap;
+    line-height: 39px;
+
+    .pa-Svg,
+    span {
+        display: inline-block;
+        vertical-align: top;
+        color: $color-text-on-navigation-bar;
+    }
+
+    .pa-Svg {
+        svg,
+        svg * {
+            fill: $color-text-on-navigation-bar;
+        }
+
+        svg {
+            height: 100%;
+        }
+    }
+
+    span {
+        font-size: 16px;
+    }
+
+    &--left {
+        .pa-Svg {
+            margin-right: 8px;
+        }
+    }
+
+    &--right {
+        .pa-Svg {
+            margin-left: 8px;
+        }
+    }
+}

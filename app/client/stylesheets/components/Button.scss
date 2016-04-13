@@ -1,0 +1,74 @@
+.pa-Button {
+    $padding-right: 19px;
+    $spinner-width: 12px;
+    position: relative;
+    display: inline-block;
+    -webkit-appearance: none;
+    background-color: $color-button;
+    border: none;
+    border-radius: 4px;
+    font-family: $font-secondary;
+    font-size: 15px;
+    color: $color-text-on-button;
+    line-height: 21px;
+    font-weight: 700;
+    padding: 12px $padding-right 11px 19px;
+    text-align: left;
+    outline: none;
+    transition: opacity padding;
+    transition-duration: $duration-appear;
+
+    .pa-Spinner {
+        position: absolute;
+        opacity: 0;
+        right: $padding-right + $spinner-width / 2;
+        transition: opacity;
+        transition-duration: $duration-appear;
+    }
+
+    &:active {
+        opacity: .7;
+    }
+
+    &:disabled {
+        opacity: .3;
+        pointer-events: none;
+    }
+
+    &--login {
+        display: block;
+        width: 100%;
+        height: 52px;
+        background-color: $color-button-login;
+        color: $color-text-on-button-login;
+
+        &--facebook {
+            background-color: $color-facebook;
+        }
+
+        &--linkedin {
+            background-color: $color-linkedin;
+        }
+    }
+
+    &--text {
+        background-color: transparent;
+        color: $color-button-text;
+        font-size: 14px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    &--loading {
+        opacity: .7;
+        pointer-events: none;
+        padding-right: $padding-right * 2 + $spinner-width;
+
+        .pa-Spinner {
+            opacity: 1;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+        }
+    }
+}

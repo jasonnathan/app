@@ -6,5 +6,7 @@ import debug from 'debug';
 debug.enable('*');
 
 export default {
-    conn: debug('Connection')
+    conn: debug('Connection'),
+    methods: debug('Methods'),
+    subscriptions: debug('Subscriptions')
 };

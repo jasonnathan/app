@@ -1,6 +1,35 @@
 // Global variables
-@import "client/stylesheets/variables/colors.sass";
+@import "client/stylesheets/variables/colors.scss";
+@import "client/stylesheets/variables/durations.scss";
+@import "client/stylesheets/variables/fonts.scss";
+@import "client/stylesheets/variables/spacings.scss";
+
+// Mixins
+@import "client/stylesheets/mixins/clearfix.scss";
+
+// Fonts
+@import "client/stylesheets/font-faces/open-sans.scss";
+@import "client/stylesheets/font-faces/proxima-nova.scss";
+
+// Touchstone overwrites
+@import "client/stylesheets/touchstone-overwrites/Alertbar.scss";
+@import "client/stylesheets/touchstone-overwrites/NavigationBar.scss";
+@import "client/stylesheets/touchstone-overwrites/transitions.scss";
+@import "client/stylesheets/touchstone-overwrites/View.scss";
+
+// Views
+@import "client/stylesheets/views/root-view.scss";
+@import "client/stylesheets/views/root/login-flow/login-view.scss";
 
 // Components
-@import "client/stylesheets/components/body.sass";
-// @import "client/stylesheets/components/partups.sass";
+@import "client/stylesheets/components/Button.scss";
+@import "client/stylesheets/components/Content.scss";
+@import "client/stylesheets/components/Form.scss";
+@import "client/stylesheets/components/Input.scss";
+@import "client/stylesheets/components/List.scss";
+@import "client/stylesheets/components/ListItem.scss";
+@import "client/stylesheets/components/Logo.scss";
+@import "client/stylesheets/components/NavButton.scss";
+@import "client/stylesheets/components/Paragraph.scss";
+@import "client/stylesheets/components/SignupLink.scss";
+@import "client/stylesheets/components/Svg.scss";

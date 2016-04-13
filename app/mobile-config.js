@@ -42,10 +42,14 @@ App.launchScreens({
 
 // Set PhoneGap/Cordova preferences
 App.setPreference('BackgroundColor', '0x57c0c9ff');
-App.setPreference('HideKeyboardFormAccessoryBar', true);
+App.setPreference('HideKeyboardFormAccessoryBar', false);
+App.setPreference('DisallowOverscroll', true);
 App.setPreference('Orientation', 'portrait');
 App.setPreference('StatusBarOverlaysWebView', true);
 App.setPreference('StatusBarStyle', 'lightcontent');
+App.setPreference('AutoHideSplashScreen', false);
+App.setPreference('ShowSplashScreenSpinner', false);
+App.setPreference('FadeSplashScreenDuration', 300);
 
 // Access rule
 App.accessRule('*');
