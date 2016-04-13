@@ -21,6 +21,7 @@
     "react-mixin": "^3.0.4",
     "react-router": "^2.0.1",
     "react-sentry": "^1.0.2",
+    "react-spinjs": "^2.0.1",
     "react-tappable": "^0.7.2",
     "react-timers": "^5.0.0",
     "reset.css": "^2.0.2",
