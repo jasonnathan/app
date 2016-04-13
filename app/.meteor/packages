@@ -5,7 +5,7 @@ tracker                         # Meteor's client-side reactive programming libr
 
 standard-minifier-js            # JS
 standard-minifier-css           # CSS
-fourseven:scss                  # Sass compiler
+fourseven:scss@3.2.0            # Sass compiler
 es5-shim                        # ECMAScript 5 compatibility for older browsers
 ecmascript                      # Enable ECMAScript2015+ syntax in app code
 static-html                     # Render static HTML files
