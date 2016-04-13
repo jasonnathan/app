@@ -26,12 +26,11 @@ export default class ProfileView extends React.Component {
                 <Content>
                     {this.props.loggedInUser &&
                         <Content.Text>
-                            <Paragraph><strong>{this.props.loggedInUser.getFirstname()}</strong></Paragraph>
+                            <Paragraph>
+                                Hi {this.props.loggedInUser.getFirstname()}, you're succesfully logged in.
+                            </Paragraph>
                         </Content.Text>
                     }
-                    <Content.Text>
-                        <Paragraph>You're succesfully logged in.</Paragraph>
-                    </Content.Text>
                     <Content.Block>
                         <Button onClick={this.logout.bind(this)} loading={this.state.loggingOut}>Log out</Button>
                     </Content.Block>

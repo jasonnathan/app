@@ -16,3 +16,5 @@ export default class UserModel extends Model {
         return this.profile.firstname || this.profile.name.split(' ').shift();
     }
 }
+
+linkCollection(UserModel, Accounts.users);
