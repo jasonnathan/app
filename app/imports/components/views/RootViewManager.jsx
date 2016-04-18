@@ -10,15 +10,15 @@ import { createApp, View, ViewManager } from 'touchstonejs';
 
 import App from '../../App';
 import LoginView from './root/LoginView';
-import LoginFlowView from './root/LoginFlowView';
-import TabsView from './root/TabsView';
-import ProfileViewContainer from '../../containers/ProfileViewContainer';
+import LoginFlowViewManager from './root/LoginFlowViewManager';
+import TabsViewManager from './root/TabsViewManager';
+import ProfileContainer from './root/ProfileContainer';
 import Logo from '../Logo';
 
 const app = createApp();
 App.set(app.getChildContext().app);
 
-export default class RootView extends React.Component {
+export default class RootViewManager extends React.Component {
     componentDidMount() {
         if (navigator.splashscreen) {
             navigator.splashscreen.hide();
@@ -35,9 +35,9 @@ export default class RootView extends React.Component {
                 <div className="device-silhouette">
                     <ViewManager name="root" defaultView="login">
                         <View name="login" component={LoginView} />
-                        <View name="login-flow" component={LoginFlowView} />
-                        <View name="tabs" component={TabsView} />
-                        <View name="profile" component={ProfileViewContainer} />
+                        <View name="login-flow" component={LoginFlowViewManager} />
+                        <View name="tabs" component={TabsViewManager} />
+                        <View name="profile" component={ProfileContainer} />
                     </ViewManager>
                 </div>
             </div>
@@ -45,8 +45,8 @@ export default class RootView extends React.Component {
     }
 };
 
-RootView.childContextTypes = {
+RootViewManager.childContextTypes = {
     app: React.PropTypes.object
 };
 
-ReactMixin(RootView.prototype, app);
+ReactMixin(RootViewManager.prototype, app);

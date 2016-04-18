@@ -1,13 +1,11 @@
 'use strict';
 
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
 import { Container, UI, Link, ViewManager, View } from 'touchstonejs';
 import { isEmail, isLength } from 'validator';
 
 import App from '../../../../App';
 import Debug from '../../../../Debug';
-import UserModel from '../../../../models/UserModel';
 import NavButton from '../../../NavButton';
 import Content from '../../../Content';
 import Paragraph from '../../../Paragraph';
@@ -74,7 +72,7 @@ export default class LoginWithEmailView extends React.Component {
     login(email, password) {
         this.setState({submitting: true});
 
-        Meteor.loginWithPassword(email, password, (err) => {
+        this.props.onLoginWithPassword(email, password, (err) => {
             this.setState({submitting: false});
 
             if (err) {
@@ -88,22 +86,18 @@ export default class LoginWithEmailView extends React.Component {
 
                 if (serverErrorMessage) {
                     window.alert(serverErrorMessage);
-                    return;
                 }
+            } else {
+                Debug.methods(`User logged in: "${email}"`);
 
-                return;
+                App.get().transitionTo('root:profile', {
+                    transition: 'show-from-right'
+                });
             }
-
-            Debug.methods(`User logged in: "${email}"`);
-
-            App.get().transitionTo('root:profile', {
-                transition: 'show-from-right'
-            });
         });
     }
 };
 
-// Statics
 LoginWithEmailView.navigationBar = 'login-flow';
 LoginWithEmailView.getNavigation = (props, app) => {
     return {
@@ -115,4 +109,8 @@ LoginWithEmailView.getNavigation = (props, app) => {
         },
         title: 'Sign in with email'
     };
+};
+
+LoginWithEmailView.propTypes = {
+    onLoginWithPassword: React.PropTypes.func.isRequired
 };

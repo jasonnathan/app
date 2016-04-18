@@ -1,13 +1,13 @@
 'use strict';
 
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import meteorDataContainer from '../../../helpers/meteorDataContainer';
 
-import Connection from '../Connection';
-import UserModel from '../models/UserModel';
-import ProfileView from '../components/views/root/ProfileView';
+import ProfileView from './ProfileView';
+import Connection from '../../../Connection';
+import UserModel from '../../../models/UserModel';
 
-export default createContainer((props) => {
+export default meteorDataContainer(ProfileView, (props) => {
     const {} = props;
 
     const loggedInUserHandle = Connection.subscribe('users.loggedin');
@@ -18,4 +18,4 @@ export default createContainer((props) => {
         loggedInUser,
         loggedInUserLoading
     };
-}, ProfileView);
+});

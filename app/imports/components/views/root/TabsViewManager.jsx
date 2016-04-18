@@ -4,7 +4,7 @@ import React from 'react';
 import { Container, UI, View, ViewManager } from 'touchstonejs';
 
 let lastSelectedTab = 'lists';
-export default class TabsView extends React.Component {
+export default class TabsViewManager extends React.Component {
     constructor(props) {
         super(props);
 

@@ -3,15 +3,15 @@
 import React from 'react';
 import { Container, UI, View, ViewManager } from 'touchstonejs';
 
-import LoginWithEmailView from './login-flow/LoginWithEmailView';
+import LoginWithEmailContainer from './login-flow/LoginWithEmailContainer';
 
-export default class LoginFlowView extends React.Component {
+export default class LoginFlowViewManager extends React.Component {
     render() {
         return (
             <Container>
                 <UI.NavigationBar name="login-flow" className={"NavigationBar--detail"} />
                 <ViewManager name="login-flow" defaultView="login-with-email">
-                    <View name="login-with-email" component={LoginWithEmailView} />
+                    <View name="login-with-email" component={LoginWithEmailContainer} />
                 </ViewManager>
             </Container>
         );
