@@ -2,5 +2,4 @@
 
 # Improve me
 cd app;
-if [ -z $1 ]; then environment="development"; else environment=$1; fi
-meteor run android-device --port 4000 --settings ../config/$environment/settings.json;
+DDP_DEFAULT_CONNECTION_URL=$1 meteor run android-device --mobile-server $1 --port 4000;
