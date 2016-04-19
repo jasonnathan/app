@@ -15,12 +15,13 @@ check(get(Meteor.settings || {}, 'public'), {
 
 let address = Meteor.settings.public.server;
 
-/**
- * Request server's local ip through a Meteor method.
- * Save it in localStorage and trigger a page reload,
- * because we need the ip here synchronously to replace 'localhost' with it.
- */
 if (Meteor.settings.public.environment === 'development') {
+
+    /**
+     * Request server's local ip through a Meteor method.
+     * Save it in localStorage and trigger a page reload,
+     * because we need the ip here synchronously.
+     */
     const ip = localStorage.getItem('ip');
 
     if (!ip) {
@@ -34,6 +35,11 @@ if (Meteor.settings.public.environment === 'development') {
             location.reload();
         });
     } else {
+
+        /**
+         * Assume the development Part-up server is running on the same ip
+         * as the webserver. So replace 'localhost' with ip.
+         */
         address = Meteor.settings.public.server.replace('localhost', ip);
     }
 

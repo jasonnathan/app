@@ -33,18 +33,19 @@ To add a cordova plugin:
 - `cd app`
 - `meteor add cordova:<cordova-plugin-name>@<version>`
 
-## releasing
+## Releasing
 
-### ios
+### iOS
 
-<TODO>
+- `cd app`
+- `meteor build ../output --mobile-settings ../config/<environment>/settings.json --server 0.0.0.0` (replace <environment> with acceptance or production)
 
-### android
+### Android
 
 - Obtain the **android-keystore** file from a colleague, put it in the repo root and ask for the passphrase.
 - To create the final APK before publishment, you have to sign and align it.
     - `cd app`
-    - `meteor build ../output --server https://pu-acceptance.lifely.nl`
+    - `meteor build ../output --mobile-settings ../config/<environment>/settings.json --server 0.0.0.0` (replace <environment> with acceptance or production)
     - `cd ..`
     - `jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore android-keystore output/android/project/build/outputs/apk/android-armv7-release-unsigned.apk part-up-android`
     - $ANDROID_HOME/build-tools/<build-tools-version>/zipalign 4 output/android/project/build/outputs/apk/android-armv7-release-unsigned.apk part-up.apk
