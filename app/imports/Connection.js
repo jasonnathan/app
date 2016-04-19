@@ -44,13 +44,6 @@ if (Meteor.settings.public.environment === 'development') {
         address = Meteor.settings.public.server.replace('localhost', ip);
     }
 
-} else {
-
-    /**
-     * Disconnect from the server since we're using a custom DDP connection.
-     */
-    Meteor.disconnect();
-
 }
 
 const connection = DDP.connect(address);
