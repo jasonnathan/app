@@ -4,7 +4,7 @@ mongo                           # The database Meteor supports right now
 tracker                         # Meteor's client-side reactive programming library
 
 standard-minifier-js            # JS
-seba:minifiers-autoprefixer     # CSS with Autoprefixer
+standard-minifier-css           # CSS
 fourseven:scss                  # Sass compiler
 es5-shim                        # ECMAScript 5 compatibility for older browsers
 ecmascript                      # Enable ECMAScript2015+ syntax in app code
