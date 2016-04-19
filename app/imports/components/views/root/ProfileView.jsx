@@ -42,7 +42,7 @@ export default class ProfileView extends React.Component {
     logout() {
         this.setState({loggingOut: true});
 
-        Meteor.logout((err) => {
+        this.props.onLogout((err) => {
             this.setState({loggingOut: false});
 
             if (err) {
@@ -60,7 +60,8 @@ export default class ProfileView extends React.Component {
 
 ProfileView.propTypes = {
     loggedInUser: React.PropTypes.instanceOf(UserModel),
-    loggedInUserLoading: React.PropTypes.bool
+    loggedInUserLoading: React.PropTypes.bool,
+    onLogout: React.PropTypes.func.isRequired
 };
 
 ProfileView.defaultProps = {

@@ -9,9 +9,7 @@ export default meteorDataContainer(LoginWithEmailView, (props) => {
     const {} = props;
 
     const onLoginWithPassword = (email, password, callback) => {
-        Meteor.loginWithPassword(email, password, (err) => {
-            callback(err);
-        });
+        Meteor.loginWithPassword(email, password, callback);
     };
 
     return {

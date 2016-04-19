@@ -1,6 +1,7 @@
 'use strict';
 
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import { DDP } from 'meteor/ddp-client';
 import { check, Match } from 'meteor/check';
 import { get } from 'mout/object';
@@ -53,6 +54,7 @@ if (Meteor.settings.public.environment === 'development') {
 }
 
 const connection = DDP.connect(address);
+Meteor.connection = Accounts.connection = connection;
 Debug.conn(`Server configured as ${address}`);
 
 const messages = {

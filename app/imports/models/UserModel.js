@@ -1,12 +1,11 @@
 'use strict';
 
-import { AccountsClient, Accounts } from 'meteor/accounts-base';
+import { AccountsClient } from 'meteor/accounts-base';
 
 import Connection from '../Connection';
 import Model from '../classes/Model';
 import linkCollection from '../helpers/linkCollection';
 
-Accounts.connection = Meteor.connection = Connection;
 const accountsClient = new AccountsClient({
     connection: Connection
 });
