@@ -3,7 +3,7 @@
 import React from 'react';
 import c from 'classnames';
 
-import scrollElementIntoView from '../helpers/scrollElementIntoView';
+import scrollElementIntoView from '/imports/helpers/scrollElementIntoView';
 
 const Input = {
     Text: class InputText extends React.Component {

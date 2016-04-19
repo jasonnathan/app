@@ -2,11 +2,10 @@
 
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import meteorDataContainer from '../../../helpers/meteorDataContainer';
 
-import App from '../../../App';
-import transitionTo from '../../../helpers/transitionTo';
-import LoginView from './LoginView';
+import meteorDataContainer from '/imports/helpers/meteorDataContainer';
+import transitionTo from '/imports/helpers/transitionTo';
+import LoginView from '/imports/views/root/LoginView';
 
 export default meteorDataContainer(LoginView, (props) => {
     const {} = props;

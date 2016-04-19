@@ -1,13 +1,12 @@
 'use strict';
 
 import { Meteor } from 'meteor/meteor';
-import meteorDataContainer from '../../../helpers/meteorDataContainer';
 
-import App from '../../../App';
-import ProfileView from './ProfileView';
-import Connection from '../../../Connection';
-import UserModel from '../../../models/UserModel';
-import transitionTo from '../../../helpers/transitionTo';
+import meteorDataContainer from '/imports/helpers/meteorDataContainer';
+import ProfileView from '/imports/views/root/ProfileView';
+import Connection from '/imports/Connection';
+import UserModel from '/imports/models/UserModel';
+import transitionTo from '/imports/helpers/transitionTo';
 
 export default meteorDataContainer(ProfileView, (props) => {
     const {} = props;

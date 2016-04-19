@@ -3,8 +3,8 @@
 import React from 'react';
 import c from 'classnames';
 
-import Svg from './Svg';
-import Button from './Button';
+import Svg from '/imports/components/Svg';
+import Button from '/imports/components/Button';
 
 export default class Logo extends React.Component {
     render() {

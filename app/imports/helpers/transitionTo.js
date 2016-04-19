@@ -1,11 +1,12 @@
 'use strict';
 
 import { Meteor } from 'meteor/meteor';
-import App from '../App';
+
+import TouchstoneApp from '/imports/TouchstoneApp';
 
 const transitionTo = (destination, options) => {
     Meteor.defer(() => {
-        App.get().transitionTo(destination, options);
+        TouchstoneApp.get().transitionTo(destination, options);
     });
 };
 

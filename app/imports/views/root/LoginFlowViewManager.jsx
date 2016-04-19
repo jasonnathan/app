@@ -3,7 +3,7 @@
 import React from 'react';
 import { Container, UI, View, ViewManager } from 'touchstonejs';
 
-import LoginWithEmailContainer from './login-flow/LoginWithEmailContainer';
+import LoginWithEmailContainer from '/imports/views/root/login-flow/LoginWithEmailContainer';
 
 export default class LoginFlowViewManager extends React.Component {
     render() {

@@ -2,9 +2,9 @@
 
 import { AccountsClient } from 'meteor/accounts-base';
 
-import Connection from '../Connection';
-import Model from '../classes/Model';
-import linkCollection from '../helpers/linkCollection';
+import Connection from '/imports/Connection';
+import Model from '/imports/classes/Model';
+import linkCollection from '/imports/helpers/linkCollection';
 
 const accountsClient = new AccountsClient({
     connection: Connection

@@ -3,7 +3,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import RootViewManager from '../imports/components/views/RootViewManager';
+import RootViewManager from '/imports/views/RootViewManager';
 
 const renderMain = () => {
     render(<RootViewManager />, document.getElementById('react-root'));

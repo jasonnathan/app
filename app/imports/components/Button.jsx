@@ -3,7 +3,7 @@
 import React from 'react';
 import c from 'classnames';
 
-import Spinner from './Spinner';
+import Spinner from '/imports/components/Spinner';
 
 export default class Button extends React.Component {
     render() {

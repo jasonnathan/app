@@ -5,8 +5,8 @@ import { Match, check } from 'meteor/check';
 import { isString } from 'mout/lang';
 import { extend } from 'lodash';
 
-import QueryBuilder from '../classes/QueryBuilder';
-import Connection from '../Connection';
+import QueryBuilder from '/imports/classes/QueryBuilder';
+import Connection from '/imports/Connection';
 
 export default (Model, collection) => {
     check(collection, Match.OneOf(

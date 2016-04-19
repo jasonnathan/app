@@ -3,9 +3,9 @@
 import React from 'react';
 import c from 'classnames';
 
-import List from './List';
-import ListItem from './ListItem';
-import Button from './Button';
+import List from '/imports/components/List';
+import ListItem from '/imports/components/ListItem';
+import Button from '/imports/components/Button';
 
 export default class LoginChoice extends React.Component {
     render() {

@@ -8,14 +8,14 @@ import c from 'classnames';
 import { get } from 'mout/object';
 import { createApp, View, ViewManager } from 'touchstonejs';
 
-import App from '../../App';
-import LoginContainer from './root/LoginContainer';
-import LoginFlowViewManager from './root/LoginFlowViewManager';
-import TabsViewManager from './root/TabsViewManager';
-import ProfileContainer from './root/ProfileContainer';
+import TouchstoneApp from '/imports/TouchstoneApp';
+import LoginContainer from '/imports/views/root/LoginContainer';
+import LoginFlowViewManager from '/imports/views/root/LoginFlowViewManager';
+import TabsViewManager from '/imports/views/root/TabsViewManager';
+import ProfileContainer from '/imports/views/root/ProfileContainer';
 
 const app = createApp();
-App.set(app.getChildContext().app);
+TouchstoneApp.set(app.getChildContext().app);
 
 export default class RootViewManager extends React.Component {
     componentDidMount() {

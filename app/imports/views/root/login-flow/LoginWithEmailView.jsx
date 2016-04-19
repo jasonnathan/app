@@ -4,14 +4,14 @@ import React from 'react';
 import { Container, UI, Link, ViewManager, View } from 'touchstonejs';
 import { isEmail, isLength } from 'validator';
 
-import App from '../../../../App';
-import Debug from '../../../../Debug';
-import NavButton from '../../../NavButton';
-import Content from '../../../Content';
-import Paragraph from '../../../Paragraph';
-import Form from '../../../Form';
-import Input from '../../../Input';
-import Button from '../../../Button';
+import transitionTo from '/imports/helpers/transitionTo';
+import Debug from '/imports/Debug';
+import NavButton from '/imports/components/NavButton';
+import Content from '/imports/components/Content';
+import Paragraph from '/imports/components/Paragraph';
+import Form from '/imports/components/Form';
+import Input from '/imports/components/Input';
+import Button from '/imports/components/Button';
 
 export default class LoginWithEmailView extends React.Component {
     constructor(props) {
@@ -90,7 +90,7 @@ export default class LoginWithEmailView extends React.Component {
             } else {
                 Debug.methods(`User logged in: "${email}"`);
 
-                App.get().transitionTo('root:profile', {
+                transitionTo('root:profile', {
                     transition: 'show-from-right'
                 });
             }

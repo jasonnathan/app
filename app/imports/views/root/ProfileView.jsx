@@ -5,11 +5,11 @@ import { Meteor } from 'meteor/meteor';
 import { Container, UI, View, ViewManager } from 'touchstonejs';
 import c from 'classnames';
 
-import App from '../../../App';
-import UserModel from '../../../models/UserModel';
-import Content from '../../Content';
-import Paragraph from '../../Paragraph';
-import Button from '../../Button';
+import transitionTo from '/imports/helpers/transitionTo';
+import UserModel from '/imports/models/UserModel';
+import Content from '/imports/components/Content';
+import Paragraph from '/imports/components/Paragraph';
+import Button from '/imports/components/Button';
 
 export default class ProfileView extends React.Component {
     constructor(props) {
@@ -51,7 +51,7 @@ export default class ProfileView extends React.Component {
                 return;
             }
 
-            App.get().transitionTo('root:login', {
+            transitionTo('root:login', {
                 transition: 'reveal-from-right'
             });
         });

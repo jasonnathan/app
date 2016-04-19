@@ -7,7 +7,7 @@ import { check, Match } from 'meteor/check';
 import { get } from 'mout/object';
 import { Tracker } from 'meteor/tracker';
 
-import Debug from './Debug';
+import Debug from '/imports/Debug';
 
 check(get(Meteor.settings || {}, 'public'), {
     server: String,

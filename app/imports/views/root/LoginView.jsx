@@ -4,11 +4,11 @@ import React from 'react';
 import { Container, Link } from 'touchstonejs';
 import c from 'classnames';
 
-import App from '../../../App';
-import Debug from '../../../Debug';
-import Logo from '../../Logo';
-import LoginChoice from '../../LoginChoice';
-import SignupLink from '../../SignupLink';
+import transitionTo from '/imports/helpers/transitionTo';
+import Debug from '/imports/Debug';
+import Logo from '/imports/components/Logo';
+import LoginChoice from '/imports/components/LoginChoice';
+import SignupLink from '/imports/components/SignupLink';
 
 export default class LoginView extends React.Component {
     render() {
@@ -25,13 +25,13 @@ export default class LoginView extends React.Component {
     }
 
     onEmail() {
-        App.get().transitionTo('root:login-flow:login-with-email', {
+        transitionTo('root:login-flow:login-with-email', {
             transition: 'show-from-right'
         });
     }
 
     continue() {
-        App.get().transitionTo('root:login', {
+        transitionTo('root:login', {
             transition: 'show-from-right'
         });
     }

@@ -2,7 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 
-import meteorDataContainer from '../../../../helpers/meteorDataContainer';
+import meteorDataContainer from '/imports/helpers/meteorDataContainer';
 import LoginWithEmailView from './LoginWithEmailView';
 
 export default meteorDataContainer(LoginWithEmailView, (props) => {

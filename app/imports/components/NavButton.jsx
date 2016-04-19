@@ -3,7 +3,7 @@
 import React from 'react';
 import c from 'classnames';
 
-import Svg from './Svg';
+import Svg from '/imports/components/Svg';
 
 export default class NavButton extends React.Component {
     render() {

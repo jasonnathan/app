@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import images from '../../resources/svg.json';
+import images from '/imports/svg.json';
 
 export default class Svg extends React.Component {
     render() {
