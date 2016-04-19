@@ -1,3 +1,6 @@
+@import "{}/imports/stylesheets/variables/spacings.scss";
+@import "{}/imports/stylesheets/mixins/clearfix.scss";
+
 .pa-Form {
     .pa-Input {
         + .pa-Input {

@@ -1,3 +1,6 @@
+@import "{}/imports/stylesheets/variables/spacings.scss";
+@import "{}/imports/stylesheets/variables/colors.scss";
+
 .View--login {
     background-color: $color-cover-background;
     color: $color-text-on-cover;
