@@ -1,0 +1,6 @@
+{
+    "public": {
+        "server": "https://part-up.com",
+        "environment": "production"
+    }
+}

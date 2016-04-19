@@ -1,0 +1,6 @@
+{
+    "public": {
+        "server": "http://localhost:3000",
+        "environment": "development"
+    }
+}
