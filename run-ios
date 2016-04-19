@@ -2,4 +2,5 @@
 
 # Improve me
 cd app;
-DDP_DEFAULT_CONNECTION_URL=$1 meteor run ios-device --mobile-server $1 --port 4000;
+if [ -z $1 ]; then environment="development"; else environment=$1; fi
+meteor run ios-device --port 4000 --settings ../config/$environment/settings.json;

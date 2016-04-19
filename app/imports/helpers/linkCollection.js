@@ -4,9 +4,11 @@ import { Mongo } from 'meteor/mongo';
 import { Match, check } from 'meteor/check';
 import { isString } from 'mout/lang';
 import { extend } from 'lodash';
-import QueryBuilder from '../classes/QueryBuilder';
 
-export default (model, collection) => {
+import QueryBuilder from '../classes/QueryBuilder';
+import Connection from '../Connection';
+
+export default (Model, collection) => {
     check(collection, Match.OneOf(
         Mongo.Collection,
         String
@@ -16,15 +18,17 @@ export default (model, collection) => {
 
     // Create Mongo collection
     if (isString(collection)) {
-        c = new Mongo.Collection(c);
+        c = new Mongo.Collection(c, {
+            connection: Connection
+        });
     }
 
     // Transform document to extend opts.Document
-    c._transform = (doc) => new model(doc);
+    c._transform = (doc) => new Model(doc);
 
     // Define query builder
-    c.query = () => new QueryBuilder(model);
+    c.query = () => new QueryBuilder(Model);
 
     // Extend model with the collection
-    extend(model, c);
+    extend(Model, c);
 };

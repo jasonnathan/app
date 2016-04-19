@@ -12,7 +12,7 @@ export default meteorDataContainer(ProfileView, (props) => {
 
     const loggedInUserHandle = Connection.subscribe('users.loggedin');
     const loggedInUserLoading = !loggedInUserHandle.ready();
-    const loggedInUser = Meteor.user();
+    const loggedInUser = UserModel.getAccounts().user();
 
     return {
         loggedInUser,
