@@ -13,10 +13,31 @@ check(get(Meteor.settings || {}, 'public'), {
     environment: Match.Optional(String)
 });
 
-const isDevelopment = Meteor.settings.public.environment === 'development';
-const overrideDevServer = isDevelopment && localStorage.getItem('developmentServer');
+let address = Meteor.settings.public.server;
 
-const address = overrideDevServer || Meteor.settings.public.server;
+/**
+ * Request server's local ip through a Meteor method.
+ * Save it in localStorage and trigger a page reload,
+ * because we need the ip here synchronously to replace 'localhost' with it.
+ */
+if (Meteor.settings.public.environment === 'development') {
+    const ip = localStorage.getItem('ip');
+
+    if (!ip) {
+        Meteor.call('ip', (err, ip) => {
+            if (err) {
+                Debug.conn('Could not retrieve ip-address', err);
+                return;
+            }
+
+            localStorage.setItem('ip', ip);
+            location.reload();
+        });
+    } else {
+        address = Meteor.settings.public.server.replace('localhost', ip);
+    }
+}
+
 const connection = DDP.connect(address);
 Debug.conn(`Server configured as ${address}`);
 
