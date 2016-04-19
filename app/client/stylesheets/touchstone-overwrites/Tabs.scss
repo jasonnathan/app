@@ -1,0 +1,7 @@
+.Tabs-Icon--notifications::before {
+  content: "\f453";
+
+  .is-selected > & {
+    content: "\f454";
+  }
+}

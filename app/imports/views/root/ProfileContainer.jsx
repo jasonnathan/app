@@ -7,9 +7,11 @@ import ProfileView from '/imports/views/root/ProfileView';
 import Connection from '/imports/Connection';
 import UserModel from '/imports/models/UserModel';
 import transitionTo from '/imports/helpers/transitionTo';
+import Debug from '/imports/Debug';
 
 export default meteorDataContainer(ProfileView, (props) => {
     const {} = props;
+    Debug.tracker('ProfileContainer tracker run');
 
     const loggedInUserHandle = Connection.subscribe('users.loggedin');
     const loggedInUserLoading = !loggedInUserHandle.ready();
