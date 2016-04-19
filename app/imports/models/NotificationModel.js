@@ -9,7 +9,7 @@ export default class NotificationModel extends Model {
     /**
      * Search for current user
      *
-     * @return {AccountsClient}
+     * @return {Object} search query
      */
     static searchForCurrentUser() {
         return {
