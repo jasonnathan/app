@@ -13,7 +13,7 @@ export default class NotificationsView extends React.Component {
                 {this.props.notifications.map((notification, index) => (
                     <Content.Text key={index}>
                         <Link to="app:notification" transition="show-from-right" viewProps={{notification}}>
-                            {JSON.stringify(notification)}
+                            Notification {notification._id}
                         </Link>
                     </Content.Text>
                 ))}

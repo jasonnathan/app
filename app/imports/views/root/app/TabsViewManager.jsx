@@ -3,11 +3,13 @@
 import React from 'react';
 import { contains } from 'mout/array';
 import { Container, UI, View, ViewManager } from 'touchstonejs';
+import c from 'classnames';
 
 import NotificationsContainer from './tabs/NotificationsContainer';
 import ChatsContainer from './tabs/ChatsContainer';
 import PartupsContainer from './tabs/PartupsContainer';
 import TribesContainer from './tabs/TribesContainer';
+import Svg from '/imports/components/Svg';
 
 export default class TabsViewManager extends React.Component {
     constructor(props) {
@@ -50,19 +52,19 @@ export default class TabsViewManager extends React.Component {
                 </ViewManager>
                 <UI.Tabs.Navigator>
                     <UI.Tabs.Tab onTap={this.selectTab.bind(this, 'notifications')} selected={selectedIsOneOf(['notifications'])}>
-                        <span className="Tabs-Icon Tabs-Icon--notifications" />
+                        <Svg name="icon_notifications" />
                         <UI.Tabs.Label>Notificaties</UI.Tabs.Label>
                     </UI.Tabs.Tab>
                     <UI.Tabs.Tab onTap={this.selectTab.bind(this, 'chat')} selected={selectedIsOneOf(['chat'])}>
-                        <span className="Tabs-Icon Tabs-Icon--chat" />
+                        <Svg name="icon_message" />
                         <UI.Tabs.Label>Chat</UI.Tabs.Label>
                     </UI.Tabs.Tab>
                     <UI.Tabs.Tab onTap={this.selectTab.bind(this, 'partups')} selected={selectedIsOneOf(['partups'])}>
-                        <span className="Tabs-Icon Tabs-Icon--partups" />
+                        <Svg name="icon_part-up" />
                         <UI.Tabs.Label>Part-ups</UI.Tabs.Label>
                     </UI.Tabs.Tab>
                     <UI.Tabs.Tab onTap={this.selectTab.bind(this, 'tribes')} selected={selectedIsOneOf(['tribes'])}>
-                        <span className="Tabs-Icon Tabs-Icon--tribes" />
+                        <Svg name="icon_tribe" />
                         <UI.Tabs.Label>Tribes</UI.Tabs.Label>
                     </UI.Tabs.Tab>
                 </UI.Tabs.Navigator>
