@@ -10,7 +10,11 @@ export default meteorDataContainer(ChatsView, (props) => {
     const {} = props;
     Debug.tracker('ChatsContainer');
 
+    const onLogout = function(callback) {
+        Meteor.logout(callback);
+    };
+
     return {
-        //
+        onLogout
     };
 });
