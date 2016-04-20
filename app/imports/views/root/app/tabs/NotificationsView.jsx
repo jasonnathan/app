@@ -1,10 +1,12 @@
 'use strict';
 
 import React from 'react';
-import { Link } from 'touchstonejs';
 
+import transitionTo from '/imports/helpers/transitionTo';
 import NotificationModel from '/imports/models/NotificationModel';
 import Content from '/imports/components/Content';
+import Paragraph from '/imports/components/Paragraph';
+import Button from '/imports/components/Button';
 
 export default class NotificationsView extends React.Component {
     render() {
@@ -12,9 +14,16 @@ export default class NotificationsView extends React.Component {
             <Content>
                 {this.props.notifications.map((notification, index) => (
                     <Content.Text key={index}>
-                        <Link to="app:notification" transition="show-from-right" viewProps={{notification}}>
-                            Notification {notification._id}
-                        </Link>
+                        <Paragraph>
+                            <Button onClick={() => {
+                                transitionTo('app:notification', {
+                                    transition: 'show-from-right',
+                                    viewProps: {notification}
+                                });
+                            }}>
+                                {notification._id}
+                            </Button>
+                        </Paragraph>
                     </Content.Text>
                 ))}
             </Content>

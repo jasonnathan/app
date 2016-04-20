@@ -1,6 +1,5 @@
 'use strict';
 
-import Connection from '/imports/Connection';
 import Model from '/imports/classes/Model';
 import linkCollection from '/imports/helpers/linkCollection';
 

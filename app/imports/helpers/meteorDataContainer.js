@@ -1,16 +1,11 @@
 'use strict';
 
-import { extend } from 'lodash';
 import { createContainer } from 'meteor/react-meteor-data';
 
-export default function meteorDataContainer(nestedReactComponent, getReactiveProps) {
-    const container = createContainer(getReactiveProps, nestedReactComponent);
+import fixWrappedComponentForTouchstone from './fixWrappedComponentForTouchstone';
 
-    /**
-     * Pass static variables required by touchstonejs's <View />
-     */
-    container.navigationBar = nestedReactComponent.navigationBar;
-    container.getNavigation = nestedReactComponent.getNavigation;
-
+export default function meteorDataContainer(Component, getReactiveProps) {
+    const container = createContainer(getReactiveProps, Component);
+    fixWrappedComponentForTouchstone(Component, container);
     return container;
 };
