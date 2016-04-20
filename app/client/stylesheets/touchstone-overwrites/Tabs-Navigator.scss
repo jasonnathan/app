@@ -1,0 +1,27 @@
+.Tabs-Navigator {
+    background-color: $color-tabs-navigation-bar;
+    height: 54px;
+
+    // Disable border-top
+    &:after {
+        display: none;
+    }
+
+    .Tabs-Tab {
+        color: $color-tabs-navigation-bar-text;
+
+        .Tabs-Icon {
+            font-size: 22px;
+        }
+
+        .Tabs-Label {
+            font-family: $font-primary;
+            font-size: 12px;
+        }
+
+        &.is-selected {
+            color: $color-tabs-navigation-bar-text-active;
+            pointer-events: none;
+        }
+    }
+}

@@ -90,7 +90,7 @@ export default class LoginWithEmailView extends React.Component {
             } else {
                 Debug.methods(`User logged in: "${email}"`);
 
-                transitionTo('root:tabs', {
+                transitionTo('root:app', {
                     transition: 'show-from-right'
                 });
             }

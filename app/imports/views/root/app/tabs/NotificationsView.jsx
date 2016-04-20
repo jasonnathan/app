@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import { Link } from 'touchstonejs';
 
 import NotificationModel from '/imports/models/NotificationModel';
 import Content from '/imports/components/Content';
@@ -11,7 +12,9 @@ export default class NotificationsView extends React.Component {
             <Content>
                 {this.props.notifications.map((notification, index) => (
                     <Content.Text key={index}>
-                        {notification.type}
+                        <Link to="app:notification" transition="show-from-right" viewProps={{notification}}>
+                            {JSON.stringify(notification)}
+                        </Link>
                     </Content.Text>
                 ))}
             </Content>

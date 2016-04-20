@@ -11,7 +11,7 @@ import { createApp, View, ViewManager } from 'touchstonejs';
 import TouchstoneApp from '/imports/TouchstoneApp';
 import LoginContainer from '/imports/views/root/LoginContainer';
 import LoginFlowViewManager from '/imports/views/root/LoginFlowViewManager';
-import TabsViewManager from '/imports/views/root/TabsViewManager';
+import AppViewManager from '/imports/views/root/AppViewManager';
 import ProfileContainer from '/imports/views/root/ProfileContainer';
 
 const app = createApp();
@@ -35,7 +35,7 @@ export default class RootViewManager extends React.Component {
                     <ViewManager name="root" defaultView="login">
                         <View name="login" component={LoginContainer} />
                         <View name="login-flow" component={LoginFlowViewManager} />
-                        <View name="tabs" component={TabsViewManager} />
+                        <View name="app" component={AppViewManager} />
                         <View name="profile" component={ProfileContainer} />
                     </ViewManager>
                 </div>

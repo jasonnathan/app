@@ -10,11 +10,11 @@ import Debug from '/imports/Debug';
 
 export default meteorDataContainer(LoginView, (props) => {
     const {} = props;
-    Debug.tracker('LoginContainer tracker run');
+    Debug.tracker('LoginContainer');
 
     // If user is already logged in, redirect to tabs screen
     if (Meteor.userId()) {
-        transitionTo('root:tabs', {
+        transitionTo('root:app', {
             transition: 'show-from-right'
         });
     }

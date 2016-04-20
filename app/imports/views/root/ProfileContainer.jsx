@@ -11,7 +11,7 @@ import Debug from '/imports/Debug';
 
 export default meteorDataContainer(ProfileView, (props) => {
     const {} = props;
-    Debug.tracker('ProfileContainer tracker run');
+    Debug.tracker('ProfileContainer');
 
     const loggedInUserHandle = Connection.subscribe('users.loggedin');
     const loggedInUserLoading = !loggedInUserHandle.ready();

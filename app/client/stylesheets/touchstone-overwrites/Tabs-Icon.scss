@@ -1,0 +1,10 @@
+.Tabs-Icon--notifications::before,
+.Tabs-Icon--chat::before,
+.Tabs-Icon--partups::before,
+.Tabs-Icon--tribes::before {
+  content: "\f453";
+
+    .is-selected > & {
+        content: "\f454";
+    }
+}

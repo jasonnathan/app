@@ -8,7 +8,7 @@ import Debug from '/imports/Debug';
 
 export default meteorDataContainer(LoginWithEmailView, (props) => {
     const {} = props;
-    Debug.tracker('LoginWithEmailContainer tracker run');
+    Debug.tracker('LoginWithEmailContainer');
 
     const onLoginWithPassword = (email, password, callback) => {
         Meteor.loginWithPassword(email, password, callback);
