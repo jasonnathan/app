@@ -8,5 +8,5 @@ debug.enable('*');
 export default {
     conn: debug('Connection'),
     methods: debug('Methods'),
-    subscriptions: debug('Subscriptions')
+    tracker: debug('Tracker')
 };

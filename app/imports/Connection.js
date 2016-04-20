@@ -16,34 +16,24 @@ check(get(Meteor.settings || {}, 'public'), {
 
 let address = Meteor.settings.public.server;
 
+/**
+ * On development we'll want to replace 'localhost'
+ * with your local ip to be able to connect to your
+ * local part-up server from a mobile device.
+ */
 if (Meteor.settings.public.environment === 'development') {
+    const storedIp = localStorage.getItem('ip');
 
-    /**
-     * Request server's local ip through a Meteor method.
-     * Save it in localStorage and trigger a page reload,
-     * because we need the ip here synchronously.
-     */
-    const ip = localStorage.getItem('ip');
-
-    if (!ip) {
-        Meteor.call('ip', (err, ip) => {
-            if (err) {
-                Debug.conn('Could not retrieve ip-address', err);
-                return;
-            }
-
-            localStorage.setItem('ip', ip);
-            location.reload();
-        });
-    } else {
-
-        /**
-         * Assume the development Part-up server is running on the same ip
-         * as the webserver. So replace 'localhost' with ip.
-         */
-        address = Meteor.settings.public.server.replace('localhost', ip);
+    if (storedIp) {
+        address = Meteor.settings.public.server.replace('localhost', storedIp);
     }
 
+    Meteor.call('ip', (err, ip) => {
+        if (ip && ip !== storedIp) {
+            localStorage.setItem('ip', ip);
+            location.reload();
+        }
+    });
 }
 
 const connection = DDP.connect(address);

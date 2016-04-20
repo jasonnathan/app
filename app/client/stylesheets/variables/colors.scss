@@ -25,6 +25,11 @@ $color-button-login: #38a6af;
 $color-navigation-bar-master: $color-brand;
 $color-navigation-bar-detail: #38a6af; // <-- slightly darker than color-brand
 
+// Tabs navigation bar
+$color-tabs-navigation-bar: #eee;
+$color-tabs-navigation-bar-text: #999;
+$color-tabs-navigation-bar-text-active: $color-brand;
+
 // Background colors
 $color-background: white;
 $color-cover-background: $color-brand;

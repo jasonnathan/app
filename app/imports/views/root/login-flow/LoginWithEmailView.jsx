@@ -32,7 +32,7 @@ export default class LoginWithEmailView extends React.Component {
                     <Content.Block>
                         <Form onSubmit={this.onSubmit.bind(this)}>
                             <Input.Text email name="email" placeholder="Email address" />
-                            <Input.Text password name="password" placeholder="Password" />
+                            <Input.Text ref="passwordField" password name="password" placeholder="Password" />
                             <Form.Footer>
                                 <Form.Footer.Submit>
                                     <Button submit formNoValidate loading={this.state.submitting}>Sign in</Button>
@@ -78,7 +78,12 @@ export default class LoginWithEmailView extends React.Component {
             if (err) {
                 let serverErrorMessage = (() => {
                     if (err.message === 'User not found [403]') return 'User not found';
-                    if (err.message === 'Incorrect password [403]') return 'Password is incorrect';
+                    if (err.message === 'Incorrect password [403]') {
+                        const input = this.refs.passwordField.refs.input;
+                        input.value = '';
+                        input.focus();
+                        return 'Password is incorrect';
+                    }
 
                     Debug.methods(`Failed user login "${email}"`, err);
                     return 'Login failed for an unknown reason';
@@ -90,7 +95,7 @@ export default class LoginWithEmailView extends React.Component {
             } else {
                 Debug.methods(`User logged in: "${email}"`);
 
-                transitionTo('root:profile', {
+                transitionTo('root:app', {
                     transition: 'show-from-right'
                 });
             }
