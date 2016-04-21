@@ -19,7 +19,7 @@ export default class NotificationModel extends Model {
                 }
             },
             options: {
-                limit: 2,
+                limit: 20,
                 sort: {
                     created_at: -1
                 }
