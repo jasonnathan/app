@@ -37,12 +37,17 @@ const NotificationTile = class NotificationTile extends React.Component {
         });
     }
 
+    onClick(event) {
+        event.preventDefault();
+        this.props.onClick();
+    }
+
     render() {
         const {t, notification: n} = this.props;
         const {nowDate} = this.state;
 
         return (
-            <div className={c('pa-NotificationTile', {
+            <a href="" onClick={this.onClick.bind(this)} className={c('pa-NotificationTile', {
                 'pa-NotificationTile--new': n.new,
                 'pa-NotificationTile--clicked': n.clicked
             })}>
@@ -53,14 +58,14 @@ const NotificationTile = class NotificationTile extends React.Component {
                     <Paragraph><strong>{n.getText(t)}</strong></Paragraph>
                     <Paragraph meta>{n.getMetaText(t, nowDate)}</Paragraph>
                 </div>
-            </div>
+            </a>
         );
     }
 };
 
 NotificationTile.propTypes = {
     notification: React.PropTypes.instanceOf(NotificationModel).isRequired,
-    onClick: React.PropTypes.func
+    onClick: React.PropTypes.func.isRequired
 };
 
 export default translate()(NotificationTile);

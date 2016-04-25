@@ -14,7 +14,10 @@ const NotificationsView = class NotificationsView extends React.Component {
             <List notifications>
                 {this.props.notifications.map((notification, index) => {
                     const onNotificationClick = () => {
-                        alert(`click ${notification._id}`);
+                        transitionTo('app:notification', {
+                            transition: 'show-from-right',
+                            viewProps: {notification}
+                        });
                     };
 
                     return (
