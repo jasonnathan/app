@@ -2,10 +2,10 @@
 
 import { createContainer } from 'meteor/react-meteor-data';
 
-import fixWrappedComponentForTouchstone from './fixWrappedComponentForTouchstone';
+import _fixWrappedComponentForTouchstone from './_fixWrappedComponentForTouchstone';
 
 export default function meteorDataContainer(Component, getReactiveProps) {
     const container = createContainer(getReactiveProps, Component);
-    fixWrappedComponentForTouchstone(Component, container);
+    _fixWrappedComponentForTouchstone(Component, container);
     return container;
 };

@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import fixWrappedComponentForTouchstone from './fixWrappedComponentForTouchstone';
+import _fixWrappedComponentForTouchstone from './_fixWrappedComponentForTouchstone';
 
 export default function asyncDataContainer(Component, options, getAsyncProps) {
     options = options || {};
@@ -51,6 +51,6 @@ export default function asyncDataContainer(Component, options, getAsyncProps) {
         }
     };
 
-    fixWrappedComponentForTouchstone(Component, container);
+    _fixWrappedComponentForTouchstone(Component, container);
     return container;
 };
