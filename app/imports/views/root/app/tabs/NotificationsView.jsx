@@ -3,6 +3,7 @@
 import React from 'react';
 
 import transitionTo from '/imports/helpers/transitionTo';
+import { Container } from 'touchstonejs';
 import NotificationModel from '/imports/models/NotificationModel';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
@@ -15,24 +16,26 @@ const NotificationsView = class NotificationsView extends React.Component {
 
     render() {
         return (
-            <List notifications>
-                {this.props.notifications.map((notification, index) => {
-                    const onNotificationClick = () => {
-                        transitionTo('app:notification', {
-                            transition: 'show-from-right',
-                            viewProps: {notification}
-                        });
-                    };
+            <Container scrollable fill>
+                <List notifications>
+                    {this.props.notifications.map((notification, index) => {
+                        const onNotificationClick = () => {
+                            transitionTo('app:notification', {
+                                transition: 'show-from-right',
+                                viewProps: {notification}
+                            });
+                        };
 
-                    return (
-                        <ListItem key={index}>
-                            <NotificationTile
-                                notification={notification}
-                                onClick={onNotificationClick} />
-                        </ListItem>
-                    );
-                })}
-            </List>
+                        return (
+                            <ListItem key={index}>
+                                <NotificationTile
+                                    notification={notification}
+                                    onClick={onNotificationClick} />
+                            </ListItem>
+                        );
+                    })}
+                </List>
+            </Container>
         );
     }
 };
