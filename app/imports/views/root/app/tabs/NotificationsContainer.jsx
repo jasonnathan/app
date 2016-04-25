@@ -13,7 +13,7 @@ export default meteorDataContainer(NotificationsView, (props) => {
     const {} = props;
     Debug.tracker('NotificationsContainer');
 
-    const notificationsHandle = Connection.subscribe('notifications.for_upper', 2);
+    const notificationsHandle = Connection.subscribe('notifications.for_upper', 20);
     const notificationsLoading = !notificationsHandle.ready();
 
     const notifications = NotificationModel.query()
