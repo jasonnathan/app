@@ -1,0 +1,46 @@
+.pa-NotificationTile {
+    position: relative;
+    $padding-x: spacing(1.5);
+    $padding-y: spacing(2);
+    $padding-y-content: spacing(1);
+    $avatar-width: 48px;
+    padding: $padding-y $padding-x;
+    min-height: $avatar-width + $padding-y * 2;
+
+    .pa-Avatar {
+        width: $avatar-width;
+    }
+
+    // Avatar
+    > div:first-child {
+        position: absolute;
+        top: $padding-y;
+        left: $padding-x;
+    }
+
+    // Content
+    > div:last-child {
+        padding-top: $padding-y-content - 5px; // 5px correction due to text
+        padding-left: $avatar-width + 10px;
+    }
+
+    // Orange dot
+    &--new {
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: $padding-y + $padding-y-content;
+            right: $padding-x;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: $color-brand-secondary;
+        }
+    }
+
+    // Opacity
+    &--clicked {
+        opacity: .5;
+    }
+}

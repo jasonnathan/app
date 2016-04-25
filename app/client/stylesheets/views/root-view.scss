@@ -6,12 +6,13 @@ body {
     color: $color-text;
     font-family: $font-primary;
     font-size: 14px;
-    line-height: 22px;
+    $line-height: 1.4em;
+    line-height: $line-height;
     // This background color is only seen on desktop
     // where a device silhouette is used
     background-color: #555;
 
     p {
-        line-height: 22px;
+        line-height: $line-height;
     }
 }
