@@ -1,6 +1,7 @@
 'use strict';
 
 import { Meteor } from 'meteor/meteor';
+import { toLookup } from 'mout/array';
 
 import meteorDataContainer from '/imports/helpers/meteorDataContainer';
 import NotificationsView from './NotificationsView';
@@ -14,6 +15,7 @@ export default meteorDataContainer(NotificationsView, (props) => {
 
     const notificationsHandle = Connection.subscribe('notifications.for_upper', 2);
     const notificationsLoading = !notificationsHandle.ready();
+
     const notifications = NotificationModel.query()
         .search(m => m.searchForCurrentUser())
         .fetch();

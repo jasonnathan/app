@@ -19,7 +19,9 @@ const NotificationsView = class NotificationsView extends React.Component {
 
                     return (
                         <ListItem key={index}>
-                            <NotificationTile notification={notification} onClick={onNotificationClick} />
+                            <NotificationTile
+                                notification={notification}
+                                onClick={onNotificationClick} />
                         </ListItem>
                     );
                 })}

@@ -9,10 +9,8 @@ import { Tracker } from 'meteor/tracker';
 
 import Debug from '/imports/Debug';
 
-check(get(Meteor.settings || {}, 'public'), {
-    server: String,
-    environment: Match.Optional(String)
-});
+check(Meteor.settings.public.server, String);
+check(Meteor.settings.public.environment, Match.Optional(String));
 
 let address = Meteor.settings.public.server;
 

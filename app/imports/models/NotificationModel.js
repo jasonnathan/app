@@ -2,6 +2,7 @@
 
 import Model from '/imports/classes/Model';
 import linkCollection from '/imports/helpers/linkCollection';
+import ImageModel from '/imports/models/ImageModel';
 
 export default class NotificationModel extends Model {
 
@@ -28,11 +29,11 @@ export default class NotificationModel extends Model {
     }
 
     /**
-     * Get notification image
+     * Get notification image id
      *
      * @return {String}
      */
-    getImage() {
+    getImageId() {
         return ({
             'partups_networks_accepted': () => this.type_data.network.image,
             'partups_networks_invited': () => this.type_data.inviter.image,
@@ -61,6 +62,18 @@ export default class NotificationModel extends Model {
             'partups_user_mentioned': () => this.type_data.mentioning_upper.image,
         })[this.type]();
     }
+
+    /**
+     * Get notification image object
+     *
+     * @return {ImageModel}
+     */
+    getImage() {
+        return ImageModel.query()
+            .search(m => m.searchForNotification(this))
+            .findOne();
+    }
+
 }
 
 linkCollection(NotificationModel, 'notifications');

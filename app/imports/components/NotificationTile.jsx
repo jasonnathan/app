@@ -4,6 +4,7 @@ import React from 'react';
 import c from 'classnames';
 
 import NotificationModel from '/imports/models/NotificationModel';
+import ImageModel from '/imports/models/ImageModel';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import Avatar from '/imports/components/Avatar';
@@ -19,7 +20,7 @@ const NotificationTile = class NotificationTile extends React.Component {
                 'pa-NotificationTile--clicked': n.clicked
             })}>
                 <div>
-                    <Avatar src="https://scontent-ams3-1.xx.fbcdn.net/hphotos-xpf1/v/t1.0-0/p480x480/12654276_10153497190189315_5610049985251143068_n.jpg?oh=d02fec40dc99520f168b4d965a511900&oe=57C07AC8" />
+                    <Avatar src={n.getImage().getUrl('360x360')} />
                 </div>
                 <div>
                     <Paragraph><strong>Maarten Osieck has invited you to join Communicatiecampagne ontwikkelen</strong></Paragraph>
