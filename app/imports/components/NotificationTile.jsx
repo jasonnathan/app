@@ -12,8 +12,34 @@ import Avatar from '/imports/components/Avatar';
 import Paragraph from '/imports/components/Paragraph';
 
 const NotificationTile = class NotificationTile extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            nowDate: new Date()
+        };
+    }
+
+    componentDidMount() {
+        this.nowInterval = setInterval(this.updateNowDate.bind(this), 5000);
+    }
+
+    componentWillUnmount() {
+        if (this.nowInterval) {
+            clearInterval(this.nowInterval);
+            delete this.nowInterval;
+        }
+    }
+
+    updateNowDate() {
+        this.setState({
+            nowDate: new Date()
+        });
+    }
+
     render() {
         const {t, notification: n} = this.props;
+        const {nowDate} = this.state;
 
         return (
             <div className={c('pa-NotificationTile', {
@@ -21,11 +47,11 @@ const NotificationTile = class NotificationTile extends React.Component {
                 'pa-NotificationTile--clicked': n.clicked
             })}>
                 <div>
-                    <Avatar src={n.getImage().getUrl('360x360')} />
+                    <Avatar notification src={n.getImage().getUrl('360x360')} />
                 </div>
                 <div>
                     <Paragraph><strong>{n.getText(t)}</strong></Paragraph>
-                    <Paragraph meta>3 days ago in Communcatiecampagne ontwikkelen</Paragraph>
+                    <Paragraph meta>{n.getMetaText(t, nowDate)}</Paragraph>
                 </div>
             </div>
         );

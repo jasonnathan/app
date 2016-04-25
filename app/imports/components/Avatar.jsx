@@ -22,7 +22,8 @@ const Avatar = class Avatar extends React.Component {
     renderAvatar() {
         return (
             <figure className={c('pa-Avatar', {
-                'pa-Avatar--clickable': this.props.onClick
+                'pa-Avatar--clickable': this.props.onClick,
+                'pa-Avatar--notification': this.props.notification
             })} style={{
                 backgroundImage: this.props.src && `url('${this.props.src}')`
             }}>

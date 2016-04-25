@@ -5,4 +5,8 @@
     background-position: center;
     border-radius: 50%;
     @include ratio(1/1);
+
+    &--notification {
+        background-image: url('images/system-avatar.png');
+    }
 }

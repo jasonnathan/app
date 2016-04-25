@@ -1,5 +1,8 @@
 'use strict';
 
+import { check } from 'meteor/check';
+import moment from 'moment';
+
 import Model from '/imports/classes/Model';
 import linkCollection from '/imports/helpers/linkCollection';
 import ImageModel from '/imports/models/ImageModel';
@@ -77,7 +80,7 @@ export default class NotificationModel extends Model {
     /**
      * Get notification text replace options for i18next
      *
-     * @param {Function} t - translator function from i18next
+     * @param {Function} t - i18next's translator function
      */
     getText(t) {
         let key = `notification-${this.type}`;
@@ -119,6 +122,64 @@ export default class NotificationModel extends Model {
         }
 
         return t(key, {replace});
+    }
+
+    /**
+     * Get meta text for notification (date and possible location)
+     *
+     * @param {Function} t - i18next's translator function
+     */
+    getMetaText(t, nowDate) {
+        check(t, Function);
+        check(nowDate, Date);
+
+        let metaText = [];
+
+        const RELATIVE_TIME_THRESHOLD = 7 * 24 * 60 * 60 * 1000; // <-- 1 week
+        const notificationMoment = moment(this.created_at);
+        const nowMoment = moment(nowDate);
+        if (nowMoment.diff(notificationMoment) < RELATIVE_TIME_THRESHOLD) { // <-- less than 1 week ago
+            metaText.push(notificationMoment.fromNow(true));
+        } else if (notificationMoment.year() === nowMoment.year()) { // <-- less than a year ago
+            metaText.push(notificationMoment.format('dd, MMMM D [at] h:mm A'));
+        } else { // <-- more than a year ago
+            metaText.push(notificationMoment.format('MMMM D YYYY [at] h:mm A'));
+        }
+
+        const location = ({
+            'partups_networks_accepted': () => undefined,
+            'partups_networks_invited': () => this.type_data.network.name,
+            'partups_networks_upper_left': () => undefined,
+            'partups_networks_new_upper': () => undefined,
+            'partups_networks_new_pending_upper': () => undefined,
+            'partup_created_in_network': () => undefined,
+            'partup_activities_invited': () => this.type_data.partup.name,
+            'partup_archived_by_upper': () => undefined,
+            'partups_contributions_accepted': () => this.type_data.partup.name,
+            'contributions_ratings_inserted': () => this.type_data.partup.name,
+            'partups_contributions_rejected': () => this.type_data.partup.name,
+            'multiple_comments_in_conversation_since_visit': () => this.type_data.partup.name,
+            'partups_multiple_updates_since_visit': () => this.type_data.partup.name,
+            'networks_multiple_new_uppers_since_visit': () => undefined,
+            'partups_activities_inserted': () => this.type_data.partup.name,
+            'partups_new_comment_in_involved_conversation': () => this.type_data.partup.name,
+            'partups_contributions_proposed': () => this.type_data.partup.name,
+            'partups_contributions_inserted': () => this.type_data.partup.name,
+            'partups_messages_inserted': () => this.type_data.partup.name,
+            'partups_ratings_reminder': () => undefined,
+            'partups_supporters_added': () => this.type_data.partup.name,
+            'partup_unarchived_by_upper': () => undefined,
+            'updates_first_comment': () => this.type_data.partup.name,
+            'invite_upper_to_partup': () => this.type_data.partup.name,
+            'partups_user_mentioned': () => this.type_data.partup.name
+        })[this.type]();
+
+        const locationString = location && t('notification-location', {location});
+        if (location) {
+            metaText.push(t('notification-location', {location}));
+        }
+
+        return metaText.join(' ');
     }
 
 }
