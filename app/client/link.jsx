@@ -2,11 +2,16 @@
 
 import React from 'react';
 import { render } from 'react-dom';
+import { I18nextProvider } from 'react-i18next';
 
+import i18n from '/imports/i18n';
 import RootViewManager from '/imports/views/RootViewManager';
 
 const renderMain = () => {
-    render(<RootViewManager />, document.getElementById('react-root'));
+    render(
+        <I18nextProvider i18n={i18n}><RootViewManager /></I18nextProvider>,
+        document.getElementById('react-root')
+    );
 };
 
 Meteor.startup(() => {
