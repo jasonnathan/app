@@ -39,6 +39,12 @@ To add a cordova plugin:
 
 - `cd app`
 - `meteor build ../output --mobile-settings ../config/<environment>/settings.json --server <partup-url>` (replace <environment> with acceptance or production and <partup-url> with the part-up server url)
+- Open the project **/output/ios/project/Part-up.xcodeproj** in Xcode.
+- Go to Part-up's General settings
+    - Uncheck "Upside Down" (under Deployment Info > Device Orientation)
+    - Check "Hide status bar" (under Deployment Info > Status Bar Style)
+- Go to Part-up's Build settings
+    - Add "@executable_path/Frameworks" to Release (under Linking > Runpath Search Paths)
 
 ### Android
 
