@@ -8,6 +8,13 @@ import linkCollection from '/imports/helpers/linkCollection';
 import ImageModel from '/imports/models/ImageModel';
 
 export default class NotificationModel extends Model {
+    constructor(props) {
+        super(props);
+
+        this.image = ImageModel.query()
+            .search(m => m.searchForNotification(this))
+            .findOne();
+    }
 
     /**
      * Search for current user
@@ -64,17 +71,6 @@ export default class NotificationModel extends Model {
             'invite_upper_to_partup': () => this.type_data.inviter.image,
             'partups_user_mentioned': () => this.type_data.mentioning_upper.image
         })[this.type]();
-    }
-
-    /**
-     * Get notification image object
-     *
-     * @return {ImageModel}
-     */
-    getImage() {
-        return ImageModel.query()
-            .search(m => m.searchForNotification(this))
-            .findOne();
     }
 
     /**

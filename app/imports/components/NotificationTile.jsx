@@ -52,7 +52,7 @@ const NotificationTile = class NotificationTile extends React.Component {
                 'pa-NotificationTile--clicked': n.clicked
             })}>
                 <div>
-                    <Avatar notification src={n.getImage().getUrl('360x360')} />
+                    <Avatar notification src={n.image.getUrl('360x360')} />
                 </div>
                 <div>
                     <Paragraph><strong>{n.getText(t)}</strong></Paragraph>
