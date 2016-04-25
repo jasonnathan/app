@@ -3,6 +3,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: $color-avatar-placeholder;
     border-radius: 50%;
     @include ratio(1/1);
 
