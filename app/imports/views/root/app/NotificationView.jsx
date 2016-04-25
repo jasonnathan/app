@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Container, UI } from 'touchstonejs';
+import { translate } from 'react-i18next';
 
 import Debug from '/imports/Debug';
 import NavButton from '/imports/components/NavButton';
@@ -9,16 +10,19 @@ import Content from '/imports/components/Content';
 import Paragraph from '/imports/components/Paragraph';
 import NotificationModel from '/imports/models/NotificationModel';
 
-export default class NotificationView extends React.Component {
+const NotificationView = class NotificationView extends React.Component {
     render() {
+        const {t, notification: n} = this.props;
+
         return (
             <Container fill scrollable>
                 <UI.NavigationBar name="notification" className={"NavigationBar--detail"} />
                 <Container>
                     <Content>
-                        {Object.keys(this.props.notification).map((key, index) => (
+                        <Paragraph>{t(`notification-${n.type}`, {inviter: 'Jantje'})}</Paragraph>
+                        {Object.keys(n).map((key, index) => (
                             <Content.Text key={index}>
-                                <Paragraph>{key}: {JSON.stringify(this.props.notification[key])}</Paragraph>
+                                <Paragraph>{key}: {JSON.stringify(n[key])}</Paragraph>
                             </Content.Text>
                         ))}
                     </Content>
@@ -43,3 +47,5 @@ NotificationView.getNavigation = (props, app) => {
 NotificationView.propTypes = {
     notification: React.PropTypes.instanceOf(NotificationModel).isRequired
 };
+
+export default translate()(NotificationView);
