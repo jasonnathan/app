@@ -4,6 +4,7 @@ import React from 'react';
 import { Container, UI } from 'touchstonejs';
 import { translate } from 'react-i18next';
 
+import passPropsForTouchstone from '/imports/helpers/passPropsForTouchstone';
 import Debug from '/imports/Debug';
 import NavButton from '/imports/components/NavButton';
 import Content from '/imports/components/Content';
@@ -72,4 +73,7 @@ NotificationView.propTypes = {
     notification: React.PropTypes.instanceOf(NotificationModel).isRequired
 };
 
-export default translate()(NotificationView);
+export default passPropsForTouchstone(
+    translate()(NotificationView),
+    NotificationView
+);
