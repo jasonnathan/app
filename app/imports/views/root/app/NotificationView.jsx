@@ -44,7 +44,8 @@ const NotificationView = class NotificationView extends React.Component {
             <Container>
                 <UI.NavigationBar name="notification" className={"NavigationBar--detail"} />
                 <Container fill scrollable>
-                    <NotificationTile notification={n} />
+                    {/*TODO*/}
+                    <NotificationTile notification={n} onClick={() => {}} />
                 </Container>
             </Container>
         );

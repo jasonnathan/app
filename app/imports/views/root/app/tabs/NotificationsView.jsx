@@ -20,6 +20,7 @@ const NotificationsView = class NotificationsView extends React.Component {
                 <List notifications>
                     {this.props.notifications.map((notification, index) => {
                         const onNotificationClick = () => {
+                            this.props.onNotificationClicked(notification._id);
                             transitionTo('app:notification', {
                                 transition: 'show-from-right',
                                 viewProps: {notification}
@@ -41,7 +42,9 @@ const NotificationsView = class NotificationsView extends React.Component {
 };
 
 NotificationsView.propTypes = {
-    notifications: React.PropTypes.arrayOf(React.PropTypes.instanceOf(NotificationModel)).isRequired
+    notifications: React.PropTypes.arrayOf(React.PropTypes.instanceOf(NotificationModel)).isRequired,
+    onAllNotificationsRead: React.PropTypes.func.isRequired,
+    onNotificationClicked: React.PropTypes.func.isRequired
 };
 
 NotificationsView.navigationBar = 'tabs';

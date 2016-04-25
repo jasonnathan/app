@@ -24,9 +24,14 @@ export default meteorDataContainer(NotificationsView, (props) => {
         Connection.call('notifications.all_read');
     };
 
+    const onNotificationClicked = (id) => {
+        Connection.call('notifications.clicked', id);
+    };
+
     return {
         notifications,
         notificationsLoading,
-        onAllNotificationsRead
+        onAllNotificationsRead,
+        onNotificationClicked
     };
 });
