@@ -2,6 +2,7 @@
 
 import React from 'react';
 import c from 'classnames';
+import { translate } from 'react-i18next';
 
 import NotificationModel from '/imports/models/NotificationModel';
 import ImageModel from '/imports/models/ImageModel';
@@ -12,7 +13,7 @@ import Paragraph from '/imports/components/Paragraph';
 
 const NotificationTile = class NotificationTile extends React.Component {
     render() {
-        const {notification: n} = this.props;
+        const {t, notification: n} = this.props;
 
         return (
             <div className={c('pa-NotificationTile', {
@@ -23,7 +24,7 @@ const NotificationTile = class NotificationTile extends React.Component {
                     <Avatar src={n.getImage().getUrl('360x360')} />
                 </div>
                 <div>
-                    <Paragraph><strong>Maarten Osieck has invited you to join Communicatiecampagne ontwikkelen</strong></Paragraph>
+                    <Paragraph><strong>{n.getText(t)}</strong></Paragraph>
                     <Paragraph meta>3 days ago in Communcatiecampagne ontwikkelen</Paragraph>
                 </div>
             </div>
@@ -36,4 +37,4 @@ NotificationTile.propTypes = {
     onClick: React.PropTypes.func
 };
 
-export default NotificationTile;
+export default translate()(NotificationTile);
