@@ -52,7 +52,7 @@ export default class NotificationModel extends Model {
             'partups_networks_new_pending_upper': () => this.type_data.pending_upper.image,
             'partup_created_in_network': () => this.type_data.creator.image,
             'partup_activities_invited': () => this.type_data.inviter.image,
-            'partup_archived_by_upper': () => this.type_data.archiver.image,
+            'partup_archived': () => this.type_data.archiver.image,
             'partups_contributions_accepted': () => this.type_data.accepter.image,
             'contributions_ratings_inserted': () => this.type_data.rater.image,
             'partups_contributions_rejected': () => this.type_data.rejecter.image,
@@ -66,7 +66,7 @@ export default class NotificationModel extends Model {
             'partups_messages_inserted': () => this.type_data.creator.image,
             'partups_ratings_reminder': () => undefined,
             'partups_supporters_added': () => this.type_data.supporter.image,
-            'partup_unarchived_by_upper': () => this.type_data.unarchiver.image,
+            'partup_unarchived': () => this.type_data.unarchiver.image,
             'updates_first_comment': () => this.type_data.commenter.image,
             'invite_upper_to_partup': () => this.type_data.inviter.image,
             'partups_user_mentioned': () => this.type_data.mentioning_upper.image
@@ -88,7 +88,7 @@ export default class NotificationModel extends Model {
             'partups_networks_new_pending_upper': () => ({network: this.type_data.network.name, pending_upper: this.type_data.pending_upper.name}),
             'partup_created_in_network': () => ({partup: this.type_data.partup.name, network: this.type_data.network.name, creator: this.type_data.creator.name}),
             'partup_activities_invited': () => ({inviter: this.type_data.inviter.name, activity: this.type_data.activity.name}),
-            'partup_archived_by_upper': () => ({partup: this.type_data.partup.name, archiver: this.type_data.archiver.name}),
+            'partup_archived': () => ({partup: this.type_data.partup.name, archiver: this.type_data.archiver.name}),
             'partups_contributions_accepted': () => ({accepter: this.type_data.accepter.name, activity: this.type_data.activity.name}),
             'contributions_ratings_inserted': () => ({rater: this.type_data.rater.name}),
             'partups_contributions_rejected': () => ({rejecter: this.type_data.rejecter.name, activity: this.type_data.activity.name}),
@@ -102,7 +102,7 @@ export default class NotificationModel extends Model {
             'partups_messages_inserted': () => ({creator: this.type_data.creator.name}),
             'partups_ratings_reminder': () => ({partup: this.type_data.partup.name}),
             'partups_supporters_added': () => ({supporter: this.type_data.supporter.name}),
-            'partup_unarchived_by_upper': () => ({partup: this.type_data.partup.name, unarchiver: this.type_data.unarchiver.name}),
+            'partup_unarchived': () => ({partup: this.type_data.partup.name, unarchiver: this.type_data.unarchiver.name}),
             'updates_first_comment': () => ({commenter: this.type_data.commenter.name}),
             'invite_upper_to_partup': () => ({inviter: this.type_data.inviter.name, partup: this.type_data.partup.name}),
             'partups_user_mentioned': () => ({partup: this.type_data.partup.name, mentioning_upper: this.type_data.mentioning_upper.name})
@@ -111,7 +111,7 @@ export default class NotificationModel extends Model {
         // Exception for partups_multiple_updates_since_visit
         if (this.type === 'partups_multiple_updates_since_visit' &&
             this.type_data.others_count === 0) {
-            key = partups_multiple_updates_since_visit_single_person;
+            key = 'partups_multiple_updates_since_visit_single_person';
             replace = {
                 upper: this.type_data.latest_upper.name
             };
@@ -150,7 +150,7 @@ export default class NotificationModel extends Model {
             'partups_networks_new_pending_upper': () => undefined,
             'partup_created_in_network': () => undefined,
             'partup_activities_invited': () => this.type_data.partup.name,
-            'partup_archived_by_upper': () => undefined,
+            'partup_archived': () => undefined,
             'partups_contributions_accepted': () => this.type_data.partup.name,
             'contributions_ratings_inserted': () => this.type_data.partup.name,
             'partups_contributions_rejected': () => this.type_data.partup.name,
@@ -164,7 +164,7 @@ export default class NotificationModel extends Model {
             'partups_messages_inserted': () => this.type_data.partup.name,
             'partups_ratings_reminder': () => undefined,
             'partups_supporters_added': () => this.type_data.partup.name,
-            'partup_unarchived_by_upper': () => undefined,
+            'partup_unarchived': () => undefined,
             'updates_first_comment': () => this.type_data.partup.name,
             'invite_upper_to_partup': () => this.type_data.partup.name,
             'partups_user_mentioned': () => this.type_data.partup.name
