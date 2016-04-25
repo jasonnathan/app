@@ -20,8 +20,13 @@ export default meteorDataContainer(NotificationsView, (props) => {
         .search(m => m.searchForCurrentUser())
         .fetch();
 
+    const onAllNotificationsRead = () => {
+        Connection.call('notifications.all_read');
+    };
+
     return {
         notifications,
-        notificationsLoading
+        notificationsLoading,
+        onAllNotificationsRead
     };
 });

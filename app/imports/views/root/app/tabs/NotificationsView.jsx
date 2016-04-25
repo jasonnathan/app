@@ -9,6 +9,10 @@ import ListItem from '/imports/components/ListItem';
 import NotificationTile from '/imports/components/NotificationTile';
 
 const NotificationsView = class NotificationsView extends React.Component {
+    componentWillUnmount() {
+        this.props.onAllNotificationsRead();
+    }
+
     render() {
         return (
             <List notifications>
