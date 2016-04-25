@@ -22,5 +22,11 @@
         > li {
             border-bottom: 1px solid #eee;
         }
+
+        &:last-child {
+            > li {
+                border-bottom: none;
+            }
+        }
     }
 }
