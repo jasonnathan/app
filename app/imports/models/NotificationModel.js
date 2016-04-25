@@ -11,9 +11,15 @@ export default class NotificationModel extends Model {
     constructor(props) {
         super(props);
 
-        this.image = ImageModel.query()
-            .search(m => m.searchForNotification(this))
-            .findOne();
+        if (this.getImageId() === 'system') {
+            this.image = new ImageModel({
+                getUrl: () => 'images/system-avatar.png'
+            });
+        } else {
+            this.image = ImageModel.query()
+                .search(m => m.searchForNotification(this))
+                .findOne();
+        }
     }
 
     /**
@@ -64,7 +70,7 @@ export default class NotificationModel extends Model {
             'partups_contributions_proposed': () => this.type_data.creator.image,
             'partups_contributions_inserted': () => this.type_data.creator.image,
             'partups_messages_inserted': () => this.type_data.creator.image,
-            'partups_ratings_reminder': () => undefined,
+            'partups_ratings_reminder': () => 'system',
             'partups_supporters_added': () => this.type_data.supporter.image,
             'partups_unarchived': () => this.type_data.unarchiver.image,
             'updates_first_comment': () => this.type_data.commenter.image,
