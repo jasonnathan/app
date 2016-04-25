@@ -45,6 +45,13 @@ To add a cordova plugin:
     - Check "Hide status bar" (under Deployment Info > Status Bar Style)
 - Go to Part-up's Build settings
     - Add "@executable_path/Frameworks" to Release (under Linking > Runpath Search Paths)
+- From the top menu, select "Product > Archive" and wait untill the process completes
+- An archives window should pop up.
+- Select the latest version and hit "Upload to App Store..."
+- When asked, choose the correct Development Team.
+- Check the Binary and Entitlements and hit Upload.
+- Wait until the build is processed by Apple at itunesconnect.apple.com.
+- Release the build for internal testing, external testing or production.
 
 ### Android
 
