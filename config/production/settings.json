@@ -1,6 +1,10 @@
 {
     "public": {
         "server": "https://part-up.com",
-        "environment": "production"
+        "environment": "production",
+        "aws": {
+            "region": "eu-west-1",
+            "bucket": "partup-production"
+        }
     }
 }

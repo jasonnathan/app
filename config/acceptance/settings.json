@@ -1,6 +1,10 @@
 {
     "public": {
         "server": "https://pu-acceptance.lifely.nl",
-        "environment": "acceptance"
+        "environment": "acceptance",
+        "aws": {
+            "region": "eu-west-1",
+            "bucket": "partup-acceptance"
+        }
     }
 }
