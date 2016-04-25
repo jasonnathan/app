@@ -117,7 +117,7 @@ export default class NotificationModel extends Model {
         // Exception for partups_multiple_updates_since_visit
         if (this.type === 'partups_multiple_updates_since_visit' &&
             this.type_data.others_count === 0) {
-            key = 'partups_multiple_updates_since_visit_single_person';
+            key = 'notification-partups_multiple_updates_since_visit_single_person';
             replace = {
                 upper: this.type_data.latest_upper.name
             };
