@@ -7,8 +7,7 @@ import { translate } from 'react-i18next';
 import passPropsForTouchstone from '/imports/helpers/passPropsForTouchstone';
 import Debug from '/imports/Debug';
 import NavButton from '/imports/components/NavButton';
-import Content from '/imports/components/Content';
-import Paragraph from '/imports/components/Paragraph';
+import NotificationTile from '/imports/components/NotificationTile';
 import NotificationModel from '/imports/models/NotificationModel';
 
 const NotificationView = class NotificationView extends React.Component {
@@ -45,12 +44,7 @@ const NotificationView = class NotificationView extends React.Component {
             <Container>
                 <UI.NavigationBar name="notification" className={"NavigationBar--detail"} />
                 <Container fill scrollable>
-                    <Content>
-                        <Content.Text>
-                            <Paragraph><strong>{n.getText(t)}</strong></Paragraph>
-                            <Paragraph meta>{n.getMetaText(t, nowDate)}</Paragraph>
-                        </Content.Text>
-                    </Content>
+                    <NotificationTile notification={n} />
                 </Container>
             </Container>
         );
