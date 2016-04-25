@@ -13,7 +13,7 @@ import Form from '/imports/components/Form';
 import Input from '/imports/components/Input';
 import Button from '/imports/components/Button';
 
-export default class LoginWithEmailView extends React.Component {
+const LoginWithEmailView = class LoginWithEmailView extends React.Component {
     constructor(props) {
         super(props);
 
@@ -119,3 +119,5 @@ LoginWithEmailView.getNavigation = (props, app) => {
 LoginWithEmailView.propTypes = {
     onLoginWithPassword: React.PropTypes.func.isRequired
 };
+
+export default LoginWithEmailView;

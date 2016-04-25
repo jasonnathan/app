@@ -4,7 +4,7 @@ import React from 'react';
 
 import images from '/imports/jcons.json';
 
-export default class Svg extends React.Component {
+const Svg = class Svg extends React.Component {
     render() {
         return <i className={`pa-Svg pa-Svg--${this.props.name}`} dangerouslySetInnerHTML={{__html: images[this.props.name]}} />;
     }
@@ -13,3 +13,5 @@ export default class Svg extends React.Component {
 Svg.propTypes = {
     name: React.PropTypes.oneOf(Object.keys(images)).isRequired
 };
+
+export default Svg;

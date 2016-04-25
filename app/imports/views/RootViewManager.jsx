@@ -16,7 +16,7 @@ import AppContainer from '/imports/views/root/AppContainer';
 const app = createApp();
 TouchstoneApp.set(app.getChildContext().app);
 
-export default class RootViewManager extends React.Component {
+const RootViewManager = class RootViewManager extends React.Component {
     componentDidMount() {
         if (navigator.splashscreen) {
             navigator.splashscreen.hide();
@@ -47,3 +47,5 @@ RootViewManager.childContextTypes = {
 };
 
 ReactMixin(RootViewManager.prototype, app);
+
+export default RootViewManager;

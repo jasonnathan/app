@@ -7,7 +7,7 @@ import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import Button from '/imports/components/Button';
 
-export default class LoginChoice extends React.Component {
+const LoginChoice = class LoginChoice extends React.Component {
     render() {
         return (
             <div className={c('pa-LoginChoice')}>
@@ -19,10 +19,12 @@ export default class LoginChoice extends React.Component {
             </div>
         );
     }
-}
+};
 
 LoginChoice.propTypes = {
     onEmail: React.PropTypes.func.isRequired,
     onFacebook: React.PropTypes.func.isRequired,
     onLinkedIn: React.PropTypes.func.isRequired
 };
+
+export default LoginChoice;

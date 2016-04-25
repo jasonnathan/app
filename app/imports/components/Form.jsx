@@ -3,7 +3,7 @@
 import React from 'react';
 import c from 'classnames';
 
-export default class Form extends React.Component {
+const Form = class Form extends React.Component {
     render() {
         return (
             <form className={c('pa-Form')} onSubmit={this.onSubmit.bind(this)}>
@@ -19,7 +19,7 @@ export default class Form extends React.Component {
             this.props.onSubmit(event);
         }
     }
-}
+};
 
 Form.propTypes = {
     onSubmit: React.PropTypes.func
@@ -42,3 +42,5 @@ Form.Footer.Action = class FormFooterAction extends React.Component {
         return <div className="pa-Form__footer__action">{this.props.children}</div>;
     }
 };
+
+export default Form;

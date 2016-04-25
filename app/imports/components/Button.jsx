@@ -5,7 +5,7 @@ import c from 'classnames';
 
 import Spinner from '/imports/components/Spinner';
 
-export default class Button extends React.Component {
+const Button = class Button extends React.Component {
     render() {
         const className = c('pa-Button', {
             'pa-Button--text': this.props.text,
@@ -37,7 +37,7 @@ export default class Button extends React.Component {
             this.props.onClick(event);
         }
     }
-}
+};
 
 Button.propTypes = {
     onClick: React.PropTypes.func,
@@ -55,3 +55,5 @@ Button.defaultProps = {
     formNoValidate: false,
     loading: false
 };
+
+export default Button;

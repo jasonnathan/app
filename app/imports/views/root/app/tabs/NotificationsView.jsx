@@ -8,7 +8,7 @@ import Content from '/imports/components/Content';
 import Paragraph from '/imports/components/Paragraph';
 import Button from '/imports/components/Button';
 
-export default class NotificationsView extends React.Component {
+const NotificationsView = class NotificationsView extends React.Component {
     render() {
         return (
             <Content>
@@ -41,3 +41,5 @@ NotificationsView.getNavigation = () => {
         title: 'Notifications'
     };
 };
+
+export default NotificationsView;

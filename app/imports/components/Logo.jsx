@@ -6,7 +6,7 @@ import c from 'classnames';
 import Svg from '/imports/components/Svg';
 import Button from '/imports/components/Button';
 
-export default class Logo extends React.Component {
+const Logo = class Logo extends React.Component {
     render() {
         return (
             <div>
@@ -16,4 +16,6 @@ export default class Logo extends React.Component {
             </div>
         );
     }
-}
+};
+
+export default Logo;

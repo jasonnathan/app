@@ -6,7 +6,7 @@ import Content from '/imports/components/Content';
 import Paragraph from '/imports/components/Paragraph';
 import PartupModel from '/imports/models/PartupModel';
 
-export default class PartupsView extends React.Component {
+const PartupsView = class PartupsView extends React.Component {
     render() {
         return (
             <Content>
@@ -42,3 +42,5 @@ PartupsView.getNavigation = () => {
         title: 'Part-ups'
     };
 };
+
+export default PartupsView;

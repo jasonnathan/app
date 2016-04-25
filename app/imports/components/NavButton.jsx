@@ -5,7 +5,7 @@ import c from 'classnames';
 
 import Svg from '/imports/components/Svg';
 
-export default class NavButton extends React.Component {
+const NavButton = class NavButton extends React.Component {
     render() {
         return (
             <div className={c('pa-NavButton', {
@@ -31,7 +31,7 @@ export default class NavButton extends React.Component {
             <Svg key="svg" name={this.props.icon} />
         ];
     }
-}
+};
 
 NavButton.propTypes = {
     left: React.PropTypes.bool,
@@ -39,3 +39,5 @@ NavButton.propTypes = {
     icon: React.PropTypes.string,
     label: React.PropTypes.string
 };
+
+export default NavButton;

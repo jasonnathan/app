@@ -11,7 +11,7 @@ import PartupsContainer from './tabs/PartupsContainer';
 import TribesContainer from './tabs/TribesContainer';
 import Svg from '/imports/components/Svg';
 
-export default class TabsViewManager extends React.Component {
+const TabsViewManager = class TabsViewManager extends React.Component {
     constructor(props) {
         super(props);
 
@@ -74,3 +74,5 @@ export default class TabsViewManager extends React.Component {
 }
 
 TabsViewManager.lastSelectedTab = 'notifications';
+
+export default TabsViewManager;

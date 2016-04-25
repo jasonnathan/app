@@ -7,7 +7,7 @@ import { Container, UI, View, ViewManager } from 'touchstonejs';
 import TabsViewManager from './app/TabsViewManager';
 import NotificationContainer from './app/NotificationContainer';
 
-export default class AppViewManager extends React.Component {
+const AppViewManager = class AppViewManager extends React.Component {
     render() {
         return (
             <Container>
@@ -18,4 +18,6 @@ export default class AppViewManager extends React.Component {
             </Container>
         );
     }
-}
+};
+
+export default AppViewManager;

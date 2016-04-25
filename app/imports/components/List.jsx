@@ -3,7 +3,7 @@
 import React from 'react';
 import c from 'classnames';
 
-export default class List extends React.Component {
+const List = class List extends React.Component {
     render() {
         return (
             <ul className={c('pa-List', {
@@ -13,4 +13,6 @@ export default class List extends React.Component {
             </ul>
         );
     }
-}
+};
+
+export default List;

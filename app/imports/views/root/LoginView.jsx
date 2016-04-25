@@ -10,7 +10,7 @@ import Logo from '/imports/components/Logo';
 import LoginChoice from '/imports/components/LoginChoice';
 import SignupLink from '/imports/components/SignupLink';
 
-export default class LoginView extends React.Component {
+const LoginView = class LoginView extends React.Component {
     render() {
         return (
             <Container fill className={c('Container NoNavigationBar')}>
@@ -59,9 +59,11 @@ export default class LoginView extends React.Component {
             }
         });
     }
-}
+};
 
 LoginView.propTypes = {
     onLoginWithFacebook: React.PropTypes.func.isRequired,
     onLoginWithLinkedIn: React.PropTypes.func.isRequired
 };
+
+export default LoginView;

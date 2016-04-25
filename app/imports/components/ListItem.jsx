@@ -3,7 +3,7 @@
 import React from 'react';
 import c from 'classnames';
 
-export default class ListItem extends React.Component {
+const ListItem = class ListItem extends React.Component {
     render() {
         return (
             <li className={c('pa-ListItem')}>
@@ -11,4 +11,6 @@ export default class ListItem extends React.Component {
             </li>
         );
     }
-}
+};
+
+export default ListItem;

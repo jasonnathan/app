@@ -5,7 +5,7 @@ import React from 'react';
 import Content from '/imports/components/Content';
 import Paragraph from '/imports/components/Paragraph';
 
-export default class TribesView extends React.Component {
+const TribesView = class TribesView extends React.Component {
     render() {
         return (
             <Content>
@@ -25,3 +25,5 @@ TribesView.getNavigation = () => {
         title: 'Tribes'
     };
 };
+
+export default TribesView;

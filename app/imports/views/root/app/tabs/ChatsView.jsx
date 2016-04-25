@@ -8,7 +8,7 @@ import Content from '/imports/components/Content';
 import Button from '/imports/components/Button';
 import Paragraph from '/imports/components/Paragraph';
 
-export default class ChatsView extends React.Component {
+const ChatsView = class ChatsView extends React.Component {
     constructor(props) {
         super(props);
 
@@ -59,3 +59,5 @@ ChatsView.getNavigation = () => {
         title: 'Chat'
     };
 };
+
+export default ChatsView;
