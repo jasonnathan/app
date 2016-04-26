@@ -49,8 +49,7 @@ const NotificationView = class NotificationView extends React.Component {
                 <Container fill scrollable>
                     <Notification
                         notification={n}
-                        isDetail={true}
-                        onClick={() => {}} />
+                        isDetail={true} />
                     <PartupUpdateContentPreview />
                 </Container>
             </Container>

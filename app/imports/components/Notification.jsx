@@ -38,37 +38,52 @@ const Notification = class Notification extends React.Component {
         });
     }
 
-    onClick(event) {
-        event.preventDefault();
-        this.props.onClick();
-    }
-
     render() {
-        const {t, notification: n, isDetail} = this.props;
-        const {nowDate} = this.state;
+        const {notification: n, isDetail} = this.props;
+        const className = c('pa-Notification', {
+            'pa-Notification--new': !isDetail && n.new,
+            'pa-Notification--detail': isDetail,
+            'pa-Notification--clicked': !isDetail && n.clicked
+        });
+
+        if (this.props.onClick) {
+            return (
+                <a href="" onClick={(event) => {
+                    event.preventDefault();
+                    this.props.onClick();
+                }} className={className}>
+                    {this.renderContent()}
+                </a>
+            );
+        }
 
         return (
-            <a href="" onClick={this.onClick.bind(this)} className={c('pa-Notification', {
-                'pa-Notification--new': !isDetail && n.new,
-                'pa-Notification--detail': isDetail,
-                'pa-Notification--clicked': !isDetail && n.clicked
-            })}>
-                <div>
-                    <Avatar src={n.image && n.image.getUrl('360x360')} />
-                </div>
-                <div>
-                    <Heading>{n.getText(t)}</Heading>
-                    <Paragraph meta>{n.getMetaText(t, nowDate)}</Paragraph>
-                </div>
-            </a>
+            <div className={className}>
+                {this.renderContent()}
+            </div>
         );
+    }
+
+    renderContent() {
+        const {t, notification: n} = this.props;
+        const {nowDate} = this.state;
+
+        return [
+            <div key="avatar">
+                <Avatar src={n.image && n.image.getUrl('360x360')} />
+            </div>,
+            <div key="content">
+                <Heading>{n.getText(t)}</Heading>
+                <Paragraph meta>{n.getMetaText(t, nowDate)}</Paragraph>
+            </div>
+        ];
     }
 };
 
 Notification.propTypes = {
     notification: React.PropTypes.instanceOf(NotificationModel).isRequired,
     isDetail: React.PropTypes.bool,
-    onClick: React.PropTypes.func.isRequired
+    onClick: React.PropTypes.func
 };
 
 Notification.defaultProps = {
