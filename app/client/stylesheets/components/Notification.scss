@@ -1,4 +1,4 @@
-.pa-NotificationTile {
+.pa-Notification {
     display: block;
     position: relative;
     $padding-x: spacing(1.5);
@@ -23,6 +23,10 @@
     > div:last-child {
         padding-top: $padding-y-content - 5px; // 5px correction due to text
         padding-left: $avatar-width + 10px;
+
+        .pa-Heading {
+            margin-bottom: 1px;
+        }
     }
 
     // Orange dot
@@ -43,5 +47,12 @@
     // Opacity
     &--clicked {
         opacity: .5;
+    }
+
+    // Detail
+    &--detail {
+        .pa-Heading {
+            color: $color-brand-secondary;
+        }
     }
 }

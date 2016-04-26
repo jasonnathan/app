@@ -7,7 +7,7 @@ import { Container } from 'touchstonejs';
 import NotificationModel from '/imports/models/NotificationModel';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
-import NotificationTile from '/imports/components/NotificationTile';
+import Notification from '/imports/components/Notification';
 
 const NotificationsView = class NotificationsView extends React.Component {
     componentWillUnmount() {
@@ -29,7 +29,7 @@ const NotificationsView = class NotificationsView extends React.Component {
 
                         return (
                             <ListItem key={index}>
-                                <NotificationTile
+                                <Notification
                                     notification={notification}
                                     onClick={onNotificationClick} />
                             </ListItem>

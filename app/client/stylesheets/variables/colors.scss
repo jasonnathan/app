@@ -15,8 +15,11 @@ $color-text-on-button: white;
 $color-text-on-button-login: white;
 
 // Inputs
+$color-border: #eee;
+
+// Inputs
 $color-input-background: white;
-$color-input-border: #eee;
+$color-input-border: $color-border;
 
 // Buttons
 $color-button: #ffa725;

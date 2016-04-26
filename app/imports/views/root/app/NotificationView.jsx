@@ -6,9 +6,12 @@ import { translate } from 'react-i18next';
 
 import passPropsForTouchstone from '/imports/helpers/passPropsForTouchstone';
 import Debug from '/imports/Debug';
-import NavButton from '/imports/components/NavButton';
-import NotificationTile from '/imports/components/NotificationTile';
 import NotificationModel from '/imports/models/NotificationModel';
+import NavButton from '/imports/components/NavButton';
+import Notification from '/imports/components/Notification';
+import Paragraph from '/imports/components/Paragraph';
+import Content from '/imports/components/Content';
+import PartupUpdateContentPreview from '/imports/components/PartupUpdateContentPreview';
 
 const NotificationView = class NotificationView extends React.Component {
     constructor(props) {
@@ -42,10 +45,13 @@ const NotificationView = class NotificationView extends React.Component {
 
         return (
             <Container>
-                <UI.NavigationBar name="notification" className={"NavigationBar--detail"} />
+                <UI.NavigationBar name="notification" className="NavigationBar--detail" />
                 <Container fill scrollable>
-                    {/*TODO*/}
-                    <NotificationTile notification={n} onClick={() => {}} />
+                    <Notification
+                        notification={n}
+                        isDetail={true}
+                        onClick={() => {}} />
+                    <PartupUpdateContentPreview />
                 </Container>
             </Container>
         );
@@ -55,7 +61,7 @@ const NotificationView = class NotificationView extends React.Component {
 NotificationView.navigationBar = 'notification';
 NotificationView.getNavigation = (props, app) => {
     return {
-        leftLabel: <NavButton left icon="icon_back" />,
+        leftLabel: <NavButton left icon="icon_back" label="Notifications" />,
         leftAction: () => {
             app.transitionTo('app:tabs:notifications', {
                 transition: 'reveal-from-right'

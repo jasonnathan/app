@@ -9,9 +9,10 @@ import ImageModel from '/imports/models/ImageModel';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import Avatar from '/imports/components/Avatar';
+import Heading from '/imports/components/Heading';
 import Paragraph from '/imports/components/Paragraph';
 
-const NotificationTile = class NotificationTile extends React.Component {
+const Notification = class Notification extends React.Component {
     constructor(props) {
         super(props);
 
@@ -43,19 +44,20 @@ const NotificationTile = class NotificationTile extends React.Component {
     }
 
     render() {
-        const {t, notification: n} = this.props;
+        const {t, notification: n, isDetail} = this.props;
         const {nowDate} = this.state;
 
         return (
-            <a href="" onClick={this.onClick.bind(this)} className={c('pa-NotificationTile', {
-                'pa-NotificationTile--new': n.new,
-                'pa-NotificationTile--clicked': n.clicked
+            <a href="" onClick={this.onClick.bind(this)} className={c('pa-Notification', {
+                'pa-Notification--new': !isDetail && n.new,
+                'pa-Notification--detail': isDetail,
+                'pa-Notification--clicked': !isDetail && n.clicked
             })}>
                 <div>
                     <Avatar src={n.image && n.image.getUrl('360x360')} />
                 </div>
                 <div>
-                    <Paragraph><strong>{n.getText(t)}</strong></Paragraph>
+                    <Heading>{n.getText(t)}</Heading>
                     <Paragraph meta>{n.getMetaText(t, nowDate)}</Paragraph>
                 </div>
             </a>
@@ -63,9 +65,14 @@ const NotificationTile = class NotificationTile extends React.Component {
     }
 };
 
-NotificationTile.propTypes = {
+Notification.propTypes = {
     notification: React.PropTypes.instanceOf(NotificationModel).isRequired,
+    isDetail: React.PropTypes.bool,
     onClick: React.PropTypes.func.isRequired
 };
 
-export default translate()(NotificationTile);
+Notification.defaultProps = {
+    isDetail: false
+};
+
+export default translate()(Notification);
