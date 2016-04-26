@@ -5,9 +5,9 @@ import moment from 'moment';
 import { get } from 'mout/object';
 
 import Model from '/imports/classes/Model';
-import linkCollection from '/imports/helpers/linkCollection';
-import formatWebsiteUrl from '/imports/helpers/formatWebsiteUrl';
-import getWebsitePathFor from '/imports/helpers/getWebsitePathFor';
+import linkCollection from '/imports/services/linkCollection';
+import formatWebsiteUrl from '/imports/services/formatWebsiteUrl';
+import getWebsitePathFor from '/imports/services/getWebsitePathFor';
 import ImageModel from '/imports/models/ImageModel';
 
 export default class NotificationModel extends Model {

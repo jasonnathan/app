@@ -3,7 +3,7 @@
 import { Meteor } from 'meteor/meteor';
 import { toLookup } from 'mout/array';
 
-import meteorDataContainer from '/imports/helpers/meteorDataContainer';
+import meteorDataContainer from '/imports/services/meteorDataContainer';
 import NotificationsView from './NotificationsView';
 import Connection from '/imports/Connection';
 import NotificationModel from '/imports/models/NotificationModel';

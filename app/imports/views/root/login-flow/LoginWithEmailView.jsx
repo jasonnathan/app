@@ -4,7 +4,7 @@ import React from 'react';
 import { Container, UI, Link, ViewManager, View } from 'touchstonejs';
 import { isEmail, isLength } from 'validator';
 
-import transitionTo from '/imports/helpers/transitionTo';
+import transitionTo from '/imports/services/transitionTo';
 import Debug from '/imports/Debug';
 import NavButton from '/imports/components/NavButton';
 import Content from '/imports/components/Content';

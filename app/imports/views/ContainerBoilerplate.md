@@ -10,7 +10,7 @@ Create a container for every view you create. For example, **ProfileView.jsx** i
     'use strict';
 
     import { Meteor } from 'meteor/meteor';
-    import meteorDataContainer from '../../../../helpers/meteorDataContainer';
+    import meteorDataContainer from '../../../../services/meteorDataContainer';
 
     import MyView from './MyView';
 

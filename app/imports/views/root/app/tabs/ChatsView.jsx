@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import transitionTo from '/imports/helpers/transitionTo';
+import transitionTo from '/imports/services/transitionTo';
 import Debug from '/imports/Debug';
 import Content from '/imports/components/Content';
 import Button from '/imports/components/Button';

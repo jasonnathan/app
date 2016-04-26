@@ -4,7 +4,7 @@ import React from 'react';
 import { Container, UI } from 'touchstonejs';
 import { translate } from 'react-i18next';
 
-import passPropsForTouchstone from '/imports/helpers/passPropsForTouchstone';
+import passPropsForTouchstone from '/imports/services/passPropsForTouchstone';
 import Debug from '/imports/Debug';
 import NotificationModel from '/imports/models/NotificationModel';
 import NavButton from '/imports/components/NavButton';

@@ -4,7 +4,7 @@ import { AccountsClient } from 'meteor/accounts-base';
 
 import Connection from '/imports/Connection';
 import Model from '/imports/classes/Model';
-import linkCollection from '/imports/helpers/linkCollection';
+import linkCollection from '/imports/services/linkCollection';
 
 const accountsClient = new AccountsClient({
     connection: Connection

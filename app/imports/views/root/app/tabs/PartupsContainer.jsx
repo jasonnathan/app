@@ -4,8 +4,8 @@ import { Meteor } from 'meteor/meteor';
 import { HTTP } from 'meteor/http';
 import { encode as encodeQueryString } from 'mout/queryString';
 
-import meteorDataContainer from '/imports/helpers/meteorDataContainer';
-import asyncDataContainer from '/imports/helpers/asyncDataContainer';
+import meteorDataContainer from '/imports/services/meteorDataContainer';
+import asyncDataContainer from '/imports/services/asyncDataContainer';
 import PartupsView from './PartupsView';
 import Debug from '/imports/Debug';
 import UserModel from '/imports/models/UserModel';

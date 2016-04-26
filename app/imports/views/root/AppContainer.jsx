@@ -2,9 +2,9 @@
 
 import { Meteor } from 'meteor/meteor';
 
-import meteorDataContainer from '/imports/helpers/meteorDataContainer';
+import meteorDataContainer from '/imports/services/meteorDataContainer';
 import AppViewManager from '/imports/views/root/AppViewManager';
-import transitionTo from '/imports/helpers/transitionTo';
+import transitionTo from '/imports/services/transitionTo';
 import Debug from '/imports/Debug';
 
 export default meteorDataContainer(AppViewManager, (props) => {

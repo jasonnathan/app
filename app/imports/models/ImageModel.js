@@ -6,7 +6,7 @@ import { get } from 'mout/object';
 import { format as formatUrl } from 'url';
 
 import Model from '/imports/classes/Model';
-import linkCollection from '/imports/helpers/linkCollection';
+import linkCollection from '/imports/services/linkCollection';
 
 export default class ImageModel extends Model {
 

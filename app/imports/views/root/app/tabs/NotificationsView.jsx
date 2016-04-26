@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import transitionTo from '/imports/helpers/transitionTo';
+import transitionTo from '/imports/services/transitionTo';
 import { Container } from 'touchstonejs';
 import NotificationModel from '/imports/models/NotificationModel';
 import List from '/imports/components/List';

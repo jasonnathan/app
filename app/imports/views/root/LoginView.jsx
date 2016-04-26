@@ -4,7 +4,7 @@ import React from 'react';
 import { Container, Link } from 'touchstonejs';
 import c from 'classnames';
 
-import transitionTo from '/imports/helpers/transitionTo';
+import transitionTo from '/imports/services/transitionTo';
 import Debug from '/imports/Debug';
 import Logo from '/imports/components/Logo';
 import LoginChoice from '/imports/components/LoginChoice';

@@ -3,8 +3,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
-import meteorDataContainer from '/imports/helpers/meteorDataContainer';
-import transitionTo from '/imports/helpers/transitionTo';
+import meteorDataContainer from '/imports/services/meteorDataContainer';
+import transitionTo from '/imports/services/transitionTo';
 import LoginView from '/imports/views/root/LoginView';
 import Debug from '/imports/Debug';
 
