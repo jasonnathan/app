@@ -7,7 +7,7 @@ import NotificationView from './NotificationView';
 import Debug from '/imports/Debug';
 
 export default meteorDataContainer(NotificationView, (props) => {
-    const {} = props;
+    const {notification} = props;
     Debug.tracker('NotificationContainer');
 
     return {

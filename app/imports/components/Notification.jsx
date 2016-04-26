@@ -67,10 +67,11 @@ const Notification = class Notification extends React.Component {
     renderContent() {
         const {t, notification: n} = this.props;
         const {nowDate} = this.state;
+        const image = n.getImage();
 
         return [
             <div key="avatar">
-                <Avatar src={n.image && n.image.getUrl('360x360')} />
+                <Avatar src={image && image.getUrl('360x360')} />
             </div>,
             <div key="content">
                 <Heading>{n.getText(t)}</Heading>

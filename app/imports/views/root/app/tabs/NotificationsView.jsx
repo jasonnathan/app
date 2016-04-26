@@ -19,25 +19,30 @@ const NotificationsView = class NotificationsView extends React.Component {
             <Container scrollable fill>
                 <List notifications>
                     {this.props.notifications.map((notification, index) => {
-                        const onNotificationClick = () => {
-                            this.props.onNotificationClicked(notification._id);
-                            transitionTo('app:notification', {
-                                transition: 'show-from-right',
-                                viewProps: {notification}
-                            });
-                        };
-
                         return (
                             <ListItem key={index}>
                                 <Notification
                                     notification={notification}
-                                    onClick={onNotificationClick} />
+                                    onClick={() => this.onNotificationClick(notification)} />
                             </ListItem>
                         );
                     })}
                 </List>
             </Container>
         );
+    }
+
+    onNotificationClick(notification) {
+        this.props.onNotificationClicked(notification._id);
+
+        if (notification.hasUpdate()) {
+            transitionTo('app:notification', {
+                transition: 'show-from-right',
+                viewProps: {notification}
+            });
+        } else {
+            window.location = notification.getWebsiteUrl();
+        }
     }
 };
 
