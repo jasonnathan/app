@@ -1,0 +1,24 @@
+{
+  "name": "part-up-mobile-app",
+  "description": "The codebase setup is currently in progress. ---",
+  "scripts": {
+    "pull-translation": "node phraseapp.js --command pull --access_token f147fed12f3587d1c7df4bf919acf858aa73c9df723bc72b41ff38ba80b00389",
+    "push-translation": "node phraseapp.js --command push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/part-up/app.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/part-up/app/issues"
+  },
+  "homepage": "https://github.com/part-up/app#readme",
+  "devDependencies": {
+    "json2yaml": "^1.1.0",
+    "npm-build-tools": "^2.2.5",
+    "optimist": "^0.6.1",
+    "prettyjson": "^1.1.3",
+    "prompt": "^1.0.0"
+  }
+}

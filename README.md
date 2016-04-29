@@ -72,3 +72,22 @@ To add a cordova plugin:
     - Click on Alpha / Beta / Production.
     - Upload your new APK using the upload button.
     - After a few hours, the new version should be available to everyone.
+
+### Phraseapp translation
+```install Phraseapp CLI https://phraseapp.com/docs/developers/cli/installation/```
+
+```npm install```
+
+After all the node_modules deps are installed 
+run 
+
+``` npm run-script pull-translation ```
+
+or 
+
+
+``` npm run-script push-translation ```
+
+and follow the prompt instruction
+
+**ask [tlimpanont](http://github.com/tlimpanont) for the push & pull access_token** 

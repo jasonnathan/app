@@ -1,2 +1,4 @@
 output
 android-keystore
+node_modules
+.phraseapp.yml
