@@ -19,7 +19,7 @@ const TribesView = class TribesView extends React.Component {
 
 TribesView.propTypes = {};
 
-TribesView.navigationBar = 'tabs';
+TribesView.navigationBar = 'app';
 TribesView.getNavigation = () => {
     return {
         title: 'Tribes'

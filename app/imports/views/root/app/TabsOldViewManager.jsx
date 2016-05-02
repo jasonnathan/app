@@ -48,7 +48,6 @@ export default class TabsViewManager extends React.Component {
 
         return (
             <Container>
-                <UI.NavigationBar name="tabs" />
                 <ViewManager ref="vm" name="tabs" defaultView={selectedTab} onViewChange={this.onViewChange.bind(this)}>
                     <View name="lists" component={require('./tabs/lists')} />
                     <View name="form" component={require('./tabs/form')} />

@@ -43,7 +43,6 @@ const TabsViewManager = class TabsViewManager extends React.Component {
 
         return (
             <Container>
-                <UI.NavigationBar name="tabs" />
                 <ViewManager ref="vm" name="tabs" defaultView={this.state.selectedTab} onViewChange={this.onViewChange.bind(this)}>
                     <View name="notifications" component={NotificationsContainer} />
                     <View name="chat" component={ChatsContainer} />

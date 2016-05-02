@@ -9,7 +9,7 @@ const LoginFlowViewManager = class LoginFlowViewManager extends React.Component 
     render() {
         return (
             <Container>
-                <UI.NavigationBar name="login-flow" className={"NavigationBar--detail"} />
+                <UI.NavigationBar name="login-flow" />
                 <ViewManager name="login-flow" defaultView="login-with-email">
                     <View name="login-with-email" component={LoginWithEmailContainer} />
                 </ViewManager>

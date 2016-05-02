@@ -11,6 +11,7 @@ const AppViewManager = class AppViewManager extends React.Component {
     render() {
         return (
             <Container>
+                <UI.NavigationBar name="app" />
                 <ViewManager name="app" defaultView="tabs">
                     <View name="tabs" component={TabsViewManager} />
                     <View name="notification" component={NotificationContainer} />

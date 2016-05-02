@@ -52,7 +52,7 @@ NotificationsView.propTypes = {
     onNotificationClicked: React.PropTypes.func.isRequired
 };
 
-NotificationsView.navigationBar = 'tabs';
+NotificationsView.navigationBar = 'app';
 NotificationsView.getNavigation = () => {
     return {
         title: 'Notifications'

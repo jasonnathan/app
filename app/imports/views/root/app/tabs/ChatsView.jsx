@@ -53,7 +53,7 @@ ChatsView.propTypes = {
     onLogout: React.PropTypes.func.isRequired
 };
 
-ChatsView.navigationBar = 'tabs';
+ChatsView.navigationBar = 'app';
 ChatsView.getNavigation = () => {
     return {
         title: 'Chat'

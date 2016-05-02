@@ -46,23 +46,20 @@ const NotificationView = class NotificationView extends React.Component {
         const {nowDate} = this.state;
 
         return (
-            <Container fill>
-                <UI.NavigationBar name="notification" className="NavigationBar--detail" />
-                <Container fill scrollable>
-                    <Notification
-                        notification={n}
-                        isDetail={true} />
-                    {u && [
-                        <PartupUpdateContentPreview key="content" />,
-                        <PartupUpdateComments key="comments" partupUpdate={u} />
-                    ]}
-                </Container>
+            <Container fill scrollable>
+                <Notification
+                    notification={n}
+                    isDetail={true} />
+                {u && [
+                    <PartupUpdateContentPreview key="content" />,
+                    <PartupUpdateComments key="comments" partupUpdate={u} />
+                ]}
             </Container>
         );
     }
 };
 
-NotificationView.navigationBar = 'notification';
+NotificationView.navigationBar = 'app';
 NotificationView.getNavigation = (props, app) => {
     return {
         leftLabel: <NavButton left icon="icon_back" label="Notifications" />,

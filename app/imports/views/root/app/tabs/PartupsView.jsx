@@ -36,7 +36,7 @@ PartupsView.propTypes = {
     partnerPartups: React.PropTypes.arrayOf(React.PropTypes.instanceOf(PartupModel)).isRequired
 };
 
-PartupsView.navigationBar = 'tabs';
+PartupsView.navigationBar = 'app';
 PartupsView.getNavigation = () => {
     return {
         title: 'Part-ups'
