@@ -12,7 +12,7 @@ const PartupUpdateComments = class PartupUpdateComments extends React.Component 
     render() {
         return (
             <div className={c('pa-PartupUpdateComments')}>
-                <List>
+                <List partupUpdateComments>
                     {this.props.partupUpdate.comments.map((comment, index) => {
                         const author = PartupUpdateModel.getUserForComment(comment);
 

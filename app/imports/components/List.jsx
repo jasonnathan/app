@@ -8,12 +8,25 @@ const List = class List extends React.Component {
         return (
             <ul className={c('pa-List', {
                 'pa-List--buttons': this.props.buttons,
-                'pa-List--notifications': this.props.notifications
+                'pa-List--notifications': this.props.notifications,
+                'pa-List--partup-update-comments': this.props.partupUpdateComments
             })}>
                 {this.props.children}
             </ul>
         );
     }
+};
+
+List.propTypes = {
+    buttons: React.PropTypes.bool,
+    notifications: React.PropTypes.bool,
+    partupUpdateComments: React.PropTypes.bool
+};
+
+List.defaultProps = {
+    buttons: false,
+    notifications: false,
+    partupUpdateComments: false
 };
 
 export default List;

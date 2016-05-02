@@ -27,4 +27,8 @@
             }
         }
     }
+
+    &--partup-update-comments {
+        @include addSpacing(spacing(2));
+    }
 }
