@@ -46,7 +46,7 @@ const NotificationView = class NotificationView extends React.Component {
         const {nowDate} = this.state;
 
         return (
-            <Container>
+            <Container fill>
                 <UI.NavigationBar name="notification" className="NavigationBar--detail" />
                 <Container fill scrollable>
                     <Notification
