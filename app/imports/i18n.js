@@ -17,7 +17,7 @@ i18n
             suffix: '__'
         },
         backend: {
-            loadPath: 'locales/__lng__/__ns__.json'
+            loadPath: 'locales/__ns__.__lng__.i18n.json'
         },
         debug: false
     });
