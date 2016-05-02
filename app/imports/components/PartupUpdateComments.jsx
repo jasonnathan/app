@@ -3,19 +3,30 @@
 import React from 'react';
 import c from 'classnames';
 
-import Content from '/imports/components/Content';
-import Paragraph from '/imports/components/Paragraph';
 import PartupUpdateModel from '/imports/models/PartupUpdateModel';
+import List from '/imports/components/List';
+import ListItem from '/imports/components/ListItem';
+import PartupUpdateComment from '/imports/components/PartupUpdateComment';
 
 const PartupUpdateComments = class PartupUpdateComments extends React.Component {
     render() {
         return (
             <div className={c('pa-PartupUpdateComments')}>
-                <Content>
-                    <Content.Text>
-                        <Paragraph>{this.props.partupUpdate.comments_count}</Paragraph>
-                    </Content.Text>
-                </Content>
+                <List>
+                    {this.props.partupUpdate.comments.map((comment, index) => {
+                        const author = PartupUpdateModel.getUserForComment(comment);
+
+                        return (
+                            <ListItem key={index}>
+                                <PartupUpdateComment
+                                    type={comment.type}
+                                    author={author}
+                                    content={comment.content}
+                                    createdAt={comment.created_at} />
+                            </ListItem>
+                        );
+                    })}
+                </List>
             </div>
         );
     }
