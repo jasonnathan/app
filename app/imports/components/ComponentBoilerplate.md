@@ -11,7 +11,7 @@ Simple React component.
 
     import React from 'react';
 
-    export default class MyComponent extends React.Component {
+    const MyComponent = class MyComponent extends React.Component {
         render() {
             return <p></p>;
         }
@@ -24,3 +24,5 @@ Simple React component.
     MyComponent.defaultProps = {
         //
     };
+
+    export default MyComponent;
