@@ -54,7 +54,7 @@ const NotificationView = class NotificationView extends React.Component {
                         isDetail={true} />
                     {u && [
                         <PartupUpdateContentPreview key="content" />,
-                        <PartupUpdateComments key="comments"partupUpdate={u} />
+                        <PartupUpdateComments key="comments" partupUpdate={u} />
                     ]}
                 </Container>
             </Container>
