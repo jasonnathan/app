@@ -38,7 +38,7 @@ const NotificationsView = class NotificationsView extends React.Component {
         if (notification.hasUpdate()) {
             transitionTo('app:notification', {
                 transition: 'show-from-right',
-                viewProps: {notification}
+                viewProps: {notificationId: notification._id}
             });
         } else {
             window.location = notification.getWebsiteUrl();

@@ -13,9 +13,6 @@ export default meteorDataContainer(NotificationsView, (props) => {
     const {} = props;
     Debug.tracker('NotificationsContainer');
 
-    const notificationsHandle = Connection.subscribe('notifications.for_upper', 20);
-    const notificationsLoading = !notificationsHandle.ready();
-
     const notifications = NotificationModel.query()
         .search(m => m.searchForCurrentUser())
         .fetch();
@@ -30,7 +27,6 @@ export default meteorDataContainer(NotificationsView, (props) => {
 
     return {
         notifications,
-        notificationsLoading,
         onAllNotificationsRead,
         onNotificationClicked
     };
