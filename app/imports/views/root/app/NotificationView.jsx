@@ -73,7 +73,4 @@ NotificationView.propTypes = {
     notification: React.PropTypes.instanceOf(NotificationModel).isRequired
 };
 
-export default passPropsForTouchstone(
-    translate()(NotificationView),
-    NotificationView
-);
+export default NotificationView;
