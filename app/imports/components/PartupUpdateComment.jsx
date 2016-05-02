@@ -2,6 +2,7 @@
 
 import React from 'react';
 import c from 'classnames';
+import moment from 'moment';
 import { translate } from 'react-i18next';
 
 import Avatar from '/imports/components/Avatar';
@@ -18,13 +19,19 @@ const PartupUpdateComment = class PartupUpdateComment extends React.Component {
             //
         });
 
+        const readableCreatedAt = moment(createdAt).format('LLL');
+
         return (
             <section className={className}>
                 <div>
                     <Avatar src={avatarImage && avatarImage.getUrl('360x360')} />
                 </div>
                 <div>
-                    <Paragraph meta>{content}</Paragraph>
+                    <Paragraph>
+                        <strong>{author.profile.name}</strong>
+                        {content}
+                    </Paragraph>
+                    <Paragraph meta>{readableCreatedAt}</Paragraph>
                 </div>
             </section>
         );
