@@ -10,7 +10,9 @@ import PartupUpdateComment from '/imports/components/PartupUpdateComment';
 
 const PartupUpdateComments = class PartupUpdateComments extends React.Component {
     render() {
-        const comments = this.props.partupUpdate.comments || [];
+        const comments = (this.props.partupUpdate.comments || [])
+            .filter(comment => comment.type !== 'system');
+
         return (
             <div className={c('pa-PartupUpdateComments')}>
                 <List partupUpdateComments>
