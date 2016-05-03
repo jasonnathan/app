@@ -5,6 +5,7 @@ import c from 'classnames';
 import moment from 'moment';
 import { translate } from 'react-i18next';
 
+import formatDate from '/imports/services/formatDate';
 import Avatar from '/imports/components/Avatar';
 import Heading from '/imports/components/Heading';
 import Paragraph from '/imports/components/Paragraph';
@@ -19,7 +20,7 @@ const PartupUpdateComment = class PartupUpdateComment extends React.Component {
             //
         });
 
-        const readableCreatedAt = moment(createdAt).format('LLL');
+        const readableCreatedAt = formatDate.relativeWithThreshold(createdAt);
 
         return (
             <section className={className}>

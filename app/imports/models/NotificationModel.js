@@ -1,9 +1,9 @@
 'use strict';
 
 import { check } from 'meteor/check';
-import moment from 'moment';
 import { get } from 'mout/object';
 
+import formatDate from '/imports/services/formatDate';
 import Model from '/imports/classes/Model';
 import linkCollection from '/imports/services/linkCollection';
 import formatWebsiteUrl from '/imports/services/formatWebsiteUrl';
@@ -152,17 +152,7 @@ export default class NotificationModel extends Model {
         check(nowDate, Date);
 
         let metaText = [];
-
-        const RELATIVE_TIME_THRESHOLD = 7 * 24 * 60 * 60 * 1000; // <-- 1 week
-        const notificationMoment = moment(this.created_at);
-        const nowMoment = moment(nowDate);
-        if (nowMoment.diff(notificationMoment) < RELATIVE_TIME_THRESHOLD) { // <-- less than 1 week ago
-            metaText.push(notificationMoment.fromNow(true));
-        } else if (notificationMoment.year() === nowMoment.year()) { // <-- less than a year ago
-            metaText.push(notificationMoment.format('dd, MMMM D [at] h:mm A'));
-        } else { // <-- more than a year ago
-            metaText.push(notificationMoment.format('MMMM D YYYY [at] h:mm A'));
-        }
+        metaText.push(formatDate.relativeWithThreshold(this.created_at, nowDate));
 
         const location = ({
             'partups_networks_accepted':                     () => undefined,
