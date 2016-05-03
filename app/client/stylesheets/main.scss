@@ -21,6 +21,7 @@
 
 // Views
 @import "client/stylesheets/views/root-view.scss";
+@import "client/stylesheets/views/root/app/notification-view.scss";
 @import "client/stylesheets/views/root/login-flow/login-view.scss";
 
 // Components
@@ -33,11 +34,11 @@
 @import "client/stylesheets/components/List.scss";
 @import "client/stylesheets/components/ListItem.scss";
 @import "client/stylesheets/components/Logo.scss";
+@import "client/stylesheets/components/MessageForm.scss";
 @import "client/stylesheets/components/NavButton.scss";
 @import "client/stylesheets/components/Notification.scss";
 @import "client/stylesheets/components/Paragraph.scss";
 @import "client/stylesheets/components/PartupUpdateComment.scss";
-@import "client/stylesheets/components/PartupUpdateComments.scss";
-@import "client/stylesheets/components/PartupUpdateContentPreview.scss";
+@import "client/stylesheets/components/PartupUpdateContent.scss";
 @import "client/stylesheets/components/SignupLink.scss";
 @import "client/stylesheets/components/Svg.scss";

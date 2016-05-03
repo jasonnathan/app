@@ -53,10 +53,9 @@
 
     &--text {
         background-color: transparent;
-        color: $color-button-text;
+        color: $color-button;
         font-size: 14px;
-        padding-left: 0;
-        padding-right: 0;
+        padding: 10px 0 13px 0;
     }
 
     &--loading {

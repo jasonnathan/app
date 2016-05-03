@@ -6,10 +6,10 @@ import c from 'classnames';
 import Content from '/imports/components/Content';
 import Paragraph from '/imports/components/Paragraph';
 
-const PartupUpdateContentPreview = class PartupUpdateContentPreview extends React.Component {
+const PartupUpdateContent = class PartupUpdateContent extends React.Component {
     render() {
         return (
-            <div className={c('pa-PartupUpdateContentPreview')}>
+            <div className={c('pa-PartupUpdateContent')}>
                 <Content>
                     <Content.Text>
                         <Paragraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pretium pretium tempor. Ut eget imperdiet neque. In volutpat ante semper diam molestie, et aliquam erat laoreet.</Paragraph>
@@ -20,12 +20,8 @@ const PartupUpdateContentPreview = class PartupUpdateContentPreview extends Reac
     }
 };
 
-PartupUpdateContentPreview.propTypes = {
-    //
+PartupUpdateContent.propTypes = {
+    update: React.PropTypes.object.isRequired
 };
 
-PartupUpdateContentPreview.defaultProps = {
-    //
-};
-
-export default PartupUpdateContentPreview;
+export default PartupUpdateContent;

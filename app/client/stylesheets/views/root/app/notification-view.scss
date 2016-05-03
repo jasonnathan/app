@@ -1,0 +1,29 @@
+.View--notification {
+    $spacing-x: spacing(1.5);
+    $spacing-y: spacing(2);
+
+    .pa-Notification {
+        margin: $spacing-y $spacing-x;
+    }
+
+    .pa-PartupUpdateContent {
+        border-bottom: 2px solid $color-border;
+
+        .pa-Content {
+            margin-top: 0;
+            margin-bottom: $spacing-y - 7px;
+        }
+    }
+
+    .pa-List--partup-update-comments {
+        $negative-spacing-for-list: - (spacing(2) / 2);
+        margin: ($spacing-y + $negative-spacing-for-list) ($spacing-x + $negative-spacing-for-list);
+    }
+
+    .pa-MessageForm {
+        padding-top: 0;
+        padding-bottom: $spacing-y;
+        padding-left: $spacing-x;
+        padding-right: $spacing-x;
+    }
+}

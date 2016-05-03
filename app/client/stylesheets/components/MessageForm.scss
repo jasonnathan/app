@@ -1,0 +1,17 @@
+.pa-MessageForm {
+    display: table;
+
+    .pa-Input,
+    .pa-Button {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    .pa-Input {
+        width: 100%;
+    }
+
+    .pa-Button {
+        margin-left: spacing(1.5);
+    }
+}
