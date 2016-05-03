@@ -50,37 +50,50 @@ The subject contains succinct description of the change:
 
 ### Stack
 - React (JSX syntax) as rendering library
-- React Router as client-side router
+- TouchstoneJS as library for app elements with native look-and-feel
 - ES2015 (Meteor's implementation of it)
-- Sass
+- Sass (SCSS syntax)
 
 ### Directory structure
     ├── client
-    │   ├── link.jsx
-    │   ├── main.html
     │   └── stylesheets
-    │       ├── components
-    │       │   ├── body.sass
-    │       │   └── partups.sass
-    │       ├── main.scss
-    │       ├── reset.css -> ../../node_modules/reset.css/reset.css
-    │       └── variables
-    │           └── colors.sass
+    │   |   ├── components
+    │   |   │   ├── Avatar.scss
+    │   |   │   ├── Button.scss
+    |   |   |   └── (...)
+    │   |   ├── variables
+    │   |   |   ├── colors.scss
+    |   |   |   └── (...)
+    |   |   └── main.scss
+    │   ├── link.jsx
+    │   └── main.html
     ├── imports
-    │   ├── Api.js
-    │   ├── Debug.js
-    │   ├── Router.jsx
     │   ├── classes
     │   │   ├── Model.js
-    │   │   └── QueryBuilder.js
+    │   │   ├── QueryBuilder.js
+    |   |   └── (...)
     │   ├── components
-    │   │   └── Partups.jsx
-    │   ├── containers
-    │   │   └── PartupsContainer.jsx
-    │   ├── helpers
+    │   │   ├── Partups.jsx
+    |   |   └── (...)
+    │   ├── models
+    │   |   ├── PartupModel.js
+    │   |   ├── UserModel.js
+    |   |   └── (...)
+    │   ├── services
     │   │   ├── classNames.js
-    │   │   └── linkCollection.js
-    │   └── models
-    │       ├── PartupModel.js
-    │       └── UserModel.js
+    │   │   ├── linkCollection.js
+    |   |   └── (...)
+    │   ├── views
+    │   |   ├── root
+    │   |   |   ├── app
+    |   |   |   |   ├── TabsViewManager.jsx
+    |   |   |   |   └── (...)
+    |   |   |   ├── AppContainer.jsx
+    |   |   |   ├── AppViewManager.jsx
+    |   |   |   └── (...)
+    │   │   ├── RootViewManager.jsx
+    |   |   └── (...)
+    │   ├── Connection.js
+    │   ├── Debug.js
+    │   └── (...)
     └── package.json
