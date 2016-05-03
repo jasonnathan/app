@@ -3,10 +3,10 @@
     position: relative;
     border: 2px solid $color-border;
     border-radius: 4px;
-    padding: 18px 21px;
+    //padding: 18px 21px;
 
     &__UserDetails {
-        margin-bottom: 18px;
+        padding: 17px 21px;
 
         .pa-Avatar {
             position: absolute;
@@ -34,21 +34,12 @@
     &__LogoutButton {
         width: 100%;
         padding-top: 20px;
+        padding: 20px 21px;
+        border-top: 1px solid $color-border;
 
         button {
             width: 100%;
             text-align: center;
         }
-    }
-
-    &:after {
-        content: '';
-        position: absolute;
-        z-index: 1;
-        bottom: 82px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: $color-border;
     }
 }
