@@ -10,10 +10,11 @@ import PartupUpdateComment from '/imports/components/PartupUpdateComment';
 
 const PartupUpdateComments = class PartupUpdateComments extends React.Component {
     render() {
+        const comments = this.props.partupUpdate.comments || [];
         return (
             <div className={c('pa-PartupUpdateComments')}>
                 <List partupUpdateComments>
-                    {this.props.partupUpdate.comments.map((comment, index) => {
+                    {comments.map((comment, index) => {
                         const author = PartupUpdateModel.getUserForComment(comment);
 
                         return (
