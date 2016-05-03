@@ -1,0 +1,32 @@
+.pa-Stat {
+    font-weight: bold;
+    position: relative;
+
+    &:before {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+        width: 100%;
+        height: 2px;
+        background: $color-brand;
+    }
+
+    &__number {
+        display: inline;
+        position: relative;
+        z-index: 2;
+        padding-right: 9px;
+        background-color: $color-background;
+        font-size: 16px;
+    }
+
+    &__label {
+        display: block;
+        font-size: 12px;
+        color: $color-text-meta;
+        letter-spacing: 0px;
+        line-height: 12px;
+    }
+
+}

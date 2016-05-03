@@ -26,6 +26,7 @@ const Avatar = class Avatar extends React.Component {
             })} style={{
                 backgroundImage: this.props.src && `url('${this.props.src}')`
             }}>
+                <span className="pa-Avatar__score">89</span>
             </figure>
         );
     }
