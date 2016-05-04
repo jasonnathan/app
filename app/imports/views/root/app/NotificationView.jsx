@@ -71,7 +71,7 @@ const NotificationView = class NotificationView extends React.Component {
                 <Notification
                     notification={notification}
                     isDetail={true} />
-                {update &&
+                {update && [
                     <PartupUpdateContent key="updatecontent" update={update} />,
                     <div key="comments" className="View--notification__comments" ref="comments">
                         {this.renderComments()}
