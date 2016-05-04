@@ -12,7 +12,9 @@ const Button = class Button extends React.Component {
             'pa-Button--loading': this.props.loading,
             'pa-Button--login': this.props.login,
             'pa-Button--login--facebook': this.props.loginFacebook,
-            'pa-Button--login--linkedin': this.props.loginLinkedIn
+            'pa-Button--login--linkedin': this.props.loginLinkedIn,
+            'pa-Button--switch': this.props.switch,
+            'pa-Button--switch--active': this.props.switchActive
         });
 
         const dynamicProps = {};
