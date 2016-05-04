@@ -44,8 +44,8 @@ const Input = {
         onBlur() {
             window.removeEventListener('keyboardDidShow', this.scrollIntoView);
 
-            if (this.props.onFocus) {
-                this.props.onFocus(event);
+            if (this.props.onBlur) {
+                this.props.onBlur(event);
             }
         }
 

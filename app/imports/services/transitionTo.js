@@ -1,11 +1,11 @@
 'use strict';
 
-import { Meteor } from 'meteor/meteor';
+import { defer } from 'lodash';
 
 import TouchstoneApp from '/imports/TouchstoneApp';
 
 const transitionTo = (destination, options) => {
-    Meteor.defer(() => {
+    defer(() => {
         TouchstoneApp.get().transitionTo(destination, options);
     });
 };
