@@ -48,17 +48,19 @@ const NotificationView = class NotificationView extends React.Component {
         const {nowDate} = this.state;
 
         return (
-            <Container fill scrollable>
+            <Container fill>
                 <Notification
                     notification={notification}
                     isDetail={true} />
-                {update &&
-                    <div>
-                        <PartupUpdateContent update={update} />
+                {update && [
+                    <PartupUpdateContent key="updatecontent" update={update} />,
+                    <div key="comments" className="View--notification__comments">
                         {this.renderComments()}
-                        <MessageForm key="commentinput" onSend={this.onCommentSend.bind(this)} />
+                    </div>,
+                    <div key="commentinput" className="View--notification__commentinput">
+                        <MessageForm onSend={this.onCommentSend.bind(this)} />
                     </div>
-                }
+                ]}
             </Container>
         );
     }
