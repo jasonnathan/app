@@ -18,10 +18,15 @@
     .pa-Paragraph {
         display: table-cell;
         vertical-align: middle;
+        padding-left: 12px;
+
     }
 
     &__Stats {
         display: table-cell;
         vertical-align: middle;
+        text-align: right;
+        font-weight: 700;
+        color: $color-brand-secondary;
     }
 }

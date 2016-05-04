@@ -25,9 +25,9 @@ PartupTile.Image = class PartupTileImage extends React.Component {
 PartupTile.Stats = class PartupTileStats extends React.Component {
     render() {
         return (
-            <section className="pa-PartupTile__Stats">
+            <span className="pa-PartupTile__Stats">
                 {this.props.children}
-            </section>
+            </span>
         );
     }
 };
