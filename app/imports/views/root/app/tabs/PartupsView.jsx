@@ -17,7 +17,7 @@ const PartupsView = class PartupsView extends React.Component {
             <div>
                 <ButtonGroup>
                     <Button switch>Partners</Button>
-                    <Button switch switchActive>Supporters</Button>
+                    <Button switch>Supporters</Button>
                 </ButtonGroup>
                 <List>
                     <ListItem>
