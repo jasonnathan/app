@@ -25,7 +25,18 @@
     }
 
     .pa-PartupUpdateContent {
-        border-bottom: 2px solid $color-border;
+        position: relative;
+
+        &::after {
+            content: '';
+            display: block;
+            height: 2px;
+            position: absolute;
+            width: 100%;
+            top: 100%;
+            z-index: 1;
+            background-color: $color-border-transparent;
+        }
 
         .pa-Content {
             margin-top: 0;
@@ -38,11 +49,30 @@
     }
 
     .View--notification__commentinput {
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 100%;
+            width: 100%;
+            height: spacing(1.5);
+            $transparent: rgba(249, 249, 249, 0); // due to a Safari bug, this can't just be "transparent"
+            background: linear-gradient(to bottom, $transparent 0%, $color-notification-comments-background 100%);
+            z-index: 1;
+        }
+
         .pa-MessageForm {
             margin-top: 0;
             margin-bottom: $spacing-x;
             margin-left: $spacing-x;
             margin-right: $spacing-x;
         }
+    }
+
+    .View--notification__comments,
+    .View--notification__commentinput {
+        background-color: $color-notification-comments-background;
     }
 }

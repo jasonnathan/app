@@ -14,8 +14,9 @@ $color-text-on-navigation-bar: white;
 $color-text-on-button: white;
 $color-text-on-button-login: white;
 
-// Inputs
+// Border
 $color-border: #eee;
+$color-border-transparent: rgba(black, .03);
 
 // Inputs
 $color-input-background: white;
@@ -39,3 +40,4 @@ $color-tabs-navigation-bar-text-active: $color-brand;
 $color-background: white;
 $color-cover-background: $color-brand;
 $color-avatar-placeholder: #eee;
+$color-notification-comments-background: #f9f9f9;
