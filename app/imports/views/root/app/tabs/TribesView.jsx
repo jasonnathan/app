@@ -4,8 +4,6 @@ import React from 'react';
 
 import Content from '/imports/components/Content';
 import Paragraph from '/imports/components/Paragraph';
-import ButtonGroup from '/imports/components/ButtonGroup';
-import Button from '/imports/components/Button';
 import Tile from '/imports/components/Tile';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
@@ -14,21 +12,15 @@ const TribesView = class TribesView extends React.Component {
     render() {
         return (
             <div>
-
-                <ButtonGroup>
-                    <Button switch>Partners</Button>
-                    <Button switch switchActive>Supporters</Button>
-                </ButtonGroup>
-
                 <List>
                     <ListItem>
                         <Tile>
                             <Tile.Image
-                                src="http://media02.hongkiat.com/ww-flower-wallpapers/roundflower.jpg"
-                                alt="Flower">
+                                src="http://www.cssdesignawards.com/cdasites/2014/201411/20141114011332.jpg"
+                                alt="Lifely">
                             </Tile.Image>
                             <Paragraph>
-                                Develop UX/design for Part-up apps
+                                Lifely
                             </Paragraph>
                             <Tile.Stats>
                                 17
@@ -38,11 +30,11 @@ const TribesView = class TribesView extends React.Component {
                     <ListItem>
                         <Tile>
                             <Tile.Image
-                                src="https://www.allaboutbirds.org/guide/bbimages/aab/images/blue-winged-warbler.jpg"
-                                alt="Bird">
+                                src="https://startupjuncture.com/wp-content/uploads/2015/04/Partup_logo2.png"
+                                alt="Part-up">
                             </Tile.Image>
                             <Paragraph>
-                                Tribes: the next level
+                                Part-up
                             </Paragraph>
                         </Tile>
                     </ListItem>
