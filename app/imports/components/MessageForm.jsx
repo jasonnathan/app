@@ -10,7 +10,7 @@ const MessageForm = class MessageForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.onSubmit.bind(this)} className={c('pa-MessageForm')}>
-                <Input.Text />
+                <Input.Text onFocus={this.props.onFocus.bind(this)} onBlur={this.props.onBlur.bind(this)} />
                 <Button submit text>Send</Button>
             </form>
         );
@@ -20,12 +20,14 @@ const MessageForm = class MessageForm extends React.Component {
         event.preventDefault();
         const form = event.target.elements;
 
-        console.log(form);
+        // todo
     }
 };
 
 MessageForm.propTypes = {
-    onSend: React.PropTypes.func.isRequired
+    onSend: React.PropTypes.func.isRequired,
+    onFocus: React.PropTypes.func,
+    onBlur: React.PropTypes.func
 };
 
 export default MessageForm;

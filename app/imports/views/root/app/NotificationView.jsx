@@ -5,6 +5,7 @@ import { check, Match } from 'meteor/check';
 import { Container, UI } from 'touchstonejs';
 import { translate } from 'react-i18next';
 import { defer } from 'lodash';
+import c from 'classnames';
 
 import passPropsForTouchstone from '/imports/services/passPropsForTouchstone';
 import Debug from '/imports/Debug';
@@ -25,7 +26,8 @@ const NotificationView = class NotificationView extends React.Component {
         super(props);
 
         this.state = {
-            nowDate: new Date()
+            nowDate: new Date(),
+            messageBoxFocussed: false
         };
 
         this.reversedScroller = new ReversedScroller();
@@ -60,24 +62,37 @@ const NotificationView = class NotificationView extends React.Component {
 
     render() {
         const {t, notification: notification, coupledPartupUpdate: update} = this.props;
-        const {nowDate} = this.state;
+        const {nowDate, messageBoxFocussed} = this.state;
 
         return (
-            <Container fill>
+            <Container fill className={c({
+                'View--notification--collapse': messageBoxFocussed
+            })}>
                 <Notification
                     notification={notification}
                     isDetail={true} />
-                {update && [
+                {update &&
                     <PartupUpdateContent key="updatecontent" update={update} />,
                     <div key="comments" className="View--notification__comments" ref="comments">
                         {this.renderComments()}
                     </div>,
                     <div key="commentinput" className="View--notification__commentinput">
-                        <MessageForm onSend={this.onCommentSend.bind(this)} />
+                        <MessageForm
+                            onSend={this.onCommentSend.bind(this)}
+                            onFocus={this.onMessageBoxFocus.bind(this)}
+                            onBlur={this.onMessageBoxBlur.bind(this)} />
                     </div>
                 ]}
             </Container>
         );
+    }
+
+    onMessageBoxFocus() {
+        this.setState({messageBoxFocussed: true});
+    }
+
+    onMessageBoxBlur() {
+        this.setState({messageBoxFocussed: false});
     }
 
     onCommentSend(comment) {

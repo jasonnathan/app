@@ -75,4 +75,11 @@
     .View--notification__commentinput {
         background-color: $color-notification-comments-background;
     }
+
+    .View--notification--collapse {
+        .pa-Notification,
+        .pa-PartupUpdateContent {
+            display: none;
+        }
+    }
 }
