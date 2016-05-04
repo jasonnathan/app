@@ -2,39 +2,39 @@
 
 import React from 'react';
 
-const PartupTile = class PartupTile extends React.Component {
+const Tile = class Tile extends React.Component {
     render() {
         return (
-            <div className="pa-PartupTile">
+            <div className="pa-Tile">
                 {this.props.children}
             </div>
         );
     }
 };
 
-PartupTile.Image = class PartupTileImage extends React.Component {
+Tile.Image = class TileImage extends React.Component {
     render() {
         return (
-            <figure className="pa-PartupTile__Image" style={{
+            <figure className="pa-Tile__Image" style={{
                 backgroundImage: this.props.src && `url('${this.props.src}')`}}>
             </figure>
         );
     }
 };
 
-PartupTile.Stats = class PartupTileStats extends React.Component {
+Tile.Stats = class TileStats extends React.Component {
     render() {
         return (
-            <span className="pa-PartupTile__Stats">
+            <span className="pa-Tile__Stats">
                 {this.props.children}
             </span>
         );
     }
 };
 
-PartupTile.Image.propTypes = {
+Tile.Image.propTypes = {
     src: React.PropTypes.string,
     alt: React.PropTypes.string
 };
 
-export default PartupTile;
+export default Tile;
