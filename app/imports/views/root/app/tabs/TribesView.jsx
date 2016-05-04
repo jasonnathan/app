@@ -6,7 +6,7 @@ import Content from '/imports/components/Content';
 import Paragraph from '/imports/components/Paragraph';
 import ButtonGroup from '/imports/components/ButtonGroup';
 import Button from '/imports/components/Button';
-import PartupTile from '/imports/components/PartupTile';
+import Tile from '/imports/components/Tile';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 
@@ -22,29 +22,29 @@ const TribesView = class TribesView extends React.Component {
 
                 <List>
                     <ListItem>
-                        <PartupTile>
-                            <PartupTile.Image
+                        <Tile>
+                            <Tile.Image
                                 src="http://media02.hongkiat.com/ww-flower-wallpapers/roundflower.jpg"
                                 alt="Flower">
-                            </PartupTile.Image>
+                            </Tile.Image>
                             <Paragraph>
                                 Develop UX/design for Part-up apps
                             </Paragraph>
-                            <PartupTile.Stats>
+                            <Tile.Stats>
                                 17
-                            </PartupTile.Stats>
-                        </PartupTile>
+                            </Tile.Stats>
+                        </Tile>
                     </ListItem>
                     <ListItem>
-                        <PartupTile>
-                            <PartupTile.Image
+                        <Tile>
+                            <Tile.Image
                                 src="https://www.allaboutbirds.org/guide/bbimages/aab/images/blue-winged-warbler.jpg"
                                 alt="Bird">
-                            </PartupTile.Image>
+                            </Tile.Image>
                             <Paragraph>
                                 Tribes: the next level
                             </Paragraph>
-                        </PartupTile>
+                        </Tile>
                     </ListItem>
                 </List>
 
