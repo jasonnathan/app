@@ -4,9 +4,9 @@
     position: relative;
     background-color: $color-tabs-navigation-bar;
 
-    &:after {
-        content: '';
-        width: 50%;
+    &__active-state {
+        display: block;
+        width: 50%; // <-- to be overwritten by JavaScript depending on the amount of Buttons in ButtonGroup
         height: 100%;
         background-color: #fff;
         color: $color-text;
@@ -14,5 +14,6 @@
         position: absolute;
         top: 0;
         left: 0;
+        transition: transform $duration-appear;
     }
 }

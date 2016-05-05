@@ -24,6 +24,7 @@ const PartupsView = class PartupsView extends React.Component {
                     {key: 'partners', label: <span>Partners</span>},
                     {key: 'supporters', label: <span>Supporters</span>}
                 ]} activeTab={this.state.currentTab} onClick={this.onTabClick.bind(this)} />
+
                 <List>
                     <ListItem>
                         <Tile

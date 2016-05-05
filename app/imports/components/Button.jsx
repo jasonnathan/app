@@ -7,24 +7,27 @@ import Spinner from '/imports/components/Spinner';
 
 const Button = class Button extends React.Component {
     render() {
+        const p = this.props;
+
         const className = c('pa-Button', {
-            'pa-Button--text': this.props.text,
-            'pa-Button--loading': this.props.loading,
-            'pa-Button--login': this.props.login,
-            'pa-Button--login--facebook': this.props.loginFacebook,
-            'pa-Button--login--linkedin': this.props.loginLinkedIn,
-            'pa-Button--switch': this.props.switch,
-            'pa-Button--switch--active': this.props.switchActive
+            'pa-Button--text': p.text,
+            'pa-Button--loading': p.loading,
+            'pa-Button--login': p.login,
+            'pa-Button--login--facebook': p.loginFacebook,
+            'pa-Button--login--linkedin': p.loginLinkedIn,
+            'pa-Button--switch': p.switch,
+            'pa-Button--switch--active': p.switchActive
         });
 
         const dynamicProps = {};
-        !this.props.submit && (dynamicProps.type = 'button');
-        this.props.disabled && (dynamicProps.disabled = 'disabled');
-        this.props.formNoValidate && (dynamicProps.formNoValidate = 'formNoValidate');
+        if (!p.submit) { dynamicProps.type = 'button'; }
+        if (p.disabled) { dynamicProps.disabled = 'disabled'; }
+        if (p.formNoValidate) { dynamicProps.formNoValidate = 'formNoValidate'; }
+        if (p.style) { dynamicProps.style = p.style; }
 
         return (
             <button {...dynamicProps} className={className} onClick={this.onClick.bind(this)}>
-                {this.props.children}
+                {p.children}
                 <Spinner button />
             </button>
         );
@@ -49,17 +52,8 @@ Button.propTypes = {
     formNoValidate: React.PropTypes.bool,
     loading: React.PropTypes.bool,
     switch: React.PropTypes.bool,
-    switchActive: React.PropTypes.bool
-};
-
-Button.defaultProps = {
-    submit: false,
-    text: false,
-    disabled: false,
-    formNoValidate: false,
-    loading: false,
-    switch: false,
-    switchActive: false
+    switchActive: React.PropTypes.bool,
+    style: React.PropTypes.object
 };
 
 export default Button;
