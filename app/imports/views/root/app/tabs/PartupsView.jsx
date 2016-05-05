@@ -5,19 +5,25 @@ import React from 'react';
 import Content from '/imports/components/Content';
 import PartupModel from '/imports/models/PartupModel';
 import ButtonGroup from '/imports/components/ButtonGroup';
-import Button from '/imports/components/Button';
 import Tile from '/imports/components/Tile';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 
 const PartupsView = class PartupsView extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            currentTab: 'partners'
+        };
+    }
     render() {
         return (
             <div>
-                <ButtonGroup>
-                    <Button switch>Partners</Button>
-                    <Button switch>Supporters</Button>
-                </ButtonGroup>
+                <ButtonGroup buttons={[
+                    {key: 'partners', label: <span>Partners</span>},
+                    {key: 'supporters', label: <span>Supporters</span>}
+                ]} activeTab={this.state.currentTab} onClick={this.onTabClick.bind(this)} />
                 <List>
                     <ListItem>
                         <Tile
@@ -31,9 +37,14 @@ const PartupsView = class PartupsView extends React.Component {
                             label="Tribes: the next level" />
                     </ListItem>
                 </List>
-
             </div>
         );
+    }
+
+    onTabClick(tab) {
+        this.setState({currentTab: tab});
+        console.log(tab);
+    }
         // return (
         //     <Content>
         //         <Content.Text>
@@ -50,7 +61,7 @@ const PartupsView = class PartupsView extends React.Component {
         //         </Content.Text>
         //     </Content>
         // );
-    }
+    // }
 
     // renderPartup(partup, index) {
     //     return <li key={index}>{partup.name}</li>;

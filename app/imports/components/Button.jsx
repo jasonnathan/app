@@ -47,7 +47,9 @@ Button.propTypes = {
     text: React.PropTypes.bool,
     disabled: React.PropTypes.bool,
     formNoValidate: React.PropTypes.bool,
-    loading: React.PropTypes.bool
+    loading: React.PropTypes.bool,
+    switch: React.PropTypes.bool,
+    switchActive: React.PropTypes.bool
 };
 
 Button.defaultProps = {
@@ -55,7 +57,9 @@ Button.defaultProps = {
     text: false,
     disabled: false,
     formNoValidate: false,
-    loading: false
+    loading: false,
+    switch: false,
+    switchActive: false
 };
 
 export default Button;
