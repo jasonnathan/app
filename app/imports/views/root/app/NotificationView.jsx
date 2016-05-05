@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import { defer } from 'lodash';
 import c from 'classnames';
 
+import Connection from '/imports/Connection';
 import passPropsForTouchstone from '/imports/services/passPropsForTouchstone';
 import Debug from '/imports/Debug';
 import NotificationModel from '/imports/models/NotificationModel';
@@ -66,7 +67,7 @@ const NotificationView = class NotificationView extends React.Component {
 
         return (
             <Container fill className={c({
-                'View--notification--collapse': messageBoxFocussed
+                'View--notification--collapse': messageBoxFocussed && window.cordova
             })}>
                 <Notification
                     notification={notification}
@@ -96,7 +97,16 @@ const NotificationView = class NotificationView extends React.Component {
     }
 
     onCommentSend(comment) {
-        console.log(`Sending: ${comment}`);
+        const {coupledPartupUpdate: update} = this.props;
+
+        if (comment.length > 1000) {
+            alert('Characters may not exceed 1000.');
+            return;
+        }
+
+        Connection.call('updates.comments.insert', update._id, {
+            content: comment
+        });
     }
 
     renderComments() {

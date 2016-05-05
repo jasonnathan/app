@@ -14,4 +14,11 @@
     .pa-Button {
         margin-left: spacing(1.5);
     }
+
+    &:invalid {
+        .pa-Button {
+            opacity: .5;
+            pointer-events: none;
+        }
+    }
 }
