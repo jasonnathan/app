@@ -90,9 +90,7 @@ export default class NotificationModel extends Model {
             });
         }
 
-        return ImageModel.query()
-            .search(m => m.searchForNotification(this))
-            .findOne();
+        return ImageModel.findOne(this.getImageId());
     }
 
     /**

@@ -17,7 +17,8 @@ const ButtonGroup = class ButtonGroup extends React.Component {
         return (
             <div className={c('pa-ButtonGroup')}>
                 {buttons.map((button, index) => (
-                    <Button switch
+                    <Button key={index}
+                        switch
                         switchActive={activeButtonIndex === index}
                         onClick={this.onClick.bind(this, button.key)}
                         style={{'width': buttonWidth}}>
