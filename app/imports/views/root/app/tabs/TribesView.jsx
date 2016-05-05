@@ -28,8 +28,13 @@ const TribesView = class TribesView extends React.Component {
         return (
             <Tile
                 imageSrc={networkImage && networkImage.getUrl('80x80')}
-                label={network.name} />
+                label={network.name}
+                onClick={this.onNetworkClick.bind(this, network)} />
         );
+    }
+
+    onNetworkClick(network) {
+        window.location = network.getWebsiteUrl();
     }
 };
 
