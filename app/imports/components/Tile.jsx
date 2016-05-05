@@ -2,39 +2,30 @@
 
 import React from 'react';
 
+import Paragraph from '/imports/components/Paragraph';
+
 const Tile = class Tile extends React.Component {
     render() {
         return (
             <div className="pa-Tile">
-                {this.props.children}
+                <figure className="pa-Tile__Image" style={{
+                    backgroundImage: this.props.imageSrc && `url('${this.props.imageSrc}')`}}>
+                </figure>
+                <Paragraph>{this.props.label}</Paragraph>
+                {this.props.updatesCount &&
+                    <span className="pa-Tile__Stats">
+                        {this.props.updatesCount}
+                    </span>
+                }
             </div>
         );
     }
 };
 
-Tile.Image = class TileImage extends React.Component {
-    render() {
-        return (
-            <figure className="pa-Tile__Image" style={{
-                backgroundImage: this.props.src && `url('${this.props.src}')`}}>
-            </figure>
-        );
-    }
-};
-
-Tile.Stats = class TileStats extends React.Component {
-    render() {
-        return (
-            <span className="pa-Tile__Stats">
-                {this.props.children}
-            </span>
-        );
-    }
-};
-
-Tile.Image.propTypes = {
-    src: React.PropTypes.string,
-    alt: React.PropTypes.string
+Tile.propTypes = {
+    imageSrc: React.PropTypes.string,
+    label: React.PropTypes.string.isRequired,
+    updatesCount: React.PropTypes.number
 };
 
 export default Tile;

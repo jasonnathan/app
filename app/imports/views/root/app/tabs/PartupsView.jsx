@@ -3,7 +3,6 @@
 import React from 'react';
 
 import Content from '/imports/components/Content';
-import Paragraph from '/imports/components/Paragraph';
 import PartupModel from '/imports/models/PartupModel';
 import ButtonGroup from '/imports/components/ButtonGroup';
 import Button from '/imports/components/Button';
@@ -21,29 +20,15 @@ const PartupsView = class PartupsView extends React.Component {
                 </ButtonGroup>
                 <List>
                     <ListItem>
-                        <Tile>
-                            <Tile.Image
-                                src="http://media02.hongkiat.com/ww-flower-wallpapers/roundflower.jpg"
-                                alt="Flower">
-                            </Tile.Image>
-                            <Paragraph>
-                                Develop UX/design for Part-up apps
-                            </Paragraph>
-                            <Tile.Stats>
-                                17
-                            </Tile.Stats>
-                        </Tile>
+                        <Tile
+                            imageSrc="http://media02.hongkiat.com/ww-flower-wallpapers/roundflower.jpg"
+                            label="Develop UX/design for Part-up apps"
+                            updatesCount={17} />
                     </ListItem>
                     <ListItem>
-                        <Tile>
-                            <Tile.Image
-                                src="https://www.allaboutbirds.org/guide/bbimages/aab/images/blue-winged-warbler.jpg"
-                                alt="Bird">
-                            </Tile.Image>
-                            <Paragraph>
-                                Tribes: the next level
-                            </Paragraph>
-                        </Tile>
+                        <Tile
+                            imageSrc="https://www.allaboutbirds.org/guide/bbimages/aab/images/blue-winged-warbler.jpg"
+                            label="Tribes: the next level" />
                     </ListItem>
                 </List>
 
