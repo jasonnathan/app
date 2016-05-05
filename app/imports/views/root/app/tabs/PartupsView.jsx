@@ -45,12 +45,17 @@ const PartupsView = class PartupsView extends React.Component {
             <Tile
                 imageSrc={partupImage && partupImage.getUrl('80x80')}
                 label={partup.name}
-                updatesCount={null} />
+                updatesCount={null}
+                onClick={this.onPartupClick.bind(this, partup)} />
         );
     }
 
     onTabClick(tab) {
         this.setState({currentTab: tab});
+    }
+
+    onPartupClick(partup) {
+        window.location = partup.getWebsiteUrl();
     }
 };
 
