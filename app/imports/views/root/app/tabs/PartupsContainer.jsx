@@ -3,64 +3,51 @@
 import { Meteor } from 'meteor/meteor';
 import { HTTP } from 'meteor/http';
 import { encode as encodeQueryString } from 'mout/queryString';
+import { find } from 'mout/array';
 
 import meteorDataContainer from '/imports/services/meteorDataContainer';
 import asyncDataContainer from '/imports/services/asyncDataContainer';
 import PartupsView from './PartupsView';
 import Debug from '/imports/Debug';
 import UserModel from '/imports/models/UserModel';
+import ImageModel from '/imports/models/ImageModel';
 import PartupModel from '/imports/models/PartupModel';
 
-const myAsyncDataContainer = asyncDataContainer(PartupsView, {
-    shouldComponentUpdate: (props, nextProps) => {
-        return true;
-    }
-}, (props, cb) => {
+const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb) => {
+    const createPartupsPromise = (url) => {
+        return new Promise((resolve, reject) => {
+            HTTP.get(url, function(error, response) {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+
+                const {partups, 'cfs.images.filerecord': images} = response.data;
+
+                resolve(partups.map((partup) => {
+
+                    // Overwrite getImage proto-function
+                    partup.getImage = () => {
+                        const image = find(images, (i) => i._id === partup.image);
+                        return new ImageModel(image);
+                    };
+
+                    return new PartupModel(partup);
+                }));
+            });
+        });
+    };
+
+    const baseUrl = `${Meteor.settings.public.server}/users/${props.loggedInUser._id}`;
     const queryString = encodeQueryString({
         userId: props.loggedInUser._id,
         token: props.storedLoginToken,
         archived: false
     });
 
-    const baseUrl = `${Meteor.settings.public.server}/users/${props.loggedInUser._id}`;
-
-    /**
-     * Use promise to call callback after
-     * both HTTP-calls are complete
-     */
     Promise.all([
-
-        /**
-         * Get Part-ups the user is supporter of
-         */
-        new Promise((resolve, reject) => {
-            HTTP.get(`${baseUrl}/supporterpartups/${queryString}`, function(error, response) {
-                if (error) {
-                    reject(error);
-                    return;
-                }
-
-                resolve(response.data.partups.map((partup) => {
-                    return new PartupModel(partup);
-                }));
-            });
-        }),
-
-        /**
-         * Get Part-ups the user is partner of
-         */
-        new Promise((resolve, reject) => {
-            HTTP.get(`${baseUrl}/upperpartups/${queryString}`, function(error, response) {
-                if (error) {
-                    reject(error);
-                    return;
-                }
-
-                resolve(response.data.partups.map((partup) => {
-                    return new PartupModel(partup);
-                }));
-            });
-        }),
+        createPartupsPromise(`${baseUrl}/supporterpartups/${queryString}`),
+        createPartupsPromise(`${baseUrl}/upperpartups/${queryString}`)
     ])
     .then((results) => {
         cb({

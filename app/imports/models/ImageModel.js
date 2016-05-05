@@ -11,20 +11,6 @@ import linkCollection from '/imports/services/linkCollection';
 export default class ImageModel extends Model {
 
     /**
-     * Search for notification
-     *
-     * @return {Object} search query
-     */
-    static searchForNotification(notification) {
-        return {
-            selector: notification.getImageId(),
-            options: {
-                limit: 1
-            }
-        };
-    }
-
-    /**
      * Get url for image
      *
      * @param {String} store

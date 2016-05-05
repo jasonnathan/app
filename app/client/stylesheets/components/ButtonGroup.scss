@@ -1,0 +1,19 @@
+.pa-ButtonGroup {
+    border: 2px solid $color-tabs-navigation-bar;
+    border-radius: 4px;
+    position: relative;
+    background-color: $color-tabs-navigation-bar;
+
+    &__active-state {
+        display: block;
+        width: 50%; // <-- to be overwritten by JavaScript depending on the amount of Buttons in ButtonGroup
+        height: 100%;
+        background-color: #fff;
+        color: $color-text;
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: transform $duration-appear;
+    }
+}

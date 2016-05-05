@@ -70,4 +70,19 @@
             background-color: red;
         }
     }
+
+    &--switch {
+        padding: 7px 19px 6px 19px;
+        background-color: transparent;
+        color: $color-text-meta;
+        font-size: 14px;
+        border-radius: 0;
+        text-align: center;
+        font-family: $font-primary;
+        z-index: 2;
+
+        &--active {
+            color: $color-text;
+        }
+    }
 }

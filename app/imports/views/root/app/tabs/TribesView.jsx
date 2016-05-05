@@ -2,22 +2,45 @@
 
 import React from 'react';
 
-import Content from '/imports/components/Content';
-import Paragraph from '/imports/components/Paragraph';
+import NetworkModel from '/imports/models/NetworkModel';
+import Tile from '/imports/components/Tile';
+import List from '/imports/components/List';
+import ListItem from '/imports/components/ListItem';
 
 const TribesView = class TribesView extends React.Component {
     render() {
+        const {networks} = this.props;
+
         return (
-            <Content>
-                <Content.Text>
-                    <Paragraph>Tribes</Paragraph>
-                </Content.Text>
-            </Content>
+            <List>
+                {networks.map((network, index) => (
+                    <ListItem key={index}>
+                        {this.renderNetwork(network)}
+                    </ListItem>
+                ))}
+            </List>
         );
+    }
+
+    renderNetwork(network) {
+        const networkImage = network.getImage();
+
+        return (
+            <Tile
+                imageSrc={networkImage && networkImage.getUrl('80x80')}
+                label={network.name}
+                onClick={this.onNetworkClick.bind(this, network)} />
+        );
+    }
+
+    onNetworkClick(network) {
+        window.location = network.getWebsiteUrl();
     }
 };
 
-TribesView.propTypes = {};
+TribesView.propTypes = {
+    networks: React.PropTypes.arrayOf(React.PropTypes.instanceOf(NetworkModel)).isRequired
+};
 
 TribesView.navigationBar = 'app';
 TribesView.getNavigation = () => {

@@ -3,31 +3,59 @@
 import React from 'react';
 
 import Content from '/imports/components/Content';
-import Paragraph from '/imports/components/Paragraph';
 import PartupModel from '/imports/models/PartupModel';
+import ButtonGroup from '/imports/components/ButtonGroup';
+import Tile from '/imports/components/Tile';
+import List from '/imports/components/List';
+import ListItem from '/imports/components/ListItem';
 
 const PartupsView = class PartupsView extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            currentTab: 'partnerPartups'
+        };
+    }
     render() {
+        const {currentTab} = this.state;
+
         return (
-            <Content>
-                <Content.Text>
-                    <Paragraph>Supporter</Paragraph>
-                    <ul>
-                        {this.props.supporterPartups.map(this.renderPartup)}
-                    </ul>
-                </Content.Text>
-                <Content.Text>
-                    <Paragraph>Partner</Paragraph>
-                    <ul>
-                        {this.props.partnerPartups.map(this.renderPartup)}
-                    </ul>
-                </Content.Text>
-            </Content>
+            <div>
+                <ButtonGroup buttons={[
+                    {key: 'partnerPartups', label: <span>Partners</span>},
+                    {key: 'supporterPartups', label: <span>Supporters</span>}
+                ]} activeTab={currentTab} onClick={this.onTabClick.bind(this)} />
+
+                <List>
+                    {this.props[currentTab].map((partup, index) => (
+                        <ListItem key={index}>
+                            {this.renderPartup(partup)}
+                        </ListItem>
+                    ))}
+                </List>
+            </div>
         );
     }
 
-    renderPartup(partup, index) {
-        return <li key={index}>{partup.name}</li>;
+    renderPartup(partup) {
+        const partupImage = partup.getImage();
+
+        return (
+            <Tile
+                imageSrc={partupImage && partupImage.getUrl('80x80')}
+                label={partup.name}
+                updatesCount={partup.getNewUpdatesCount()}
+                onClick={this.onPartupClick.bind(this, partup)} />
+        );
+    }
+
+    onTabClick(tab) {
+        this.setState({currentTab: tab});
+    }
+
+    onPartupClick(partup) {
+        window.location = partup.getWebsiteUrl();
     }
 };
 

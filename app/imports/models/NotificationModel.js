@@ -1,5 +1,6 @@
 'use strict';
 
+import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { get } from 'mout/object';
 
@@ -90,9 +91,7 @@ export default class NotificationModel extends Model {
             });
         }
 
-        return ImageModel.query()
-            .search(m => m.searchForNotification(this))
-            .findOne();
+        return ImageModel.findOne(this.getImageId());
     }
 
     /**
