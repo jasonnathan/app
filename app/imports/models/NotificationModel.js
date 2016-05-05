@@ -1,5 +1,6 @@
 'use strict';
 
+import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { get } from 'mout/object';
 

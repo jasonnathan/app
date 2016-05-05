@@ -45,7 +45,7 @@ const PartupsView = class PartupsView extends React.Component {
             <Tile
                 imageSrc={partupImage && partupImage.getUrl('80x80')}
                 label={partup.name}
-                updatesCount={null}
+                updatesCount={partup.getNewUpdatesCount()}
                 onClick={this.onPartupClick.bind(this, partup)} />
         );
     }
