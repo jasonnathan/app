@@ -69,15 +69,17 @@ const Notification = class Notification extends React.Component {
         const {nowDate} = this.state;
         const image = n.getImage();
 
-        return [
-            <div key="avatar">
-                <Avatar src={image && image.getUrl('360x360')} />
-            </div>,
-            <div key="content">
-                <Heading>{n.getText(t)}</Heading>
-                <Paragraph meta>{n.getMetaText(t, nowDate)}</Paragraph>
+        return (
+            <div className="pa-Notification__content">
+                <div key="avatar">
+                    <Avatar src={image && image.getUrl('360x360')} />
+                </div>
+                <div key="content">
+                    <Heading>{n.getText(t)}</Heading>
+                    <Paragraph meta>{n.getMetaText(t, nowDate)}</Paragraph>
+                </div>
             </div>
-        ];
+        );
     }
 };
 

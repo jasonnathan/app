@@ -1,6 +1,5 @@
 .pa-Notification {
     display: block;
-    position: relative;
     $content-padding-top: spacing(1);
     $avatar-size: 48px;
     min-height: $avatar-size;
@@ -9,35 +8,42 @@
         width: $avatar-size;
     }
 
-    // Avatar
-    > div:first-child {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
+    .pa-Notification__content {
+        position: relative;
 
-    // Content
-    > div:last-child {
-        padding-top: $content-padding-top - 5px; // 5px correction due to text
-        padding-left: $avatar-size + 10px;
+        // Avatar
+        > div:first-child {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
 
-        .pa-Heading {
-            margin-bottom: 1px;
+        // Content
+        > div:last-child {
+            padding-top: $content-padding-top - 5px; // 5px correction due to text
+            padding-left: $avatar-size + 10px;
+
+            .pa-Heading {
+                margin-bottom: 1px;
+            }
         }
     }
 
-    // Orange dot
     &--new {
-        &::after {
-            content: '';
-            display: block;
-            position: absolute;
-            top: $content-padding-top;
-            right: 0;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: $color-brand-secondary;
+
+        // Orange dot
+        .pa-Notification__content {
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: $content-padding-top;
+                right: 0;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: $color-brand-secondary;
+            }
         }
     }
 
