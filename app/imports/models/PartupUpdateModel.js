@@ -14,6 +14,11 @@ export default class PartupUpdateModel extends Model {
             }
         });
     }
+
+    isActivityRelated() {
+        return /^partups_(activities|contributions|ratings)/.test(this.type) ||
+            this.type === 'partups_comments_added';
+    }
 }
 
 linkCollection(PartupUpdateModel, 'updates');

@@ -1,15 +1,10 @@
 'use strict';
 
 import React from 'react';
-import { check, Match } from 'meteor/check';
-import { Container, UI } from 'touchstonejs';
-import { translate } from 'react-i18next';
+import { Container } from 'touchstonejs';
 import { defer } from 'lodash';
 import c from 'classnames';
 
-import Connection from '/imports/Connection';
-import passPropsForTouchstone from '/imports/services/passPropsForTouchstone';
-import Debug from '/imports/Debug';
 import NotificationModel from '/imports/models/NotificationModel';
 import PartupUpdateModel from '/imports/models/PartupUpdateModel';
 import ReversedScroller from '/imports/classes/ReversedScroller';
@@ -18,7 +13,6 @@ import ListItem from '/imports/components/ListItem';
 import MessageForm from '/imports/components/MessageForm';
 import NavButton from '/imports/components/NavButton';
 import Notification from '/imports/components/Notification';
-import Paragraph from '/imports/components/Paragraph';
 import PartupUpdateComment from '/imports/components/PartupUpdateComment';
 import PartupUpdateContent from '/imports/components/PartupUpdateContent';
 
@@ -62,7 +56,7 @@ const NotificationView = class NotificationView extends React.Component {
     }
 
     render() {
-        const {t, notification: notification, coupledPartupUpdate: update} = this.props;
+        const {t, notification, partupUpdate, partupUpdateData} = this.props;
         const {nowDate, messageBoxFocussed} = this.state;
 
         return (
@@ -72,8 +66,8 @@ const NotificationView = class NotificationView extends React.Component {
                 <Notification
                     notification={notification}
                     isDetail={true} />
-                {update && [
-                    <PartupUpdateContent key="updatecontent" update={update} />,
+                {partupUpdate && [
+                    <PartupUpdateContent key="updatecontent" update={partupUpdate} updateData={partupUpdateData} />,
                     <div key="comments" className="View--notification__comments" ref="comments">
                         {this.renderComments()}
                     </div>,
@@ -97,22 +91,18 @@ const NotificationView = class NotificationView extends React.Component {
     }
 
     onCommentSend(comment) {
-        const {coupledPartupUpdate: update} = this.props;
-
         if (comment.length > 1000) {
             alert('Characters may not exceed 1000.');
             return;
         }
 
-        Connection.call('updates.comments.insert', update._id, {
-            content: comment
-        });
+        this.props.onCommentSend(comment);
     }
 
     renderComments() {
-        const {coupledPartupUpdate: update} = this.props;
+        const {partupUpdate} = this.props;
 
-        const comments = (update.comments || [])
+        const comments = (partupUpdate.comments || [])
             .filter(comment => comment.type !== 'system');
 
         return (
@@ -149,7 +139,7 @@ NotificationView.getNavigation = (props, app) => {
 
 NotificationView.propTypes = {
     notification: React.PropTypes.instanceOf(NotificationModel).isRequired,
-    coupledPartupUpdate: React.PropTypes.instanceOf(PartupUpdateModel)
+    partupUpdate: React.PropTypes.instanceOf(PartupUpdateModel)
 };
 
 export default NotificationView;

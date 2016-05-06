@@ -23,11 +23,14 @@
 // Views
 @import "client/stylesheets/views/root-view.scss";
 @import "client/stylesheets/views/root/app/notification-view.scss";
+@import "client/stylesheets/views/root/app/tabs/partups-view.scss";
+@import "client/stylesheets/views/root/app/tabs/tribes-view.scss";
 @import "client/stylesheets/views/root/login-flow/login-view.scss";
 
 // Components
 @import "client/stylesheets/components/Avatar.scss";
 @import "client/stylesheets/components/Button.scss";
+@import "client/stylesheets/components/ButtonGroup.scss";
 @import "client/stylesheets/components/Content.scss";
 @import "client/stylesheets/components/Form.scss";
 @import "client/stylesheets/components/Heading.scss";
@@ -40,12 +43,8 @@
 @import "client/stylesheets/components/Notification.scss";
 @import "client/stylesheets/components/Paragraph.scss";
 @import "client/stylesheets/components/PartupUpdateComment.scss";
-@import "client/stylesheets/components/PartupUpdateContent.scss";
 @import "client/stylesheets/components/SignupLink.scss";
 @import "client/stylesheets/components/Svg.scss";
-
 @import "client/stylesheets/components/Tile.scss";
-@import "client/stylesheets/components/ButtonGroup.scss";
-@import "client/stylesheets/views/root/app/tabs/tribes-view.scss";
 
-@import "client/stylesheets/views/root/app/tabs/partups-view.scss";
+@import "client/stylesheets/components/PartupUpdateContent.scss";
