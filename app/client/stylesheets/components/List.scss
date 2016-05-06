@@ -21,7 +21,15 @@
     &--notifications {
         > li {
             border-bottom: 1px solid $color-border;
-            padding: spacing(2) spacing(1.5);
+
+            a {
+                padding: spacing(2) spacing(1.5);
+
+                > div:first-child {
+                    top: spacing(2);
+                    left: spacing(1.5);
+                }
+            }
 
             &:last-child {
                 border-bottom: none;
