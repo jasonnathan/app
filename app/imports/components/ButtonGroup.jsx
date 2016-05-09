@@ -28,9 +28,9 @@ const ButtonGroup = class ButtonGroup extends React.Component {
 
                 {activeButtonIndex > -1 &&
                     <span className="pa-ButtonGroup__active-state" style={{
-                        'width': buttonWidth,
-                        '-webkit-transform': activeStateTransform,
-                        'transform': activeStateTransform
+                        width: buttonWidth,
+                        webkitTransform: activeStateTransform,
+                        transform: activeStateTransform
                     }}></span>
                 }
             </div>
