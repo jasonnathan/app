@@ -18,5 +18,9 @@ export default {
             android: {},
             ios: {}
         });
+
+        push.on('registration', function(data) {
+            Connection.call('users.register_pushnotifications_device', data.registrationId, device);
+        });
     }
 };
