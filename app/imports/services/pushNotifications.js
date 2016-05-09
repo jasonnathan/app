@@ -15,8 +15,15 @@ export default {
         }
 
         const push = PushNotification.init({
-            android: {},
-            ios: {}
+            android: {
+                forceShow: true
+            },
+            ios: {
+
+                // Quick way to automatically increase the badge for every notification
+                badge: true,
+                clearBadge: true
+            }
         });
 
         push.on('registration', function(data) {
