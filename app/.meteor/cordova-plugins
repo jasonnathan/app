@@ -4,3 +4,4 @@ cordova-plugin-inappbrowser@1.4.0
 cordova-plugin-keyboard@1.1.4
 cordova-plugin-splashscreen@3.2.1
 cordova-plugin-statusbar@2.1.2
+phonegap-plugin-push@1.6.3

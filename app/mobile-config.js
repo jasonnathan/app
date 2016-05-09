@@ -52,5 +52,10 @@ App.setPreference('AutoHideSplashScreen', false);
 App.setPreference('ShowSplashScreenSpinner', false);
 App.setPreference('FadeSplashScreenDuration', 300);
 
+// Configure Push Notifications plugin
+App.configurePlugin('phonegap-plugin-push', {
+    'SENDER_ID': 'XXXXXXX' // only for Android
+});
+
 // Access rule
 App.accessRule('*');
