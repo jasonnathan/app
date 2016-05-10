@@ -2,24 +2,6 @@
     $spacing-x: spacing(1.5);
     $spacing-y: spacing(2);
 
-    .Container--fill {
-        display: flex;
-        flex-direction: column;
-
-        .pa-Notification,
-        .pa-PartupUpdateContent,
-        .View--notification__comments,
-        .View--notification__commentinput {
-            flex: 0 0 auto;
-        }
-
-        .View--notification__comments {
-            flex: 1 1 auto;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-    }
-
     .pa-Notification {
         margin: $spacing-y $spacing-x;
     }
@@ -40,7 +22,8 @@
 
         .pa-Content {
             margin-top: 0;
-            margin-bottom: $spacing-y - 7px;
+            margin-bottom: 0;
+            padding-bottom: $spacing-y - 7px;
         }
     }
 

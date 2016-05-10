@@ -15,6 +15,7 @@ import NavButton from '/imports/components/NavButton';
 import Notification from '/imports/components/Notification';
 import PartupUpdateComment from '/imports/components/PartupUpdateComment';
 import PartupUpdateContent from '/imports/components/PartupUpdateContent';
+import Flex from '/imports/components/Flex';
 
 const NotificationView = class NotificationView extends React.Component {
     constructor(props) {
@@ -43,8 +44,8 @@ const NotificationView = class NotificationView extends React.Component {
 
     componentDidUpdate() {
         defer(() => {
-            if (this.refs.comments) {
-                this.reversedScroller.contentPossiblyUpdated(this.refs.comments);
+            if (this.refs.comments.refs.flexStretch) {
+                this.reversedScroller.contentPossiblyUpdated(this.refs.comments.refs.flexStretch);
             }
         });
     }
@@ -63,21 +64,27 @@ const NotificationView = class NotificationView extends React.Component {
             <Container fill className={c({
                 'View--notification--collapse': messageBoxFocussed && window.cordova
             })}>
-                <Notification
-                    notification={notification}
-                    isDetail={true} />
-                {partupUpdate && [
-                    <PartupUpdateContent key="updatecontent" update={partupUpdate} updateData={partupUpdateData} />,
-                    <div key="comments" className="View--notification__comments" ref="comments">
-                        {this.renderComments()}
-                    </div>,
-                    <div key="commentinput" className="View--notification__commentinput">
-                        <MessageForm
-                            onSend={this.onCommentSend.bind(this)}
-                            onFocus={this.onMessageBoxFocus.bind(this)}
-                            onBlur={this.onMessageBoxBlur.bind(this)} />
-                    </div>
-                ]}
+                <Flex>
+                    <Flex.Shrink>
+                        <Notification
+                            notification={notification}
+                            isDetail={true} />
+                    </Flex.Shrink>
+                    {partupUpdate && [
+                        <Flex.Shrink key="updatecontent">
+                            <PartupUpdateContent update={partupUpdate} updateData={partupUpdateData} />
+                        </Flex.Shrink>,
+                        <Flex.Stretch scroll key="comments" className="View--notification__comments" ref="comments">
+                            {this.renderComments()}
+                        </Flex.Stretch>,
+                        <Flex.Shrink key="commentinput" className="View--notification__commentinput">
+                            <MessageForm
+                                onSend={this.onCommentSend.bind(this)}
+                                onFocus={this.onMessageBoxFocus.bind(this)}
+                                onBlur={this.onMessageBoxBlur.bind(this)} />
+                        </Flex.Shrink>
+                    ]}
+                </Flex>
             </Container>
         );
     }

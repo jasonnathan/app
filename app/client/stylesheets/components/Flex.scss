@@ -1,0 +1,25 @@
+.pa-Flex {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &__Shrink {
+        flex: 0 0 auto;
+    }
+
+    &__Stretch {
+        flex: 1 1 auto;
+
+        &--scroll {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+
+    &__Shrink,
+    &__Stretch {
+        > * {
+            min-height: 100%;
+        }
+    }
+}
