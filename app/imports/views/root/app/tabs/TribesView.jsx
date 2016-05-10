@@ -20,66 +20,6 @@ const TribesView = class TribesView extends React.Component {
                             {this.renderNetwork(network)}
                         </ListItem>
                     ))}
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
                 </List>
             </Container>
         );
