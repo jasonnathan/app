@@ -8,6 +8,7 @@ import ButtonGroup from '/imports/components/ButtonGroup';
 import Tile from '/imports/components/Tile';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
+import Flex from '/imports/components/Flex';
 
 const PartupsView = class PartupsView extends React.Component {
     constructor(props) {
@@ -17,24 +18,28 @@ const PartupsView = class PartupsView extends React.Component {
             currentTab: 'partnerPartups'
         };
     }
+
     render() {
         const {currentTab} = this.state;
 
         return (
-            <div>
-                <ButtonGroup buttons={[
-                    {key: 'partnerPartups', label: <span>Partners</span>},
-                    {key: 'supporterPartups', label: <span>Supporters</span>}
-                ]} activeTab={currentTab} onClick={this.onTabClick.bind(this)} />
-
-                <List>
-                    {this.props[currentTab].map((partup, index) => (
-                        <ListItem key={index}>
-                            {this.renderPartup(partup)}
-                        </ListItem>
-                    ))}
-                </List>
-            </div>
+            <Flex>
+                <Flex.Shrink className="View--partups__tabs">
+                    <ButtonGroup buttons={[
+                        {key: 'partnerPartups', label: <span>Partners</span>},
+                        {key: 'supporterPartups', label: <span>Supporters</span>}
+                    ]} activeTab={currentTab} onClick={this.onTabClick.bind(this)} />
+                </Flex.Shrink>
+                <Flex.Stretch scroll>
+                    <List>
+                        {this.props[currentTab].map((partup, index) => (
+                            <ListItem key={index}>
+                                {this.renderPartup(partup)}
+                            </ListItem>
+                        ))}
+                    </List>
+                </Flex.Stretch>
+            </Flex>
         );
     }
 

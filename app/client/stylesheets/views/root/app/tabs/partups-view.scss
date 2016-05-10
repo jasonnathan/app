@@ -1,12 +1,14 @@
 .View--partups {
-
     .pa-ButtonGroup {
         margin: 15px;
     }
 
+    .View--partups__tabs {
+        border-bottom: 1px solid $color-border;
+    }
+
     .pa-List {
         padding: 20px 15px 15px 15px;
-        border-top: 1px solid $color-border;
 
         .pa-ListItem {
             margin-bottom: 20px;
