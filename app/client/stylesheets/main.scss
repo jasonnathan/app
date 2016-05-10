@@ -23,6 +23,7 @@
 // Views
 @import "client/stylesheets/views/root-view.scss";
 @import "client/stylesheets/views/root/app/notification-view.scss";
+@import "client/stylesheets/views/root/app/tabs/chat-view.scss";
 @import "client/stylesheets/views/root/app/tabs/partups-view.scss";
 @import "client/stylesheets/views/root/app/tabs/tribes-view.scss";
 @import "client/stylesheets/views/root/login-flow/login-view.scss";
@@ -31,6 +32,7 @@
 @import "client/stylesheets/components/Avatar.scss";
 @import "client/stylesheets/components/Button.scss";
 @import "client/stylesheets/components/ButtonGroup.scss";
+@import "client/stylesheets/components/ChatTile.scss";
 @import "client/stylesheets/components/Content.scss";
 @import "client/stylesheets/components/EmptyState.scss";
 @import "client/stylesheets/components/Flex.scss";
