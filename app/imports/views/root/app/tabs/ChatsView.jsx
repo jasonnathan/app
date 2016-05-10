@@ -1,17 +1,14 @@
 'use strict';
 
 import React from 'react';
-
+import Input from '/imports/components/Input';
 import Content from '/imports/components/Content';
-import Paragraph from '/imports/components/Paragraph';
 
 const ChatsView = class ChatsView extends React.Component {
     render() {
         return (
             <Content>
-                <Content.Text>
-                    <Paragraph>Chat is under construction</Paragraph>
-                </Content.Text>
+                <Input.Text name="anne" placeholder="Search Users"/>
             </Content>
         );
     }
