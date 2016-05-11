@@ -5,6 +5,7 @@ import { Container } from 'touchstonejs';
 
 import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
+import openWeb from '/imports/services/openWeb';
 import NetworkModel from '/imports/models/NetworkModel';
 import Tile from '/imports/components/Tile';
 import List from '/imports/components/List';
@@ -39,7 +40,7 @@ const TribesView = class TribesView extends React.Component {
     }
 
     onNetworkClick(network) {
-        window.location = network.getWebsiteUrl();
+        openWeb(network.getWebsiteUrl());
     }
 };
 
