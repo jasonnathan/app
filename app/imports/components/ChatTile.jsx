@@ -2,6 +2,7 @@
 
 import React from 'react';
 import c from 'classnames';
+
 import Avatar from '/imports/components/Avatar';
 import Paragraph from '/imports/components/Paragraph';
 
