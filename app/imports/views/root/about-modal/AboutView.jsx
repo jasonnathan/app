@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Container, UI } from 'touchstonejs';
+import { translate } from 'react-i18next';
 
 import UserModel from '/imports/models/UserModel';
 import ImageModel from '/imports/models/ImageModel';
@@ -29,7 +30,7 @@ const AboutView = class AboutView extends React.Component {
     }
 
     render() {
-        const {loggedInUser: user, loggedInUserAvatar: userAvatar} = this.props;
+        const {t, loggedInUser: user, loggedInUserAvatar: userAvatar} = this.props;
 
         let partnerOfCount, supporterOfCount;
         if (user) {
@@ -41,8 +42,7 @@ const AboutView = class AboutView extends React.Component {
             <Container fill scrollable>
                 <Content>
                     <Content.Text>
-                        {/* todo: i18n key */}
-                        <Paragraph>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, esse. A aperiam quidem reprehenderit repellendus, facilis optio eligendi harum totam dicta maxime error expedita, quibusdam alias ipsa illum animi ullam.</Paragraph>
+                        <Paragraph>{t('about-intro')}</Paragraph>
                     </Content.Text>
                     <Content.Block>
                         {user &&
@@ -126,4 +126,4 @@ AboutView.propTypes = {
     loggedInUserAvatar: React.PropTypes.instanceOf(ImageModel)
 };
 
-export default AboutView;
+export default translate()(AboutView);
