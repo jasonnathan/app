@@ -26,7 +26,9 @@ const Avatar = class Avatar extends React.Component {
             })} style={{
                 backgroundImage: this.props.src && `url('${this.props.src}')`
             }}>
-                <span className="pa-Avatar__score">89</span>
+                {typeof this.props.score !== 'undefined' &&
+                    <span className="pa-Avatar__score">{this.props.score}</span>
+                }
             </figure>
         );
     }
@@ -35,7 +37,8 @@ const Avatar = class Avatar extends React.Component {
 Avatar.propTypes = {
     src: React.PropTypes.string,
     alt: React.PropTypes.string,
-    onClick: React.PropTypes.func
+    onClick: React.PropTypes.func,
+    score: React.PropTypes.number
 };
 
 export default Avatar;

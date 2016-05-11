@@ -28,7 +28,8 @@ const AboutView = class AboutView extends React.Component {
                             <UserCard.UserDetails>
                                 <Avatar
                                     src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Ryan_Gosling_2_Cannes_2011_(cropped).jpg"
-                                    alt="Ryan">
+                                    alt="Ryan"
+                                    score={89}>
                                 </Avatar>
                                 <UserInfo>
                                     <Heading level={2}>Ralph Boeije</Heading>
