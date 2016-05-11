@@ -3,6 +3,8 @@
 import React from 'react';
 import { Container, UI } from 'touchstonejs';
 
+import transitionTo from '/imports/services/transitionTo';
+import Debug from '/imports/Debug';
 import NavButton from '/imports/components/NavButton';
 import Content from '/imports/components/Content';
 import Heading from '/imports/components/Heading';
@@ -16,6 +18,14 @@ import Stat from '/imports/components/Stat';
 import Button from '/imports/components/Button';
 
 const AboutView = class AboutView extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loggingOut: false
+        };
+    }
+
     render() {
         return (
             <Container fill scrollable>
@@ -55,13 +65,32 @@ const AboutView = class AboutView extends React.Component {
                                 </List>
                             </UserCard.UserDetails>
                             <UserCard.LogoutButton>
-                                <Button>Log out</Button>
+                                <Button loading={this.state.loggingOut} onClick={this.onLogoutClick.bind(this)}>Log out</Button>
                             </UserCard.LogoutButton>
                         </UserCard>
                     </Content.Block>
                 </Content>
             </Container>
         );
+    }
+
+    onLogoutClick(event) {
+        event.preventDefault();
+        this.setState({loggingOut: true});
+
+        this.props.onLogout((err) => {
+            this.setState({loggingOut: false});
+
+            if (err) {
+                Debug.methods(`Failed user logout`, err);
+                window.alert('Logout failed');
+                return;
+            }
+
+            transitionTo('root:login', {
+                transition: 'reveal-from-bottom'
+            });
+        });
     }
 };
 
@@ -79,7 +108,7 @@ AboutView.getNavigation = (props, app) => {
 };
 
 AboutView.propTypes = {
-    //
+    onLogout: React.PropTypes.func.isRequired
 };
 
 export default AboutView;
