@@ -14,12 +14,19 @@ import UserModel from '/imports/models/UserModel';
 import ImageModel from '/imports/models/ImageModel';
 import NetworkModel from '/imports/models/NetworkModel';
 
+let cachedData;
+
 const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb) => {
+    if (cachedData) {
+        cb(cachedData);
+    }
+
     const baseUrl = formatWebsiteUrl({pathname: `/users/${props.loggedInUser._id}`});
     const queryString = encodeQueryString({
         userId: props.loggedInUser._id,
         token: props.storedLoginToken
     });
+
 
     HTTP.get(`${baseUrl}/networks/${queryString}`, function(error, response) {
         if (error) {
@@ -40,9 +47,12 @@ const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb) => {
             return new NetworkModel(network);
         });
 
-        cb({
+        const data = {
             networks: mappedNetworks
-        });
+        };
+
+        cb(data);
+        cachedData = data;
     });
 });
 

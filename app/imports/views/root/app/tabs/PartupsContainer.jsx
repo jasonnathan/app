@@ -14,7 +14,13 @@ import UserModel from '/imports/models/UserModel';
 import ImageModel from '/imports/models/ImageModel';
 import PartupModel from '/imports/models/PartupModel';
 
+let cachedData;
+
 const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb) => {
+    if (cachedData) {
+        cb(cachedData);
+    }
+
     const createPartupsPromise = (url) => {
         return new Promise((resolve, reject) => {
             HTTP.get(url, function(error, response) {
@@ -51,10 +57,13 @@ const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb) => 
         createPartupsPromise(`${baseUrl}/upperpartups/${queryString}`)
     ])
     .then((results) => {
-        cb({
+        const data = {
             supporterPartups: results[0],
             partnerPartups: results[1]
-        });
+        };
+
+        cb(data);
+        cachedData = data;
     });
 });
 
