@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import openWeb from '/imports/services/openWeb';
 import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
 import { Container } from 'touchstonejs';
@@ -42,7 +43,7 @@ const NotificationsView = class NotificationsView extends React.Component {
                 viewProps: {notificationId: notification._id}
             });
         } else {
-            window.location = notification.getWebsiteUrl();
+            openWeb(notification.getWebsiteUrl());
         }
     }
 };

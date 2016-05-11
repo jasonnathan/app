@@ -4,6 +4,7 @@ import React from 'react';
 
 import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
+import openWeb from '/imports/services/openWeb';
 import Content from '/imports/components/Content';
 import PartupModel from '/imports/models/PartupModel';
 import ButtonGroup from '/imports/components/ButtonGroup';
@@ -62,7 +63,7 @@ const PartupsView = class PartupsView extends React.Component {
     }
 
     onPartupClick(partup) {
-        window.location = partup.getWebsiteUrl();
+        openWeb(partup.getWebsiteUrl());
     }
 };
 

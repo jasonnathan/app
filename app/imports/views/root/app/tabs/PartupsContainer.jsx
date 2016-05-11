@@ -5,6 +5,7 @@ import { HTTP } from 'meteor/http';
 import { encode as encodeQueryString } from 'mout/queryString';
 import { find } from 'mout/array';
 
+import formatWebsiteUrl from '/imports/services/formatWebsiteUrl';
 import meteorDataContainer from '/imports/services/meteorDataContainer';
 import asyncDataContainer from '/imports/services/asyncDataContainer';
 import PartupsView from './PartupsView';
@@ -38,7 +39,7 @@ const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb) => 
         });
     };
 
-    const baseUrl = `${Meteor.settings.public.server}/users/${props.loggedInUser._id}`;
+    const baseUrl = formatWebsiteUrl({pathname: `/users/${props.loggedInUser._id}`});
     const queryString = encodeQueryString({
         userId: props.loggedInUser._id,
         token: props.storedLoginToken,

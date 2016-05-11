@@ -5,6 +5,7 @@ import { HTTP } from 'meteor/http';
 import { encode as encodeQueryString } from 'mout/queryString';
 import { find } from 'mout/array';
 
+import formatWebsiteUrl from '/imports/services/formatWebsiteUrl';
 import asyncDataContainer from '/imports/services/asyncDataContainer';
 import meteorDataContainer from '/imports/services/meteorDataContainer';
 import TribesView from './TribesView';
@@ -14,7 +15,7 @@ import ImageModel from '/imports/models/ImageModel';
 import NetworkModel from '/imports/models/NetworkModel';
 
 const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb) => {
-    const baseUrl = `${Meteor.settings.public.server}/users/${props.loggedInUser._id}`;
+    const baseUrl = formatWebsiteUrl({pathname: `/users/${props.loggedInUser._id}`});
     const queryString = encodeQueryString({
         userId: props.loggedInUser._id,
         token: props.storedLoginToken
