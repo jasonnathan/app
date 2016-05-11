@@ -25,7 +25,7 @@ const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb) => 
 
                 const {partups, 'cfs.images.filerecord': images} = response.data;
 
-                resolve(partups.map((partup) => {
+                resolve((partups || []).map((partup) => {
 
                     // Overwrite getImage proto-function
                     partup.getImage = () => {

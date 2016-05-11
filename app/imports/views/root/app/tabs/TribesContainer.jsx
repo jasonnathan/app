@@ -29,7 +29,7 @@ const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb) => {
 
         const {networks, 'cfs.images.filerecord': images} = response.data;
 
-        const mappedNetworks = networks.map((network) => {
+        const mappedNetworks = (networks || []).map((network) => {
 
             // Overwrite getImage proto-function
             network.getImage = () => {
