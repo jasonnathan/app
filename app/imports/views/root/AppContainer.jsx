@@ -12,6 +12,7 @@ export default meteorDataContainer(AppViewManager, (props) => {
     const {} = props;
     Debug.tracker('AppContainer');
 
+    Connection.subscribe('users.loggedin');
     Connection.subscribe('notifications.for_upper', 20);
 
     // If user is not logged in, redirect to login screen

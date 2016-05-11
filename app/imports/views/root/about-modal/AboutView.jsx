@@ -3,6 +3,8 @@
 import React from 'react';
 import { Container, UI } from 'touchstonejs';
 
+import UserModel from '/imports/models/UserModel';
+import ImageModel from '/imports/models/ImageModel';
 import transitionTo from '/imports/services/transitionTo';
 import Debug from '/imports/Debug';
 import NavButton from '/imports/components/NavButton';
@@ -27,47 +29,58 @@ const AboutView = class AboutView extends React.Component {
     }
 
     render() {
+        const {loggedInUser: user, loggedInUserAvatar: userAvatar} = this.props;
+
+        let partnerOfCount, supporterOfCount;
+        if (user) {
+            partnerOfCount = (user.upperOf || []).length;
+            supporterOfCount = (user.supporterOf || []).length;
+        }
+
         return (
             <Container fill scrollable>
                 <Content>
                     <Content.Text>
+                        {/* todo: i18n key */}
                         <Paragraph>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, esse. A aperiam quidem reprehenderit repellendus, facilis optio eligendi harum totam dicta maxime error expedita, quibusdam alias ipsa illum animi ullam.</Paragraph>
                     </Content.Text>
                     <Content.Block>
-                        <UserCard>
-                            <UserCard.UserDetails>
-                                <Avatar
-                                    src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Ryan_Gosling_2_Cannes_2011_(cropped).jpg"
-                                    alt="Ryan"
-                                    score={89}>
-                                </Avatar>
-                                <UserInfo>
-                                    <Heading level={2}>Ralph Boeije</Heading>
-                                    <Paragraph>Founder at Part-up. Tribe lead for the App, Development and Data (matching) tribes of Part-up. Living...</Paragraph>
-                                </UserInfo>
-                                <List inline stats>
-                                    <ListItem>
-                                        <Stat number={20} label="Partups">
-                                            <Paragraph>
-                                                <span className="pa-Stat__number">46</span>
-                                                <span className="pa-Stat__label">Part-ups</span>
-                                            </Paragraph>
-                                        </Stat>
-                                    </ListItem>
-                                    <ListItem>
-                                        <Stat number={2} label="supporters">
-                                            <Paragraph>
-                                                <span className="pa-Stat__number">19</span>
-                                                <span className="pa-Stat__label">Supporters</span>
-                                            </Paragraph>
-                                        </Stat>
-                                    </ListItem>
-                                </List>
-                            </UserCard.UserDetails>
-                            <UserCard.LogoutButton>
-                                <Button loading={this.state.loggingOut} onClick={this.onLogoutClick.bind(this)}>Log out</Button>
-                            </UserCard.LogoutButton>
-                        </UserCard>
+                        {user &&
+                            <UserCard>
+                                <UserCard.UserDetails>
+                                    <Avatar
+                                        src={userAvatar && userAvatar.getUrl()}
+                                        alt={user.profile.name}
+                                        score={user.getScore()}>
+                                    </Avatar>
+                                    <UserInfo>
+                                        <Heading level={2}>{user.profile.name}</Heading>
+                                        <Paragraph>{user.profile.description}</Paragraph>
+                                    </UserInfo>
+                                    <List inline stats>
+                                        <ListItem>
+                                            <Stat number={20} label="Partups">
+                                                <Paragraph>
+                                                    <span className="pa-Stat__number">{partnerOfCount}</span>
+                                                    <span className="pa-Stat__label">{partnerOfCount > 1 ? 'Partners' : 'Partner'}</span>
+                                                </Paragraph>
+                                            </Stat>
+                                        </ListItem>
+                                        <ListItem>
+                                            <Stat number={2} label="supporters">
+                                                <Paragraph>
+                                                    <span className="pa-Stat__number">{supporterOfCount}</span>
+                                                    <span className="pa-Stat__label">{supporterOfCount > 1 ? 'Supporters' : 'Supporter'}</span>
+                                                </Paragraph>
+                                            </Stat>
+                                        </ListItem>
+                                    </List>
+                                </UserCard.UserDetails>
+                                <UserCard.LogoutButton>
+                                    <Button loading={this.state.loggingOut} onClick={this.onLogoutClick.bind(this)}>Log out</Button>
+                                </UserCard.LogoutButton>
+                            </UserCard>
+                        }
                     </Content.Block>
                 </Content>
             </Container>
@@ -108,7 +121,9 @@ AboutView.getNavigation = (props, app) => {
 };
 
 AboutView.propTypes = {
-    onLogout: React.PropTypes.func.isRequired
+    onLogout: React.PropTypes.func.isRequired,
+    loggedInUser: React.PropTypes.instanceOf(UserModel),
+    loggedInUserAvatar: React.PropTypes.instanceOf(ImageModel)
 };
 
 export default AboutView;
