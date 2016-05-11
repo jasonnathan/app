@@ -10,6 +10,7 @@ import NotificationModel from '/imports/models/NotificationModel';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import Notification from '/imports/components/Notification';
+import EmptyState from '/imports/components/EmptyState';
 
 const NotificationsView = class NotificationsView extends React.Component {
     componentWillUnmount() {
@@ -17,10 +18,15 @@ const NotificationsView = class NotificationsView extends React.Component {
     }
 
     render() {
+        let {notifications: n} = this.props;
+
         return (
             <Container scrollable fill>
+                {!n || !n.length &&
+                    <EmptyState type="notifications" />
+                }
                 <List notifications>
-                    {this.props.notifications.map((notification, index) => {
+                    {n.map((notification, index) => {
                         return (
                             <ListItem key={index}>
                                 <Notification

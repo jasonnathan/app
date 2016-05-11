@@ -10,13 +10,17 @@ import NetworkModel from '/imports/models/NetworkModel';
 import Tile from '/imports/components/Tile';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
+import EmptyState from '/imports/components/EmptyState';
 
 const TribesView = class TribesView extends React.Component {
     render() {
-        const {networks} = this.props;
+        let {networks} = this.props;
 
         return (
             <Container fill scrollable>
+                {!networks || !networks.length &&
+                    <EmptyState type="tribes" />
+                }
                 <List>
                     {networks.map((network, index) => (
                         <ListItem key={index}>

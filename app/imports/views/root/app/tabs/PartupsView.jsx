@@ -12,6 +12,7 @@ import Tile from '/imports/components/Tile';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import Flex from '/imports/components/Flex';
+import EmptyState from '/imports/components/EmptyState';
 
 const PartupsView = class PartupsView extends React.Component {
     constructor(props) {
@@ -24,6 +25,7 @@ const PartupsView = class PartupsView extends React.Component {
 
     render() {
         const {currentTab} = this.state;
+        let partups = this.props[currentTab];
 
         return (
             <Flex>
@@ -34,8 +36,11 @@ const PartupsView = class PartupsView extends React.Component {
                     ]} activeTab={currentTab} onClick={this.onTabClick.bind(this)} />
                 </Flex.Shrink>
                 <Flex.Stretch scroll>
+                    {!partups || !partups.length &&
+                        <EmptyState type="partups" />
+                    }
                     <List>
-                        {this.props[currentTab].map((partup, index) => (
+                        {partups.map((partup, index) => (
                             <ListItem key={index}>
                                 {this.renderPartup(partup)}
                             </ListItem>
