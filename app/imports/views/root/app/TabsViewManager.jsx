@@ -54,10 +54,7 @@ const TabsViewManager = class TabsViewManager extends React.Component {
                         <Svg name="icon_notifications" />
                         <UI.Tabs.Label>Notificaties</UI.Tabs.Label>
                     </UI.Tabs.Tab>
-                    <UI.Tabs.Tab onTap={this.selectTab.bind(this, 'chat')} selected={selectedIsOneOf(['chat'])}>
-                        <Svg name="icon_message" />
-                        <UI.Tabs.Label>Chat</UI.Tabs.Label>
-                    </UI.Tabs.Tab>
+
                     <UI.Tabs.Tab onTap={this.selectTab.bind(this, 'partups')} selected={selectedIsOneOf(['partups'])}>
                         <Svg name="icon_part-up" />
                         <UI.Tabs.Label>Part-ups</UI.Tabs.Label>
