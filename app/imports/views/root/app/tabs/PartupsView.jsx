@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import transitionTo from '/imports/services/transitionTo';
+import NavButton from '/imports/components/NavButton';
 import Content from '/imports/components/Content';
 import PartupModel from '/imports/models/PartupModel';
 import ButtonGroup from '/imports/components/ButtonGroup';
@@ -70,9 +72,15 @@ PartupsView.propTypes = {
 };
 
 PartupsView.navigationBar = 'app';
-PartupsView.getNavigation = () => {
+PartupsView.getNavigation = (props, app) => {
     return {
-        title: 'Part-ups'
+        title: 'Part-ups',
+        rightLabel: <NavButton right icon="icon_info" />,
+        rightAction: () => {
+            app.transitionTo('root:about-modal', {
+                transition: 'show-from-bottom'
+            });
+        },
     };
 };
 

@@ -3,6 +3,8 @@
 import React from 'react';
 import { Container } from 'touchstonejs';
 
+import transitionTo from '/imports/services/transitionTo';
+import NavButton from '/imports/components/NavButton';
 import NetworkModel from '/imports/models/NetworkModel';
 import Tile from '/imports/components/Tile';
 import List from '/imports/components/List';
@@ -46,9 +48,15 @@ TribesView.propTypes = {
 };
 
 TribesView.navigationBar = 'app';
-TribesView.getNavigation = () => {
+TribesView.getNavigation = (props, app) => {
     return {
-        title: 'Tribes'
+        title: 'Tribes',
+        rightLabel: <NavButton right icon="icon_info" />,
+        rightAction: () => {
+            app.transitionTo('root:about-modal', {
+                transition: 'show-from-bottom'
+            });
+        }
     };
 };
 
