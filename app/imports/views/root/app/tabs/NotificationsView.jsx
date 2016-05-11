@@ -3,6 +3,7 @@
 import React from 'react';
 
 import openWeb from '/imports/services/openWeb';
+import pushNotifications from '/imports/services/pushNotifications';
 import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
 import { Container } from '/imports/touchstonejs/lib';
@@ -13,6 +14,10 @@ import Notification from '/imports/components/Notification';
 import EmptyState from '/imports/components/EmptyState';
 
 const NotificationsView = class NotificationsView extends React.Component {
+    componentDidMount() {
+        pushNotifications.askPermission();
+    }
+
     componentWillUnmount() {
         this.props.onAllNotificationsRead();
     }
