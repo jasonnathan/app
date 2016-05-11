@@ -8,6 +8,7 @@ import NotificationModel from '/imports/models/NotificationModel';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import Notification from '/imports/components/Notification';
+import NavButton from '/imports/components/NavButton';
 
 const NotificationsView = class NotificationsView extends React.Component {
     componentWillUnmount() {
@@ -53,8 +54,14 @@ NotificationsView.propTypes = {
 };
 
 NotificationsView.navigationBar = 'app';
-NotificationsView.getNavigation = () => {
+NotificationsView.getNavigation = (props, app) => {
     return {
+        rightLabel: <NavButton right icon="icon_info" />,
+        rightAction: () => {
+            app.transitionTo('root:about-modal', {
+                transition: 'show-from-bottom'
+            });
+        },
         title: 'Notifications'
     };
 };
