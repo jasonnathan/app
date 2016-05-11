@@ -6,6 +6,7 @@ import { get } from 'mout/object';
 import meteorDataContainer from '/imports/services/meteorDataContainer';
 import NotificationView from './NotificationView';
 import Debug from '/imports/Debug';
+import Subs from '/imports/Subs';
 import Connection from '/imports/Connection';
 import NotificationModel from '/imports/models/NotificationModel';
 import ActivityModel from '/imports/models/ActivityModel';
@@ -20,7 +21,7 @@ export default meteorDataContainer(NotificationView, (props) => {
 
     let partupUpdate;
     if (partupUpdateId) {
-        Connection.subscribe('updates.one', partupUpdateId);
+        Subs.subscribe('updates.one', partupUpdateId);
         partupUpdate = PartupUpdateModel.findOne(partupUpdateId);
     }
 

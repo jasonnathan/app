@@ -50,4 +50,10 @@ Tracker.autorun(() => {
     Debug.conn(message);
 });
 
+// Skim subscription related properties for SubsManager
+Meteor._send = connection._send;
+Meteor._stream = connection._stream;
+Meteor._subscriptions = connection._subscriptions;
+Meteor.subscribe = connection.subscribe;
+
 export default connection;
