@@ -45,7 +45,7 @@
 
         p {
             font-family: $font-primary;
-            font-weight: 600;
+            font-weight: 500;
             font-size: 12px;
             color: $color-text-meta;
             padding-bottom: 4px;
@@ -60,5 +60,31 @@
         position: absolute;
         top: 29px;
         right: 15px;
+        display: none;
+    }
+
+    &--is-unread {
+
+        .pa-ChatTile__label {
+            .pa-Paragraph {
+                color: $color-text;
+            }
+        }
+
+        .pa-ChatTile__label .pa-ChatTile__label__title {
+            color: $color-text;
+            font-weight: 600;
+        }
+
+        .pa-ChatTile__time {
+            p {
+                font-weight: 600;
+            }
+        }
+
+        .pa-ChatTile__alert {
+            display: inline;
+        }
     }
 }
+
