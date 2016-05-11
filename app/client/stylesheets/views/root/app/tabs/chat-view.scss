@@ -1,19 +1,19 @@
 .View--chat {
 
-    .pa-ButtonGroup {
+    .pa-Content {
+        margin: 0px;
+    }
+
+    input {
         margin: 15px;
     }
 
     .pa-List {
-        padding: 20px 15px 15px 15px;
+        padding: 0 0 0 0;
         border-top: 1px solid $color-border;
 
         .pa-ListItem {
-            margin-bottom: 20px;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
+            border-bottom: 1px solid $color-border;
         }
     }
 }

@@ -18,6 +18,11 @@ const ChatsView = class ChatsView extends React.Component {
 
                         </ChatTile>
                     </ListItem>
+                    <ListItem>
+                        <ChatTile>
+
+                        </ChatTile>
+                    </ListItem>
                 </List>
             </Content>
         );
