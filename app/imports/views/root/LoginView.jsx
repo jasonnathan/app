@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { Container, Link } from 'touchstonejs';
+import { Container, Link } from '/imports/touchstonejs/lib';
 import c from 'classnames';
 
 import transitionTo from '/imports/services/transitionTo';

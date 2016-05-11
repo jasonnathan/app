@@ -29,7 +29,6 @@
     "react-tappable": "^0.7.2",
     "react-timers": "^5.0.0",
     "reset.css": "^2.0.2",
-    "touchstonejs": "^0.7.3",
     "url": "^0.11.0",
     "validator": "^5.2.0"
   }

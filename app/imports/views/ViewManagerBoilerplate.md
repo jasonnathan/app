@@ -12,7 +12,7 @@ You may want to skip the NavigationBar--detail className
     'use strict';
 
     import React from 'react';
-    import { Container, UI, View, ViewManager } from 'touchstonejs';
+    import { Container, UI, View, ViewManager } from '/imports/touchstonejs/lib';
 
     import SomeContainer from './my-name/SomeContainer';
     import OtherContainer from './my-name/OtherContainer';

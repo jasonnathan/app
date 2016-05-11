@@ -10,7 +10,7 @@ A View represents a 'page'-like area.
     'use strict';
 
     import React from 'react';
-    import { Container } from 'touchstonejs';
+    import { Container } from '/imports/touchstonejs/lib';
 
     export default class MyView extends React.Component {
         constructor(props) {

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { contains } from 'mout/array';
-import { Container, UI, View, ViewManager } from 'touchstonejs';
+import { Container, UI, View, ViewManager } from '/imports/touchstonejs/lib';
 import c from 'classnames';
 
 import NotificationsContainer from './tabs/NotificationsContainer';

@@ -4,7 +4,7 @@ import Container from 'react-container';
 import dialogs from 'cordova-dialogs';
 import React from 'react';
 import Tappable from 'react-tappable';
-import { UI } from 'touchstonejs';
+import { UI } from '/imports/touchstonejs/lib';
 
 const scrollable = Container.initScrollable();
 

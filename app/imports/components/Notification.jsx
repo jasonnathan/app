@@ -2,8 +2,8 @@
 
 import React from 'react';
 import c from 'classnames';
-import { translate } from 'react-i18next';
 
+import translate from '/imports/services/translate';
 import NotificationModel from '/imports/models/NotificationModel';
 import ImageModel from '/imports/models/ImageModel';
 import List from '/imports/components/List';

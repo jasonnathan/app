@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { Container } from 'touchstonejs';
+import { Container } from '/imports/touchstonejs/lib';
 
 import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';

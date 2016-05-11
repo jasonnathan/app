@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import ReactMixin from 'react-mixin';
 import c from 'classnames';
 import { get } from 'mout/object';
-import { createApp, View, ViewManager } from 'touchstonejs';
+import { createApp, View, ViewManager } from '/imports/touchstonejs/lib';
 
 import TouchstoneApp from '/imports/TouchstoneApp';
 import LoginContainer from '/imports/views/root/LoginContainer';

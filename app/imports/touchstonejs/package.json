@@ -1,0 +1,98 @@
+{
+  "name": "touchstonejs",
+  "version": "0.7.3",
+  "description": "A Mobile App Framework built with ReactJS",
+  "author": {
+    "name": "Jed Watson"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/touchstonejs/touchstonejs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/touchstonejs/touchstonejs/issues"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "ui",
+    "mobile",
+    "hybrid"
+  ],
+  "main": "lib/index.js",
+  "files": [
+    "lib/",
+    "less"
+  ],
+  "scripts": {
+    "build": "gulp clean:lib && NODE_ENV=production gulp build:lib",
+    "build:dev": "gulp clean:lib && gulp build:lib",
+    "build:site": "gulp clean:site && NODE_ENV=production gulp build:site",
+    "lint": "happiness",
+    "prepublish": "npm run build",
+    "start": "gulp site",
+    "test": "npm run lint",
+    "watch": "gulp watch:lib"
+  },
+  "standard": {
+    "ignore": [
+      "**/lib/**",
+      "**/__build/**"
+    ]
+  },
+  "dependencies": {
+    "blacklist": "^1.1.2",
+    "classnames": "^2.2.1",
+    "tween.js": "^16.3.1"
+  },
+  "peerDependencies": {
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-container": "^0.3.1",
+    "react-tappable": "^0.7.1",
+    "react-addons-css-transition-group": "^0.14.0"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.25",
+    "babel-plugin-object-assign": "^1.2.1",
+    "babelify": "^6.3.0",
+    "browserify": "^12.0.1",
+    "del": "^2.2.0",
+    "elemental": "^0.5.8",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "gulp-bump": "^1.0.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-gh-pages": "^0.5.4",
+    "gulp-git": "^1.6.0",
+    "gulp-less": "^3.0.5",
+    "gutil": "^1.6.4",
+    "happiness": "^1.0.7",
+    "react-router": "^0.13.3",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "gitHead": "6dcfa422d78607642b12868ba522a5c3f20c5a50",
+  "homepage": "https://github.com/touchstonejs/touchstonejs#readme",
+  "_id": "touchstonejs@0.7.3",
+  "_shasum": "5eb08eb0f73f9a493d0ee1ca72a5beb6fb217b82",
+  "_from": "touchstonejs@>=0.7.3 <0.8.0",
+  "_npmVersion": "2.14.3",
+  "_nodeVersion": "4.1.0",
+  "_npmUser": {
+    "name": "jedwatson",
+    "email": "jed.watson@me.com"
+  },
+  "dist": {
+    "shasum": "5eb08eb0f73f9a493d0ee1ca72a5beb6fb217b82",
+    "tarball": "https://registry.npmjs.org/touchstonejs/-/touchstonejs-0.7.3.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "jedwatson",
+      "email": "jed.watson@me.com"
+    }
+  ],
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/touchstonejs/-/touchstonejs-0.7.3.tgz"
+}

@@ -1,12 +1,12 @@
 'use strict';
 
 import React from 'react';
-import { Container, UI } from 'touchstonejs';
-import { translate } from 'react-i18next';
 
+import { Container, UI } from '/imports/touchstonejs/lib';
+import translate from '/imports/services/translate';
+import transitionTo from '/imports/services/transitionTo';
 import UserModel from '/imports/models/UserModel';
 import ImageModel from '/imports/models/ImageModel';
-import transitionTo from '/imports/services/transitionTo';
 import Debug from '/imports/Debug';
 import NavButton from '/imports/components/NavButton';
 import Content from '/imports/components/Content';

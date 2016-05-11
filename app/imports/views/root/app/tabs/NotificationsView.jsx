@@ -5,7 +5,7 @@ import React from 'react';
 import openWeb from '/imports/services/openWeb';
 import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
-import { Container } from 'touchstonejs';
+import { Container } from '/imports/touchstonejs/lib';
 import NotificationModel from '/imports/models/NotificationModel';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';

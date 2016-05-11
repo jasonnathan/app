@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { Container, UI, Link, ViewManager, View } from 'touchstonejs';
+import { Container, UI, Link, ViewManager, View } from '/imports/touchstonejs/lib';
 import { isEmail, isLength } from 'validator';
 
 import transitionTo from '/imports/services/transitionTo';

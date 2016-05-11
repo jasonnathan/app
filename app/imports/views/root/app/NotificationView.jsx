@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { Container } from 'touchstonejs';
+import { Container } from '/imports/touchstonejs/lib';
 import { defer } from 'lodash';
 import c from 'classnames';
 
