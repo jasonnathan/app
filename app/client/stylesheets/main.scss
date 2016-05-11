@@ -22,8 +22,9 @@
 
 // Views
 @import "client/stylesheets/views/root-view.scss";
+@import "client/stylesheets/views/root/app/chat-view.scss";
 @import "client/stylesheets/views/root/app/notification-view.scss";
-@import "client/stylesheets/views/root/app/tabs/chat-view.scss";
+@import "client/stylesheets/views/root/app/tabs/chats-view.scss";
 @import "client/stylesheets/views/root/app/tabs/partups-view.scss";
 @import "client/stylesheets/views/root/app/tabs/tribes-view.scss";
 @import "client/stylesheets/views/root/login-flow/login-view.scss";
