@@ -1,5 +1,5 @@
 App.info({
-    id: 'com.part-up.app',
+    id: 'com.partup.app',
     name: 'Part-up',
     version: '0.0.6',
     description: 'Enhance your Part-up experience with the app.',
