@@ -1,0 +1,52 @@
+.pa-UserCard {
+    display: block;
+    position: relative;
+    border: 2px solid $color-border;
+    border-radius: 4px;
+
+    &__UserDetails,
+    &__LogoutButton {
+        border-top: 1px solid $color-border;
+
+        &:first-child {
+            border-top: 0;
+        }
+    }
+
+    &__UserDetails {
+        padding: 17px 21px;
+
+        .pa-Avatar {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 80px;
+            height: 80px;
+        }
+
+        .pa-UserInfo {
+            margin-left: 100px;
+            margin-bottom: 8px;
+
+            .pa-Heading {
+                font-size: 17px;
+                margin-bottom: 2px;
+            }
+        }
+
+        .pa-List {
+            margin-left: 100px;
+        }
+    }
+
+    &__LogoutButton {
+        width: 100%;
+        padding-top: 20px;
+        padding: 20px 21px;
+
+        button {
+            width: 100%;
+            text-align: center;
+        }
+    }
+}

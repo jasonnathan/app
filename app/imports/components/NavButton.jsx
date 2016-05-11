@@ -9,6 +9,7 @@ const NavButton = class NavButton extends React.Component {
     render() {
         return (
             <div className={c('pa-NavButton', {
+                'pa-NavButton--has-no-label': !this.props.label,
                 'pa-NavButton--left': this.props.left,
                 'pa-NavButton--right': this.props.right
             })}>

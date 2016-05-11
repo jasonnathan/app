@@ -10,7 +10,7 @@ export default class PartupUpdateModel extends Model {
             _id: comment.creator._id,
             profile: {
                 name: comment.creator.name,
-                avatar: comment.creator.image
+                image: comment.creator.image
             }
         });
     }

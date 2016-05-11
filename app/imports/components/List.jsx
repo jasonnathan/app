@@ -9,7 +9,9 @@ const List = class List extends React.Component {
             <ul className={c('pa-List', {
                 'pa-List--buttons': this.props.buttons,
                 'pa-List--notifications': this.props.notifications,
-                'pa-List--partup-update-comments': this.props.partupUpdateComments
+                'pa-List--partup-update-comments': this.props.partupUpdateComments,
+                'pa-List--inline': this.props.inline,
+                'pa-List--stats': this.props.stats
             })}>
                 {this.props.children}
             </ul>

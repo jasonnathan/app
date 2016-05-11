@@ -36,4 +36,10 @@
             margin-left: 8px;
         }
     }
+
+    &--has-no-label {
+        .pa-Svg {
+            margin-top: -2px;
+        }
+    }
 }

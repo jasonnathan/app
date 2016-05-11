@@ -3,6 +3,7 @@
 import React from 'react';
 
 import transitionTo from '/imports/services/transitionTo';
+import NavButton from '/imports/components/NavButton';
 import { Container } from 'touchstonejs';
 import NotificationModel from '/imports/models/NotificationModel';
 import List from '/imports/components/List';
@@ -53,9 +54,15 @@ NotificationsView.propTypes = {
 };
 
 NotificationsView.navigationBar = 'app';
-NotificationsView.getNavigation = () => {
+NotificationsView.getNavigation = (props, app) => {
     return {
-        title: 'Notifications'
+        title: 'Notifications',
+        rightLabel: <NavButton right icon="icon_info" />,
+        rightAction: () => {
+            app.transitionTo('root:about-modal', {
+                transition: 'show-from-bottom'
+            });
+        }
     };
 };
 
