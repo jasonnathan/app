@@ -5,6 +5,7 @@ import { Container } from '/imports/touchstonejs/lib';
 import { defer } from 'lodash';
 import c from 'classnames';
 
+import openWeb from '/imports/services/openWeb';
 import NotificationModel from '/imports/models/NotificationModel';
 import PartupUpdateModel from '/imports/models/PartupUpdateModel';
 import ReversedScroller from '/imports/classes/ReversedScroller';
@@ -16,6 +17,8 @@ import Notification from '/imports/components/Notification';
 import PartupUpdateComment from '/imports/components/PartupUpdateComment';
 import PartupUpdateContent from '/imports/components/PartupUpdateContent';
 import Flex from '/imports/components/Flex';
+
+let notificationForNavigationBar;
 
 const NotificationView = class NotificationView extends React.Component {
     constructor(props) {
@@ -59,6 +62,7 @@ const NotificationView = class NotificationView extends React.Component {
     render() {
         const {t, notification, partupUpdate, partupUpdateData} = this.props;
         const {nowDate, messageBoxFocussed} = this.state;
+        notificationForNavigationBar = notification;
 
         return (
             <Container fill className={c({
@@ -140,6 +144,10 @@ NotificationView.getNavigation = (props, app) => {
             app.transitionTo('app:tabs:notifications', {
                 transition: 'reveal-from-right'
             });
+        },
+        rightLabel: <NavButton right icon="icon_part-up" />,
+        rightAction: () => {
+            openWeb(notificationForNavigationBar.getWebsiteUrl());
         }
     };
 };
