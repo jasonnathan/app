@@ -54,7 +54,7 @@ App.setPreference('FadeSplashScreenDuration', 300);
 
 // Configure Push Notifications plugin
 App.configurePlugin('phonegap-plugin-push', {
-    'SENDER_ID': 'XXXXXXX' // only for Android
+    'SENDER_ID': '963161275015' // only for Android
 });
 
 // Access rule
