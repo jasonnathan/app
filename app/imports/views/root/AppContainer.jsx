@@ -13,14 +13,17 @@ export default meteorDataContainer(AppViewManager, (props) => {
     Debug.tracker('AppContainer');
 
     Subs.subscribe('users.loggedin');
-    Subs.subscribe('notifications.for_upper', 20);
+    Subs.subscribe('notifications.for_upper', 35);
 
-    // If user is not logged in, redirect to login screen
-    if (!Meteor.userId()) {
-        transitionTo('root:login', {
-            transition: 'reveal-from-right'
-        });
-    }
+    // fixme
+    setTimeout(() => {
+        // If user is not logged in, redirect to login screen
+        if (!Meteor.userId()) {
+            transitionTo('root:login', {
+                transition: 'reveal-from-right'
+            });
+        }
+    }, 1500);
 
     return {};
 });

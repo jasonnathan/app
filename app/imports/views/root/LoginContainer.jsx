@@ -12,12 +12,15 @@ export default meteorDataContainer(LoginView, (props) => {
     const {} = props;
     Debug.tracker('LoginContainer');
 
-    // If user is already logged in, redirect to tabs screen
-    if (Meteor.userId()) {
-        transitionTo('root:app', {
-            transition: 'show-from-right'
-        });
-    }
+    // fixme
+    setTimeout(() => {
+        // If user is already logged in, redirect to tabs screen
+        if (Meteor.userId()) {
+            transitionTo('root:app', {
+                transition: 'show-from-right'
+            });
+        }
+    }, 1500);
 
     const onLoginWithFacebook = (cb) => {
         Meteor.loginWithFacebook({
