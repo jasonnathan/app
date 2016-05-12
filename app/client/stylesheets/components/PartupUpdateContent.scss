@@ -1,4 +1,9 @@
 .pa-PartupUpdateContent {
+    .pa-Content {
+        max-height: 150px;
+        overflow-y: auto;
+    }
+
     .pa-Heading {
         font-size: 18px;
     }
