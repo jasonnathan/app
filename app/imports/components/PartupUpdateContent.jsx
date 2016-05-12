@@ -5,6 +5,7 @@ import c from 'classnames';
 import { contains } from 'mout/array';
 import { get } from 'mout/object';
 
+import parseMentions from '/imports/services/parseMentions';
 import ActivityModel from '/imports/models/ActivityModel';
 import Content from '/imports/components/Content';
 import Paragraph from '/imports/components/Paragraph';
@@ -29,7 +30,7 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
         if (contains(['partups_message_added'], u.type)) {
             return (
                 <Content.Text>
-                    <Paragraph>{u.type_data.new_value}</Paragraph>
+                    <Paragraph>{parseMentions(u.type_data.new_value)}</Paragraph>
                 </Content.Text>
             );
         }
