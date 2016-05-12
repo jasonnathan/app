@@ -16,6 +16,7 @@ export default meteorDataContainer(AppViewManager, (props) => {
     Subs.subscribe('notifications.for_upper', 35);
 
     // fixme
+    Meteor.userId();
     setTimeout(() => {
         // If user is not logged in, redirect to login screen
         if (!Meteor.userId()) {

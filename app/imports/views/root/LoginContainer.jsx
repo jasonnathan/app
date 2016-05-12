@@ -13,6 +13,7 @@ export default meteorDataContainer(LoginView, (props) => {
     Debug.tracker('LoginContainer');
 
     // fixme
+    Meteor.userId();
     setTimeout(() => {
         // If user is already logged in, redirect to tabs screen
         if (Meteor.userId()) {
