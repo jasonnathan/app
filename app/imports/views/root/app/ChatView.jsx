@@ -21,7 +21,7 @@ const ChatView = class ChatView extends React.Component {
             <Container fill scrollable>
                 <Chat>
                     <ChatBox send>
-                        <Avatar src="http://www.haagsehonderd.nl/hh/wp-content/uploads/2014/12/Legowelt_2012_600-1-426x188.jpg"></Avatar>
+                        <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
                         <List>
                             <ListItem>
                                 <ChatMessage message='Blabla text in a chat box yes thats what we want!' time='9:40'/>
@@ -29,7 +29,7 @@ const ChatView = class ChatView extends React.Component {
                         </List>
                     </ChatBox>
                     <ChatBox receive>
-                        <Avatar src="http://www.haagsehonderd.nl/hh/wp-content/uploads/2014/12/Legowelt_2012_600-1-426x188.jpg"></Avatar>
+                        <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
                         <List>
                             <ListItem>
                                 <ChatMessage message='Blabla text in a chat box' time='9:50'/>
@@ -43,7 +43,7 @@ const ChatView = class ChatView extends React.Component {
                         </List>
                     </ChatBox>
                     <ChatBox send>
-                        <Avatar src="http://www.haagsehonderd.nl/hh/wp-content/uploads/2014/12/Legowelt_2012_600-1-426x188.jpg"></Avatar>
+                        <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
                         <List>
                             <ListItem>
                                 <ChatMessage message='Blabla text in a chat box text in a chat box text in a chat box. Blabla text in a chat box text in a chat box text in a chat box. Blabla text in a chat box text in a chat box text in a chat box.' time='10:40'/>
@@ -54,7 +54,7 @@ const ChatView = class ChatView extends React.Component {
                         </List>
                     </ChatBox>
                     <ChatBox receive>
-                        <Avatar src="http://www.haagsehonderd.nl/hh/wp-content/uploads/2014/12/Legowelt_2012_600-1-426x188.jpg"></Avatar>
+                        <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
                         <List>
                             <ListItem>
                                 <ChatMessage message='Blabla text in a chat box' time='10:50'/>
@@ -62,7 +62,7 @@ const ChatView = class ChatView extends React.Component {
                         </List>
                     </ChatBox>
                     <ChatBox send>
-                        <Avatar src="http://www.haagsehonderd.nl/hh/wp-content/uploads/2014/12/Legowelt_2012_600-1-426x188.jpg"></Avatar>
+                        <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
                         <List>
                             <ListItem>
                                 <ChatMessage message='Blabla' time='11:40'/>
@@ -73,7 +73,7 @@ const ChatView = class ChatView extends React.Component {
                         </List>
                     </ChatBox>
                     <ChatBox receive>
-                        <Avatar src="http://www.haagsehonderd.nl/hh/wp-content/uploads/2014/12/Legowelt_2012_600-1-426x188.jpg"></Avatar>
+                        <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
                         <List>
                             <ListItem>
                                 <ChatMessage message='Blabla text in a chat box' time='10:50'/>

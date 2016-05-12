@@ -10,6 +10,7 @@
         display: inline-block;
         width: 84%;
         //display: block;
+        //width: 100%;
     }
 
     .pa-Button {
@@ -21,4 +22,6 @@
         color: $color-brand-secondary;
         font-size: 14px;
     }
+
+    @include clearfix;
 }
