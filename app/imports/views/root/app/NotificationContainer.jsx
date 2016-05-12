@@ -17,7 +17,7 @@ export default meteorDataContainer(NotificationView, (props) => {
     Debug.tracker('NotificationContainer');
 
     const notification = NotificationModel.findOne(notificationId);
-    const partupUpdateId = notification.hasUpdate() && get(notification.type_data, 'update._id');
+    const partupUpdateId = notification && notification.hasUpdate() && get(notification.type_data, 'update._id');
 
     let partupUpdate;
     if (partupUpdateId) {
