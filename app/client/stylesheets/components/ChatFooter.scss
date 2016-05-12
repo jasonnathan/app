@@ -1,0 +1,24 @@
+.pa-ChatFooter {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    width: 100%;
+    padding: 15px;
+
+    .pa-Input {
+        display: inline-block;
+        width: 84%;
+        //display: block;
+    }
+
+    .pa-Button {
+        display: inline-block;
+        float: right;
+        padding: 11px 4px 0 0;
+        background-color: transparent;
+        border: none;
+        color: $color-brand-secondary;
+        font-size: 14px;
+    }
+}

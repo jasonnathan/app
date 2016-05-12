@@ -5,12 +5,15 @@ import c from 'classnames';
 import { Container } from 'touchstonejs';
 
 import NavButton from '/imports/components/NavButton';
+import Button from '/imports/components/Button';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import Avatar from '/imports/components/Avatar';
 import Chat from '/imports/components/Chat';
 import ChatBox from '/imports/components/ChatBox';
 import ChatMessage from '/imports/components/ChatMessage';
+import ChatFooter from '/imports/components/ChatFooter';
+import Input from '/imports/components/Input';
 
 const ChatView = class ChatView extends React.Component {
     render() {
@@ -21,7 +24,7 @@ const ChatView = class ChatView extends React.Component {
                         <Avatar src="http://www.haagsehonderd.nl/hh/wp-content/uploads/2014/12/Legowelt_2012_600-1-426x188.jpg"></Avatar>
                         <List>
                             <ListItem>
-                                <ChatMessage time='9:40'/>
+                                <ChatMessage message='Blabla text in a chat box yes thats what we want!' time='9:40'/>
                             </ListItem>
                         </List>
                     </ChatBox>
@@ -29,13 +32,13 @@ const ChatView = class ChatView extends React.Component {
                         <Avatar src="http://www.haagsehonderd.nl/hh/wp-content/uploads/2014/12/Legowelt_2012_600-1-426x188.jpg"></Avatar>
                         <List>
                             <ListItem>
-                                <ChatMessage time='9:50'/>
+                                <ChatMessage message='Blabla text in a chat box' time='9:50'/>
                             </ListItem>
                             <ListItem>
-                                <ChatMessage time='9:51'/>
+                                <ChatMessage message='Blabla text ' time='9:51'/>
                             </ListItem>
                             <ListItem>
-                                <ChatMessage time='9:55'/>
+                                <ChatMessage message='Blabla text in a chat box text in a chat box text in a chat box' time='9:55'/>
                             </ListItem>
                         </List>
                     </ChatBox>
@@ -43,10 +46,10 @@ const ChatView = class ChatView extends React.Component {
                         <Avatar src="http://www.haagsehonderd.nl/hh/wp-content/uploads/2014/12/Legowelt_2012_600-1-426x188.jpg"></Avatar>
                         <List>
                             <ListItem>
-                                <ChatMessage time='10:40'/>
+                                <ChatMessage message='Blabla text in a chat box text in a chat box text in a chat box. Blabla text in a chat box text in a chat box text in a chat box. Blabla text in a chat box text in a chat box text in a chat box.' time='10:40'/>
                             </ListItem>
                             <ListItem>
-                                <ChatMessage time='10:42'/>
+                                <ChatMessage message='Blabla text' time='10:42'/>
                             </ListItem>
                         </List>
                     </ChatBox>
@@ -54,7 +57,7 @@ const ChatView = class ChatView extends React.Component {
                         <Avatar src="http://www.haagsehonderd.nl/hh/wp-content/uploads/2014/12/Legowelt_2012_600-1-426x188.jpg"></Avatar>
                         <List>
                             <ListItem>
-                                <ChatMessage time='10:50'/>
+                                <ChatMessage message='Blabla text in a chat box' time='10:50'/>
                             </ListItem>
                         </List>
                     </ChatBox>
@@ -62,13 +65,28 @@ const ChatView = class ChatView extends React.Component {
                         <Avatar src="http://www.haagsehonderd.nl/hh/wp-content/uploads/2014/12/Legowelt_2012_600-1-426x188.jpg"></Avatar>
                         <List>
                             <ListItem>
-                                <ChatMessage time='11:40'/>
+                                <ChatMessage message='Blabla' time='11:40'/>
                             </ListItem>
                             <ListItem>
-                                <ChatMessage time='11:42'/>
+                                <ChatMessage message='Blablablablablablablabla' time='11:42'/>
                             </ListItem>
                         </List>
                     </ChatBox>
+                    <ChatBox receive>
+                        <Avatar src="http://www.haagsehonderd.nl/hh/wp-content/uploads/2014/12/Legowelt_2012_600-1-426x188.jpg"></Avatar>
+                        <List>
+                            <ListItem>
+                                <ChatMessage message='Blabla text in a chat box' time='10:50'/>
+                            </ListItem>
+                            <ListItem>
+                                <ChatMessage message='Blablablablablablablabla Blablablablablablablabla' time='11:42'/>
+                            </ListItem>
+                        </List>
+                    </ChatBox>
+                    <ChatFooter>
+                        <Input.Text placeholder="Send message..."/>
+                        <Button>Send</Button>
+                    </ChatFooter>
                 </Chat>
             </Container>
         );
