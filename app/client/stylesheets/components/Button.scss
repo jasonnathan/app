@@ -55,7 +55,13 @@
         background-color: transparent;
         color: $color-button;
         font-size: 14px;
-        padding: 10px 0 13px 0;
+        padding-left: 0;
+        padding-right: 0;
+
+        &--secondary {
+            font-weight: normal;
+            color: $color-button-text;
+        }
     }
 
     &--loading {

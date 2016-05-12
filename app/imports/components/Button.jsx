@@ -11,6 +11,7 @@ const Button = class Button extends React.Component {
 
         const className = c('pa-Button', {
             'pa-Button--text': p.text,
+            'pa-Button--text--secondary': p.textSecondary,
             'pa-Button--loading': p.loading,
             'pa-Button--login': p.login,
             'pa-Button--login--facebook': p.loginFacebook,
@@ -48,6 +49,7 @@ Button.propTypes = {
     onClick: React.PropTypes.func,
     submit: React.PropTypes.bool,
     text: React.PropTypes.bool,
+    textSecondary: React.PropTypes.bool,
     disabled: React.PropTypes.bool,
     formNoValidate: React.PropTypes.bool,
     loading: React.PropTypes.bool,

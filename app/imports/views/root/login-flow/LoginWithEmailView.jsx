@@ -4,6 +4,8 @@ import React from 'react';
 import { Container, UI, Link, ViewManager, View } from '/imports/touchstonejs/lib';
 import { isEmail, isLength } from 'validator';
 
+import openWeb from '/imports/services/openWeb';
+import formatWebsiteUrl from '/imports/services/formatWebsiteUrl';
 import transitionTo from '/imports/services/transitionTo';
 import Debug from '/imports/Debug';
 import NavButton from '/imports/components/NavButton';
@@ -38,7 +40,7 @@ const LoginWithEmailView = class LoginWithEmailView extends React.Component {
                                     <Button submit formNoValidate loading={this.state.submitting}>Sign in</Button>
                                 </Form.Footer.Submit>
                                 <Form.Footer.Action>
-                                    {/*TODO <Button text>Forgot password</Button>*/}
+                                    <Button text textSecondary onClick={this.onForgotPasswordClick.bind(this)}>Forgot password</Button>
                                 </Form.Footer.Action>
                             </Form.Footer>
                         </Form>
@@ -46,6 +48,11 @@ const LoginWithEmailView = class LoginWithEmailView extends React.Component {
                 </Content>
             </Container>
         );
+    }
+
+    onForgotPasswordClick(event) {
+        event.preventDefault();
+        openWeb(formatWebsiteUrl({pathname: '/forgot-password'}));
     }
 
     onSubmit(event) {
