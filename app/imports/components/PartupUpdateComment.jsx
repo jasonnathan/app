@@ -5,7 +5,7 @@ import c from 'classnames';
 import moment from 'moment';
 import { translate } from 'react-i18next';
 
-import parseMentions from '/imports/services/parseMentionsForComment';
+import parseMentions from '/imports/services/parseMentions';
 import formatDate from '/imports/services/formatDate';
 import Avatar from '/imports/components/Avatar';
 import Heading from '/imports/components/Heading';

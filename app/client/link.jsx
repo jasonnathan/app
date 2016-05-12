@@ -6,11 +6,11 @@ import { I18nextProvider } from 'react-i18next';
 
 import i18n from '/imports/i18n';
 import Connection from '/imports/Connection';
-import RootViewManager from '/imports/views/RootViewManager';
+import RootContainer from '/imports/views/RootContainer';
 
 const renderMain = () => {
     render(
-        <I18nextProvider i18n={i18n}><RootViewManager /></I18nextProvider>,
+        <I18nextProvider i18n={i18n}><RootContainer /></I18nextProvider>,
         document.getElementById('react-root')
     );
 };

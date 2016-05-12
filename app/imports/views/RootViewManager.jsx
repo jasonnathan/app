@@ -29,10 +29,12 @@ const RootViewManager = class RootViewManager extends React.Component {
     }
 
     render() {
+        const defaultView = this.props.userId ? 'app' : 'login';
+
         return (
             <div className={c(`app-wrapper device--${get(window, 'device.platform')}`)}>
                 <div className="device-silhouette">
-                    <ViewManager name="root" defaultView="login">
+                    <ViewManager name="root" defaultView={defaultView}>
                         <View name="login" component={LoginContainer} />
                         <View name="login-flow" component={LoginFlowViewManager} />
                         <View name="app" component={AppContainer} />

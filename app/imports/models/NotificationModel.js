@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { get } from 'mout/object';
 
-import parseMentions from '/imports/services/parseMentionsForComment';
+import parseMentions from '/imports/services/parseMentions';
 import formatDate from '/imports/services/formatDate';
 import Model from '/imports/classes/Model';
 import linkCollection from '/imports/services/linkCollection';
