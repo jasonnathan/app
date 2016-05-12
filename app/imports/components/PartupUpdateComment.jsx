@@ -5,6 +5,7 @@ import c from 'classnames';
 import moment from 'moment';
 import { translate } from 'react-i18next';
 
+import PartupUpdateModel from '/imports/models/PartupUpdateModel';
 import formatDate from '/imports/services/formatDate';
 import Avatar from '/imports/components/Avatar';
 import Heading from '/imports/components/Heading';
@@ -30,12 +31,16 @@ const PartupUpdateComment = class PartupUpdateComment extends React.Component {
                 <div>
                     <Paragraph>
                         <strong>{author.profile.name}</strong>
-                        {content}
+                        {PartupUpdateModel.parseMentionsForComment(content)}
                     </Paragraph>
                     <Paragraph meta>{readableCreatedAt}</Paragraph>
                 </div>
             </section>
         );
+    }
+
+    onMentionClick(userIds, groupType) {
+        console.log(`clicked ${userIds.join(', ')} with grouptype ${groupType}`);
     }
 };
 
