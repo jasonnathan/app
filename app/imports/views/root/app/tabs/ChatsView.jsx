@@ -14,7 +14,7 @@ const ChatsView = class ChatsView extends React.Component {
         return (
             <Container scrollable fill>
                 <Content>
-                    <Input.Text name="anne" placeholder="Search Users"/>
+                    <Input.Text placeholder="Search Users"/>
                     <List>
                         <ListItem>
                             <ChatTile onClick={this.onChatTileClick.bind(this)} />
