@@ -15,13 +15,6 @@ export default class PartupUpdateModel extends Model {
         });
     }
 
-    static parseMentionsForComment(message) {
-        return message
-            .replace(/\[Supporters:([^\]]*)\]/g, 'Supporters')
-            .replace(/\[Partners:([^\]]*)\]/g, 'Partners')
-            .replace(/\[user:([^\]|]+)\|([^\]]*)\]/g, (m, userId, name) => name);
-    }
-
     isActivityRelated() {
         return /^partups_(activities|contributions|ratings)/.test(this.type) ||
             this.type === 'partups_comments_added';
