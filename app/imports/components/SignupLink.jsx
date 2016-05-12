@@ -5,7 +5,7 @@ import c from 'classnames';
 
 const SignupLink = class SignupLink extends React.Component {
     render() {
-        return <p className={c('pa-SignupLink')}>No account yet? Go to part-up.com to discover the features of Part-up. This app will be an extention of the platform.</p>;
+        return <p className={c('pa-SignupLink')}>Part-up is the marketplace for teamwork. The Part-up app is a notification and chat app for uppers. Become upper on part-up.com or login to the Part-up App.</p>;
     }
 };
 

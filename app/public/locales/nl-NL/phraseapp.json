@@ -1,5 +1,6 @@
 {
-    "about-intro": "This is the Part-up app",
+    "login-with-email-intro": "You can login to the Part-up App using the email address and password you created on part-up.com. Don’t have an account yet? Go to part-up.com to create one and become an upper.",
+    "about-intro": "The Part-up App is a notification and chat app for uppers (Part-up users). On part-up.com you can start new part-ups, join tribes, and invite people to start working together. The app helps you to stay in touch with your partners, supporters and tribe members. You are logged in with the account shown below.",
     "notification-contributions_ratings_inserted": "__rater__ rated your contribution",
     "notification-invite_upper_to_partup": "__inviter__ has invited you to join __partup__",
     "notification-location": "in __location__",

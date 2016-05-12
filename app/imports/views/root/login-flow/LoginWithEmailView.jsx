@@ -4,6 +4,7 @@ import React from 'react';
 import { Container, UI, Link, ViewManager, View } from '/imports/touchstonejs/lib';
 import { isEmail, isLength } from 'validator';
 
+import translate from '/imports/services/translate';
 import openWeb from '/imports/services/openWeb';
 import formatWebsiteUrl from '/imports/services/formatWebsiteUrl';
 import transitionTo from '/imports/services/transitionTo';
@@ -29,7 +30,7 @@ const LoginWithEmailView = class LoginWithEmailView extends React.Component {
             <Container fill scrollable>
                 <Content>
                     <Content.Text>
-                        <Paragraph>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque neque ut ratione veritatis voluptas, quam explicabo modi, aperiam laboriosam? Maiores minima molestias magni inventore fuga.</Paragraph>
+                        <Paragraph>{this.props.t('login-with-email-intro')}</Paragraph>
                     </Content.Text>
                     <Content.Block>
                         <Form onSubmit={this.onSubmit.bind(this)}>
@@ -127,4 +128,4 @@ LoginWithEmailView.propTypes = {
     onLoginWithPassword: React.PropTypes.func.isRequired
 };
 
-export default LoginWithEmailView;
+export default translate()(LoginWithEmailView);
