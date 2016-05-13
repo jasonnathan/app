@@ -1,13 +1,67 @@
 .View--tribes {
-    .pa-List {
-        padding: 20px 15px 15px 15px;
+    text-align: center;
+    padding: 0 40px 40px 40px;
+    background-color: $color-cover-background;
 
-        .pa-ListItem {
-            margin-bottom: 20px;
+    .pa-Content__text {
+        margin-bottom: 38px;
+    }
 
-            &:last-child {
-                margin-bottom: 0;
-            }
+    .pa-Paragraph {
+        color: #fff;
+    }
+    .pa-Heading {
+        font-size: 20px;
+        color: #fff;
+        margin-bottom: 4px;
+    }
+
+    figure {
+        margin-left: -15px;
+        margin-right: -15px;
+        margin-bottom: 38px;
+        position: relative;
+
+        img {
+            width: 100%;
         }
+
+        span {
+            text-align: center;
+            color: #fff;
+            font-family: $font-secondary;
+            font-size: 14px;
+        }
+
+        .pa-notification-warning-text {
+            position: absolute;
+            top: 106px;
+            left: 73px;
+            max-width: 188px;
+            font-style: italic;
+            line-height: 1.5em;
+            font-size: 16px;
+        }
+
+        .pa-notification-warning-decline {
+            position: absolute;
+            bottom: 156px;
+            left: 70px;
+            color: $color-button-login;
+        }
+
+        .pa-notification-warning-accept {
+            position: absolute;
+            bottom: 156px;
+            right: 91px;
+            font-weight: 600;
+        }
+    }
+
+    .pa-Button {
+        display: block;
+        width: 100%;
+        text-align: center;
+        background-color: $color-button-login;
     }
 }

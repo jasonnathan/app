@@ -7,44 +7,33 @@ import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
 import openWeb from '/imports/services/openWeb';
 import NetworkModel from '/imports/models/NetworkModel';
-import Tile from '/imports/components/Tile';
-import List from '/imports/components/List';
-import ListItem from '/imports/components/ListItem';
-import EmptyState from '/imports/components/EmptyState';
+import Content from '/imports/components/Content';
+import Heading from '/imports/components/Heading';
+import Paragraph from '/imports/components/Paragraph';
+import Button from '/imports/components/Button';
+
 
 const TribesView = class TribesView extends React.Component {
     render() {
         let {networks} = this.props;
 
         return (
-            <Container fill scrollable>
-                {!networks || !networks.length &&
-                    <EmptyState type="tribes" />
-                }
-                <List>
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                </List>
+            <Container fill>
+                <Content>
+                    <Content.Text>
+                        <Heading>Push notifications</Heading>
+                        <Paragraph>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut pretium tempor.</Paragraph>
+                    </Content.Text>
+                    <figure>
+                        <img src="../../../images/notifications-warning.png"/>
+                        <span className='pa-notification-warning-text'>Part-up Would Like to Send You Notifications...</span>
+                        <span className='pa-notification-warning-decline'>Don't Allow</span>
+                        <span className='pa-notification-warning-accept'>OK</span>
+                    </figure>
+                    <Button>Got it!</Button>
+                </Content>
             </Container>
         );
-    }
-
-    renderNetwork(network) {
-        const networkImage = network.getImage();
-
-        return (
-            <Tile
-                imageSrc={networkImage && networkImage.getUrl('80x80')}
-                label={network.name}
-                onClick={this.onNetworkClick.bind(this, network)} />
-        );
-    }
-
-    onNetworkClick(network) {
-        openWeb(network.getWebsiteUrl());
     }
 };
 
