@@ -4,8 +4,7 @@ import React from 'react';
 import c from 'classnames';
 
 import translate from '/imports/services/translate';
-import NotificationModel from '/imports/models/NotificationModel';
-import ImageModel from '/imports/models/ImageModel';
+import { NotificationModel, ImageModel } from '/imports/models';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import Avatar from '/imports/components/Avatar';

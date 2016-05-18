@@ -10,7 +10,7 @@ import formatDate from '/imports/services/formatDate';
 import Avatar from '/imports/components/Avatar';
 import Heading from '/imports/components/Heading';
 import Paragraph from '/imports/components/Paragraph';
-import UserModel from '/imports/models/UserModel';
+import { UserModel } from '/imports/models';
 
 const PartupUpdateComment = class PartupUpdateComment extends React.Component {
     render() {

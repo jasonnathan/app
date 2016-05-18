@@ -10,9 +10,7 @@ import meteorDataContainer from '/imports/services/meteorDataContainer';
 import asyncDataContainer from '/imports/services/asyncDataContainer';
 import PartupsView from './PartupsView';
 import Debug from '/imports/Debug';
-import UserModel from '/imports/models/UserModel';
-import ImageModel from '/imports/models/ImageModel';
-import PartupModel from '/imports/models/PartupModel';
+import { UserModel, ImageModel, PartupModel } from '/imports/models';
 
 let cachedData;
 
@@ -71,8 +69,7 @@ export default meteorDataContainer(myAsyncDataContainer, (props) => {
     const {} = props;
     Debug.tracker('PartupsContainer');
 
-    const accounts = UserModel.getAccounts();
-    const loggedInUser = accounts.user();
+    const loggedInUser = UserModel.accountsClient.user();
     const storedLoginToken = accounts._storedLoginToken();
 
     return {

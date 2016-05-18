@@ -7,7 +7,7 @@ import pushNotifications from '/imports/services/pushNotifications';
 import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
 import { Container } from '/imports/touchstonejs/lib';
-import NotificationModel from '/imports/models/NotificationModel';
+import { NotificationModel } from '/imports/models';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import Notification from '/imports/components/Notification';

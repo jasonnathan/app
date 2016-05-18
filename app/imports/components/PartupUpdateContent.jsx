@@ -6,7 +6,7 @@ import { contains } from 'mout/array';
 import { get } from 'mout/object';
 
 import parseMentions from '/imports/services/parseMentions';
-import ActivityModel from '/imports/models/ActivityModel';
+import { ActivityModel } from '/imports/models';
 import Content from '/imports/components/Content';
 import Paragraph from '/imports/components/Paragraph';
 import Heading from '/imports/components/Heading';

@@ -6,7 +6,7 @@ import { toLookup } from 'mout/array';
 import meteorDataContainer from '/imports/services/meteorDataContainer';
 import NotificationsView from './NotificationsView';
 import Connection from '/imports/Connection';
-import NotificationModel from '/imports/models/NotificationModel';
+import { NotificationModel } from '/imports/models';
 import Debug from '/imports/Debug';
 
 export default meteorDataContainer(NotificationsView, (props) => {
@@ -14,7 +14,7 @@ export default meteorDataContainer(NotificationsView, (props) => {
     Debug.tracker('NotificationsContainer');
 
     const notifications = NotificationModel.query()
-        .search(m => m.searchForCurrentUser())
+        .search(m => m.searchForUser(Meteor.userId()))
         .fetch();
 
     const onAllNotificationsRead = () => {

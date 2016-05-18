@@ -23,6 +23,8 @@
     "moment": "^2.13.0",
     "mout": "^1.0.0",
     "os": "^0.1.1",
+    "part-up-js-helpers": "git://github.com/part-up/js-helpers.git#1.0.0",
+    "part-up-js-models": "git://github.com/part-up/js-models.git#1.0.0",
     "react": "^0.14.8",
     "react-addons-css-transition-group": "^0.14.3",
     "react-addons-pure-render-mixin": "^0.14.8",

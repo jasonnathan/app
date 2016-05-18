@@ -6,7 +6,7 @@ import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
 import openWeb from '/imports/services/openWeb';
 import Content from '/imports/components/Content';
-import PartupModel from '/imports/models/PartupModel';
+import { PartupModel } from '/imports/models';
 import ButtonGroup from '/imports/components/ButtonGroup';
 import Tile from '/imports/components/Tile';
 import List from '/imports/components/List';
@@ -58,7 +58,7 @@ const PartupsView = class PartupsView extends React.Component {
             <Tile
                 imageSrc={partupImage && partupImage.getUrl('80x80')}
                 label={partup.name}
-                updatesCount={partup.getNewUpdatesCount()}
+                updatesCount={partup.getNewUpdatesCount(this.props.loggedInUser._id)}
                 onClick={this.onPartupClick.bind(this, partup)} />
         );
     }

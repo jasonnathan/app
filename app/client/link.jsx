@@ -5,7 +5,6 @@ import { render } from 'react-dom';
 import { I18nextProvider } from 'react-i18next';
 
 import i18n from '/imports/i18n';
-import Connection from '/imports/Connection';
 import RootContainer from '/imports/views/RootContainer';
 
 const renderMain = () => {

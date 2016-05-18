@@ -8,9 +8,7 @@ import NotificationView from './NotificationView';
 import Debug from '/imports/Debug';
 import Subs from '/imports/Subs';
 import Connection from '/imports/Connection';
-import NotificationModel from '/imports/models/NotificationModel';
-import ActivityModel from '/imports/models/ActivityModel';
-import PartupUpdateModel from '/imports/models/PartupUpdateModel';
+import { NotificationModel, ActivityModel, PartupUpdateModel } from '/imports/models';
 
 export default meteorDataContainer(NotificationView, (props) => {
     const {notificationId} = props;

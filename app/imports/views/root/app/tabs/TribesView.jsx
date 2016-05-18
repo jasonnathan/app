@@ -6,7 +6,7 @@ import { Container } from '/imports/touchstonejs/lib';
 import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
 import openWeb from '/imports/services/openWeb';
-import NetworkModel from '/imports/models/NetworkModel';
+import { NetworkModel } from '/imports/models';
 import Tile from '/imports/components/Tile';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';

@@ -6,8 +6,7 @@ import { defer } from 'lodash';
 import c from 'classnames';
 
 import openWeb from '/imports/services/openWeb';
-import NotificationModel from '/imports/models/NotificationModel';
-import PartupUpdateModel from '/imports/models/PartupUpdateModel';
+import { NotificationModel, PartupUpdateModel } from '/imports/models';
 import ReversedScroller from '/imports/classes/ReversedScroller';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';

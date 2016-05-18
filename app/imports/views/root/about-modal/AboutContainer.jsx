@@ -6,7 +6,7 @@ import meteorDataContainer from '/imports/services/meteorDataContainer';
 import Subs from '/imports/Subs';
 import AboutView from './AboutView';
 import Debug from '/imports/Debug';
-import UserModel from '/imports/models/UserModel';
+import { UserModel } from '/imports/models';
 
 export default meteorDataContainer(AboutView, (props) => {
     const {} = props;
@@ -14,8 +14,7 @@ export default meteorDataContainer(AboutView, (props) => {
 
     Subs.subscribe('users.loggedin');
 
-    const accounts = UserModel.getAccounts();
-    const loggedInUser = accounts.user();
+    const loggedInUser = UserModel.accountsClient.user();
     const loggedInUserAvatar = loggedInUser && loggedInUser.getAvatarImage();
 
     const onLogout = function(callback) {
