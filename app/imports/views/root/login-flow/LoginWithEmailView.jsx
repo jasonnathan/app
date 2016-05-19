@@ -51,8 +51,7 @@ const LoginWithEmailView = class LoginWithEmailView extends React.Component {
         );
     }
 
-    onForgotPasswordClick(event) {
-        event.preventDefault();
+    onForgotPasswordClick() {
         openWeb(formatWebsiteUrl({pathname: '/forgot-password'}));
     }
 
