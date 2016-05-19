@@ -69,7 +69,8 @@ export default meteorDataContainer(myAsyncDataContainer, (props) => {
     const {} = props;
     Debug.tracker('PartupsContainer');
 
-    const loggedInUser = UserModel.accountsClient.user();
+    const accounts = UserModel.accountsClient;
+    const loggedInUser = accounts.user();
     const storedLoginToken = accounts._storedLoginToken();
 
     return {

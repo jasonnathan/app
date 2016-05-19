@@ -10,7 +10,7 @@ import asyncDataContainer from '/imports/services/asyncDataContainer';
 import meteorDataContainer from '/imports/services/meteorDataContainer';
 import TribesView from './TribesView';
 import Debug from '/imports/Debug';
-import { UserModel, ImageModel, PartupModel } from '/imports/models';
+import { UserModel, ImageModel, NetworkModel } from '/imports/models';
 
 let cachedData;
 
@@ -58,7 +58,8 @@ export default meteorDataContainer(myAsyncDataContainer, (props) => {
     const {} = props;
     Debug.tracker('TribesContainer');
 
-    const loggedInUser = UserModel.accountsClient.user();
+    const accounts = UserModel.accountsClient;
+    const loggedInUser = accounts.user();
     const storedLoginToken = accounts._storedLoginToken();
 
     return {
