@@ -4,9 +4,9 @@ import React from 'react';
 import c from 'classnames';
 import moment from 'moment';
 import { translate } from 'react-i18next';
+import { formatDate } from 'part-up-js-helpers';
 
 import parseMentions from '/imports/services/parseMentions';
-import formatDate from '/imports/services/formatDate';
 import Avatar from '/imports/components/Avatar';
 import Heading from '/imports/components/Heading';
 import Paragraph from '/imports/components/Paragraph';
