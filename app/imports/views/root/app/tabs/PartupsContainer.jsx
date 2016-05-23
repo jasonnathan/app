@@ -14,18 +14,26 @@ import Debug from '/imports/Debug';
 import { UserModel, ImageModel, PartupModel } from '/imports/models';
 
 const PARTUPS_PER_PAGE = 10;
+let partnerPartupsLoading = false;
+let partnerPartupsEnd = false;
 let partnerPartupsPage = 0;
-let supporterPartupsPage = 0;
 let partnerPartupsCache = [];
+let supporterPartupsPage = 0;
 let supporterPartupsCache = [];
+let supporterPartupsLoading = false;
+let supporterPartupsEnd = false;
 
 const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb, isFirstTime) => {
-    const callback = () => {
+    const changed = () => {
         cb({
             requestMorePartnerPartups,
             requestMoreSupporterPartups,
             partnerPartups: partnerPartupsCache,
-            supporterPartups: supporterPartupsCache
+            supporterPartups: supporterPartupsCache,
+            partnerPartupsLoading,
+            partnerPartupsEnd,
+            supporterPartupsLoading,
+            supporterPartupsEnd,
         });
     };
 
@@ -64,32 +72,50 @@ const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb, isF
     });
 
     const requestMorePartnerPartups = (cb) => {
+        partnerPartupsLoading = true;
+        changed();
         partnerPartupsPage ++;
 
+        const beforeAmount = partnerPartupsCache.length;
         getPartupsPromise(`${baseUrl}/upperpartups/${getQueryString(partnerPartupsPage)}`)
         .then((partups) => {
             mergeDocuments(partnerPartupsCache, partups);
-            callback();
+            if (beforeAmount === partnerPartupsCache.length) {
+                partnerPartupsEnd = true;
+            }
+            partnerPartupsLoading = false;
+            changed();
             if (cb) cb();
         });
     };
 
     const requestMoreSupporterPartups = (cb) => {
+        supporterPartupsLoading = true;
+        changed();
         supporterPartupsPage ++;
 
+        const beforeAmount = supporterPartupsCache.length;
         getPartupsPromise(`${baseUrl}/supporterpartups/${getQueryString(supporterPartupsPage)}`)
         .then((partups) => {
             mergeDocuments(supporterPartupsCache, partups);
-            callback();
+            if (beforeAmount === supporterPartupsCache.length) {
+                supporterPartupsEnd = true;
+            }
+            supporterPartupsLoading = false;
+            changed();
             if (cb) cb();
         });
     };
 
     if (isFirstTime) {
+        partnerPartupsLoading = false;
+        partnerPartupsEnd = false;
         partnerPartupsPage = 0;
-        supporterPartupsPage = 0;
         partnerPartupsCache = [];
+        supporterPartupsPage = 0;
         supporterPartupsCache = [];
+        supporterPartupsLoading = false;
+        supporterPartupsEnd = false;
 
         requestMorePartnerPartups(() => {
             requestMoreSupporterPartups();
