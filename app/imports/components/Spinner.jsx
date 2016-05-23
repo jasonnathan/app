@@ -7,7 +7,8 @@ import ReactSpinner from 'react-spinjs';
 export default class Spinner extends React.Component {
     render() {
         const className = c('pa-Spinner', {
-            'pa-Spinner--button': this.props.button
+            'pa-Spinner--button': this.props.button,
+            'pa-Spinner--infinite-scroll': this.props.infiniteScroll
         });
 
         const opts = {
@@ -36,14 +37,23 @@ export default class Spinner extends React.Component {
             opts.radius = 4;
         }
 
+        if (this.props.infiniteScroll) {
+            opts.color = '#999';
+            opts.width = 1;
+            opts.length = 4;
+            opts.radius = 4;
+        }
+
         return <ReactSpinner config={opts} />;
     }
 }
 
 Spinner.propTypes = {
-    button: React.PropTypes.bool
+    button: React.PropTypes.bool,
+    infiniteScroll: React.PropTypes.bool
 };
 
 Spinner.defaultProps = {
-    button: false
+    button: false,
+    infiniteScroll: false
 };

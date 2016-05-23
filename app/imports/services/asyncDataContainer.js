@@ -29,21 +29,21 @@ export default function asyncDataContainer(Component, options, getAsyncProps) {
         }
 
         componentWillMount() {
-            this.doAsyncCall();
+            this.doAsyncCall(true);
         }
 
         componentWillReceiveProps() {
             this.doAsyncCall();
         }
 
-        doAsyncCall() {
-            getAsyncProps(this.props, (props) => {
+        doAsyncCall(isFirstTime) {
+            getAsyncProps.call(this, this.props, (props) => {
                 if (!this.unMounted) {
                     this.setState({
                         asyncProps: props
                     });
                 }
-            });
+            }, isFirstTime);
         }
 
         render() {

@@ -19,7 +19,7 @@
     transition-duration: $duration-appear;
 
     .pa-Spinner {
-        position: absolute;
+        position: absolute !important;
         opacity: 0;
         right: $padding-right + $spinner-width / 2;
         transition: opacity;

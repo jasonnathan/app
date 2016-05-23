@@ -8,18 +8,28 @@ import { find } from 'mout/array';
 import formatWebsiteUrl from '/imports/services/formatWebsiteUrl';
 import meteorDataContainer from '/imports/services/meteorDataContainer';
 import asyncDataContainer from '/imports/services/asyncDataContainer';
+import mergeDocuments from '/imports/services/mergeDocuments';
 import PartupsView from './PartupsView';
 import Debug from '/imports/Debug';
 import { UserModel, ImageModel, PartupModel } from '/imports/models';
 
-let cachedData;
+const PARTUPS_PER_PAGE = 10;
+let partnerPartupsPage = 0;
+let supporterPartupsPage = 0;
+let partnerPartupsCache = [];
+let supporterPartupsCache = [];
 
-const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb) => {
-    if (cachedData) {
-        cb(cachedData);
-    }
+const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb, isFirstTime) => {
+    const callback = () => {
+        cb({
+            requestMorePartnerPartups,
+            requestMoreSupporterPartups,
+            partnerPartups: partnerPartupsCache,
+            supporterPartups: supporterPartupsCache
+        });
+    };
 
-    const createPartupsPromise = (url) => {
+    const getPartupsPromise = (url) => {
         return new Promise((resolve, reject) => {
             HTTP.get(url, function(error, response) {
                 if (error) {
@@ -44,25 +54,47 @@ const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb) => 
     };
 
     const baseUrl = formatWebsiteUrl({pathname: `/users/${props.loggedInUser._id}`});
-    const queryString = encodeQueryString({
+
+    const getQueryString = (page) => encodeQueryString({
         userId: props.loggedInUser._id,
         token: props.storedLoginToken,
-        archived: false
+        archived: false,
+        limit: page * PARTUPS_PER_PAGE,
+        skip: page * PARTUPS_PER_PAGE - PARTUPS_PER_PAGE
     });
 
-    Promise.all([
-        createPartupsPromise(`${baseUrl}/supporterpartups/${queryString}`),
-        createPartupsPromise(`${baseUrl}/upperpartups/${queryString}`)
-    ])
-    .then((results) => {
-        const data = {
-            supporterPartups: results[0],
-            partnerPartups: results[1]
-        };
+    const requestMorePartnerPartups = (cb) => {
+        partnerPartupsPage ++;
 
-        cb(data);
-        cachedData = data;
-    });
+        getPartupsPromise(`${baseUrl}/upperpartups/${getQueryString(partnerPartupsPage)}`)
+        .then((partups) => {
+            mergeDocuments(partnerPartupsCache, partups);
+            callback();
+            if (cb) cb();
+        });
+    };
+
+    const requestMoreSupporterPartups = (cb) => {
+        supporterPartupsPage ++;
+
+        getPartupsPromise(`${baseUrl}/supporterpartups/${getQueryString(supporterPartupsPage)}`)
+        .then((partups) => {
+            mergeDocuments(supporterPartupsCache, partups);
+            callback();
+            if (cb) cb();
+        });
+    };
+
+    if (isFirstTime) {
+        partnerPartupsPage = 0;
+        supporterPartupsPage = 0;
+        partnerPartupsCache = [];
+        supporterPartupsCache = [];
+
+        requestMorePartnerPartups(() => {
+            requestMoreSupporterPartups();
+        });
+    }
 });
 
 export default meteorDataContainer(myAsyncDataContainer, (props) => {
@@ -76,7 +108,9 @@ export default meteorDataContainer(myAsyncDataContainer, (props) => {
     return {
         loggedInUser,
         storedLoginToken,
+        partnerPartups: [],
         supporterPartups: [],
-        partnerPartups: []
+        requestMorePartnerPartups: () => {},
+        requestMoreSupporterPartups: () => {}
     };
 });

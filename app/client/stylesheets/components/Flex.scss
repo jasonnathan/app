@@ -13,6 +13,14 @@
         &--scroll {
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+
+            .pa-Spinner--infinite-scroll {
+                position: relative !important;
+                margin-top: 20px;
+                padding-bottom: 30px;
+                margin-right: auto;
+                margin-left: auto;
+            }
         }
     }
 
