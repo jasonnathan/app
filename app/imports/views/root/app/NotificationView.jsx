@@ -69,9 +69,11 @@ const NotificationView = class NotificationView extends React.Component {
             })}>
                 <Flex>
                     <Flex.Shrink>
-                        <Notification
-                            notification={notification}
-                            isDetail={true} />
+                        {notification &&
+                            <Notification
+                                notification={notification}
+                                isDetail={true} />
+                        }
                     </Flex.Shrink>
                     {partupUpdate && [
                         <Flex.Shrink key="updatecontent">

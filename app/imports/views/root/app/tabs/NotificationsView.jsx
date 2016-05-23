@@ -34,9 +34,11 @@ const NotificationsView = class NotificationsView extends React.Component {
                     {n.map((notification, index) => {
                         return (
                             <ListItem key={index}>
-                                <Notification
-                                    notification={notification}
-                                    onClick={() => this.onNotificationClick(notification)} />
+                                {notification &&
+                                    <Notification
+                                        notification={notification}
+                                        onClick={() => this.onNotificationClick(notification)} />
+                                }
                             </ListItem>
                         );
                     })}
