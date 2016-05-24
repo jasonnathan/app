@@ -6,12 +6,13 @@ import openWeb from '/imports/services/openWeb';
 import pushNotifications from '/imports/services/pushNotifications';
 import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
-import { Container } from '/imports/touchstonejs/lib';
 import { NotificationModel } from '/imports/models';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import Notification from '/imports/components/Notification';
+import Flex from '/imports/components/Flex';
 import EmptyState from '/imports/components/EmptyState';
+import Spinner from '/imports/components/Spinner';
 
 const NotificationsView = class NotificationsView extends React.Component {
     componentDidMount() {
@@ -23,27 +24,37 @@ const NotificationsView = class NotificationsView extends React.Component {
     }
 
     render() {
-        let {notifications: n} = this.props;
+        const notificationsProps = this.props.notifications;
+        const {data: notifications, loading, loadMore, endReached} = notificationsProps || {};
 
         return (
-            <Container scrollable fill>
-                {(!n || !n.length) &&
-                    <EmptyState type="notifications" />
+            <Flex>
+                {notificationsProps &&
+                    <Flex.Stretch scroll onHitBottom={() => !loading && !endReached && loadMore()}>
+                        {(!notifications || !notifications.length) &&
+                            <EmptyState type="notifications" />
+                        }
+
+                        <List notifications>
+                            {notifications.map((notification, index) => {
+                                return (
+                                    <ListItem key={index}>
+                                        {notification &&
+                                            <Notification
+                                                notification={notification}
+                                                onClick={() => this.onNotificationClick(notification)} />
+                                        }
+                                    </ListItem>
+                                );
+                            })}
+                        </List>
+
+                        {loading &&
+                            <Spinner infiniteScroll />
+                        }
+                    </Flex.Stretch>
                 }
-                <List notifications>
-                    {n.map((notification, index) => {
-                        return (
-                            <ListItem key={index}>
-                                {notification &&
-                                    <Notification
-                                        notification={notification}
-                                        onClick={() => this.onNotificationClick(notification)} />
-                                }
-                            </ListItem>
-                        );
-                    })}
-                </List>
-            </Container>
+            </Flex>
         );
     }
 
@@ -62,7 +73,12 @@ const NotificationsView = class NotificationsView extends React.Component {
 };
 
 NotificationsView.propTypes = {
-    notifications: React.PropTypes.arrayOf(React.PropTypes.instanceOf(NotificationModel)).isRequired,
+    notifications: React.PropTypes.shape({
+        data: React.PropTypes.arrayOf(React.PropTypes.instanceOf(NotificationModel)).isRequired,
+        loading: React.PropTypes.bool.isRequired,
+        endReached: React.PropTypes.bool.isRequired,
+        loadMore: React.PropTypes.func.isRequired
+    }),
     onAllNotificationsRead: React.PropTypes.func.isRequired,
     onNotificationClicked: React.PropTypes.func.isRequired
 };
