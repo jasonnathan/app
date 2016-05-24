@@ -13,7 +13,8 @@ import PartupsView from './PartupsView';
 import Debug from '/imports/Debug';
 import { UserModel, ImageModel, PartupModel } from '/imports/models';
 
-let partnerPagination,
+let shouldInitialise,
+    partnerPagination,
     supporterPagination;
 
 const getPartupsPromise = (url) => {
@@ -41,6 +42,10 @@ const getPartupsPromise = (url) => {
 };
 
 const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb, isMounting) => {
+    if (isMounting) {
+        shouldInitialise = true;
+    }
+
     const propsHaveChanged = () => {
         cb({
             partups: {
@@ -66,15 +71,14 @@ const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb, isM
         });
     };
 
-    const baseUrl = formatWebsiteUrl({pathname: `/users/${props.loggedInUser._id}`});
-    const getQueryString = (skip, limit) => encodeQueryString({
-        userId: props.loggedInUser._id,
-        token: props.storedLoginToken,
-        archived: false,
-        skip, limit
-    });
-
-    if (isMounting) {
+    if (shouldInitialise && props.loggedInUser && props.storedLoginToken) {
+        const baseUrl = formatWebsiteUrl({pathname: `/users/${props.loggedInUser._id}`});
+        const getQueryString = (skip, limit) => encodeQueryString({
+            userId: props.loggedInUser._id,
+            token: props.storedLoginToken,
+            archived: false,
+            skip, limit
+        });
 
         // Explicitly give data from previous time
         if (partnerPagination && supporterPagination) {

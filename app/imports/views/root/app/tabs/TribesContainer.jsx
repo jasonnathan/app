@@ -13,9 +13,14 @@ import TribesView from './TribesView';
 import Debug from '/imports/Debug';
 import { UserModel, ImageModel, NetworkModel } from '/imports/models';
 
+let shouldInitialise;
 let tribesPagination;
 
 const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb, isMounting) => {
+    if (isMounting) {
+        shouldInitialise = true;
+    }
+
     const propsHaveChanged = () => {
         cb({
             networks: {
@@ -30,14 +35,15 @@ const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb, isMo
         });
     };
 
-    const baseUrl = formatWebsiteUrl({pathname: `/users/${props.loggedInUser._id}`});
-    const getQueryString = (skip, limit) => encodeQueryString({
-        userId: props.loggedInUser._id,
-        token: props.storedLoginToken,
-        skip, limit
-    });
+    if (shouldInitialise && props.loggedInUser && props.storedLoginToken) {
+        shouldInitialise = false;
 
-    if (isMounting) {
+        const baseUrl = formatWebsiteUrl({pathname: `/users/${props.loggedInUser._id}`});
+        const getQueryString = (skip, limit) => encodeQueryString({
+            userId: props.loggedInUser._id,
+            token: props.storedLoginToken,
+            skip, limit
+        });
 
         // Explicitly give data from previous time
         if (tribesPagination) {
