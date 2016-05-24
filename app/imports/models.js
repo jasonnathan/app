@@ -6,15 +6,7 @@ import { Mongo } from 'meteor/mongo';
 import Connection from './Connection';
 import formatWebsiteUrl from './services/formatWebsiteUrl';
 import { LinkMeteorCollection } from 'part-up-js-helpers';
-import {
-    ActivityModel,
-    ImageModel,
-    NetworkModel,
-    NotificationModel,
-    PartupModel,
-    PartupUpdateModel,
-    UserModel
-} from 'part-up-js-models'
+import models from 'part-up-js-models';
 
 const linker = new LinkMeteorCollection(Mongo, Connection);
 const SETTINGS = {
@@ -23,43 +15,32 @@ const SETTINGS = {
     makeAbsoluteUrl: formatWebsiteUrl
 };
 
-UserModel.accountsClient = new AccountsClient({
+models.UserModel.accountsClient = new AccountsClient({
     connection: Connection
 });
 
-linker.link(ActivityModel, 'activities');
-linker.link(ImageModel, 'cfs.images.filerecord');
-linker.link(NetworkModel, 'networks');
-linker.link(NotificationModel, 'notifications');
-linker.link(PartupModel, 'partups');
-linker.link(PartupUpdateModel, 'updates');
-linker.link(UserModel, UserModel.accountsClient.users);
-
-ActivityModel.settings =
-ImageModel.settings =
-NetworkModel.settings =
-NotificationModel.settings =
-PartupModel.settings =
-PartupUpdateModel.settings =
-UserModel.settings =
-SETTINGS;
-
-export {
-    ActivityModel as ActivityModel,
-    ImageModel as ImageModel,
-    NetworkModel as NetworkModel,
-    NotificationModel as NotificationModel,
-    PartupModel as PartupModel,
-    PartupUpdateModel as PartupUpdateModel,
-    UserModel as UserModel
+const collections = {
+    ActivityModel: 'activities',
+    ImageModel: 'cfs.images.filerecord',
+    NetworkModel: 'networks',
+    NotificationModel: 'notifications',
+    PartupModel: 'partups',
+    PartupUpdateModel: 'updates',
+    UserModel: models.UserModel.accountsClient.users
 };
 
-export default {
-    ActivityModel,
-    ImageModel,
-    NetworkModel,
-    NotificationModel,
-    PartupModel,
-    PartupUpdateModel,
-    UserModel
-};
+for (let key in models) {
+    const model = models[key];
+    const collection = collections[key];
+    linker.link(model, collection);
+    model.settings = SETTINGS;
+}
+
+export const ActivityModel = models.ActivityModel;
+export const ImageModel = models.ImageModel;
+export const NetworkModel = models.NetworkModel;
+export const NotificationModel = models.NotificationModel;
+export const PartupModel = models.PartupModel;
+export const PartupUpdateModel = models.PartupUpdateModel;
+export const UserModel = models.UserModel;
+export default models;
