@@ -6,6 +6,7 @@ import meteorDataContainer from '/imports/services/meteorDataContainer';
 import Subs from '/imports/Subs';
 import AppViewManager from '/imports/views/root/AppViewManager';
 import transitionTo from '/imports/services/transitionTo';
+import { UserModel } from '/imports/models';
 import Debug from '/imports/Debug';
 
 export default meteorDataContainer(AppViewManager, (props) => {
@@ -14,16 +15,11 @@ export default meteorDataContainer(AppViewManager, (props) => {
 
     Subs.subscribe('users.loggedin');
 
-    // fixme
-    Meteor.userId();
-    setTimeout(() => {
-        // If user is not logged in, redirect to login screen
-        if (!Meteor.userId()) {
-            transitionTo('root:login', {
-                transition: 'reveal-from-right'
-            });
-        }
-    }, 1500);
+    if (!UserModel.accountsClient._loggingIn && !Meteor.userId()) {
+        transitionTo('root:app', {
+            transition: 'show-from-right'
+        });
+    }
 
     return {};
 });
