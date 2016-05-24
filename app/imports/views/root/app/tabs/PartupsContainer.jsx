@@ -5,7 +5,7 @@ import { HTTP } from 'meteor/http';
 import { encode as encodeQueryString } from 'mout/queryString';
 import { find } from 'mout/array';
 
-import Pagination from '/imports/classes/Pagination';
+import HttpPagination from '/imports/classes/HttpPagination';
 import formatWebsiteUrl from '/imports/services/formatWebsiteUrl';
 import meteorDataContainer from '/imports/services/meteorDataContainer';
 import asyncDataContainer from '/imports/services/asyncDataContainer';
@@ -85,12 +85,12 @@ const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb, isM
             propsHaveChanged();
         }
 
-        partnerPagination = new Pagination({start: 15, increase: 10}, (skip, limit) => {
+        partnerPagination = new HttpPagination({start: 15, increase: 10}, (skip, limit) => {
             return getPartupsPromise(`${baseUrl}/upperpartups/${getQueryString(skip, limit)}`)
                 .then((partups) => partups);
         });
 
-        supporterPagination = new Pagination({start: 15, increase: 10}, (skip, limit) => {
+        supporterPagination = new HttpPagination({start: 15, increase: 10}, (skip, limit) => {
             return getPartupsPromise(`${baseUrl}/supporterpartups/${getQueryString(skip, limit)}`)
                 .then((partups) => partups);
         });

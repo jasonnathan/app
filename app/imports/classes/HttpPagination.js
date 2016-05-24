@@ -3,11 +3,12 @@
 import check from 'powercheck';
 import mergeDocuments from '/imports/services/mergeDocuments';
 
-export default class Pagination {
+export default class HttpPagination {
     constructor(opts, getPromise) {
         check(opts, {
             start: Number,
-            increase: Number
+            increase: Number,
+            loadFirst: check.optional(Boolean)
         });
 
         check(getPromise, Function);
@@ -18,6 +19,10 @@ export default class Pagination {
         this._data = [];
         this._loading = false;
         this._endReached = false;
+
+        if (opts.loadFirst) {
+            this.loadFirst().then(opts.loadFirst);
+        }
     }
 
     _load(skip, limit) {

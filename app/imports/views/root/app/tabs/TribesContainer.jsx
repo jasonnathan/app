@@ -5,7 +5,7 @@ import { HTTP } from 'meteor/http';
 import { encode as encodeQueryString } from 'mout/queryString';
 import { find } from 'mout/array';
 
-import Pagination from '/imports/classes/Pagination';
+import HttpPagination from '/imports/classes/HttpPagination';
 import formatWebsiteUrl from '/imports/services/formatWebsiteUrl';
 import asyncDataContainer from '/imports/services/asyncDataContainer';
 import meteorDataContainer from '/imports/services/meteorDataContainer';
@@ -50,7 +50,7 @@ const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb, isMo
             propsHaveChanged();
         }
 
-        tribesPagination = new Pagination({start: 10, increase: 10}, (skip, limit) => {
+        tribesPagination = new HttpPagination({start: 10, increase: 10}, (skip, limit) => {
             return new Promise((resolve, reject) => {
                 HTTP.get(`${baseUrl}/networks/${getQueryString(skip, limit)}`, function(error, response) {
                     if (error) {
