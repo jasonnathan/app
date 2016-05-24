@@ -77,7 +77,7 @@ const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb, isM
     if (isMounting) {
 
         // Explicitly give data from previous time
-        if (partnerPagination || supporterPagination) {
+        if (partnerPagination && supporterPagination) {
             propsHaveChanged();
         }
 

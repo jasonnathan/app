@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import { Container } from '/imports/touchstonejs/lib';
 
 import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
@@ -10,25 +9,37 @@ import { NetworkModel } from '/imports/models';
 import Tile from '/imports/components/Tile';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
+import Flex from '/imports/components/Flex';
 import EmptyState from '/imports/components/EmptyState';
+import Spinner from '/imports/components/Spinner';
 
 const TribesView = class TribesView extends React.Component {
     render() {
-        let {networks} = this.props;
+        const networksProps = this.props.networks;
+        const {data: networks, loading, loadMore, endReached} = networksProps || {};
 
         return (
-            <Container fill scrollable>
-                {!networks || !networks.length &&
-                    <EmptyState type="tribes" />
+            <Flex>
+                {networksProps &&
+                    <Flex.Stretch scroll onHitBottom={() => !loading && !endReached && loadMore()}>
+                        {!networks || !networks.length &&
+                            <EmptyState type="tribes" />
+                        }
+
+                        <List>
+                            {networks.map((network, index) => (
+                                <ListItem key={index}>
+                                    {this.renderNetwork(network)}
+                                </ListItem>
+                            ))}
+                        </List>
+
+                        {loading &&
+                            <Spinner infiniteScroll />
+                        }
+                    </Flex.Stretch>
                 }
-                <List>
-                    {networks.map((network, index) => (
-                        <ListItem key={index}>
-                            {this.renderNetwork(network)}
-                        </ListItem>
-                    ))}
-                </List>
-            </Container>
+            </Flex>
         );
     }
 
@@ -49,7 +60,12 @@ const TribesView = class TribesView extends React.Component {
 };
 
 TribesView.propTypes = {
-    networks: React.PropTypes.arrayOf(React.PropTypes.instanceOf(NetworkModel)).isRequired
+    networks: React.PropTypes.shape({
+        data: React.PropTypes.arrayOf(React.PropTypes.instanceOf(NetworkModel)).isRequired,
+        loading: React.PropTypes.bool.isRequired,
+        endReached: React.PropTypes.bool.isRequired,
+        loadMore: React.PropTypes.func.isRequired
+    })
 };
 
 TribesView.navigationBar = 'app';

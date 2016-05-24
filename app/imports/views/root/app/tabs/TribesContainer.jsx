@@ -5,6 +5,7 @@ import { HTTP } from 'meteor/http';
 import { encode as encodeQueryString } from 'mout/queryString';
 import { find } from 'mout/array';
 
+import Pagination from '/imports/classes/Pagination';
 import formatWebsiteUrl from '/imports/services/formatWebsiteUrl';
 import asyncDataContainer from '/imports/services/asyncDataContainer';
 import meteorDataContainer from '/imports/services/meteorDataContainer';
@@ -12,46 +13,64 @@ import TribesView from './TribesView';
 import Debug from '/imports/Debug';
 import { UserModel, ImageModel, NetworkModel } from '/imports/models';
 
-let cachedData;
+let tribesPagination;
 
-const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb) => {
-    if (cachedData) {
-        cb(cachedData);
-    }
+const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb, isMounting) => {
+    const propsHaveChanged = () => {
+        cb({
+            networks: {
+                data: tribesPagination.getData(),
+                loading: tribesPagination.isLoading(),
+                endReached: tribesPagination.isEndReached(),
+                loadMore: () => {
+                    tribesPagination.loadMore().then(propsHaveChanged);
+                    propsHaveChanged();
+                }
+            }
+        });
+    };
 
     const baseUrl = formatWebsiteUrl({pathname: `/users/${props.loggedInUser._id}`});
-    const queryString = encodeQueryString({
+    const getQueryString = (skip, limit) => encodeQueryString({
         userId: props.loggedInUser._id,
-        token: props.storedLoginToken
+        token: props.storedLoginToken,
+        skip, limit
     });
 
+    if (isMounting) {
 
-    HTTP.get(`${baseUrl}/networks/${queryString}`, function(error, response) {
-        if (error) {
-            throw error;
-            return;
+        // Explicitly give data from previous time
+        if (tribesPagination) {
+            propsHaveChanged();
         }
 
-        const {networks, 'cfs.images.filerecord': images} = response.data;
+        tribesPagination = new Pagination({start: 10, increase: 10}, (skip, limit) => {
+            return new Promise((resolve, reject) => {
+                HTTP.get(`${baseUrl}/networks/${getQueryString(skip, limit)}`, function(error, response) {
+                    if (error) {
+                        reject(error);
+                        return;
+                    }
 
-        const mappedNetworks = (networks || []).map((network) => {
+                    const {networks, 'cfs.images.filerecord': images} = response.data;
 
-            // Overwrite getImage proto-function
-            network.getImage = () => {
-                const image = find(images, (i) => i._id === network.image);
-                return new ImageModel(image);
-            };
+                    resolve((networks || []).map((network) => {
 
-            return new NetworkModel(network);
+                        // Overwrite getImage proto-function
+                        network.getImage = () => {
+                            const image = find(images, (i) => i._id === network.image);
+                            return new ImageModel(image);
+                        };
+
+                        return new NetworkModel(network);
+                    }));
+                });
+            });
         });
 
-        const data = {
-            networks: mappedNetworks
-        };
-
-        cb(data);
-        cachedData = data;
-    });
+        tribesPagination.loadFirst()
+            .then(propsHaveChanged);
+    }
 });
 
 export default meteorDataContainer(myAsyncDataContainer, (props) => {
@@ -64,7 +83,6 @@ export default meteorDataContainer(myAsyncDataContainer, (props) => {
 
     return {
         loggedInUser,
-        storedLoginToken,
-        networks: []
+        storedLoginToken
     };
 });
