@@ -21,7 +21,8 @@
         }
 
         .pa-Content {
-            margin-top: 0;
+            margin-top: -5px; // fix cut off
+            padding-top: 5px; // fix cut off
             margin-bottom: 0;
             padding-bottom: $spacing-y - 7px;
         }
