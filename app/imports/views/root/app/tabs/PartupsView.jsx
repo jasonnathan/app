@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 
 import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
@@ -20,49 +21,45 @@ const PartupsView = class PartupsView extends React.Component {
         super(props);
 
         this.state = {
-            currentTab: 'partnerPartups'
+            currentTab: 'byPartner'
         };
     }
 
     render() {
         const {currentTab} = this.state;
-        let partups = this.props[currentTab] || [];
-        const partnerPartupsLoading = currentTab === 'partnerPartups' && this.props.partnerPartupsLoading;
-        const supporterPartupsLoading = currentTab === 'supporterPartups' && this.props.supporterPartupsLoading;
+        const partupsProps = this.props.partups && this.props.partups[currentTab];
+        const {data: partups, loading, loadMore, endReached} = partupsProps || {};
 
         return (
             <Flex>
                 <Flex.Shrink className="View--partups__tabs">
                     <ButtonGroup buttons={[
-                        {key: 'partnerPartups', label: <span>Partners</span>},
-                        {key: 'supporterPartups', label: <span>Supporters</span>}
+                        {key: 'byPartner', label: <span>Partners</span>},
+                        {key: 'bySupporter', label: <span>Supporters</span>}
                     ]} activeTab={currentTab} onClick={this.onTabClick.bind(this)} />
                 </Flex.Shrink>
-                <Flex.Stretch scroll onHitBottom={() => this.requestMore(currentTab)}>
-                    {!partnerPartupsLoading && !supporterPartupsLoading && !partups.length &&
-                        <EmptyState type="partups" />
-                    }
-                    <List>
-                        {partups.map((partup, index) => (
-                            <ListItem key={index}>
-                                {this.renderPartup(partup)}
-                            </ListItem>
-                        ))}
-                    </List>
-                    {(partnerPartupsLoading || supporterPartupsLoading) &&
-                        <Spinner infiniteScroll />
-                    }
-                </Flex.Stretch>
+
+                {partupsProps &&
+                    <Flex.Stretch scroll onHitBottom={() => !loading && !endReached && loadMore()}>
+                        {!loading && !partups.length &&
+                            <EmptyState type="partups" />
+                        }
+
+                        <List>
+                            {partups.map((partup, index) => (
+                                <ListItem key={index}>
+                                    {this.renderPartup(partup)}
+                                </ListItem>
+                            ))}
+                        </List>
+
+                        {loading &&
+                            <Spinner infiniteScroll />
+                        }
+                    </Flex.Stretch>
+                }
             </Flex>
         );
-    }
-
-    requestMore(tab) {
-        if (tab === 'partnerPartups' && !this.props.partnerPartupsLoading && !this.props.partnerPartupsEnd) {
-            this.props.requestMorePartnerPartups();
-        } else if (tab === 'supporterPartups' && !this.props.supporterPartupsLoading && !this.props.supporterPartupsEnd) {
-            this.props.requestMoreSupporterPartups();
-        }
     }
 
     renderPartup(partup) {
@@ -79,6 +76,10 @@ const PartupsView = class PartupsView extends React.Component {
 
     onTabClick(tab) {
         this.setState({currentTab: tab});
+
+        findDOMNode(this)
+            .querySelector('.pa-Flex__Stretch--scroll')
+            .scrollTop = 0;
     }
 
     onPartupClick(partup) {
@@ -87,14 +88,20 @@ const PartupsView = class PartupsView extends React.Component {
 };
 
 PartupsView.propTypes = {
-    supporterPartups: React.PropTypes.arrayOf(React.PropTypes.instanceOf(PartupModel)).isRequired,
-    partnerPartups: React.PropTypes.arrayOf(React.PropTypes.instanceOf(PartupModel)).isRequired,
-    requestMorePartnerPartups: React.PropTypes.func.isRequired,
-    requestMoreSupporterPartups: React.PropTypes.func.isRequired,
-    partnerPartupsLoading: React.PropTypes.bool.isRequired,
-    partnerPartupsEnd: React.PropTypes.bool.isRequired,
-    supporterPartupsLoading: React.PropTypes.bool.isRequired,
-    supporterPartupsEnd: React.PropTypes.bool.isRequired
+    partups: React.PropTypes.shape({
+        byPartner: React.PropTypes.shape({
+            data: React.PropTypes.arrayOf(React.PropTypes.instanceOf(PartupModel)).isRequired,
+            loading: React.PropTypes.bool.isRequired,
+            endReached: React.PropTypes.bool.isRequired,
+            loadMore: React.PropTypes.func.isRequired
+        }).isRequired,
+        bySupporter: React.PropTypes.shape({
+            data: React.PropTypes.arrayOf(React.PropTypes.instanceOf(PartupModel)).isRequired,
+            loading: React.PropTypes.bool.isRequired,
+            endReached: React.PropTypes.bool.isRequired,
+            loadMore: React.PropTypes.func.isRequired
+        }).isRequired
+    })
 };
 
 PartupsView.navigationBar = 'app';

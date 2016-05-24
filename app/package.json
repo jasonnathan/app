@@ -25,6 +25,7 @@
     "os": "^0.1.1",
     "part-up-js-helpers": "git://github.com/part-up/js-helpers.git#1.0.1",
     "part-up-js-models": "git://github.com/part-up/js-models.git#1.0.2",
+    "powercheck": "^1.0.1",
     "react": "^0.14.8",
     "react-addons-css-transition-group": "^0.14.3",
     "react-addons-pure-render-mixin": "^0.14.8",
