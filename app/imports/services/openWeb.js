@@ -6,7 +6,7 @@ export default function openWeb(url) {
 
     if (window.cordova) {
         const closeButton = 'Done';
-        const inAppBrowserInstance = window.cordova.InAppBrowser.open(encodedUrl, '_blank', `location=no,zoom=yes,enableViewportScale=yes,closebuttoncaption=${closeButton}`);
+        const inAppBrowserInstance = window.cordova.InAppBrowser.open(encodedUrl, '_system', `location=no,zoom=yes,enableViewportScale=yes,closebuttoncaption=${closeButton}`);
 
         executeScript = (fnString) => {
             inAppBrowserInstance.executeScript({code: fnString});
