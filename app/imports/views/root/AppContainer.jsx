@@ -13,7 +13,6 @@ export default meteorDataContainer(AppViewManager, (props) => {
     Debug.tracker('AppContainer');
 
     Subs.subscribe('users.loggedin');
-    Subs.subscribe('notifications.for_upper', 35);
 
     // fixme
     Meteor.userId();
