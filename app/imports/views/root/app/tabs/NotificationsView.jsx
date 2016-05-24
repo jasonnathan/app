@@ -27,7 +27,7 @@ const NotificationsView = class NotificationsView extends React.Component {
 
         return (
             <Container scrollable fill>
-                {!n || !n.length &&
+                {(!n || !n.length) &&
                     <EmptyState type="notifications" />
                 }
                 <List notifications>
