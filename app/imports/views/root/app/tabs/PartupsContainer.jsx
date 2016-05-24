@@ -12,10 +12,7 @@ import asyncDataContainer from '/imports/services/asyncDataContainer';
 import PartupsView from './PartupsView';
 import Debug from '/imports/Debug';
 import { UserModel, ImageModel, PartupModel } from '/imports/models';
-
-let shouldInitialise,
-    partnerPagination,
-    supporterPagination;
+import userCache from '/imports/services/userCache';
 
 const getPartupsPromise = (url) => {
     return new Promise((resolve, reject) => {
@@ -42,28 +39,37 @@ const getPartupsPromise = (url) => {
 };
 
 const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb, isMounting) => {
+    let cache = userCache.get('partupsContainer');
+    if (!cache) {
+        cache = {};
+        userCache.set('partupsContainer', cache);
+    }
+
     if (isMounting) {
-        shouldInitialise = true;
+        cache.shouldInitialise = true;
+        userCache.set('partupsContainer', cache);
     }
 
     const propsHaveChanged = () => {
         cb({
             partups: {
                 byPartner: {
-                    data: partnerPagination.getData(),
-                    loading: partnerPagination.isLoading(),
-                    endReached: partnerPagination.isEndReached(),
+                    data: cache.partnerPagination.getData(),
+                    loading: cache.partnerPagination.isLoading(),
+                    endReached: cache.partnerPagination.isEndReached(),
                     loadMore: () => {
-                        partnerPagination.loadMore().then(propsHaveChanged);
+                        const promise = cache.partnerPagination.loadMore();
+                        if (promise) promise.then(propsHaveChanged);
                         propsHaveChanged();
                     }
                 },
                 bySupporter: {
-                    data: supporterPagination.getData(),
-                    loading: supporterPagination.isLoading(),
-                    endReached: supporterPagination.isEndReached(),
+                    data: cache.supporterPagination.getData(),
+                    loading: cache.supporterPagination.isLoading(),
+                    endReached: cache.supporterPagination.isEndReached(),
                     loadMore: () => {
-                        supporterPagination.loadMore().then(propsHaveChanged);
+                        const promise = cache.supporterPagination.loadMore();
+                        if (promise) promise.then(propsHaveChanged);
                         propsHaveChanged();
                     }
                 }
@@ -71,7 +77,9 @@ const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb, isM
         });
     };
 
-    if (shouldInitialise && props.loggedInUser && props.storedLoginToken) {
+    if (cache.shouldInitialise && props.loggedInUser && props.storedLoginToken) {
+        cache.shouldInitialise = false;
+
         const baseUrl = formatWebsiteUrl({pathname: `/users/${props.loggedInUser._id}`});
         const getQueryString = (skip, limit) => encodeQueryString({
             userId: props.loggedInUser._id,
@@ -81,24 +89,26 @@ const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb, isM
         });
 
         // Explicitly give data from previous time
-        if (partnerPagination && supporterPagination) {
+        if (cache.partnerPagination && cache.supporterPagination) {
             propsHaveChanged();
         }
 
-        partnerPagination = new HttpPagination({start: 15, increase: 10}, (skip, limit) => {
+        cache.partnerPagination = new HttpPagination({start: 15, increase: 10}, (skip, limit) => {
             return getPartupsPromise(`${baseUrl}/upperpartups/${getQueryString(skip, limit)}`)
                 .then((partups) => partups);
         });
 
-        supporterPagination = new HttpPagination({start: 15, increase: 10}, (skip, limit) => {
+        cache.supporterPagination = new HttpPagination({start: 15, increase: 10}, (skip, limit) => {
             return getPartupsPromise(`${baseUrl}/supporterpartups/${getQueryString(skip, limit)}`)
                 .then((partups) => partups);
         });
 
-        partnerPagination.loadFirst()
+        userCache.set('partupsContainer', cache);
+
+        cache.partnerPagination.loadFirst()
             .then(propsHaveChanged);
 
-        supporterPagination.loadFirst()
+        cache.supporterPagination.loadFirst()
             .then(propsHaveChanged);
     }
 });

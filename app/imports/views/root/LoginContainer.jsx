@@ -7,6 +7,7 @@ import meteorDataContainer from '/imports/services/meteorDataContainer';
 import transitionTo from '/imports/services/transitionTo';
 import LoginView from '/imports/views/root/LoginView';
 import { UserModel } from '/imports/models';
+import userCache from '/imports/services/userCache';
 import Debug from '/imports/Debug';
 
 export default meteorDataContainer(LoginView, (props) => {
@@ -17,6 +18,8 @@ export default meteorDataContainer(LoginView, (props) => {
         transitionTo('root:app', {
             transition: 'show-from-right'
         });
+    } else {
+        userCache.clearAll();
     }
 
     const onLoginWithFacebook = (cb) => {

@@ -9,35 +9,42 @@ import Subs from '/imports/Subs';
 import NotificationsView from './NotificationsView';
 import { NotificationModel } from '/imports/models';
 import Debug from '/imports/Debug';
+import userCache from '/imports/services/userCache';
 
-const limit = new ReactiveVar(15);
-const notificationsLoading = new ReactiveVar(false);
-const notificationsEndReached = new ReactiveVar(false);
 const INCREASE = 10;
 
 export default meteorDataContainer(NotificationsView, (props) => {
     const {} = props;
     Debug.tracker('NotificationsContainer');
 
+    let cache = userCache.get('notificationsPage');
+    if (!cache) {
+        cache = {
+            limit: new ReactiveVar(15),
+            notificationsEndReached: new ReactiveVar(false)
+        };
+
+        userCache.set('notificationsPage', cache);
+    }
+
     const getNotifications = () =>
         NotificationModel.query()
             .search(m => m.searchForUser(Meteor.userId()))
-            .search({}, {limit: limit.get()})
+            .search({}, {limit: cache.limit.get()})
             .fetch();
 
     const notifications = getNotifications();
 
-    const sub = Subs.subscribe('notifications.for_upper', limit.get(), {
+    const sub = Subs.subscribe('notifications.for_upper', cache.limit.get(), {
         onReady: () => {
-            console.log('set loading to false');
             if (notifications.length === getNotifications()) {
-                notificationsEndReached.set(true);
+                cache.notificationsEndReached.set(true);
             }
         }
     });
 
     const loadMoreNotifications = () => {
-        limit.set(limit.get() + INCREASE);
+        cache.limit.set(cache.limit.get() + INCREASE);
     };
 
     const onAllNotificationsRead = () => {
@@ -52,7 +59,7 @@ export default meteorDataContainer(NotificationsView, (props) => {
         notifications: {
             data: notifications,
             loading: !sub.ready(),
-            endReached: notificationsEndReached.get(),
+            endReached: cache.notificationsEndReached.get(),
             loadMore: loadMoreNotifications
         },
         onAllNotificationsRead,

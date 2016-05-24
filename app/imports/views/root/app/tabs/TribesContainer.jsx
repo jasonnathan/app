@@ -12,31 +12,36 @@ import meteorDataContainer from '/imports/services/meteorDataContainer';
 import TribesView from './TribesView';
 import Debug from '/imports/Debug';
 import { UserModel, ImageModel, NetworkModel } from '/imports/models';
-
-let shouldInitialise;
-let tribesPagination;
+import userCache from '/imports/services/userCache';
 
 const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb, isMounting) => {
+    let cache = userCache.get('tribesContainer');
+    if (!cache) {
+        cache = {};
+        userCache.set('tribesContainer', cache);
+    }
+
     if (isMounting) {
-        shouldInitialise = true;
+        cache.shouldInitialise = true;
+        userCache.set('tribesContainer', cache);
     }
 
     const propsHaveChanged = () => {
         cb({
             networks: {
-                data: tribesPagination.getData(),
-                loading: tribesPagination.isLoading(),
-                endReached: tribesPagination.isEndReached(),
+                data: cache.tribesPagination.getData(),
+                loading: cache.tribesPagination.isLoading(),
+                endReached: cache.tribesPagination.isEndReached(),
                 loadMore: () => {
-                    tribesPagination.loadMore().then(propsHaveChanged);
+                    cache.tribesPagination.loadMore().then(propsHaveChanged);
                     propsHaveChanged();
                 }
             }
         });
     };
 
-    if (shouldInitialise && props.loggedInUser && props.storedLoginToken) {
-        shouldInitialise = false;
+    if (cache.shouldInitialise && props.loggedInUser && props.storedLoginToken) {
+        cache.shouldInitialise = false;
 
         const baseUrl = formatWebsiteUrl({pathname: `/users/${props.loggedInUser._id}`});
         const getQueryString = (skip, limit) => encodeQueryString({
@@ -46,11 +51,11 @@ const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb, isMo
         });
 
         // Explicitly give data from previous time
-        if (tribesPagination) {
+        if (cache.tribesPagination) {
             propsHaveChanged();
         }
 
-        tribesPagination = new HttpPagination({start: 10, increase: 10}, (skip, limit) => {
+        cache.tribesPagination = new HttpPagination({start: 10, increase: 10}, (skip, limit) => {
             return new Promise((resolve, reject) => {
                 HTTP.get(`${baseUrl}/networks/${getQueryString(skip, limit)}`, function(error, response) {
                     if (error) {
@@ -74,7 +79,9 @@ const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb, isMo
             });
         });
 
-        tribesPagination.loadFirst()
+        userCache.set('tribesContainer', cache);
+
+        cache.tribesPagination.loadFirst()
             .then(propsHaveChanged);
     }
 });
