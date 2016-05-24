@@ -154,7 +154,7 @@ NotificationView.getNavigation = (props, app) => {
 };
 
 NotificationView.propTypes = {
-    notification: React.PropTypes.instanceOf(NotificationModel).isRequired,
+    notification: React.PropTypes.instanceOf(NotificationModel),
     partupUpdate: React.PropTypes.instanceOf(PartupUpdateModel)
 };
 
