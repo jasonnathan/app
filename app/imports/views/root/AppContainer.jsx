@@ -9,17 +9,27 @@ import transitionTo from '/imports/services/transitionTo';
 import { UserModel } from '/imports/models';
 import Debug from '/imports/Debug';
 
+const redirectToLogin = () => {
+    transitionTo('root:login', {
+        transition: 'show-from-right'
+    });
+};
+
 export default meteorDataContainer(AppViewManager, (props) => {
     const {} = props;
     Debug.tracker('AppContainer');
 
-    Subs.subscribe('users.loggedin');
-
-    if (!UserModel.accountsClient._loggingIn && !Meteor.userId()) {
-        transitionTo('root:app', {
-            transition: 'show-from-right'
-        });
+    if (!UserModel.accountsClient.userId()) {
+        redirectToLogin();
     }
+
+    Subs.subscribe('users.loggedin', {
+        onReady: () => {
+            if (!UserModel.accountsClient.user()) {
+                redirectToLogin();
+            }
+        }
+    });
 
     return {};
 });
