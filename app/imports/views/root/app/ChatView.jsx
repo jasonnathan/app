@@ -9,17 +9,17 @@ import Button from '/imports/components/Button';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import Avatar from '/imports/components/Avatar';
-import Chat from '/imports/components/Chat';
 import ChatBox from '/imports/components/ChatBox';
 import ChatMessage from '/imports/components/ChatMessage';
 import ChatFooter from '/imports/components/ChatFooter';
 import Input from '/imports/components/Input';
+import Flex from '/imports/components/Flex';
 
 const ChatView = class ChatView extends React.Component {
     render() {
         return (
-            <Container fill scrollable>
-                <Chat>
+            <Flex>
+                <Flex.Stretch scroll className="View--chat__messages">
                     <ChatBox send>
                         <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
                         <List>
@@ -83,12 +83,14 @@ const ChatView = class ChatView extends React.Component {
                             </ListItem>
                         </List>
                     </ChatBox>
+                </Flex.Stretch>
+                <Flex.Shrink className="View--chat__box">
                     <ChatFooter>
                         <Input.Text placeholder="Send message..."/>
                         <Button>Send</Button>
                     </ChatFooter>
-                </Chat>
-            </Container>
+                </Flex.Shrink>
+            </Flex>
         );
     }
 };
