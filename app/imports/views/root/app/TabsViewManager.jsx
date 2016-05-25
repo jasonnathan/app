@@ -54,7 +54,7 @@ const TabsViewManager = class TabsViewManager extends React.Component {
                         <Svg name="icon_notifications" />
                         <UI.Tabs.Label>Notifications</UI.Tabs.Label>
                     </UI.Tabs.Tab>
-                    <UI.Tabs.Tab onTap={this.selectTab.bind(this, 'chats')} selected={selectedIsOneOf(['chat'])}>
+                    <UI.Tabs.Tab onTap={this.selectTab.bind(this, 'chats')} selected={selectedIsOneOf(['chats'])}>
                         <Svg name="icon_message" />
                         <UI.Tabs.Label>Chat</UI.Tabs.Label>
                     </UI.Tabs.Tab>
@@ -70,7 +70,7 @@ const TabsViewManager = class TabsViewManager extends React.Component {
             </Container>
         );
     }
-}
+};
 
 TabsViewManager.lastSelectedTab = 'notifications';
 

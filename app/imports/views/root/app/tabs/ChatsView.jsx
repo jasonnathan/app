@@ -7,7 +7,7 @@ import Input from '/imports/components/Input';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import transitionTo from '/imports/services/transitionTo';
-import { Container } from 'touchstonejs';
+import { Container } from '/imports/touchstonejs';
 
 const ChatsView = class ChatsView extends React.Component {
     render() {

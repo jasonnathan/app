@@ -2,7 +2,7 @@
 
 import React from 'react';
 import c from 'classnames';
-import { Container } from 'touchstonejs';
+import { Container } from '/imports/touchstonejs';
 
 import NavButton from '/imports/components/NavButton';
 import Button from '/imports/components/Button';
