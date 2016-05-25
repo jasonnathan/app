@@ -2,7 +2,6 @@
 
 import React from 'react';
 import ChatTile from '/imports/components/ChatTile';
-import Content from '/imports/components/Content';
 import Input from '/imports/components/Input';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
@@ -13,17 +12,15 @@ const ChatsView = class ChatsView extends React.Component {
     render() {
         return (
             <Container scrollable fill>
-                <Content>
-                    <Input.Text placeholder="Search Users"/>
-                    <List>
-                        <ListItem>
-                            <ChatTile onClick={this.onChatTileClick.bind(this)} />
-                        </ListItem>
-                        <ListItem>
-                            <ChatTile onClick={this.onChatTileClick.bind(this)} />
-                        </ListItem>
-                    </List>
-                </Content>
+                <Input.Text placeholder="Search Users"/>
+                <List>
+                    <ListItem>
+                        <ChatTile onClick={this.onChatTileClick.bind(this)} />
+                    </ListItem>
+                    <ListItem>
+                        <ChatTile onClick={this.onChatTileClick.bind(this)} />
+                    </ListItem>
+                </List>
             </Container>
         );
     }
