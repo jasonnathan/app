@@ -1,0 +1,10 @@
+{
+    "public": {
+        "server": "https://pu-staging.lifely.nl",
+        "environment": "staging",
+        "aws": {
+            "region": "eu-west-1",
+            "bucket": "partup-staging"
+        }
+    }
+}
