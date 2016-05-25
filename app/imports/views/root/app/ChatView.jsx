@@ -11,7 +11,7 @@ import ListItem from '/imports/components/ListItem';
 import Avatar from '/imports/components/Avatar';
 import ChatBox from '/imports/components/ChatBox';
 import ChatMessage from '/imports/components/ChatMessage';
-import ChatFooter from '/imports/components/ChatFooter';
+import MessageForm from '/imports/components/MessageForm';
 import Input from '/imports/components/Input';
 import Flex from '/imports/components/Flex';
 
@@ -85,14 +85,18 @@ const ChatView = class ChatView extends React.Component {
                     </ChatBox>
                 </Flex.Stretch>
                 <Flex.Shrink className="View--chat__box">
-                    <ChatFooter>
-                        <Input.Text placeholder="Send message..."/>
-                        <Button>Send</Button>
-                    </ChatFooter>
+                    <MessageForm
+                        onSend={this.onCommentSend.bind(this)}
+                        onFocus={this.onMessageBoxFocus.bind(this)}
+                        onBlur={this.onMessageBoxBlur.bind(this)} />
                 </Flex.Shrink>
             </Flex>
         );
     }
+
+    onCommentSend() {}
+    onMessageBoxFocus() {}
+    onMessageBoxBlur() {}
 };
 
 ChatView.navigationBar = 'app';
