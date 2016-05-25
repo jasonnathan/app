@@ -96,6 +96,7 @@ const ChatView = class ChatView extends React.Component {
 ChatView.navigationBar = 'app';
 ChatView.getNavigation = (props, app) => {
     return {
+        title: 'Anthony Wells',
         leftLabel: <NavButton left icon="icon_back" label="Chats" />,
         leftAction: () => {
             app.transitionTo('app:tabs:chats', {
