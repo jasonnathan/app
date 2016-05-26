@@ -28,7 +28,7 @@ const EmptyState = class EmptyState extends React.Component {
 
                     {type === 'partups' &&
                         <Content.Text>
-                            <img src="images/empty_states/partups.png" />
+                            <img src="images/empty_states/part-ups.png" />
                             <Paragraph>No part-ups yet</Paragraph>
                         </Content.Text>
                     }
