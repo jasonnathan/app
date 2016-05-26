@@ -1,18 +1,16 @@
 .View--chats {
-    .pa-Content {
-        margin: 0px;
-    }
-
-    .pa-Input {
-        margin: 15px;
+    &__search {
+        padding: 15px;
+        border-bottom: 1px solid $color-border;
     }
 
     .pa-List {
-        padding: 0 0 0 0;
-        border-top: 1px solid $color-border;
+        padding-left: 0;
 
         .pa-ListItem {
-            border-bottom: 1px solid $color-border;
+            + .pa-ListItem {
+                border-top: 1px solid $color-border;
+            }
         }
     }
 }

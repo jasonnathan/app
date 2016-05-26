@@ -6,22 +6,44 @@ import Input from '/imports/components/Input';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import transitionTo from '/imports/services/transitionTo';
-import { Container } from '/imports/touchstonejs';
+import Flex from '/imports/components/Flex';
 
 const ChatsView = class ChatsView extends React.Component {
     render() {
         return (
-            <Container scrollable fill>
-                <Input.Text placeholder="Search Users"/>
-                <List>
-                    <ListItem>
-                        <ChatTile onClick={this.onChatTileClick.bind(this)} />
-                    </ListItem>
-                    <ListItem>
-                        <ChatTile onClick={this.onChatTileClick.bind(this)} />
-                    </ListItem>
-                </List>
-            </Container>
+            <Flex>
+                <Flex.Shrink className="View--chats__search">
+                    <Input.Text placeholder="Search Users" />
+                </Flex.Shrink>
+                <Flex.Stretch scroll className="View--chats__list">
+                    <List>
+                        <ListItem>
+                            <ChatTile onClick={this.onChatTileClick.bind(this)} />
+                        </ListItem>
+                        <ListItem>
+                            <ChatTile onClick={this.onChatTileClick.bind(this)} />
+                        </ListItem>
+                        <ListItem>
+                            <ChatTile onClick={this.onChatTileClick.bind(this)} />
+                        </ListItem>
+                        <ListItem>
+                            <ChatTile onClick={this.onChatTileClick.bind(this)} />
+                        </ListItem>
+                        <ListItem>
+                            <ChatTile onClick={this.onChatTileClick.bind(this)} />
+                        </ListItem>
+                        <ListItem>
+                            <ChatTile onClick={this.onChatTileClick.bind(this)} />
+                        </ListItem>
+                        <ListItem>
+                            <ChatTile onClick={this.onChatTileClick.bind(this)} />
+                        </ListItem>
+                        <ListItem>
+                            <ChatTile onClick={this.onChatTileClick.bind(this)} />
+                        </ListItem>
+                    </List>
+                </Flex.Stretch>
+            </Flex>
         );
     }
 
