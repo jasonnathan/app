@@ -57,9 +57,9 @@ export default meteorDataContainer(ChatsView, (props) => {
             }
 
             if (isFunction(callback)) {
-                console.log(callback);
                 callback(null, chatId);
             }
+
             transitionTo('app:chat', {
                 transition: 'show-from-right',
                 viewProps: {chatId}
