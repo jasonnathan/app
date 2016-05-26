@@ -92,7 +92,7 @@ const LoginWithEmailView = class LoginWithEmailView extends React.Component {
                         return 'Password is incorrect';
                     }
 
-                    Debug.methods(`Failed user login "${email}"`, err);
+                    Debug.methodResult(`Failed user login "${email}"`, err);
                     return 'Login failed for an unknown reason';
                 })();
 
@@ -100,7 +100,7 @@ const LoginWithEmailView = class LoginWithEmailView extends React.Component {
                     window.alert(serverErrorMessage);
                 }
             } else {
-                Debug.methods(`User logged in: "${email}"`);
+                Debug.methodResult(`User logged in: "${email}"`);
 
                 transitionTo('root:app', {
                     transition: 'show-from-right'

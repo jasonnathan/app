@@ -94,7 +94,7 @@ const AboutView = class AboutView extends React.Component {
             this.setState({loggingOut: false});
 
             if (err) {
-                Debug.methods(`Failed user logout`, err);
+                Debug.methodResult(`Failed user logout`, err);
                 window.alert('Logout failed');
                 return;
             }

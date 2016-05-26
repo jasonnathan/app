@@ -2,14 +2,17 @@
 
 import React from 'react';
 import c from 'classnames';
-
+import { formatDate } from 'part-up-js-helpers';
+import { get } from 'mout/object';
 import Avatar from '/imports/components/Avatar';
 import Paragraph from '/imports/components/Paragraph';
+import { UserModel, ChatModel, ChatMessageModel } from '/imports/models';
 
 const ChatTile = class ChatTile extends React.Component {
     render() {
+        const {chat, loggedInUser} = this.props;
         const className = c('pa-ChatTile', {
-            'pa-ChatTile--is-unread': true
+            'pa-ChatTile--is-unread': chat.getUnreadCountForUser(loggedInUser) > 0
         });
 
         if (this.props.onClick) {
@@ -28,17 +31,21 @@ const ChatTile = class ChatTile extends React.Component {
     }
 
     renderContent() {
+        const {chat, user, lastChatMessage} = this.props;
+        const userAvatar = user.getAvatarImage();
+        const readableUpdatedAt = formatDate.relativeWithThreshold(chat.updated_at, new Date());
+
         return (
             <div>
                 <div className="pa-ChatTile__image">
-                    <Avatar src="http://media02.hongkiat.com/ww-flower-wallpapers/roundflower.jpg"></Avatar>
+                    <Avatar src={userAvatar && userAvatar.getUrl('80x80')}></Avatar>
                 </div>
                 <div className="pa-ChatTile__label">
-                    <Paragraph className="pa-ChatTile__label__title">Anthony Wells</Paragraph>
-                    <Paragraph>Lorem ipsum dolor sit amet dolor sit</Paragraph>
+                    <Paragraph className="pa-ChatTile__label__title">{user.profile.name}</Paragraph>
+                    <Paragraph>{lastChatMessage && lastChatMessage.content}</Paragraph>
                 </div>
                 <span className="pa-ChatTile__time">
-                    <Paragraph>Yesterday</Paragraph>
+                    <Paragraph>{readableUpdatedAt}</Paragraph>
                 </span>
                 <span className="pa-ChatTile__alert">
                 </span>
@@ -53,7 +60,10 @@ const ChatTile = class ChatTile extends React.Component {
 };
 
 ChatTile.propTypes = {
-
+    loggedInUser: React.PropTypes.instanceOf(UserModel).isRequired,
+    user: React.PropTypes.instanceOf(UserModel).isRequired,
+    chat: React.PropTypes.instanceOf(ChatModel).isRequired,
+    lastChatMessage: React.PropTypes.instanceOf(ChatMessageModel)
 };
 
 export default ChatTile;

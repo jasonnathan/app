@@ -7,6 +7,7 @@ debug.enable('*');
 
 export default {
     conn: debug('Connection'),
-    methods: debug('Methods'),
+    method: debug('Method'),
+    methodResult: debug('Method result'),
     tracker: debug('Tracker')
 };

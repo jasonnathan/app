@@ -6,10 +6,11 @@ import Debug from '/imports/Debug';
 import Connection from '/imports/Connection';
 
 export default meteorDataContainer(ChatView, (props) => {
-    const {} = props;
+    const {chatId} = props;
     Debug.tracker('ChatContainer');
 
+    console.log('chatId', chatId);
+
     return {
-        //
     };
 });
