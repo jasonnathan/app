@@ -21,8 +21,15 @@ const EmptyState = class EmptyState extends React.Component {
 
                     {type === 'chats' &&
                         <Content.Text>
-                            <img src="images/empty_states/chats.png" />
-                            <Paragraph>No chats yet</Paragraph>
+                            <img src="images/empty_states/chat.png" />
+                            <Paragraph>Search for a user to start a chat</Paragraph>
+                        </Content.Text>
+                    }
+
+                    {type === 'chats-search-results' &&
+                        <Content.Text>
+                            <img src="images/empty_states/chat.png" />
+                            <Paragraph>No users found, please try another name</Paragraph>
                         </Content.Text>
                     }
 
@@ -43,10 +50,10 @@ const EmptyState = class EmptyState extends React.Component {
             </div>
         );
     }
-}
+};
 
 EmptyState.propTypes = {
-    type: React.PropTypes.oneOf(['notifications', 'partups', 'tribes'])
+    type: React.PropTypes.oneOf(['notifications', 'partups', 'tribes', 'chats', 'chats-search-results'])
 };
 
 export default EmptyState;

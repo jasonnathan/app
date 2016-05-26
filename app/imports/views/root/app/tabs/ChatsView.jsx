@@ -11,13 +11,14 @@ import Button from '/imports/components/Button';
 import { debounce } from 'lodash';
 import { ChatModel, UserModel, ChatMessageModel } from '/imports/models';
 import { filter, contains, find } from 'mout/array';
+import EmptyState from '/imports/components/EmptyState';
 
 const ChatsView = class ChatsView extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            searchResults: []
+            searchResults: undefined
         };
 
         this.onDebouncedSearchInput = debounce(this.onDebouncedSearchInput, 500);
@@ -30,7 +31,7 @@ const ChatsView = class ChatsView extends React.Component {
                     <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} />
                 </Flex.Shrink>
                 <Flex.Stretch scroll className="View--chats__list">
-                    {this.state.searchResults.length > 0 ?
+                    {this.state.searchResults ?
                         this.renderSearchResults() :
                         this.renderChats()}
                 </Flex.Stretch>
@@ -39,6 +40,10 @@ const ChatsView = class ChatsView extends React.Component {
     }
 
     renderSearchResults() {
+        if (this.state.searchResults.length === 0) {
+            return <EmptyState type="chats-search-results" />;
+        }
+
         return (
             <List>
                 {this.state.searchResults.map((user, index) => (
@@ -56,6 +61,10 @@ const ChatsView = class ChatsView extends React.Component {
     }
 
     renderChats() {
+        if (this.props.chats.length === 0) {
+            return <EmptyState type="chats" />;
+        }
+
         return (
             <List>
                 {this.props.chats.map((chat, index) => {
@@ -99,7 +108,7 @@ const ChatsView = class ChatsView extends React.Component {
                 this.setState({searchResults: users});
             });
         } else {
-            this.setState({searchResults: []});
+            this.setState({searchResults: undefined});
         }
     }
 
