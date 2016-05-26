@@ -58,7 +58,10 @@ Releasing
 - `$ meteor build ../output --mobile-settings ../config/<environment>/settings.json --server <partup-url>` (replace <environment> with acceptance or production and <partup-url> with the part-up server url)
 - Open the project **/output/ios/project/Part-up.xcodeproj** in Xcode.
 - Go to Part-up's General settings
+    - Select "8.0" (under Deployment Info > Deployment Target)
+    - Select "iPhone" (under Deployment Info > Devices)
     - Uncheck "Upside Down" (under Deployment Info > Device Orientation)
+    - Select "Light" (under Deployment Info > Status Bar Style)
     - Check "Hide status bar" (under Deployment Info > Status Bar Style)
 - Go to Part-up's Build settings
     - Add "@executable_path/Frameworks" to Release (under Linking > Runpath Search Paths)
