@@ -7,6 +7,7 @@ import { contains } from 'mout/array';
 import moment from 'moment';
 import groupArray from '/imports/services/groupArray';
 import ReversedScroller from '/imports/classes/ReversedScroller';
+import { ChatModel, ChatMessageModel, UserModel } from '/imports/models';
 import NavButton from '/imports/components/NavButton';
 import Button from '/imports/components/Button';
 import List from '/imports/components/List';
@@ -18,12 +19,14 @@ import ChatDaySeparator from '/imports/components/ChatDaySeparator';
 import MessageForm from '/imports/components/MessageForm';
 import Input from '/imports/components/Input';
 import Flex from '/imports/components/Flex';
-import { ChatModel, ChatMessageModel, UserModel } from '/imports/models';
+import Spinner from '/imports/components/Spinner';
 
 const ChatView = class ChatView extends React.Component {
     constructor(props) {
         super(props);
 
+        this.scrollPositionFromBottomBeforeLoadingMore;
+        props.chatMessages.reset();
         this.reversedScroller = new ReversedScroller();
     }
 
@@ -34,11 +37,24 @@ const ChatView = class ChatView extends React.Component {
     componentDidUpdate() {
         this.triggerReversedScroll();
         this.setReadStates();
+
+        if (typeof this.scrollPositionFromBottomBeforeLoadingMore === 'number') {
+            const scroller = this.refs.messages.refs.flexStretch;
+            scroller.scrollTop = scroller.scrollHeight - this.scrollPositionFromBottomBeforeLoadingMore;
+            this.scrollPositionFromBottomBeforeLoadingMore = false;
+        }
     }
 
     componentWillMount() {
         this.triggerReversedScroll();
         this.setReadStates();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.chatMessages.data.length !== nextProps.chatMessages.data.length) {
+            const scroller = this.refs.messages.refs.flexStretch;
+            this.scrollPositionFromBottomBeforeLoadingMore = scroller.scrollHeight - scroller.scrollTop;
+        }
     }
 
     triggerReversedScroll() {
@@ -52,8 +68,8 @@ const ChatView = class ChatView extends React.Component {
     setReadStates() {
         const {chatMessages, loggedInUser} = this.props;
 
-        if (chatMessages) {
-            chatMessages.forEach((message) => {
+        if (chatMessages.data) {
+            chatMessages.data.forEach((message) => {
                 if (!contains(message.read_by, loggedInUser._id)) {
                     this.props.markMessageAsRead(message);
                 }
@@ -62,13 +78,17 @@ const ChatView = class ChatView extends React.Component {
     }
 
     render() {
-        const {chat, chatUser, chatLoading, sendChatMessage, loggedInUser} = this.props;
+        const {chat, chatUser, chatMessages: chatMessagesProps, chatLoading, sendChatMessage, loggedInUser} = this.props;
+        const {loading, endReached, loadMore} = chatMessagesProps || {};
         const groupedByAuthor = this.getChatMessagesGroupedByAuthor();
         const groupedByDay = this.getChatMessagesGroupedByDay(groupedByAuthor);
 
         return (
             <Flex>
-                <Flex.Stretch scroll className="View--chat__messages" ref="messages">
+                <Flex.Stretch scroll className="View--chat__messages" ref="messages" onHitTop={() => !loading && !endReached && loadMore()}>
+                    {loading &&
+                        <Spinner infiniteScroll />
+                    }
                     {groupedByDay.map((dayGroup, index) => {
                         const readableDay = moment(dayGroup.day).calendar(null, {
                             sameDay: '[Today]',
@@ -119,7 +139,8 @@ const ChatView = class ChatView extends React.Component {
     onMessageBoxBlur() {}
 
     getChatMessagesGroupedByAuthor() {
-        const {chatMessages, loggedInUser, chatUser} = this.props;
+        const {chatMessages: chatMessagesProps, loggedInUser, chatUser} = this.props;
+        const {data: chatMessages, loading, loadMore, endReached} = chatMessagesProps || {};
 
         return groupArray(chatMessages, (previous, current) => {
             const previousMoment = moment(previous.created_at);
@@ -138,8 +159,6 @@ const ChatView = class ChatView extends React.Component {
     }
 
     getChatMessagesGroupedByDay(groupedByAuthor) {
-        const {chatMessages, loggedInUser, chatUser} = this.props;
-
         return groupArray(groupedByAuthor, (previous, current) => {
             const previousMoment = moment(previous.messages[previous.messages.length - 1].created_at);
             const currentMoment = moment(current.messages[0].created_at);
@@ -172,7 +191,13 @@ ChatView.getNavigation = (props, app) => {
 ChatView.propTypes = {
     chat: React.PropTypes.instanceOf(ChatModel),
     chatUser: React.PropTypes.instanceOf(UserModel),
-    chatMessages: React.PropTypes.arrayOf(React.PropTypes.instanceOf(ChatMessageModel)).isRequired,
+    chatMessages: React.PropTypes.shape({
+        data: React.PropTypes.arrayOf(React.PropTypes.instanceOf(ChatMessageModel)).isRequired,
+        loading: React.PropTypes.bool.isRequired,
+        endReached: React.PropTypes.bool.isRequired,
+        loadMore: React.PropTypes.func.isRequired,
+        reset: React.PropTypes.func.isRequired
+    }),
     chatLoading: React.PropTypes.bool.isRequired,
     sendChatMessage: React.PropTypes.func.isRequired,
     markMessageAsRead: React.PropTypes.func.isRequired,

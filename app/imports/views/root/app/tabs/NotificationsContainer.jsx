@@ -37,7 +37,7 @@ export default meteorDataContainer(NotificationsView, (props) => {
 
     const sub = Subs.subscribe('notifications.for_upper', cache.limit.get(), {
         onReady: () => {
-            if (notifications.length === getNotifications()) {
+            if (notifications.length === getNotifications().length) {
                 cache.notificationsEndReached.set(true);
             }
         }
