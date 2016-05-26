@@ -60,8 +60,7 @@ const ChatsView = class ChatsView extends React.Component {
             <List>
                 {this.props.chats.map((chat, index) => {
                     const users = filter(this.props.chatsUsers, (user) =>
-                        contains(user.chats || [], chat._id) &&
-                        !user.equals(this.props.loggedInUser));
+                        contains(user.chats || [], chat._id));
 
                     const user = users.pop();
 
@@ -76,7 +75,7 @@ const ChatsView = class ChatsView extends React.Component {
                                     user={user}
                                     lastChatMessage={lastChatMessage}
                                     loggedInUser={this.props.loggedInUser}
-                                    onClick={this.onChatTileClick.bind(this, chat)} />
+                                    onClick={this.onChatTileClick.bind(this, chat, user)} />
                             }
                         </ListItem>
                     );
@@ -104,10 +103,13 @@ const ChatsView = class ChatsView extends React.Component {
         }
     }
 
-    onChatTileClick(chat) {
+    onChatTileClick(chat, user) {
         transitionTo('app:chat', {
             transition: 'show-from-right',
-            viewProps: {chatId: chat._id}
+            viewProps: {
+                chatId: chat._id,
+                chatUsername: user.profile.name
+            }
         });
     }
 };

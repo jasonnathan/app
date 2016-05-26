@@ -14,9 +14,12 @@ import ChatMessage from '/imports/components/ChatMessage';
 import MessageForm from '/imports/components/MessageForm';
 import Input from '/imports/components/Input';
 import Flex from '/imports/components/Flex';
+import { ChatModel, UserModel } from '/imports/models';
 
 const ChatView = class ChatView extends React.Component {
     render() {
+        const {chat, chatUser, chatLoading} = this.props;
+
         return (
             <Flex>
                 <Flex.Stretch scroll className="View--chat__messages">
@@ -102,7 +105,7 @@ const ChatView = class ChatView extends React.Component {
 ChatView.navigationBar = 'app';
 ChatView.getNavigation = (props, app) => {
     return {
-        title: 'Anthony Wells',
+        title: props.chatUsername,
         leftLabel: <NavButton left icon="icon_back" label="Chats" />,
         leftAction: () => {
             app.transitionTo('app:tabs:chats', {
@@ -113,7 +116,9 @@ ChatView.getNavigation = (props, app) => {
 };
 
 ChatView.propTypes = {
-    //
+    chat: React.PropTypes.instanceOf(ChatModel),
+    chatUsers: React.PropTypes.instanceOf(UserModel),
+    chatLoading: React.PropTypes.bool.isRequired
 };
 
 export default ChatView;

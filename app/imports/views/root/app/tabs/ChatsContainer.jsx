@@ -5,7 +5,7 @@ import ChatsView from './ChatsView';
 import Connection from '/imports/Connection';
 import Debug from '/imports/Debug';
 import Subs from '/imports/Subs';
-import { UserModel, ChatModel, ChatMessageModel } from '/imports/models';
+import { UserModel, ChatModel, ChatMessageModel, ImageModel } from '/imports/models';
 import transitionTo from '/imports/services/transitionTo';
 import { find } from 'mout/array';
 import { isFunction } from 'mout/lang';
@@ -26,7 +26,10 @@ export default meteorDataContainer(ChatsView, (props) => {
             .fetch();
 
         chatsUsers = UserModel.query()
-            .search({chats: {$in: chats.map(c => c._id)}})
+            .search({
+                _id: {$ne: loggedInUser._id},
+                chats: {$in: chats.map(c => c._id)}
+            })
             .fetch();
 
         lastChatMessages = ChatMessageModel.query()
@@ -41,7 +44,13 @@ export default meteorDataContainer(ChatsView, (props) => {
                 return;
             }
 
-            if (isFunction(callback)) callback(null, users.map(user => new UserModel(user)));
+            const _users = users.map(_user => {
+                const user = new UserModel(_user);
+                user.getAvatarImage = () => new ImageModel(user.embeddedImage);
+                return user;
+            });
+
+            if (isFunction(callback)) callback(null, _users);
         });
     };
 
@@ -62,7 +71,10 @@ export default meteorDataContainer(ChatsView, (props) => {
 
             transitionTo('app:chat', {
                 transition: 'show-from-right',
-                viewProps: {chatId}
+                viewProps: {
+                    chatId,
+                    chatUsername: user.profile.name
+                }
             });
         });
     };
