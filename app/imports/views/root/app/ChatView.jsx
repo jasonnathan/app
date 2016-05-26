@@ -2,8 +2,9 @@
 
 import React from 'react';
 import c from 'classnames';
-import { Container } from '/imports/touchstonejs';
-
+import { find } from 'mout/array';
+import moment from 'moment';
+import groupArray from '/imports/services/groupArray';
 import NavButton from '/imports/components/NavButton';
 import Button from '/imports/components/Button';
 import List from '/imports/components/List';
@@ -11,85 +12,61 @@ import ListItem from '/imports/components/ListItem';
 import Avatar from '/imports/components/Avatar';
 import ChatBox from '/imports/components/ChatBox';
 import ChatMessage from '/imports/components/ChatMessage';
+import ChatDaySeparator from '/imports/components/ChatDaySeparator';
 import MessageForm from '/imports/components/MessageForm';
 import Input from '/imports/components/Input';
 import Flex from '/imports/components/Flex';
-import { ChatModel, UserModel } from '/imports/models';
+import { ChatModel, ChatMessageModel, UserModel } from '/imports/models';
 
 const ChatView = class ChatView extends React.Component {
     render() {
-        const {chat, chatUser, chatLoading} = this.props;
+        const {chat, chatUser, chatLoading, sendChatMessage, loggedInUser} = this.props;
+        const groupedByAuthor = this.getChatMessagesGroupedByAuthor();
+        const groupedByDay = this.getChatMessagesGroupedByDay(groupedByAuthor);
+        console.log(groupedByDay.map(g => g.day));
 
         return (
             <Flex>
                 <Flex.Stretch scroll className="View--chat__messages">
-                    <ChatBox send>
-                        <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
-                        <List>
-                            <ListItem>
-                                <ChatMessage message='Blabla text in a chat box yes thats what we want!' time='9:40'/>
-                            </ListItem>
-                        </List>
-                    </ChatBox>
-                    <ChatBox receive>
-                        <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
-                        <List>
-                            <ListItem>
-                                <ChatMessage message='Blabla text in a chat box' time='9:50'/>
-                            </ListItem>
-                            <ListItem>
-                                <ChatMessage message='Blabla text ' time='9:51'/>
-                            </ListItem>
-                            <ListItem>
-                                <ChatMessage message='Blabla text in a chat box text in a chat box text in a chat box' time='9:55'/>
-                            </ListItem>
-                        </List>
-                    </ChatBox>
-                    <ChatBox send>
-                        <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
-                        <List>
-                            <ListItem>
-                                <ChatMessage message='Blabla text in a chat box text in a chat box text in a chat box. Blabla text in a chat box text in a chat box text in a chat box. Blabla text in a chat box text in a chat box text in a chat box.' time='10:40'/>
-                            </ListItem>
-                            <ListItem>
-                                <ChatMessage message='Blabla text' time='10:42'/>
-                            </ListItem>
-                        </List>
-                    </ChatBox>
-                    <ChatBox receive>
-                        <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
-                        <List>
-                            <ListItem>
-                                <ChatMessage message='Blabla text in a chat box' time='10:50'/>
-                            </ListItem>
-                        </List>
-                    </ChatBox>
-                    <ChatBox send>
-                        <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
-                        <List>
-                            <ListItem>
-                                <ChatMessage message='Blabla' time='11:40'/>
-                            </ListItem>
-                            <ListItem>
-                                <ChatMessage message='Blablablablablablablabla' time='11:42'/>
-                            </ListItem>
-                        </List>
-                    </ChatBox>
-                    <ChatBox receive>
-                        <Avatar src="https://i.ytimg.com/vi/7oDULJHivIo/hqdefault.jpg"></Avatar>
-                        <List>
-                            <ListItem>
-                                <ChatMessage message='Blabla text in a chat box' time='10:50'/>
-                            </ListItem>
-                            <ListItem>
-                                <ChatMessage message='Blablablablablablablabla Blablablablablablablabla' time='11:42'/>
-                            </ListItem>
-                        </List>
-                    </ChatBox>
+                    {groupedByDay.map((dayGroup, index) => {
+                        const readableDay = moment(dayGroup.day).calendar(null, {
+                            sameDay: '[Today]',
+                            lastDay: '[Yesterday]',
+                            lastWeek: '[Last] dddd',
+                            sameElse: 'LL'
+                        });
+
+                        return (
+                            <div key={index}>
+                                <ChatDaySeparator>{readableDay}</ChatDaySeparator>
+                                {dayGroup.messagesGroupedByAuthor.map((messageGroup, index) => {
+                                    const isSend = messageGroup.author.equals(loggedInUser);
+                                    const authorAvatar = messageGroup.author.getAvatarImage();
+
+                                    return (
+                                        <ChatBox send={isSend} receive={!isSend} key={index}>
+                                            <Avatar src={authorAvatar && authorAvatar.getUrl()}></Avatar>
+                                            <List>
+                                                {messageGroup.messages.map((message, _index) => {
+                                                    const humanReadableMessageDate = moment(message.created_at).format('LT');
+
+                                                    return (
+                                                        <ListItem key={_index}>
+                                                            <ChatMessage message={message.content} time={humanReadableMessageDate} />
+                                                        </ListItem>
+                                                    );
+                                                })}
+                                            </List>
+                                        </ChatBox>
+                                    );
+                                })}
+                            </div>
+                        );
+                    })}
                 </Flex.Stretch>
                 <Flex.Shrink className="View--chat__box">
                     <MessageForm
-                        onSend={this.onCommentSend.bind(this)}
+                        onSend={sendChatMessage.bind(this)}
                         onFocus={this.onMessageBoxFocus.bind(this)}
                         onBlur={this.onMessageBoxBlur.bind(this)} />
                 </Flex.Shrink>
@@ -97,9 +74,45 @@ const ChatView = class ChatView extends React.Component {
         );
     }
 
-    onCommentSend() {}
     onMessageBoxFocus() {}
     onMessageBoxBlur() {}
+
+    getChatMessagesGroupedByAuthor() {
+        const {chatMessages, loggedInUser, chatUser} = this.props;
+
+        return groupArray(chatMessages, (previous, current) => {
+            const previousMoment = moment(previous.created_at);
+            const currentMoment = moment(current.created_at);
+
+            return previous.creator_id === current.creator_id &&            // different author
+                previousMoment.dayOfYear() === currentMoment.dayOfYear() && // different day-of-year
+                previousMoment.year() === currentMoment.year();             // different year
+        })
+        .map((messages) => {
+            return {
+                author: messages[0].creator_id === chatUser._id ? chatUser : loggedInUser,
+                messages
+            };
+        });
+    }
+
+    getChatMessagesGroupedByDay(groupedByAuthor) {
+        const {chatMessages, loggedInUser, chatUser} = this.props;
+
+        return groupArray(groupedByAuthor, (previous, current) => {
+            const previousMoment = moment(previous.messages[previous.messages.length - 1].created_at);
+            const currentMoment = moment(current.messages[0].created_at);
+
+            return previousMoment.dayOfYear() === currentMoment.dayOfYear() && // different day-of-year
+                   previousMoment.year() === currentMoment.year();             // different year
+        })
+        .map((groupedMessages) => {
+            return {
+                day: groupedMessages[0].messages[0].created_at,
+                messagesGroupedByAuthor: groupedMessages
+            };
+        });
+    }
 };
 
 ChatView.navigationBar = 'app';
@@ -117,8 +130,11 @@ ChatView.getNavigation = (props, app) => {
 
 ChatView.propTypes = {
     chat: React.PropTypes.instanceOf(ChatModel),
-    chatUsers: React.PropTypes.instanceOf(UserModel),
-    chatLoading: React.PropTypes.bool.isRequired
+    chatUser: React.PropTypes.instanceOf(UserModel),
+    chatMessages: React.PropTypes.arrayOf(React.PropTypes.instanceOf(ChatMessageModel)).isRequired,
+    chatLoading: React.PropTypes.bool.isRequired,
+    sendChatMessage: React.PropTypes.func.isRequired,
+    loggedInUser: React.PropTypes.instanceOf(UserModel).isRequired
 };
 
 export default ChatView;

@@ -44,7 +44,7 @@ const ChatTile = class ChatTile extends React.Component {
                     <Paragraph className="pa-ChatTile__label__title">{user.profile.name}</Paragraph>
                     <Paragraph>{lastChatMessage && lastChatMessage.content}</Paragraph>
                 </div>
-                {readableUpdatedAt &&
+                {readableUpdatedAt && lastChatMessage &&
                     <span className="pa-ChatTile__time">
                         <Paragraph>{readableUpdatedAt}</Paragraph>
                     </span>

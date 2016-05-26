@@ -31,21 +31,7 @@
             }
 
             .pa-ChatMessage {
-                position: relative;
                 display: inline-block;
-                padding: 12px 50px 8px 18px;
-                line-height: 20px;
-
-                &__chattime {
-                    position: absolute;
-                    right: 14px;
-                    bottom: 10px;
-                    font-size: 12px;
-                    font-weight: 600;
-                    color: $color-text-meta;
-                    letter-spacing: 0px;
-                    line-height: 12px;
-                }
             }
         }
 
