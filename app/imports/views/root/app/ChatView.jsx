@@ -32,6 +32,14 @@ const ChatView = class ChatView extends React.Component {
     }
 
     componentDidUpdate() {
+        this.triggerReversedScroll();
+    }
+
+    componentWillMount() {
+        this.triggerReversedScroll();
+    }
+
+    triggerReversedScroll() {
         defer(() => {
             if (this.refs.messages && this.refs.messages.refs.flexStretch) {
                 this.reversedScroller.contentPossiblyUpdated(this.refs.messages.refs.flexStretch);
