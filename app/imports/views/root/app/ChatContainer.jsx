@@ -37,12 +37,17 @@ export default meteorDataContainer(ChatView, (props) => {
         });
     };
 
+    const markMessageAsRead = (message) => {
+        Connection.call('chatmessages.read', message._id);
+    };
+
     return {
         chat,
         chatUser,
         chatMessages,
         chatLoading,
         sendChatMessage,
+        markMessageAsRead,
         loggedInUser
     };
 });

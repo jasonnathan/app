@@ -3,7 +3,7 @@
 import React from 'react';
 import c from 'classnames';
 import { defer } from 'lodash';
-import { find } from 'mout/array';
+import { contains } from 'mout/array';
 import moment from 'moment';
 import groupArray from '/imports/services/groupArray';
 import ReversedScroller from '/imports/classes/ReversedScroller';
@@ -33,10 +33,12 @@ const ChatView = class ChatView extends React.Component {
 
     componentDidUpdate() {
         this.triggerReversedScroll();
+        this.setReadStates();
     }
 
     componentWillMount() {
         this.triggerReversedScroll();
+        this.setReadStates();
     }
 
     triggerReversedScroll() {
@@ -45,6 +47,18 @@ const ChatView = class ChatView extends React.Component {
                 this.reversedScroller.contentPossiblyUpdated(this.refs.messages.refs.flexStretch);
             }
         });
+    }
+
+    setReadStates() {
+        const {chatMessages, loggedInUser} = this.props;
+
+        if (chatMessages) {
+            chatMessages.forEach((message) => {
+                if (!contains(message.read_by, loggedInUser._id)) {
+                    this.props.markMessageAsRead(message);
+                }
+            });
+        }
     }
 
     render() {
@@ -161,6 +175,7 @@ ChatView.propTypes = {
     chatMessages: React.PropTypes.arrayOf(React.PropTypes.instanceOf(ChatMessageModel)).isRequired,
     chatLoading: React.PropTypes.bool.isRequired,
     sendChatMessage: React.PropTypes.func.isRequired,
+    markMessageAsRead: React.PropTypes.func.isRequired,
     loggedInUser: React.PropTypes.instanceOf(UserModel).isRequired
 };
 
