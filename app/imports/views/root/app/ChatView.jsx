@@ -2,9 +2,11 @@
 
 import React from 'react';
 import c from 'classnames';
+import { defer } from 'lodash';
 import { find } from 'mout/array';
 import moment from 'moment';
 import groupArray from '/imports/services/groupArray';
+import ReversedScroller from '/imports/classes/ReversedScroller';
 import NavButton from '/imports/components/NavButton';
 import Button from '/imports/components/Button';
 import List from '/imports/components/List';
@@ -19,15 +21,32 @@ import Flex from '/imports/components/Flex';
 import { ChatModel, ChatMessageModel, UserModel } from '/imports/models';
 
 const ChatView = class ChatView extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.reversedScroller = new ReversedScroller();
+    }
+
+    componentWillUnmount() {
+        this.reversedScroller.destroy();
+    }
+
+    componentDidUpdate() {
+        defer(() => {
+            if (this.refs.messages && this.refs.messages.refs.flexStretch) {
+                this.reversedScroller.contentPossiblyUpdated(this.refs.messages.refs.flexStretch);
+            }
+        });
+    }
+
     render() {
         const {chat, chatUser, chatLoading, sendChatMessage, loggedInUser} = this.props;
         const groupedByAuthor = this.getChatMessagesGroupedByAuthor();
         const groupedByDay = this.getChatMessagesGroupedByDay(groupedByAuthor);
-        console.log(groupedByDay.map(g => g.day));
 
         return (
             <Flex>
-                <Flex.Stretch scroll className="View--chat__messages">
+                <Flex.Stretch scroll className="View--chat__messages" ref="messages">
                     {groupedByDay.map((dayGroup, index) => {
                         const readableDay = moment(dayGroup.day).calendar(null, {
                             sameDay: '[Today]',
