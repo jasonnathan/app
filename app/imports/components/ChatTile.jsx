@@ -12,7 +12,7 @@ const ChatTile = class ChatTile extends React.Component {
     render() {
         const {chat, loggedInUser} = this.props;
         const className = c('pa-ChatTile', {
-            'pa-ChatTile--is-unread': chat.getUnreadCountForUser(loggedInUser) > 0
+            'pa-ChatTile--is-unread': chat && chat.getUnreadCountForUser(loggedInUser) > 0
         });
 
         if (this.props.onClick) {
@@ -33,7 +33,7 @@ const ChatTile = class ChatTile extends React.Component {
     renderContent() {
         const {chat, user, lastChatMessage} = this.props;
         const userAvatar = user.getAvatarImage();
-        const readableUpdatedAt = formatDate.relativeWithThreshold(chat.updated_at, new Date());
+        const readableUpdatedAt = chat && formatDate.relativeWithThreshold(chat.updated_at, new Date());
 
         return (
             <div>
@@ -44,9 +44,11 @@ const ChatTile = class ChatTile extends React.Component {
                     <Paragraph className="pa-ChatTile__label__title">{user.profile.name}</Paragraph>
                     <Paragraph>{lastChatMessage && lastChatMessage.content}</Paragraph>
                 </div>
-                <span className="pa-ChatTile__time">
-                    <Paragraph>{readableUpdatedAt}</Paragraph>
-                </span>
+                {readableUpdatedAt &&
+                    <span className="pa-ChatTile__time">
+                        <Paragraph>{readableUpdatedAt}</Paragraph>
+                    </span>
+                }
                 <span className="pa-ChatTile__alert">
                 </span>
             </div>
@@ -62,7 +64,7 @@ const ChatTile = class ChatTile extends React.Component {
 ChatTile.propTypes = {
     loggedInUser: React.PropTypes.instanceOf(UserModel).isRequired,
     user: React.PropTypes.instanceOf(UserModel).isRequired,
-    chat: React.PropTypes.instanceOf(ChatModel).isRequired,
+    chat: React.PropTypes.instanceOf(ChatModel),
     lastChatMessage: React.PropTypes.instanceOf(ChatMessageModel)
 };
 

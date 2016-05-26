@@ -43,11 +43,12 @@ const ChatsView = class ChatsView extends React.Component {
             <List>
                 {this.state.searchResults.map((user, index) => (
                     <ListItem key={index}>
-                        <div style={{padding: '15px'}}>
-                            <Button onClick={this.props.onStartChat.bind(this, user)}>
-                                {user.profile.name}
-                            </Button>
-                        </div>
+                        {user &&
+                            <ChatTile
+                                user={user}
+                                loggedInUser={this.props.loggedInUser}
+                                onClick={this.props.onStartChat.bind(this, user)} />
+                        }
                     </ListItem>
                 ))}
             </List>
