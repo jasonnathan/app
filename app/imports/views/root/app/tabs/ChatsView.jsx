@@ -106,7 +106,7 @@ const ChatsView = class ChatsView extends React.Component {
     onChatTileClick(chat) {
         transitionTo('app:chat', {
             transition: 'show-from-right',
-            viewProps: {chat_id: chat._id}
+            viewProps: {chatId: chat._id}
         });
     }
 };
