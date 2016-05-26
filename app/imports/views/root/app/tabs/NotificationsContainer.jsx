@@ -11,6 +11,7 @@ import { NotificationModel } from '/imports/models';
 import Debug from '/imports/Debug';
 import userCache from '/imports/services/userCache';
 
+const START = 15;
 const INCREASE = 10;
 
 export default meteorDataContainer(NotificationsView, (props) => {
@@ -20,8 +21,8 @@ export default meteorDataContainer(NotificationsView, (props) => {
     let cache = userCache.get('notificationsPage');
     if (!cache) {
         cache = {
-            limit: new ReactiveVar(15),
-            notificationsEndReached: new ReactiveVar(false)
+            limit: new ReactiveVar(START),
+            endReached: new ReactiveVar(false)
         };
 
         userCache.set('notificationsPage', cache);
@@ -38,7 +39,7 @@ export default meteorDataContainer(NotificationsView, (props) => {
     const sub = Subs.subscribe('notifications.for_upper', cache.limit.get(), {
         onReady: () => {
             if (notifications.length === getNotifications().length) {
-                cache.notificationsEndReached.set(true);
+                cache.endReached.set(true);
             }
         }
     });
@@ -59,7 +60,7 @@ export default meteorDataContainer(NotificationsView, (props) => {
         notifications: {
             data: notifications,
             loading: !sub.ready(),
-            endReached: cache.notificationsEndReached.get(),
+            endReached: cache.endReached.get(),
             loadMore: loadMoreNotifications
         },
         onAllNotificationsRead,

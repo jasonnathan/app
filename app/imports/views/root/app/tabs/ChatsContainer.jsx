@@ -1,5 +1,6 @@
 'use strict';
 
+import { ReactiveVar } from 'meteor/reactive-var';
 import meteorDataContainer from '/imports/services/meteorDataContainer';
 import ChatsView from './ChatsView';
 import Connection from '/imports/Connection';
@@ -9,21 +10,46 @@ import { UserModel, ChatModel, ChatMessageModel, ImageModel } from '/imports/mod
 import transitionTo from '/imports/services/transitionTo';
 import { find } from 'mout/array';
 import { isFunction } from 'mout/lang';
+import userCache from '/imports/services/userCache';
+
+const START = 15;
+const INCREASE = 10;
 
 export default meteorDataContainer(ChatsView, (props) => {
     const {} = props;
     Debug.tracker('ChatsContainer');
 
+    let cache = userCache.get('chatsPage');
+    if (!cache) {
+        cache = {
+            limit: new ReactiveVar(START),
+            endReached: new ReactiveVar(false)
+        };
+
+        userCache.set('chatsPage', cache);
+    }
+
     const loggedInUser = UserModel.accountsClient.user();
-    const chatsLoading = !Subs.subscribe('chats.for_loggedin_user').ready();
+    const chatsLoading = !Subs.subscribe('chats.for_loggedin_user', {
+        limit: cache.limit.get()
+    }, {
+        onReady: () => {
+            if (chats.length === getChats().length) {
+                cache.endReached.set(true);
+            }
+        }
+    }).ready();
+
+    const getChats = () =>
+        ChatModel.query()
+            .search(m => m.searchPrivateForUser(loggedInUser))
+            .fetch();
 
     let chats = [];
     let chatsUsers = [];
     let lastChatMessages = [];
     if (loggedInUser) {
-        chats = ChatModel.query()
-            .search(m => m.searchPrivateForUser(loggedInUser))
-            .fetch();
+        chats = getChats();
 
         chatsUsers = UserModel.query()
             .search({
@@ -36,6 +62,10 @@ export default meteorDataContainer(ChatsView, (props) => {
             .search({chat_id: {$in: chats.map(c => c._id)}})
             .fetch();
     }
+
+    const loadMoreChats = () => {
+        cache.limit.set(cache.limit.get() + INCREASE);
+    };
 
     const onSearch = (input, callback) => {
         Connection.call('users.autocomplete', input, undefined, undefined, {chatSearch: true}, (error, users) => {
@@ -83,8 +113,12 @@ export default meteorDataContainer(ChatsView, (props) => {
         loggedInUser,
         onSearch,
         onStartChat,
-        chatsLoading,
-        chats,
+        chats: {
+            data: chats,
+            loading: chatsLoading,
+            endReached: cache.endReached.get(),
+            loadMore: loadMoreChats
+        },
         chatsUsers,
         lastChatMessages
     };

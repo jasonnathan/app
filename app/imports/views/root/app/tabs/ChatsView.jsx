@@ -12,6 +12,7 @@ import { debounce } from 'lodash';
 import { ChatModel, UserModel, ChatMessageModel } from '/imports/models';
 import { filter, contains, find } from 'mout/array';
 import EmptyState from '/imports/components/EmptyState';
+import Spinner from '/imports/components/Spinner';
 
 const ChatsView = class ChatsView extends React.Component {
     constructor(props) {
@@ -25,16 +26,30 @@ const ChatsView = class ChatsView extends React.Component {
     }
 
     render() {
+        const chatsProps = this.props.chats;
+        const {data: chats, loading, loadMore, endReached} = chatsProps || {};
+
         return (
             <Flex>
                 <Flex.Shrink className="View--chats__search">
                     <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} />
                 </Flex.Shrink>
-                <Flex.Stretch scroll className="View--chats__list">
-                    {this.state.searchResults ?
-                        this.renderSearchResults() :
-                        this.renderChats()}
-                </Flex.Stretch>
+                {this.state.searchResults ?
+                    <Flex.Stretch scroll className="View--chats__list">
+                        {this.renderSearchResults()}
+                    </Flex.Stretch> :
+                    <Flex.Stretch scroll className="View--chats__list" onHitBottom={() => !loading && !endReached && loadMore()}>
+                        {(!chats || !chats.length) &&
+                            <EmptyState type="chats" />
+                        }
+
+                        {this.renderChats(chats || [])}
+
+                        {loading &&
+                            <Spinner infiniteScroll />
+                        }
+                    </Flex.Stretch>
+                }
             </Flex>
         );
     }
@@ -60,14 +75,10 @@ const ChatsView = class ChatsView extends React.Component {
         );
     }
 
-    renderChats() {
-        if (this.props.chats.length === 0) {
-            return <EmptyState type="chats" />;
-        }
-
+    renderChats(chats) {
         return (
             <List>
-                {this.props.chats.map((chat, index) => {
+                {chats.map((chat, index) => {
                     const users = filter(this.props.chatsUsers, (user) =>
                         contains(user.chats || [], chat._id));
 
@@ -127,8 +138,12 @@ ChatsView.propTypes = {
     loggedInUser: React.PropTypes.instanceOf(UserModel).isRequired,
     onSearch: React.PropTypes.func.isRequired,
     onStartChat: React.PropTypes.func.isRequired,
-    chatsLoading: React.PropTypes.bool.isRequired,
-    chats: React.PropTypes.arrayOf(React.PropTypes.instanceOf(ChatModel)).isRequired,
+    chats: React.PropTypes.shape({
+        data: React.PropTypes.arrayOf(React.PropTypes.instanceOf(ChatModel)).isRequired,
+        loading: React.PropTypes.bool.isRequired,
+        endReached: React.PropTypes.bool.isRequired,
+        loadMore: React.PropTypes.func.isRequired
+    }),
     chatsUsers: React.PropTypes.arrayOf(React.PropTypes.instanceOf(UserModel)).isRequired,
     lastChatMessages: React.PropTypes.arrayOf(React.PropTypes.instanceOf(ChatMessageModel)).isRequired
 };
