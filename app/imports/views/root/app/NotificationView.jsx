@@ -45,6 +45,14 @@ const NotificationView = class NotificationView extends React.Component {
     }
 
     componentDidUpdate() {
+        this.triggerReversedScroll();
+    }
+
+    componentWillMount() {
+        this.triggerReversedScroll();
+    }
+
+    triggerReversedScroll() {
         defer(() => {
             if (this.refs.comments && this.refs.comments.refs.flexStretch) {
                 this.reversedScroller.contentPossiblyUpdated(this.refs.comments.refs.flexStretch);
