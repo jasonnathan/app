@@ -55,6 +55,7 @@ Releasing
 ### iOS
 
 - `$ cd app`
+- `$ meteor npm install`
 - `$ meteor build ../output --mobile-settings ../config/<environment>/settings.json --server <partup-url>` (replace <environment> with acceptance or production and <partup-url> with the part-up server url)
 - Open the project **/output/ios/project/Part-up.xcodeproj** in Xcode.
 - Go to Part-up's General settings
@@ -78,6 +79,7 @@ Releasing
 - Obtain the **android-keystore** file from a colleague, put it in the repo root and ask for the passphrase.
 - To create the final APK before publishment, you have to sign and align it.
     - `$ cd app`
+    - `$ meteor npm install`
     - `$ meteor build ../output --mobile-settings ../config/<environment>/settings.json --server <partup-url>` (replace <environment> with acceptance or production and <partup-url> with the part-up server url)
     - `$ cd ..`
     - `$ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore android-keystore output/android/project/build/outputs/apk/android-armv7-release-unsigned.apk part-up-android`
