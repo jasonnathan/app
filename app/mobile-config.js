@@ -1,5 +1,5 @@
 App.info({
-    id: 'nl.lifely.part-up',
+    id: 'com.partup.app',
     name: 'Part-up',
     version: '1.2.0',
     description: 'Enhance your Part-up experience with the app.',
