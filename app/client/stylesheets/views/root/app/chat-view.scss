@@ -1,0 +1,15 @@
+.View--chat {
+    &__messages {
+        padding: 20px 15px 0 15px;
+
+        .pa-ChatBox {
+            + .pa-ChatBox {
+                margin-top: 15px;
+            }
+        }
+    }
+
+    &__box {
+        padding: 15px;
+    }
+}

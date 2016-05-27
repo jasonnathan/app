@@ -1,0 +1,149 @@
+.pa-ChatBox {
+    position: relative;
+    $border-radius: 4px;
+
+    .pa-Avatar {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 2px;
+    }
+
+    p {
+        font-size: 14px;
+        line-height: 1.4em;
+        margin-bottom: 0;
+    }
+
+    a {
+        color: $color-brand;
+    }
+
+    .pa-List {
+        position: relative;
+
+        .pa-ListItem {
+            display: block;
+            margin-bottom: 2px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            .pa-ChatMessage {
+                display: inline-block;
+            }
+        }
+
+        &:after, &:before {
+            top: 18px;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+    }
+
+    &--receive {
+        margin-right: 0;
+
+        .pa-Avatar {
+            left: 0;
+        }
+
+        .pa-List {
+            margin-left: 40px;
+
+            .pa-ListItem {
+                &:first-child .pa-ChatMessage {
+                    border-top-left-radius: $border-radius;
+                    border-top-right-radius: $border-radius;
+                    border-bottom-right-radius: $border-radius;
+                }
+
+                &:last-child .pa-ChatMessage {
+                    border-top-right-radius: $border-radius;
+                    border-bottom-right-radius: $border-radius;
+                    border-bottom-left-radius: $border-radius;
+                }
+
+                .pa-ChatMessage {
+                    background: #eee;
+                    border: 2px solid #eee;
+                    border-top-right-radius: $border-radius;
+                    border-bottom-right-radius: $border-radius;
+                }
+            }
+
+            &:after {
+                right: 99.4%;
+                border-color: rgba(255, 255, 255, 0);
+                border-right-color: #eee;
+                border-width: 4px;
+                margin-top: -4px;
+            }
+
+            &:before {
+                right: 99.4%;
+                border-color: rgba(238, 238, 238, 0);
+                border-right-color: #eee;
+                border-width: 7px;
+                margin-top: -7px;
+            }
+        }
+    }
+
+    &--send {
+        margin-left: 0;
+
+        .pa-Avatar {
+            right: 0;
+        }
+
+        .pa-List {
+            margin-right: 40px;
+            text-align: right;
+
+            .pa-ListItem {
+                &:first-child .pa-ChatMessage {
+                    border-top-left-radius: $border-radius;
+                    border-top-right-radius: $border-radius;
+                    border-bottom-left-radius: $border-radius;
+                }
+
+                &:last-child .pa-ChatMessage {
+                    border-top-left-radius: $border-radius;
+                    border-bottom-right-radius: $border-radius;
+                    border-bottom-left-radius: $border-radius;
+                }
+
+                .pa-ChatMessage {
+                    background: #fff;
+                    border: 2px solid #eee;
+                    border-top-left-radius: $border-radius;
+                    border-bottom-left-radius: $border-radius;
+                    text-align: left;
+                }
+            }
+
+            &:after {
+                left: 99.4%;
+                border-color: rgba(255, 255, 255, 0);
+                border-left-color: #fff;
+                border-width: 4px;
+                margin-top: -4px;
+            }
+
+            &:before {
+                left: 99.4%;
+                border-color: rgba(238, 238, 238, 0);
+                border-left-color: #eee;
+                border-width: 7px;
+                margin-top: -7px;
+            }
+        }
+    }
+}
+

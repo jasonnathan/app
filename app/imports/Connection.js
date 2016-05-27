@@ -56,4 +56,12 @@ Meteor._stream = connection._stream;
 Meteor._subscriptions = connection._subscriptions;
 Meteor.subscribe = connection.subscribe;
 
+// Wrap connection.call to call Debug.method
+const originalCall = connection.call;
+connection.call = (name, ...args) => {
+    const argsWithoutCallback = args.slice(0, -1);;
+    Debug.method(name, ...argsWithoutCallback);
+    originalCall.apply(connection, [name, ...args]);
+};
+
 export default connection;

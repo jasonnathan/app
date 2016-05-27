@@ -1,0 +1,89 @@
+.pa-ChatTile {
+    display: table;
+    width: 100%;
+    padding: 20px 15px;
+    position: relative;
+
+    &__image,
+    &__label,
+    &__time {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    &__image {
+        figure {
+            width: 48px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            @include ratio(1/1);
+            background-color: $color-avatar-placeholder;
+        }
+    }
+
+    &__label {
+        vertical-align: middle;
+        padding-left: spacing(1);
+        width: 100%;
+
+        .pa-Paragraph {
+            line-height: 1.5em;
+            color: $color-text-meta;
+        }
+
+        & &__title {
+            color: $color-text;
+        }
+
+    }
+
+    &__time {
+        padding-left: spacing(1);
+        text-align: right;
+        vertical-align: bottom;
+        white-space: nowrap;
+
+        p {
+            font-family: $font-primary;
+            font-weight: 500;
+            font-size: 12px;
+            color: $color-text-meta;
+            padding-bottom: 4px;
+        }
+    }
+
+    &__alert {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: $color-brand-secondary;
+        position: absolute;
+        top: 29px;
+        right: 15px;
+        display: none;
+    }
+
+    &--is-unread {
+        .pa-ChatTile__label {
+            .pa-Paragraph {
+                color: $color-text;
+            }
+        }
+
+        .pa-ChatTile__label .pa-ChatTile__label__title {
+            color: $color-text;
+            font-weight: 600;
+        }
+
+        .pa-ChatTile__time {
+            p {
+                font-weight: 600;
+            }
+        }
+
+        .pa-ChatTile__alert {
+            display: inline;
+        }
+    }
+}

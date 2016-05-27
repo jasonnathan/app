@@ -6,6 +6,7 @@ import { Container, UI, View, ViewManager } from '/imports/touchstonejs/lib';
 
 import TabsViewManager from './app/TabsViewManager';
 import NotificationContainer from './app/NotificationContainer';
+import ChatContainer from './app/ChatContainer';
 
 const AppViewManager = class AppViewManager extends React.Component {
     render() {
@@ -15,6 +16,7 @@ const AppViewManager = class AppViewManager extends React.Component {
                 <ViewManager name="app" defaultView="tabs">
                     <View name="tabs" component={TabsViewManager} />
                     <View name="notification" component={NotificationContainer} />
+                    <View name="chat" component={ChatContainer} />
                 </ViewManager>
             </Container>
         );

@@ -39,10 +39,10 @@ const LoginView = class LoginView extends React.Component {
     onFacebook() {
         this.props.onLoginWithFacebook((err) => {
             if (err) {
-                Debug.methods(`Failed user login with Facebook`, err);
+                Debug.methodResult(`Failed user login with Facebook`, err);
                 window.alert('Facebook login failed or cancelled');
             } else {
-                Debug.methods(`User logged in with Facebook`);
+                Debug.methodResult(`User logged in with Facebook`);
                 this.continue();
             }
         });
@@ -51,10 +51,10 @@ const LoginView = class LoginView extends React.Component {
     onLinkedIn() {
         this.props.onLoginWithLinkedIn((err) => {
             if (err) {
-                Debug.methods(`Failed user login with LinkedIn`, err);
+                Debug.methodResult(`Failed user login with LinkedIn`, err);
                 window.alert('LinkedIn login failed or cancelled');
             } else {
-                Debug.methods(`User logged in with Facebook`);
+                Debug.methodResult(`User logged in with Facebook`);
                 this.continue();
             }
         });

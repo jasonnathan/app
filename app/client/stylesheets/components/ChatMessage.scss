@@ -1,0 +1,17 @@
+.pa-ChatMessage {
+    padding: 9px 15px;
+    line-height: 20px;
+
+    p, &__chattime {
+        display: inline-block;
+        vertical-align: bottom;
+    }
+
+    &__chattime {
+        font-size: 10px;
+        color: $color-text-meta;
+        line-height: 12px;
+        margin-left: 10px;
+        margin-bottom: 2px;
+    }
+}

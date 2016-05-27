@@ -49,18 +49,29 @@ Flex.Stretch = class FlexStretch extends React.Component {
     }
 
     componentDidMount() {
-        this.refs.flexStretch.addEventListener('scroll', this.onScroll.bind(this));
+        if (this.props.onHitTop || this.props.onHitBottom) {
+            this.refs.flexStretch.addEventListener('scroll', this.onScroll.bind(this));
+        }
     }
 
     componentWillUnmount() {
-        this.refs.flexStretch.removeEventListener('scroll', this.onScroll.bind(this));
+        if (this.props.onHitTop || this.props.onHitBottom) {
+            this.refs.flexStretch.removeEventListener('scroll', this.onScroll.bind(this));
+        }
     }
 
     onScroll(event) {
+        const scroller = event.target;
+        const THRESHOLD = 40;
+
+        if (this.props.onHitTop) {
+            if (scroller.scrollTop <= THRESHOLD) {
+                this.props.onHitTop();
+            }
+        }
+
         if (this.props.onHitBottom) {
-            const scroller = event.target;
             const maxScroll = scroller.scrollHeight - scroller.getBoundingClientRect().height;
-            const THRESHOLD = 40;
 
             if (scroller.scrollTop + THRESHOLD >= maxScroll) {
                 this.props.onHitBottom();
@@ -72,7 +83,8 @@ Flex.Stretch = class FlexStretch extends React.Component {
 Flex.Stretch.propTypes = {
     scroll: React.PropTypes.bool,
     className: React.PropTypes.string,
-    onHitBottom: React.PropTypes.func
+    onHitBottom: React.PropTypes.func,
+    onHitTop: React.PropTypes.func
 };
 
 Flex.Stretch.defaultProps = {

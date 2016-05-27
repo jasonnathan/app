@@ -1,0 +1,16 @@
+.View--chats {
+    &__search {
+        padding: 15px;
+        border-bottom: 1px solid $color-border;
+    }
+
+    .pa-List {
+        padding-left: 0;
+
+        .pa-ListItem {
+            + .pa-ListItem {
+                border-top: 1px solid $color-border;
+            }
+        }
+    }
+}

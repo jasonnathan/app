@@ -26,7 +26,9 @@ const collections = {
     NotificationModel: 'notifications',
     PartupModel: 'partups',
     PartupUpdateModel: 'updates',
-    UserModel: models.UserModel.accountsClient.users
+    UserModel: models.UserModel.accountsClient.users,
+    ChatModel: 'chats',
+    ChatMessageModel: 'chatmessages',
 };
 
 for (let key in models) {
@@ -43,4 +45,6 @@ export const NotificationModel = models.NotificationModel;
 export const PartupModel = models.PartupModel;
 export const PartupUpdateModel = models.PartupUpdateModel;
 export const UserModel = models.UserModel;
+export const ChatModel = models.ChatModel;
+export const ChatMessageModel = models.ChatMessageModel;
 export default models;
