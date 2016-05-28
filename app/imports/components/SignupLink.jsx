@@ -18,7 +18,7 @@ const SignupLink = class SignupLink extends React.Component {
     }
 
     onSignupClick() {
-        openWeb(formatWebsiteUrl({pathname: '/register'}));
+        openWeb(formatWebsiteUrl({pathname: '/register'}), {inApp: true});
     }
 };
 

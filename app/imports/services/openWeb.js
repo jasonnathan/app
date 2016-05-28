@@ -1,12 +1,14 @@
 'use strict';
 
-export default function openWeb(url) {
+export default function openWeb(url, opts) {
+    opts = opts || {};
     const encodedUrl = window.encodeURI(url);
     let executeScript;
 
     if (window.cordova) {
         const closeButton = 'Done';
-        const inAppBrowserInstance = window.cordova.InAppBrowser.open(encodedUrl, '_system', `location=no,zoom=yes,enableViewportScale=yes,closebuttoncaption=${closeButton}`);
+        const target = opts.inApp ? '_blank' : '_system';
+        const inAppBrowserInstance = window.cordova.InAppBrowser.open(encodedUrl, target, `location=no,zoom=yes,enableViewportScale=yes,closebuttoncaption=${closeButton}`);
 
         executeScript = (fnString) => {
             inAppBrowserInstance.executeScript({code: fnString});
