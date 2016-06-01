@@ -3,6 +3,12 @@
 ## 1.2.1
 - Private chat with all Part-up users
 
+## 1.1.3-android
+- Fix Android push notifications
+
+## 1.1.2-android
+- Fix Android push notifications (accidentally including the chat)
+
 ## 1.1.1
 - Use in-app browser instead of Safari for the signup link on the login page
 
