@@ -1,6 +1,7 @@
 .pa-ChatMessage {
     padding: 9px 15px;
     line-height: 20px;
+    word-break: break-word;
 
     p, &__chattime {
         display: inline-block;
