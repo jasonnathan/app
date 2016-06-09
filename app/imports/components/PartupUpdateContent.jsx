@@ -30,7 +30,7 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
     renderContent() {
         const {update: u, updateData: d} = this.props;
 
-        const textParts = autolink(parseMentions(stripHtmlTags(u.type_data.new_value)));
+        const textParts = autolink(parseMentions(stripHtmlTags(u.type_data.new_value).replace('\n', '<br />')));
 
         if (contains(['partups_message_added'], u.type)) {
             return (

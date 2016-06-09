@@ -5,6 +5,7 @@ import c from 'classnames';
 import moment from 'moment';
 import { translate } from 'react-i18next';
 import { formatDate } from 'part-up-js-helpers';
+import { stripHtmlTags } from 'mout/string';
 
 import parseMentions from '/imports/services/parseMentions';
 import Avatar from '/imports/components/Avatar';
@@ -24,7 +25,7 @@ const PartupUpdateComment = class PartupUpdateComment extends React.Component {
 
         const readableCreatedAt = formatDate.relativeWithThreshold(createdAt);
 
-        const text = autolink(parseMentions(content));
+        const text = autolink(parseMentions(stripHtmlTags(content).replace('\n', '<br />')));
 
         return (
             <section className={className}>
