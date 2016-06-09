@@ -31,9 +31,11 @@ export default meteorDataContainer(NotificationView, (props) => {
     }
 
     const onCommentSend = (comment) => {
-        Connection.call('updates.comments.insert', partupUpdate._id, {
-            content: comment
-        });
+        if (comment) {
+            Connection.call('updates.comments.insert', partupUpdate._id, {
+                content: comment
+            });
+        }
     };
 
     return {

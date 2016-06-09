@@ -42,10 +42,12 @@ export default meteorDataContainer(ChatView, (props) => {
             .findOne();
 
     const sendChatMessage = (message) => {
-        Connection.call('chatmessages.insert', {
-            chat_id: chatId,
-            content: message
-        });
+        if (message) {
+            Connection.call('chatmessages.insert', {
+                chat_id: chatId,
+                content: message
+            });
+        }
     };
 
     const markMessageAsRead = (message) => {
