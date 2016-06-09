@@ -20,7 +20,7 @@ export default function autolink(source) {
             textParts[newIndex] = <span key={newIndex} dangerouslySetInnerHTML={{__html: match}} />;
         });
 
-    text.match(linkRegex)
+    (text.match(linkRegex) || [])
         .forEach((match, index) => {
             const url = match.substr(8, match.length - 9);
             const newIndex = index * 2 + 1;
