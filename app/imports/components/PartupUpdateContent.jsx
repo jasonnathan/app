@@ -4,12 +4,15 @@ import React from 'react';
 import c from 'classnames';
 import { contains } from 'mout/array';
 import { get } from 'mout/object';
+import { stripHtmlTags } from 'mout/string';
 
+import Button from '/imports/components/Button';
 import parseMentions from '/imports/services/parseMentions';
 import { ActivityModel } from '/imports/models';
 import Content from '/imports/components/Content';
 import Paragraph from '/imports/components/Paragraph';
 import Heading from '/imports/components/Heading';
+import autolink from '/imports/services/autolink';
 
 const PartupUpdateContent = class PartupUpdateContent extends React.Component {
     render() {
@@ -27,10 +30,12 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
     renderContent() {
         const {update: u, updateData: d} = this.props;
 
+        const textParts = autolink(parseMentions(stripHtmlTags(u.type_data.new_value)));
+
         if (contains(['partups_message_added'], u.type)) {
             return (
                 <Content.Text>
-                    <Paragraph>{parseMentions(u.type_data.new_value)}</Paragraph>
+                    <Paragraph>{textParts}</Paragraph>
                 </Content.Text>
             );
         }

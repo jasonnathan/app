@@ -17,6 +17,10 @@
         max-height: 150px;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+
+        a {
+            color: $color-brand;
+        }
     }
 
     .pa-Heading {
