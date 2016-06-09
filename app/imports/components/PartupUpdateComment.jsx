@@ -11,6 +11,7 @@ import Avatar from '/imports/components/Avatar';
 import Heading from '/imports/components/Heading';
 import Paragraph from '/imports/components/Paragraph';
 import { UserModel } from '/imports/models';
+import autolink from '/imports/services/autolink';
 
 const PartupUpdateComment = class PartupUpdateComment extends React.Component {
     render() {
@@ -23,6 +24,8 @@ const PartupUpdateComment = class PartupUpdateComment extends React.Component {
 
         const readableCreatedAt = formatDate.relativeWithThreshold(createdAt);
 
+        const text = autolink(parseMentions(content));
+
         return (
             <section className={className}>
                 <div>
@@ -31,7 +34,7 @@ const PartupUpdateComment = class PartupUpdateComment extends React.Component {
                 <div>
                     <Paragraph>
                         <strong>{author.profile.name}</strong>
-                        {parseMentions(content)}
+                        {text}
                     </Paragraph>
                     <Paragraph meta>{readableCreatedAt}</Paragraph>
                 </div>
