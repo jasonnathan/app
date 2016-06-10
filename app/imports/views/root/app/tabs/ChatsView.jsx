@@ -6,6 +6,7 @@ import Input from '/imports/components/Input';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import transitionTo from '/imports/services/transitionTo';
+import NavButton from '/imports/components/NavButton';
 import Flex from '/imports/components/Flex';
 import Button from '/imports/components/Button';
 import { debounce } from 'lodash';
@@ -149,9 +150,15 @@ ChatsView.propTypes = {
 };
 
 ChatsView.navigationBar = 'app';
-ChatsView.getNavigation = () => {
+ChatsView.getNavigation = (props, app) => {
     return {
-        title: 'Chat'
+        title: 'Chat',
+        rightLabel: <NavButton right icon="icon_info" />,
+        rightAction: () => {
+            app.transitionTo('root:about-modal', {
+                transition: 'show-from-bottom'
+            });
+        }
     };
 };
 
