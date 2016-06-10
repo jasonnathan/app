@@ -11,7 +11,7 @@ const MessageForm = class MessageForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.onSubmit.bind(this)} className={c('pa-MessageForm')} ref="form">
-                <Input.Text textarea name="message" onFocus={this.onFocus.bind(this)} onBlur={this.props.onBlur.bind(this)} onChange={this.onMessageChange.bind(this)} />
+                <Input.Text textarea name="message" onFocus={this.onFocus.bind(this)} onBlur={this.onBlur.bind(this)} onChange={this.onMessageChange.bind(this)} />
                 <Button submit text>Send</Button>
             </form>
         );
@@ -19,11 +19,27 @@ const MessageForm = class MessageForm extends React.Component {
 
     componentDidMount() {
         this.onMessageChange();
+
+        if (Keyboard) {
+            Keyboard.hideFormAccessoryBar(true);
+        }
+    }
+
+    componentWillUnmount() {
+        if (Keyboard) {
+            Keyboard.hideFormAccessoryBar(false);
+        }
     }
 
     onFocus() {
         if (this.props.onFocus) {
             this.props.onFocus();
+        }
+    }
+
+    onBlur() {
+        if (this.props.onBlur) {
+            this.props.onBlur();
         }
     }
 
