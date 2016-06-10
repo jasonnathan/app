@@ -20,14 +20,14 @@ const MessageForm = class MessageForm extends React.Component {
     componentDidMount() {
         this.onMessageChange();
 
-        if (Keyboard) {
-            Keyboard.hideFormAccessoryBar(true);
+        if (window.Keyboard) {
+            window.Keyboard.hideFormAccessoryBar(true);
         }
     }
 
     componentWillUnmount() {
-        if (Keyboard) {
-            Keyboard.hideFormAccessoryBar(false);
+        if (window.Keyboard) {
+            window.Keyboard.hideFormAccessoryBar(false);
         }
     }
 
