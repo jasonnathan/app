@@ -2,6 +2,7 @@
 
 import React from 'react';
 import c from 'classnames';
+import { get } from 'mout/object';
 
 import Input from '/imports/components/Input';
 import Button from '/imports/components/Button';
@@ -10,7 +11,7 @@ const MessageForm = class MessageForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.onSubmit.bind(this)} className={c('pa-MessageForm')} ref="form">
-                <Input.Text name="message" onFocus={this.props.onFocus.bind(this)} onBlur={this.props.onBlur.bind(this)} onChange={this.onMessageChange.bind(this)} />
+                <Input.Text textarea name="message" onFocus={this.onFocus.bind(this)} onBlur={this.props.onBlur.bind(this)} onChange={this.onMessageChange.bind(this)} />
                 <Button submit text>Send</Button>
             </form>
         );
@@ -20,6 +21,12 @@ const MessageForm = class MessageForm extends React.Component {
         this.onMessageChange();
     }
 
+    onFocus() {
+        if (this.props.onFocus) {
+            this.props.onFocus();
+        }
+    }
+
     onSubmit(event) {
         event.preventDefault();
         const form = event.target;
@@ -27,6 +34,7 @@ const MessageForm = class MessageForm extends React.Component {
 
         this.props.onSend(message);
         form.reset();
+        form.elements.message.focus();
         this.onMessageChange();
     }
 

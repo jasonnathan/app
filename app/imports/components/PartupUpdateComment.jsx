@@ -25,7 +25,7 @@ const PartupUpdateComment = class PartupUpdateComment extends React.Component {
 
         const readableCreatedAt = formatDate.relativeWithThreshold(createdAt);
 
-        const text = autolink(parseMentions(stripHtmlTags(content).replace('\n', '<br />')));
+        const text = autolink(parseMentions(stripHtmlTags(content).replace(/\n/g, '<br />')));
 
         return (
             <section className={className}>

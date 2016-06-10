@@ -9,7 +9,7 @@ import autolink from '/imports/services/autolink';
 
 const ChatMessage = class ChatMessage extends React.Component {
     render() {
-        const text = autolink(parseMentions(stripHtmlTags(this.props.message).replace('\n', '<br />')));
+        const text = autolink(parseMentions(stripHtmlTags(this.props.message).replace(/\n/g, '<br />')));
 
         return (
             <div className={c('pa-ChatMessage')}>

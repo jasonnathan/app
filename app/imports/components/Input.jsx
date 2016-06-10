@@ -16,19 +16,25 @@ const Input = {
             const className = c('pa-Input pa-Input--text');
 
             let type = 'text';
+            if (this.props.textarea) type = 'textarea';
             if (this.props.password) type = 'password';
             if (this.props.email) type = 'email';
 
+            const props = {
+                ref: 'input',
+                name: this.props.name,
+                placeholder: this.props.placeholder,
+                onChange: this.props.onChange,
+                onFocus: this.onFocus.bind(this),
+                onBlur: this.onBlur.bind(this)
+            };
+
             return (
                 <div className={className}>
-                    <input
-                        ref="input"
-                        type={type}
-                        name={this.props.name}
-                        placeholder={this.props.placeholder}
-                        onChange={this.props.onChange}
-                        onFocus={this.onFocus.bind(this)}
-                        onBlur={this.onBlur.bind(this)} />
+                    {type === 'textarea' ?
+                        <textarea {...props}></textarea> :
+                        <input type={type} {...props} />
+                    }
                 </div>
             );
         }
