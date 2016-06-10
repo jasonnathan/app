@@ -36,7 +36,7 @@ const ChatTile = class ChatTile extends React.Component {
         const readableUpdatedAt = chat && formatDate.relativeWithThreshold(chat.updated_at, new Date());
 
         return (
-            <div>
+            <div className="pa-ChatTile__wrapper">
                 <div className="pa-ChatTile__image">
                     <Avatar src={userAvatar && userAvatar.getUrl('80x80')}></Avatar>
                 </div>

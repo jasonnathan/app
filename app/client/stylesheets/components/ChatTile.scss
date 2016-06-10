@@ -1,14 +1,17 @@
 .pa-ChatTile {
-    display: table;
     width: 100%;
-    padding: 20px 15px;
-    position: relative;
+
+    &__wrapper {
+        display: flex;
+        flex-flow: row nowrap;
+        padding: 20px 15px;
+    }
 
     &__image,
     &__label,
-    &__time {
-        display: table-cell;
-        vertical-align: top;
+    &__time,
+    &__alert {
+        flex: 0 0 auto;
     }
 
     &__image {
@@ -23,13 +26,17 @@
     }
 
     &__label {
-        vertical-align: middle;
+        flex: 1 1 auto;
+        overflow: hidden;
         padding-left: spacing(1);
-        width: 100%;
 
         .pa-Paragraph {
             line-height: 1.5em;
             color: $color-text-meta;
+            max-width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         & &__title {
