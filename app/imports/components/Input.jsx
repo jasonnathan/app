@@ -62,14 +62,12 @@ const Input = {
 };
 
 Input.Text.propTypes = {
+    email: React.PropTypes.bool,
     password: React.PropTypes.bool,
+    textarea: React.PropTypes.bool,
     onChange: React.PropTypes.func,
     onFocus: React.PropTypes.func,
     onBlur: React.PropTypes.func
-};
-
-Input.Text.defaultProps = {
-    password: false
 };
 
 export default Input;
