@@ -30,6 +30,10 @@
 
             a {
                 padding: spacing(2) spacing(1.5);
+
+                &.pa-Notification {
+                    min-height: 88px;
+                }
             }
 
             &:last-child {
