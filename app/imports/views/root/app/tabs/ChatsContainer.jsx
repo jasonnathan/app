@@ -59,7 +59,7 @@ export default meteorDataContainer(ChatsView, (props) => {
             .fetch();
 
         lastChatMessages = ChatMessageModel.query()
-            .search({chat_id: {$in: chats.map(c => c._id)}})
+            .search({chat_id: {$in: chats.map(c => c._id)}}, {sort: {created_at: -1}})
             .fetch();
     }
 
