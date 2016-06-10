@@ -11,7 +11,7 @@ const SignupLink = class SignupLink extends React.Component {
         return (
             <p className={c('pa-SignupLink')}>
                 <Button text onClick={this.onSignupClick.bind(this)}>
-                    Part-up is the marketplace for teamwork. The Part-up app is a notification and chat app for uppers. Become upper on part-up.com or login to the Part-up App.
+                    Part-up is the marketplace for teamwork. The Part-up app is a notification and chat app for uppers. <u>Become an upper on part-up.com</u> or login to the Part-up App.
                 </Button>
             </p>
         );
