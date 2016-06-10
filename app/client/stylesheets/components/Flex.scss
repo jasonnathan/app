@@ -11,8 +11,25 @@
         flex: 1 1 auto;
 
         &--scroll {
+            position: relative;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+
+            // Trigger elastic experience,
+            // even if there's no overflowing content
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                width: 1px;
+                height: 1px;
+            }
+            &::before {
+                bottom: -1px;
+            }
+            &::after {
+                top: -1px;
+            }
 
             .pa-Spinner--infinite-scroll {
                 position: relative !important;
