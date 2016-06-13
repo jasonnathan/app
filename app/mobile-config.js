@@ -42,6 +42,7 @@ App.launchScreens({
 });
 
 // Set PhoneGap/Cordova preferences
+App.setPreference('SplashMaintainAspectRatio', true);
 App.setPreference('BackgroundColor', '0x57c0c9ff');
 App.setPreference('HideKeyboardFormAccessoryBar', false);
 App.setPreference('DisallowOverscroll', true);
