@@ -16,6 +16,7 @@ import Notification from '/imports/components/Notification';
 import PartupUpdateComment from '/imports/components/PartupUpdateComment';
 import PartupUpdateContent from '/imports/components/PartupUpdateContent';
 import Flex from '/imports/components/Flex';
+import setCurrentBackbuttonHandler from '/imports/services/setCurrentBackbuttonHandler';
 
 let notificationForNavigationBar;
 
@@ -147,13 +148,17 @@ const NotificationView = class NotificationView extends React.Component {
 
 NotificationView.navigationBar = 'app';
 NotificationView.getNavigation = (props, app) => {
+    const back = () => {
+        app.transitionTo('app:tabs:notifications', {
+            transition: 'reveal-from-right'
+        });
+    };
+
+    setCurrentBackbuttonHandler(back);
+
     return {
         leftLabel: <NavButton left icon="icon_back" label="Notifications" />,
-        leftAction: () => {
-            app.transitionTo('app:tabs:notifications', {
-                transition: 'reveal-from-right'
-            });
-        },
+        leftAction: back,
         rightLabel: <NavButton right icon="icon_part-up" />,
         rightAction: () => {
             openWeb(notificationForNavigationBar.getWebsiteUrl());

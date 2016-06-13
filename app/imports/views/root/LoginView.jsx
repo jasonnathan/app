@@ -9,8 +9,13 @@ import Debug from '/imports/Debug';
 import Logo from '/imports/components/Logo';
 import LoginChoice from '/imports/components/LoginChoice';
 import SignupLink from '/imports/components/SignupLink';
+import setCurrentBackbuttonHandler from '/imports/services/setCurrentBackbuttonHandler';
 
 const LoginView = class LoginView extends React.Component {
+    componentDidMount() {
+        setCurrentBackbuttonHandler(undefined);
+    }
+
     render() {
         return (
             <Container fill className={c('Container NoNavigationBar')}>

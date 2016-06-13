@@ -20,6 +20,7 @@ import MessageForm from '/imports/components/MessageForm';
 import Input from '/imports/components/Input';
 import Flex from '/imports/components/Flex';
 import Spinner from '/imports/components/Spinner';
+import setCurrentBackbuttonHandler from '/imports/services/setCurrentBackbuttonHandler';
 
 const ChatView = class ChatView extends React.Component {
     constructor(props) {
@@ -177,14 +178,18 @@ const ChatView = class ChatView extends React.Component {
 
 ChatView.navigationBar = 'app';
 ChatView.getNavigation = (props, app) => {
+    const back = () => {
+        app.transitionTo('app:tabs:chats', {
+            transition: 'reveal-from-right'
+        });
+    };
+
+    setCurrentBackbuttonHandler(back);
+
     return {
         title: props.chatUsername,
         leftLabel: <NavButton left icon="icon_back" label="Chats" />,
-        leftAction: () => {
-            app.transitionTo('app:tabs:chats', {
-                transition: 'reveal-from-right'
-            });
-        }
+        leftAction: back
     };
 };
 

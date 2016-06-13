@@ -18,6 +18,7 @@ import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
 import Stat from '/imports/components/Stat';
 import Button from '/imports/components/Button';
+import setCurrentBackbuttonHandler from '/imports/services/setCurrentBackbuttonHandler';
 
 const AboutView = class AboutView extends React.Component {
     constructor(props) {
@@ -108,14 +109,18 @@ const AboutView = class AboutView extends React.Component {
 
 AboutView.navigationBar = 'about-modal';
 AboutView.getNavigation = (props, app) => {
+    const back = () => {
+        app.transitionTo('root:app', {
+            transition: 'reveal-from-bottom'
+        });
+    };
+
+    setCurrentBackbuttonHandler(back);
+
     return {
         title: 'About the app',
         rightLabel: <NavButton right icon="icon_close" />,
-        rightAction: () => {
-            app.transitionTo('root:app', {
-                transition: 'reveal-from-bottom'
-            });
-        },
+        rightAction: back,
     };
 };
 

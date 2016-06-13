@@ -10,6 +10,7 @@ import ChatsContainer from './tabs/ChatsContainer';
 import PartupsContainer from './tabs/PartupsContainer';
 import TribesContainer from './tabs/TribesContainer';
 import Svg from '/imports/components/Svg';
+import setCurrentBackbuttonHandler from '/imports/services/setCurrentBackbuttonHandler';
 
 const TabsViewManager = class TabsViewManager extends React.Component {
     constructor(props) {
@@ -18,6 +19,10 @@ const TabsViewManager = class TabsViewManager extends React.Component {
         this.state = {
             selectedTab: TabsViewManager.lastSelectedTab
         };
+    }
+
+    componentDidMount() {
+        setCurrentBackbuttonHandler(undefined);
     }
 
     onViewChange(nextView) {

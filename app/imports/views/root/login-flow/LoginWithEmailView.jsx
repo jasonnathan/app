@@ -15,6 +15,7 @@ import Paragraph from '/imports/components/Paragraph';
 import Form from '/imports/components/Form';
 import Input from '/imports/components/Input';
 import Button from '/imports/components/Button';
+import setCurrentBackbuttonHandler from '/imports/services/setCurrentBackbuttonHandler';
 
 const LoginWithEmailView = class LoginWithEmailView extends React.Component {
     constructor(props) {
@@ -112,13 +113,17 @@ const LoginWithEmailView = class LoginWithEmailView extends React.Component {
 
 LoginWithEmailView.navigationBar = 'login-flow';
 LoginWithEmailView.getNavigation = (props, app) => {
+    const back = () => {
+        app.transitionTo('root:login', {
+            transition: 'reveal-from-right'
+        });
+    };
+
+    setCurrentBackbuttonHandler(back);
+
     return {
         leftLabel: <NavButton left icon="icon_back" />,
-        leftAction: () => {
-            app.transitionTo('root:login', {
-                transition: 'reveal-from-right'
-            });
-        },
+        leftAction: back,
         title: 'Sign in with email'
     };
 };
