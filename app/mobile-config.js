@@ -46,7 +46,7 @@ App.setPreference('SplashMaintainAspectRatio', true);
 App.setPreference('BackgroundColor', '0x57c0c9ff');
 App.setPreference('HideKeyboardFormAccessoryBar', false);
 App.setPreference('DisallowOverscroll', true);
-App.setPreference('Orientation', 'portrait');
+App.setPreference('Orientation', 'portrait-primary');
 App.setPreference('StatusBarOverlaysWebView', true);
 App.setPreference('StatusBarStyle', 'lightcontent');
 App.setPreference('AutoHideSplashScreen', false);
