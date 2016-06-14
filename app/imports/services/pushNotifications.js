@@ -3,6 +3,7 @@
 import Connection from '/imports/Connection';
 import { get } from 'mout/object';
 import transitionTo from '/imports/services/transitionTo';
+import { UserModel } from 'part-up-js-models';
 
 export default {
     askPermission: function() {
@@ -30,7 +31,8 @@ export default {
         });
 
         push.on('registration', (data) => {
-            Connection.call('users.register_pushnotifications_device', data.registrationId, device);
+            const loginToken = UserModel.accountsClient._storedLoginToken();
+            Connection.call('users.register_pushnotifications_device', data.registrationId, device, loginToken);
         });
 
         push.on('notification', (data) => {
