@@ -10,6 +10,8 @@ import NotificationsView from './NotificationsView';
 import { NotificationModel } from '/imports/models';
 import Debug from '/imports/Debug';
 import userCache from '/imports/services/userCache';
+import transitionTo from '/imports/services/transitionTo';
+import openWeb from '/imports/services/openWeb';
 
 const START = 15;
 const INCREASE = 10;
@@ -52,8 +54,17 @@ export default meteorDataContainer(NotificationsView, (props) => {
         Connection.call('notifications.all_read');
     };
 
-    const onNotificationClicked = (id) => {
-        Connection.call('notifications.clicked', id);
+    const onNotificationClick = (notification) => {
+        Connection.call('notifications.clicked', notification._id);
+
+        if (notification.hasUpdate()) {
+            transitionTo('app:notification', {
+                transition: 'show-from-right',
+                viewProps: {notificationId: notification._id}
+            });
+        } else {
+            openWeb(notification.getWebsiteUrl());
+        }
     };
 
     return {
@@ -64,6 +75,6 @@ export default meteorDataContainer(NotificationsView, (props) => {
             loadMore: loadMoreNotifications
         },
         onAllNotificationsRead,
-        onNotificationClicked
+        onNotificationClick
     };
 });

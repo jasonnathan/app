@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-import openWeb from '/imports/services/openWeb';
 import pushNotifications from '/imports/services/pushNotifications';
 import transitionTo from '/imports/services/transitionTo';
 import NavButton from '/imports/components/NavButton';
@@ -42,7 +41,7 @@ const NotificationsView = class NotificationsView extends React.Component {
                                         {notification &&
                                             <Notification
                                                 notification={notification}
-                                                onClick={() => this.onNotificationClick(notification)} />
+                                                onClick={() => this.props.onNotificationClick(notification)} />
                                         }
                                     </ListItem>
                                 );
@@ -57,19 +56,6 @@ const NotificationsView = class NotificationsView extends React.Component {
             </Flex>
         );
     }
-
-    onNotificationClick(notification) {
-        this.props.onNotificationClicked(notification._id);
-
-        if (notification.hasUpdate()) {
-            transitionTo('app:notification', {
-                transition: 'show-from-right',
-                viewProps: {notificationId: notification._id}
-            });
-        } else {
-            openWeb(notification.getWebsiteUrl());
-        }
-    }
 };
 
 NotificationsView.propTypes = {
@@ -80,7 +66,7 @@ NotificationsView.propTypes = {
         loadMore: React.PropTypes.func.isRequired
     }),
     onAllNotificationsRead: React.PropTypes.func.isRequired,
-    onNotificationClicked: React.PropTypes.func.isRequired
+    onNotificationClick: React.PropTypes.func.isRequired
 };
 
 NotificationsView.navigationBar = 'app';

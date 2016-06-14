@@ -1,9 +1,11 @@
 'use strict';
 
 import Connection from '/imports/Connection';
+import { get } from 'mout/object';
+import transitionTo from '/imports/services/transitionTo';
 
 export default {
-    askPermission: () => {
+    askPermission: function() {
         const {PushNotification, device} = window;
 
         if (!device) {
@@ -27,8 +29,19 @@ export default {
             }
         });
 
-        push.on('registration', function(data) {
+        push.on('registration', (data) => {
             Connection.call('users.register_pushnotifications_device', data.registrationId, device);
+        });
+
+        push.on('notification', (data) => {
+            if (!data.additionalData.foreground) {
+                transitionTo('root:push-notification', {
+                    transition: 'instant',
+                    viewProps: {
+                        payload: data
+                    }
+                });
+            }
         });
     }
 };

@@ -13,6 +13,7 @@ import LoginContainer from '/imports/views/root/LoginContainer';
 import LoginFlowViewManager from '/imports/views/root/LoginFlowViewManager';
 import AppContainer from '/imports/views/root/AppContainer';
 import AboutModalViewManager from '/imports/views/root/AboutModalViewManager';
+import PushNotificationContainer from '/imports/views/root/PushNotificationContainer';
 
 const app = createApp();
 TouchstoneApp.set(app.getChildContext().app);
@@ -42,6 +43,7 @@ const RootViewManager = class RootViewManager extends React.Component {
                         <View name="login-flow" component={LoginFlowViewManager} />
                         <View name="app" component={AppContainer} />
                         <View name="about-modal" component={AboutModalViewManager} />
+                        <View name="push-notification" component={PushNotificationContainer} />
                     </ViewManager>
                 </div>
             </div>
