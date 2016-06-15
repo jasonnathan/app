@@ -45,14 +45,6 @@ const ChatView = class ChatView extends React.Component {
         }
     }
 
-    componentDidMount() {
-        const unsentMessage = unsentMessagesPerChat[this.props.chatId];
-        if (unsentMessage) {
-            set(this, 'refs.messageForm.refs.form.elements.message.value', unsentMessage);
-            delete unsentMessagesPerChat[this.props.chatId];
-        }
-    }
-
     componentDidUpdate() {
         this.triggerReversedScroll();
         this.setReadStates();
@@ -147,6 +139,7 @@ const ChatView = class ChatView extends React.Component {
                 <Flex.Shrink className="View--chat__box">
                     <MessageForm
                         ref="messageForm"
+                        initialValue={unsentMessagesPerChat[this.props.chatId]}
                         onSend={this.sendChatMessage.bind(this)}
                         onFocus={this.onMessageBoxFocus.bind(this)}
                         onBlur={this.onMessageBoxBlur.bind(this)} />

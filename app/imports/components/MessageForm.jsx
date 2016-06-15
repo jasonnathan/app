@@ -11,7 +11,7 @@ const MessageForm = class MessageForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.onSubmit.bind(this)} className={c('pa-MessageForm')} ref="form">
-                <Input.Text textarea name="message" onFocus={this.onFocus.bind(this)} onBlur={this.onBlur.bind(this)} onChange={this.onMessageChange.bind(this)} />
+                <Input.Text textarea defaultValue={this.props.defaultValue} name="message" onFocus={this.onFocus.bind(this)} onBlur={this.onBlur.bind(this)} onChange={this.onMessageChange.bind(this)} />
                 <Button submit text>Send</Button>
             </form>
         );
@@ -22,6 +22,11 @@ const MessageForm = class MessageForm extends React.Component {
 
         if (window.Keyboard) {
             window.Keyboard.hideFormAccessoryBar(true);
+        }
+
+        if (this.props.initialValue) {
+            this.refs.form.elements.message.value = this.props.initialValue;
+            this.onMessageChange();
         }
     }
 
@@ -63,7 +68,8 @@ const MessageForm = class MessageForm extends React.Component {
 MessageForm.propTypes = {
     onSend: React.PropTypes.func.isRequired,
     onFocus: React.PropTypes.func,
-    onBlur: React.PropTypes.func
+    onBlur: React.PropTypes.func,
+    initialValue: React.PropTypes.string
 };
 
 export default MessageForm;
