@@ -4,6 +4,7 @@ import React from 'react';
 import c from 'classnames';
 import { defer } from 'lodash';
 import { contains } from 'mout/array';
+import { get, set } from 'mout/object';
 import moment from 'moment';
 import groupArray from '/imports/services/groupArray';
 import ReversedScroller from '/imports/classes/ReversedScroller';
@@ -22,6 +23,8 @@ import Flex from '/imports/components/Flex';
 import Spinner from '/imports/components/Spinner';
 import setCurrentBackbuttonHandler from '/imports/services/setCurrentBackbuttonHandler';
 
+let unsentMessagesPerChat = {};
+
 const ChatView = class ChatView extends React.Component {
     constructor(props) {
         super(props);
@@ -33,6 +36,21 @@ const ChatView = class ChatView extends React.Component {
 
     componentWillUnmount() {
         this.reversedScroller.destroy();
+
+        const unsentMessage = get(this, 'refs.messageForm.refs.form.elements.message.value');
+        if (unsentMessage) {
+            unsentMessagesPerChat[this.props.chatId] = unsentMessage;
+        } else {
+            delete unsentMessagesPerChat[this.props.chatId];
+        }
+    }
+
+    componentDidMount() {
+        const unsentMessage = unsentMessagesPerChat[this.props.chatId];
+        if (unsentMessage) {
+            set(this, 'refs.messageForm.refs.form.elements.message.value', unsentMessage);
+            delete unsentMessagesPerChat[this.props.chatId];
+        }
     }
 
     componentDidUpdate() {
@@ -79,7 +97,7 @@ const ChatView = class ChatView extends React.Component {
     }
 
     render() {
-        const {chat, chatUser, chatMessages: chatMessagesProps, chatLoading, sendChatMessage, loggedInUser} = this.props;
+        const {chat, chatUser, chatMessages: chatMessagesProps, chatLoading, loggedInUser} = this.props;
         const {loading, endReached, loadMore} = chatMessagesProps || {};
         const groupedByAuthor = this.getChatMessagesGroupedByAuthor();
         const groupedByDay = this.getChatMessagesGroupedByDay(groupedByAuthor);
@@ -128,12 +146,18 @@ const ChatView = class ChatView extends React.Component {
                 </Flex.Stretch>
                 <Flex.Shrink className="View--chat__box">
                     <MessageForm
-                        onSend={sendChatMessage.bind(this)}
+                        ref="messageForm"
+                        onSend={this.sendChatMessage.bind(this)}
                         onFocus={this.onMessageBoxFocus.bind(this)}
                         onBlur={this.onMessageBoxBlur.bind(this)} />
                 </Flex.Shrink>
             </Flex>
         );
+    }
+
+    sendChatMessage(message) {
+        delete unsentMessagesPerChat[this.props.chatId];
+        this.props.sendChatMessage(message);
     }
 
     onMessageBoxFocus() {}
