@@ -31,7 +31,7 @@ const ChatTile = class ChatTile extends React.Component {
     }
 
     renderContent() {
-        const {chat, user, lastChatMessage} = this.props;
+        const {chat, user, lastChatMessage, lastChatMessageIsOwnMessage} = this.props;
         const userAvatar = user.getAvatarImage();
         const readableUpdatedAt = chat && formatDate.relativeWithThreshold(chat.updated_at, new Date());
 
@@ -42,7 +42,7 @@ const ChatTile = class ChatTile extends React.Component {
                 </div>
                 <div className="pa-ChatTile__label">
                     <Paragraph className="pa-ChatTile__label__title">{user.profile.name}</Paragraph>
-                    <Paragraph>{lastChatMessage && lastChatMessage.content}</Paragraph>
+                    <Paragraph>{lastChatMessageIsOwnMessage ? <strong>You: </strong> : ``}{lastChatMessage && lastChatMessage.content}</Paragraph>
                 </div>
                 {readableUpdatedAt && lastChatMessage &&
                     <span className="pa-ChatTile__time">
@@ -65,7 +65,8 @@ ChatTile.propTypes = {
     loggedInUser: React.PropTypes.instanceOf(UserModel).isRequired,
     user: React.PropTypes.instanceOf(UserModel).isRequired,
     chat: React.PropTypes.instanceOf(ChatModel),
-    lastChatMessage: React.PropTypes.instanceOf(ChatMessageModel)
+    lastChatMessage: React.PropTypes.instanceOf(ChatMessageModel),
+    lastChatMessageIsOwnMessage: React.PropTypes.bool
 };
 
 export default ChatTile;

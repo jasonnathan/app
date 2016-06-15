@@ -95,6 +95,7 @@ const ChatsView = class ChatsView extends React.Component {
                                     chat={chat}
                                     user={user}
                                     lastChatMessage={lastChatMessage}
+                                    lastChatMessageIsOwnMessage={lastChatMessage && lastChatMessage.creator_id === this.props.loggedInUser._id}
                                     loggedInUser={this.props.loggedInUser}
                                     onClick={this.onChatTileClick.bind(this, chat, user)} />
                             }
