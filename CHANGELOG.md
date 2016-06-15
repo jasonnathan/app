@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.2.4
+- Remember unsent chat messages
+- Add swipe gesture as back action
+- Group chat messages by timeframe of 3 minutes
+
 ## 1.2.3
 - Fix Android splash screen aspect ratio
 - Add in-app Android back button bahaviour
