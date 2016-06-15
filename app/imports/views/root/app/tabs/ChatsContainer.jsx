@@ -30,7 +30,7 @@ export default meteorDataContainer(ChatsView, (props) => {
     }
 
     const loggedInUser = UserModel.accountsClient.user();
-    const chatsLoading = !Subs.subscribe('chats.for_loggedin_user', {
+    const chatsLoading = !Subs.subscribe('chats.for_loggedin_user', {private: true}, {
         limit: cache.limit.get()
     }, {
         onReady: () => {
