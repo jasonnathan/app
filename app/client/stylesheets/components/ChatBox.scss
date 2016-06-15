@@ -19,6 +19,13 @@
         color: $color-brand;
     }
 
+    time {
+        display: block;
+        margin-top: 4px;
+        font-size: 10px;
+        color: $color-text-meta;
+    }
+
     .pa-List {
         position: relative;
 
@@ -48,6 +55,10 @@
 
     &--receive {
         margin-right: 0;
+
+        time {
+            padding-left: 40px;
+        }
 
         .pa-Avatar {
             left: 0;
@@ -97,6 +108,11 @@
 
     &--send {
         margin-left: 0;
+
+        time {
+            padding-right: 43px;
+            text-align: right;
+        }
 
         .pa-Avatar {
             right: 0;

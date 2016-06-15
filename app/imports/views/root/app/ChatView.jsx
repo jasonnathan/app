@@ -90,9 +90,7 @@ const ChatView = class ChatView extends React.Component {
 
     render() {
         const {chat, chatUser, chatMessages: chatMessagesProps, chatLoading, loggedInUser} = this.props;
-        const {loading, endReached, loadMore} = chatMessagesProps || {};
-        const groupedByAuthor = this.getChatMessagesGroupedByAuthor();
-        const groupedByDay = this.getChatMessagesGroupedByDay(groupedByAuthor);
+        const {loading, endReached, loadMore, data: messages} = chatMessagesProps || {};
 
         return (
             <Flex>
@@ -100,7 +98,8 @@ const ChatView = class ChatView extends React.Component {
                     {loading &&
                         <Spinner infiniteScroll />
                     }
-                    {groupedByDay.map((dayGroup, index) => {
+
+                    {this.groupMessagesByDay(messages).map((dayGroup, index) => {
                         const readableDay = moment(dayGroup.day).calendar(null, {
                             sameDay: '[Today]',
                             lastDay: '[Yesterday]',
@@ -111,26 +110,28 @@ const ChatView = class ChatView extends React.Component {
                         return (
                             <div key={index}>
                                 <ChatDaySeparator>{readableDay}</ChatDaySeparator>
-                                {dayGroup.messagesGroupedByAuthor.map((messageGroup, index) => {
-                                    const isSend = messageGroup.author.equals(loggedInUser);
-                                    const authorAvatar = messageGroup.author.getAvatarImage();
+                                {this.groupMessagesByAuthor(dayGroup.messages).map((authorGroup) => {
+                                    const isSend = authorGroup.author.equals(loggedInUser);
+                                    const authorAvatar = authorGroup.author.getAvatarImage();
 
-                                    return (
-                                        <ChatBox send={isSend} receive={!isSend} key={index}>
-                                            <Avatar src={authorAvatar && authorAvatar.getUrl()}></Avatar>
-                                            <List>
-                                                {messageGroup.messages.map((message, _index) => {
-                                                    const humanReadableMessageDate = moment(message.created_at).format('LT');
+                                    return this.groupMessagesByTimebox(authorGroup.messages).map((timeboxGroup, index) => {
+                                        return (
+                                            <ChatBox send={isSend} receive={!isSend} key={index}>
+                                                <Avatar src={authorAvatar && authorAvatar.getUrl()}></Avatar>
+                                                <List>
+                                                    {timeboxGroup.messages.map((message, _index) => {
+                                                        return (
+                                                            <ListItem key={_index}>
+                                                                <ChatMessage message={message.content} />
+                                                            </ListItem>
+                                                        );
+                                                    })}
+                                                </List>
+                                                <time>{moment(timeboxGroup.time).format('HH:mm')}</time>
+                                            </ChatBox>
+                                        );
+                                    });
 
-                                                    return (
-                                                        <ListItem key={_index}>
-                                                            <ChatMessage message={message.content} time={humanReadableMessageDate} />
-                                                        </ListItem>
-                                                    );
-                                                })}
-                                            </List>
-                                        </ChatBox>
-                                    );
                                 })}
                             </div>
                         );
@@ -156,40 +157,40 @@ const ChatView = class ChatView extends React.Component {
     onMessageBoxFocus() {}
     onMessageBoxBlur() {}
 
-    getChatMessagesGroupedByAuthor() {
-        const {chatMessages: chatMessagesProps, loggedInUser, chatUser} = this.props;
-        const {data: chatMessages, loading, loadMore, endReached} = chatMessagesProps || {};
+    groupMessagesByAuthor(messages) {
+        const {loggedInUser, chatUser} = this.props;
 
-        return groupArray(chatMessages, (previous, current) => {
+        return groupArray(messages, (previous, current) => {
+            return previous.creator_id === current.creator_id;
+        }).map((messages) => ({
+            author: messages[0].creator_id === chatUser._id ? chatUser : loggedInUser,
+            messages
+        }));
+    }
+
+    groupMessagesByTimebox(messages) {
+        return groupArray(messages, (previous, current) => {
             const previousMoment = moment(previous.created_at);
             const currentMoment = moment(current.created_at);
 
-            return previous.creator_id === current.creator_id &&            // different author
-                previousMoment.dayOfYear() === currentMoment.dayOfYear() && // different day-of-year
-                previousMoment.year() === currentMoment.year();             // different year
-        })
-        .map((messages) => {
-            return {
-                author: messages[0].creator_id === chatUser._id ? chatUser : loggedInUser,
-                messages
-            };
-        });
+            return currentMoment.diff(previousMoment, 'seconds') <= 180;
+        }).map((messages) => ({
+            time: messages[0].created_at,
+            messages
+        }));
     }
 
-    getChatMessagesGroupedByDay(groupedByAuthor) {
-        return groupArray(groupedByAuthor, (previous, current) => {
-            const previousMoment = moment(previous.messages[previous.messages.length - 1].created_at);
-            const currentMoment = moment(current.messages[0].created_at);
+    groupMessagesByDay(messages) {
+        return groupArray(messages, (previous, current) => {
+            const previousMoment = moment(previous.created_at);
+            const currentMoment = moment(current.created_at);
 
-            return previousMoment.dayOfYear() === currentMoment.dayOfYear() && // different day-of-year
-                   previousMoment.year() === currentMoment.year();             // different year
-        })
-        .map((groupedMessages) => {
-            return {
-                day: groupedMessages[0].messages[0].created_at,
-                messagesGroupedByAuthor: groupedMessages
-            };
-        });
+            return previousMoment.dayOfYear() === currentMoment.dayOfYear() &&
+                   previousMoment.year() === currentMoment.year();
+        }).map((messages) => ({
+            day: messages[0].created_at,
+            messages
+        }));
     }
 };
 

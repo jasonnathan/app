@@ -14,10 +14,13 @@ const ChatMessage = class ChatMessage extends React.Component {
         return (
             <div className={c('pa-ChatMessage')}>
                 <p>{text}</p>
-                <span className='pa-ChatMessage__chattime'>{this.props.time}</span>
             </div>
         );
     }
+};
+
+ChatMessage.propTypes = {
+    message: React.PropTypes.string.isRequired
 };
 
 export default ChatMessage;
