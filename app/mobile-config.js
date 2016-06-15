@@ -46,17 +46,11 @@ App.setPreference('SplashMaintainAspectRatio', true);
 App.setPreference('BackgroundColor', '0x57c0c9ff');
 App.setPreference('HideKeyboardFormAccessoryBar', false);
 App.setPreference('DisallowOverscroll', true);
-App.setPreference('Orientation', 'portrait-primary');
 App.setPreference('StatusBarOverlaysWebView', true);
 App.setPreference('StatusBarStyle', 'lightcontent');
 App.setPreference('AutoHideSplashScreen', false);
 App.setPreference('ShowSplashScreenSpinner', false);
 App.setPreference('FadeSplashScreenDuration', 300);
-
-// Configure Push Notifications plugin
-App.configurePlugin('phonegap-plugin-push', {
-    'SENDER_ID': '963161275015' // only for Android
-});
 
 // Access rule
 App.accessRule('*');
