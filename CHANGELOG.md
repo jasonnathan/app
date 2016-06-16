@@ -4,6 +4,7 @@
 - Remember unsent chat messages
 - Group chat messages by timeframe of 3 minutes
 - More compact date formatting
+- Fix blank page after Facebook login on iOS9
 
 ## 1.2.3
 - Fix Android splash screen aspect ratio
