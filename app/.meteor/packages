@@ -9,7 +9,7 @@ fourseven:scss@3.2.0            # Sass compiler
 es5-shim                        # ECMAScript 5 compatibility for older browsers
 ecmascript                      # Enable ECMAScript2015+ syntax in app code
 static-html                     # Render static HTML files
-react-meteor-data@1.2.4         # Easily use a Meteor tracker inside React
+react-meteor-data@0.2.7         # Easily use a Meteor tracker inside React
 jquery
 accounts-base
 accounts-password
