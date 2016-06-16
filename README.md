@@ -57,6 +57,18 @@ Releasing
 - `$ cd app`
 - `$ meteor npm install`
 - `$ meteor build ../output --mobile-settings ../config/<environment>/settings.json --server <partup-url>` (replace <environment> with acceptance or production and <partup-url> with the part-up server url)
+- Add the following rules to **/output/ios/project/Part-up/Part-up-Info.plist**:
+
+``` 
+// Inside the top-level <dict>
+
+<key>NSAppTransportSecurity</key>
+<dict>
+  <key>NSAllowsArbitraryLoads</key>
+  <true/>
+</dict>
+```
+
 - Open the project **/output/ios/project/Part-up.xcodeproj** in Xcode.
 - Go to Part-up's General settings
     - Select "8.0" (under Deployment Info > Deployment Target)
