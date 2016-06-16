@@ -2,7 +2,6 @@
 
 ## 1.2.4
 - Remember unsent chat messages
-- Add swipe gesture as back action
 - Group chat messages by timeframe of 3 minutes
 - More compact date formatting
 
