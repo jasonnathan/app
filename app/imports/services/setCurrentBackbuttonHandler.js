@@ -1,4 +1,4 @@
-import swipedetect from '/imports/services/swipedetect';
+// import swipedetect from '/imports/services/swipedetect';
 
 let currentBackbuttonHandler;
 
@@ -13,9 +13,9 @@ export default function setCurrentBackbuttonHandler(_handler) {
 
     if (currentBackbuttonHandler) {
         document.addEventListener('backbutton', handler, false);
-        swipedetect.on('right', handler);
+        // swipedetect.on('right', handler);
     } else {
         document.removeEventListener('backbutton', handler, false);
-        swipedetect.off('right', handler);
+        // swipedetect.off('right', handler);
     }
 };
