@@ -29,6 +29,11 @@ const Avatar = class Avatar extends React.Component {
                 {typeof this.props.score !== 'undefined' &&
                     <span className="pa-Avatar__score">{this.props.score}</span>
                 }
+                {typeof this.props.isOnline !== 'undefined' &&
+                    <span className={c('pa-Avatar__online-presence', {
+                        'pa-Avatar__online-presence--online': this.props.isOnline
+                    })}></span>
+                }
             </figure>
         );
     }
@@ -38,7 +43,8 @@ Avatar.propTypes = {
     src: React.PropTypes.string,
     alt: React.PropTypes.string,
     onClick: React.PropTypes.func,
-    score: React.PropTypes.number
+    score: React.PropTypes.number,
+    isOnline: React.PropTypes.bool
 };
 
 export default Avatar;

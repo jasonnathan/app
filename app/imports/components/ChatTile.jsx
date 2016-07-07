@@ -34,11 +34,12 @@ const ChatTile = class ChatTile extends React.Component {
         const {chat, user, lastChatMessage, lastChatMessageIsOwnMessage} = this.props;
         const userAvatar = user.getAvatarImage();
         const readableUpdatedAt = chat && formatDate.relativeWithThreshold(chat.updated_at, new Date());
+        const isOnline = get(user, 'status.online');
 
         return (
             <div className="pa-ChatTile__wrapper">
                 <div className="pa-ChatTile__image">
-                    <Avatar src={userAvatar && userAvatar.getUrl('80x80')}></Avatar>
+                    <Avatar src={userAvatar && userAvatar.getUrl('80x80')} isOnline={isOnline}></Avatar>
                 </div>
                 <div className="pa-ChatTile__label">
                     <Paragraph className="pa-ChatTile__label__title">{user.profile.name}</Paragraph>
