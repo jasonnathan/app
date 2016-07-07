@@ -54,3 +54,8 @@ App.setPreference('FadeSplashScreenDuration', 300);
 
 // Access rule
 App.accessRule('*');
+
+// Configure Android
+App.configurePlugin('phonegap-plugin-push', {
+    SENDER_ID: '963161275015'
+});
