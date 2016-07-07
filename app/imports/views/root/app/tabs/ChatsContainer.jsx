@@ -46,21 +46,25 @@ export default meteorDataContainer(ChatsView, (props) => {
             .fetch();
 
     let chats = [];
-    let chatsUsers = [];
-    let lastChatMessages = [];
     if (loggedInUser) {
-        chats = getChats();
-
-        chatsUsers = UserModel.query()
-            .search({
-                _id: {$ne: loggedInUser._id},
-                chats: {$in: chats.map(c => c._id)}
-            })
-            .fetch();
-
-        lastChatMessages = ChatMessageModel.query()
-            .search({chat_id: {$in: chats.map(c => c._id)}}, {sort: {created_at: -1}})
-            .fetch();
+        chats = getChats()
+            .map(chat => {
+                return {
+                    document: chat,
+                    otherInvolvedUsers: UserModel.query()
+                        .search({
+                            _id: {$ne: loggedInUser._id},
+                            chats: {$in: [chat._id]}
+                        })
+                        .fetch(),
+                    lastChatMessage: ChatMessageModel.query()
+                        .search({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1})
+                        .findOne(),
+                    newChatMessagesCount: ChatMessageModel.query()
+                        .search({chat_id: chat._id, read_by: {$nin: [loggedInUser._id]}})
+                        .count()
+                };
+            });
     }
 
     const loadMoreChats = () => {
@@ -118,8 +122,6 @@ export default meteorDataContainer(ChatsView, (props) => {
             loading: chatsLoading,
             endReached: cache.endReached.get(),
             loadMore: loadMoreChats
-        },
-        chatsUsers,
-        lastChatMessages
+        }
     };
 });

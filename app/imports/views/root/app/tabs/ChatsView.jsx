@@ -80,24 +80,20 @@ const ChatsView = class ChatsView extends React.Component {
         return (
             <List>
                 {chats.map((chat, index) => {
-                    const users = filter(this.props.chatsUsers, (user) =>
-                        contains(user.chats || [], chat._id));
-
-                    const user = users.pop();
-
-                    const lastChatMessage = find(this.props.lastChatMessages, chatMessage =>
-                        chatMessage.chat_id === chat._id);
+                    // Is's a 1-on-1 chat, so there's always only one other involved user
+                    const user = chat.otherInvolvedUsers[0];
 
                     return (
                         <ListItem key={index}>
                             {chat && user &&
                                 <ChatTile
-                                    chat={chat}
+                                    chat={chat.document}
                                     user={user}
-                                    lastChatMessage={lastChatMessage}
-                                    lastChatMessageIsOwnMessage={lastChatMessage && lastChatMessage.creator_id === this.props.loggedInUser._id}
+                                    lastChatMessage={chat.lastChatMessage}
+                                    lastChatMessageIsOwnMessage={chat.lastChatMessage && chat.lastChatMessage.creator_id === this.props.loggedInUser._id}
                                     loggedInUser={this.props.loggedInUser}
-                                    onClick={this.onChatTileClick.bind(this, chat, user)} />
+                                    onClick={this.onChatTileClick.bind(this, chat.document, user)}
+                                    newChatMessagesCount={chat.newChatMessagesCount} />
                             }
                         </ListItem>
                     );
@@ -141,13 +137,16 @@ ChatsView.propTypes = {
     onSearch: React.PropTypes.func.isRequired,
     onStartChat: React.PropTypes.func.isRequired,
     chats: React.PropTypes.shape({
-        data: React.PropTypes.arrayOf(React.PropTypes.instanceOf(ChatModel)).isRequired,
+        data: React.PropTypes.arrayOf(React.PropTypes.shape({
+            document: React.PropTypes.instanceOf(ChatModel).isRequired,
+            otherInvolvedUsers: React.PropTypes.arrayOf(React.PropTypes.instanceOf(UserModel)).isRequired,
+            lastChatMessage: React.PropTypes.instanceOf(ChatMessageModel),
+            newChatMessagesCount: React.PropTypes.number.isRequired
+        })).isRequired,
         loading: React.PropTypes.bool.isRequired,
         endReached: React.PropTypes.bool.isRequired,
         loadMore: React.PropTypes.func.isRequired
-    }),
-    chatsUsers: React.PropTypes.arrayOf(React.PropTypes.instanceOf(UserModel)).isRequired,
-    lastChatMessages: React.PropTypes.arrayOf(React.PropTypes.instanceOf(ChatMessageModel)).isRequired
+    })
 };
 
 ChatsView.navigationBar = 'app';

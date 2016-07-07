@@ -35,6 +35,7 @@ const ChatTile = class ChatTile extends React.Component {
         const userAvatar = user.getAvatarImage();
         const readableUpdatedAt = chat && formatDate.relativeWithThreshold(chat.updated_at, new Date());
         const isOnline = get(user, 'status.online');
+        const newChatMessagesCountIndicator = this.props.newChatMessagesCount && `(${this.props.newChatMessagesCount})` || undefined;
 
         return (
             <div className="pa-ChatTile__wrapper">
@@ -42,7 +43,7 @@ const ChatTile = class ChatTile extends React.Component {
                     <Avatar src={userAvatar && userAvatar.getUrl('80x80')} isOnline={isOnline}></Avatar>
                 </div>
                 <div className="pa-ChatTile__label">
-                    <Paragraph className="pa-ChatTile__label__title">{user.profile.name}</Paragraph>
+                    <Paragraph className="pa-ChatTile__label__title">{user.profile.name} {newChatMessagesCountIndicator}</Paragraph>
                     <Paragraph>{lastChatMessageIsOwnMessage ? <strong>You: </strong> : ``}{lastChatMessage && lastChatMessage.content}</Paragraph>
                 </div>
                 {readableUpdatedAt && lastChatMessage &&
