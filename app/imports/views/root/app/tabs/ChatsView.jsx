@@ -33,7 +33,7 @@ const ChatsView = class ChatsView extends React.Component {
         return (
             <Flex>
                 <Flex.Shrink className="View--chats__search">
-                    <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} />
+                    <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} icon='icon_search' />
                 </Flex.Shrink>
                 {this.state.searchResults ?
                     <Flex.Stretch scroll className="View--chats__list">

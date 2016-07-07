@@ -2,8 +2,8 @@
 
 import React from 'react';
 import c from 'classnames';
-
 import scrollElementIntoView from '/imports/services/scrollElementIntoView';
+import Svg from '/imports/components/Svg';
 
 const Input = {
     Text: class InputText extends React.Component {
@@ -13,7 +13,9 @@ const Input = {
         }
 
         render() {
-            const className = c('pa-Input pa-Input--text');
+            const className = c('pa-Input pa-Input--text', {
+                'pa-Input--hasicon': this.props.icon
+            });
 
             let type = 'text';
             if (this.props.textarea) type = 'textarea';
@@ -34,6 +36,9 @@ const Input = {
                     {type === 'textarea' ?
                         <textarea {...props}></textarea> :
                         <input type={type} {...props} />
+                    }
+                    {this.props.icon &&
+                        <Svg name={this.props.icon} />
                     }
                 </div>
             );
@@ -67,7 +72,8 @@ Input.Text.propTypes = {
     textarea: React.PropTypes.bool,
     onChange: React.PropTypes.func,
     onFocus: React.PropTypes.func,
-    onBlur: React.PropTypes.func
+    onBlur: React.PropTypes.func,
+    icon: React.PropTypes.string
 };
 
 export default Input;
