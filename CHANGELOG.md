@@ -1,10 +1,15 @@
 # CHANGELOG
 
+## 1.3.0
+- Fix blank page after Facebook/LinkedIn login on iOS9
+- Add online status indicator
+- Add 'New chat messages'-counter to chats overview
+- Add search icon to search input field
+
 ## 1.2.4
 - Remember unsent chat messages
 - Group chat messages by timeframe of 3 minutes
 - More compact date formatting
-- Fix blank page after Facebook login on iOS9
 
 ## 1.2.3
 - Fix Android splash screen aspect ratio
