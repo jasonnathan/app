@@ -25,6 +25,14 @@
 
             .pa-Heading {
                 margin-bottom: 3px;
+
+                .pa-Svg {
+                    position: absolute;
+                    right: 0;
+                    bottom: -18px;
+                    font-size: 10px;
+                    opacity: .5;
+                }
             }
         }
     }
@@ -59,6 +67,10 @@
     &--detail {
         .pa-Heading {
             color: $color-brand-secondary;
+        }
+
+        .pa-Svg {
+            display: none;
         }
     }
 }

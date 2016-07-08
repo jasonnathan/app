@@ -10,6 +10,7 @@ import ListItem from '/imports/components/ListItem';
 import Avatar from '/imports/components/Avatar';
 import Heading from '/imports/components/Heading';
 import Paragraph from '/imports/components/Paragraph';
+import Svg from '/imports/components/Svg';
 
 const Notification = class Notification extends React.Component {
     constructor(props) {
@@ -50,6 +51,7 @@ const Notification = class Notification extends React.Component {
         const {t, notification: n} = this.props;
         const {nowDate} = this.state;
         const image = n.getImage();
+        const isExternal = !n.hasUpdate() || n.type === 'partups_multiple_updates_since_visit';
 
         return (
             <div className="pa-Notification__content">
@@ -57,7 +59,12 @@ const Notification = class Notification extends React.Component {
                     <Avatar src={image && image.getUrl('360x360')} />
                 </div>
                 <div key="content">
-                    <Heading>{n.getText(t)}</Heading>
+                    <Heading>
+                        {n.getText(t)}
+                        {isExternal &&
+                            <Svg name='icon_link' />
+                        }
+                    </Heading>
                     <Paragraph meta>{n.getMetaText(t, nowDate)}</Paragraph>
                 </div>
             </div>
