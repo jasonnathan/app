@@ -24,11 +24,22 @@
             font-size: 12px;
         }
 
+        .Tabs-Alert {
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            margin-left: 10px;
+            color: $color-brand-secondary;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
         &.is-selected {
             color: $color-tabs-navigation-bar-text-active;
             fill: $color-tabs-navigation-bar-text-active;
             pointer-events: none;
         }
     }
+
 }
 

@@ -11,6 +11,7 @@ import PartupsContainer from './tabs/PartupsContainer';
 import TribesContainer from './tabs/TribesContainer';
 import Svg from '/imports/components/Svg';
 import setCurrentBackbuttonHandler from '/imports/services/setCurrentBackbuttonHandler';
+import { ChatMessageModel, UserModel } from '/imports/models';
 
 const TabsViewManager = class TabsViewManager extends React.Component {
     constructor(props) {
@@ -46,6 +47,13 @@ const TabsViewManager = class TabsViewManager extends React.Component {
     render() {
         const selectedIsOneOf = (arr) => contains(arr, this.state.selectedTab);
 
+        const loggedInUser = UserModel.accountsClient.user();
+        const unreadChatMessagesCount = loggedInUser && ChatMessageModel.query()
+            .search({read_by: {$nin: [loggedInUser._id]}})
+            .count();
+
+        console.log('unreadChatMessagesCount', unreadChatMessagesCount, ChatMessageModel);
+
         return (
             <Container>
                 <ViewManager ref="vm" name="tabs" defaultView={this.state.selectedTab} onViewChange={this.onViewChange.bind(this)}>
@@ -61,6 +69,9 @@ const TabsViewManager = class TabsViewManager extends React.Component {
                     </UI.Tabs.Tab>
                     <UI.Tabs.Tab onTap={this.selectTab.bind(this, 'chats')} selected={selectedIsOneOf(['chats'])}>
                         <Svg name="icon_message" />
+                        {!!unreadChatMessagesCount &&
+                            <span className="Tabs-Alert">{unreadChatMessagesCount}</span>
+                        }
                         <UI.Tabs.Label>Chat</UI.Tabs.Label>
                     </UI.Tabs.Tab>
                     <UI.Tabs.Tab onTap={this.selectTab.bind(this, 'partups')} selected={selectedIsOneOf(['partups'])}>
