@@ -6,7 +6,7 @@ import { defer } from 'lodash';
 import c from 'classnames';
 
 import openWeb from '/imports/services/openWeb';
-import { NotificationModel, PartupUpdateModel } from '/imports/models';
+import { NotificationModel, PartupUpdateModel, ActivityModel, UserModel, PartupModel } from '/imports/models';
 import ReversedScroller from '/imports/classes/ReversedScroller';
 import List from '/imports/components/List';
 import ListItem from '/imports/components/ListItem';
@@ -63,16 +63,9 @@ const NotificationView = class NotificationView extends React.Component {
             })}>
                 <Flex>
                     <Flex.Shrink>
-                        {notification &&
-                            <Notification
-                                notification={notification}
-                                isDetail={true} />
-                        }
+                        {this.renderNotificationDetails()}
                     </Flex.Shrink>
                     {partupUpdate && [
-                        <Flex.Shrink key="updatecontent">
-                            <PartupUpdateContent update={partupUpdate} updateData={partupUpdateData} />
-                        </Flex.Shrink>,
                         <Flex.Stretch scroll key="comments" className="View--notification__comments" ref="comments">
                             {this.renderComments()}
                         </Flex.Stretch>,
@@ -85,6 +78,28 @@ const NotificationView = class NotificationView extends React.Component {
                     ]}
                 </Flex>
             </Container>
+        );
+    }
+
+    renderNotificationDetails() {
+        const {notification, partupUpdate, partupUpdateData} = this.props;
+
+        const showNotification = partupUpdate && partupUpdate.type !== 'partups_message_added';
+
+        return (
+            <div>
+                {showNotification && notification &&
+                    <Notification
+                        notification={notification}
+                        isDetail={true} />
+                }
+
+                {partupUpdate &&
+                    <PartupUpdateContent
+                        update={partupUpdate}
+                        updateData={partupUpdateData} />
+                }
+            </div>
         );
     }
 
@@ -153,7 +168,12 @@ NotificationView.getNavigation = (props, app) => {
 
 NotificationView.propTypes = {
     notification: React.PropTypes.instanceOf(NotificationModel),
-    partupUpdate: React.PropTypes.instanceOf(PartupUpdateModel)
+    partupUpdate: React.PropTypes.instanceOf(PartupUpdateModel),
+    partupUpdateData: React.PropTypes.shape({
+        activity: React.PropTypes.instanceOf(ActivityModel),
+        user: React.PropTypes.instanceOf(UserModel),
+        partup: React.PropTypes.instanceOf(PartupModel)
+    }).isRequired
 };
 
 export default NotificationView;

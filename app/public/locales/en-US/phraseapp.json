@@ -27,5 +27,6 @@
     "notification-partups_archived": "__archiver__ archived __partup__",
     "notification-partup_created_in_network": "__creator__ has created __partup__ in __network__",
     "notification-partups_unarchived": "__unarchiver__ reactivated __partup__",
-    "notification-updates_first_comment": "__commenter__ commented on an update"
+    "notification-updates_first_comment": "__commenter__ commented on an update",
+    "update-metatext": "__time__ in __location__"
 }

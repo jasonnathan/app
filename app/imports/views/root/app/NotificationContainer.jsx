@@ -8,7 +8,7 @@ import NotificationView from './NotificationView';
 import Debug from '/imports/Debug';
 import Subs from '/imports/Subs';
 import Connection from '/imports/Connection';
-import { NotificationModel, ActivityModel, PartupUpdateModel } from '/imports/models';
+import { NotificationModel, ActivityModel, PartupUpdateModel, UserModel, PartupModel } from '/imports/models';
 
 export default meteorDataContainer(NotificationView, (props) => {
     const {notificationId} = props;
@@ -25,8 +25,18 @@ export default meteorDataContainer(NotificationView, (props) => {
 
     const partupUpdateData = {};
     if (partupUpdate) {
+        Subs.subscribe('partups.one', partupUpdate.partup_id);
+
         partupUpdateData.activity = ActivityModel.query()
             .search(m => m.searchForPartupUpdate(partupUpdate))
+            .findOne();
+
+        partupUpdateData.user = UserModel.query()
+            .search(partupUpdate.upper_id)
+            .findOne();
+
+        partupUpdateData.partup = PartupModel.query()
+            .search(partupUpdate.partup_id)
             .findOne();
     }
 

@@ -3,10 +3,11 @@
     $spacing-y: spacing(2);
 
     .pa-Notification {
-        margin: $spacing-y $spacing-x;
+        margin: $spacing-y $spacing-x 0;
     }
 
     .pa-PartupUpdateContent {
+        margin-top: $spacing-y;
         position: relative;
 
         &::after {
