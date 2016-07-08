@@ -52,8 +52,6 @@ const TabsViewManager = class TabsViewManager extends React.Component {
             .search({read_by: {$nin: [loggedInUser._id]}})
             .count();
 
-        console.log('unreadChatMessagesCount', unreadChatMessagesCount, ChatMessageModel);
-
         return (
             <Container>
                 <ViewManager ref="vm" name="tabs" defaultView={this.state.selectedTab} onViewChange={this.onViewChange.bind(this)}>
