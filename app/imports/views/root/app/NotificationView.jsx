@@ -32,16 +32,7 @@ const NotificationView = class NotificationView extends React.Component {
         this.reversedScroller = new ReversedScroller();
     }
 
-    componentDidMount() {
-        this.nowInterval = setInterval(this.updateNowDate.bind(this), 5000);
-    }
-
     componentWillUnmount() {
-        if (this.nowInterval) {
-            clearInterval(this.nowInterval);
-            delete this.nowInterval;
-        }
-
         this.reversedScroller.destroy();
     }
 
@@ -58,12 +49,6 @@ const NotificationView = class NotificationView extends React.Component {
             if (this.refs.comments && this.refs.comments.refs.flexStretch) {
                 this.reversedScroller.contentPossiblyUpdated(this.refs.comments.refs.flexStretch);
             }
-        });
-    }
-
-    updateNowDate() {
-        this.setState({
-            nowDate: new Date()
         });
     }
 

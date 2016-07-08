@@ -20,23 +20,6 @@ const Notification = class Notification extends React.Component {
         };
     }
 
-    componentDidMount() {
-        this.nowInterval = setInterval(this.updateNowDate.bind(this), 5000);
-    }
-
-    componentWillUnmount() {
-        if (this.nowInterval) {
-            clearInterval(this.nowInterval);
-            delete this.nowInterval;
-        }
-    }
-
-    updateNowDate() {
-        this.setState({
-            nowDate: new Date()
-        });
-    }
-
     render() {
         const {notification: n, isDetail} = this.props;
         const className = c('pa-Notification', {
