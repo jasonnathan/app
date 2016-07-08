@@ -57,7 +57,7 @@ export default meteorDataContainer(NotificationsView, (props) => {
     const onNotificationClick = (notification) => {
         Connection.call('notifications.clicked', notification._id);
 
-        if (notification.hasUpdate()) {
+        if (notification.hasUpdate() && notification.type !== 'partups_multiple_updates_since_visit') {
             transitionTo('app:notification', {
                 transition: 'show-from-right',
                 viewProps: {notificationId: notification._id}
