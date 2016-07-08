@@ -64,8 +64,8 @@ Releasing
     - Uncheck "Upside Down" (under Deployment Info > Device Orientation)
     - Select "Light" (under Deployment Info > Status Bar Style)
     - Check "Hide status bar" (under Deployment Info > Status Bar Style)
-- Go to Part-up's Build settings
-    - Add "@executable_path/Frameworks" to Release (under Linking > Runpath Search Paths)
+- Go to Part-up's Capabilities settings
+    - Enable Push Notifications for Part-up B.V.
 - From the top menu, select "Product > Archive" and wait untill the process completes
 - An archives window should pop up.
 - Select the latest version and hit "Upload to App Store..."
