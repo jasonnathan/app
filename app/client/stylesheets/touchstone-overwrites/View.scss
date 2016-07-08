@@ -1,3 +1,30 @@
 .View {
     background-color: $color-background;
+
+    &.view-transition-fade-contract-enter,
+    &.view-transition-fade-contract-leave,
+    &.view-transition-fade-enter,
+    &.view-transition-fade-leave,
+    &.view-transition-fade-expand-enter,
+    &.view-transition-fade-expand-leave,
+    &.view-transition-instant-enter,
+    &.view-transition-instant-leave,
+    &.view-transition-reveal-from-bottom-enter,
+    &.view-transition-reveal-from-bottom-leave,
+    &.view-transition-reveal-from-left-enter
+    &.view-transition-reveal-from-left-leave
+    &.view-transition-reveal-from-right-enter,
+    &.view-transition-reveal-from-right-leave,
+    &.view-transition-reveal-from-top-enter,
+    &.view-transition-reveal-from-top-leave,
+    &.view-transition-show-from-bottom-enter,
+    &.view-transition-show-from-bottom-leave,
+    &.view-transition-show-from-left-enter,
+    &.view-transition-show-from-left-leave,
+    &.view-transition-show-from-right-enter,
+    &.view-transition-show-from-right-leave,
+    &.view-transition-show-from-top-enter,
+    &.view-transition-show-from-top-leave {
+        pointer-events: none;
+    }
 }
