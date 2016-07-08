@@ -12,7 +12,7 @@ const ChatTile = class ChatTile extends React.Component {
     render() {
         const {chat, loggedInUser} = this.props;
         const className = c('pa-ChatTile', {
-            'pa-ChatTile--is-unread': chat && chat.getUnreadCountForUser(loggedInUser) > 0
+            'pa-ChatTile--is-unread': !!this.props.newChatMessagesCount
         });
 
         if (this.props.onClick) {
