@@ -49,7 +49,10 @@
 
     // Opacity
     &--clicked {
-        opacity: .5;
+        .pa-Heading,
+        .pa-Paragraph {
+            opacity: .5;
+        }
     }
 
     // Detail
