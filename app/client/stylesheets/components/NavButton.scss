@@ -15,7 +15,8 @@
             fill: $color-text-on-navigation-bar;
         }
 
-        &--icon_back {
+        &--icon_back,
+        &--icon_close {
             font-size: 12px;
             margin-top: 1px;
         }
