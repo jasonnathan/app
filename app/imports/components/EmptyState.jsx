@@ -26,7 +26,7 @@ const EmptyState = class EmptyState extends React.Component {
                         </Content.Text>
                     }
 
-                    {type === 'chats-tribe' &&
+                    {type === 'chats-networks' &&
                         <Content.Text>
                             <img src="images/empty_states/chat.png" />
                             <Paragraph>Join a tribe to view its chat</Paragraph>

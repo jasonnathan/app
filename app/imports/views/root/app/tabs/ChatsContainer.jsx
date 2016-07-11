@@ -26,7 +26,7 @@ export default meteorDataContainer(ChatsView, (props) => {
                 limit: new ReactiveVar(START),
                 endReached: new ReactiveVar(false)
             },
-            tribe: {
+            networks: {
                 limit: new ReactiveVar(START),
                 endReached: new ReactiveVar(false)
             }
@@ -51,14 +51,14 @@ export default meteorDataContainer(ChatsView, (props) => {
     }).ready();
 
     /**
-     * Subscribe to tribe chats
+     * Subscribe to network chats
      */
-    const tribeChatsLoading = !Subs.subscribe('chats.for_loggedin_user', {networks: true}, {
-        limit: cache.tribe.limit.get()
+    const networkChatsLoading = !Subs.subscribe('chats.for_loggedin_user', {networks: true}, {
+        limit: cache.networks.limit.get()
     }, {
         onReady: () => {
-            if (tribeChats.length === getTribeChats().length) {
-                cache.tribe.endReached.set(true);
+            if (networkChats.length === getNetworkChats().length) {
+                cache.networks.endReached.set(true);
             }
         }
     }).ready();
@@ -72,9 +72,9 @@ export default meteorDataContainer(ChatsView, (props) => {
             .fetch();
 
     /**
-     * Function to get tribe chats
+     * Function to get network chats
      */
-    const getTribeChats = () => {
+    const getNetworkChats = () => {
         return NetworkModel.query()
             .search({
                 uppers: {
@@ -90,7 +90,7 @@ export default meteorDataContainer(ChatsView, (props) => {
     };
 
     let privateChats = [];
-    let tribeChats = [];
+    let networkChats = [];
 
     if (loggedInUser) {
         const mapChats = (chat) => {
@@ -118,15 +118,15 @@ export default meteorDataContainer(ChatsView, (props) => {
          * Get and map chats
          */
         privateChats = getPrivateChats().map(mapChats);
-        tribeChats = getTribeChats().map(mapChats);
+        networkChats = getNetworkChats().map(mapChats);
     }
 
     const loadMorePrivateChats = () => {
         cache.private.limit.set(cache.private.limit.get() + INCREASE);
     };
 
-    const loadMoreTribeChats = () => {
-        cache.tribe.limit.set(cache.tribe.limit.get() + INCREASE);
+    const loadMoreNetworkChats = () => {
+        cache.networks.limit.set(cache.networks.limit.get() + INCREASE);
     };
 
     const onSearchUsers = (input, callback) => {
@@ -165,7 +165,8 @@ export default meteorDataContainer(ChatsView, (props) => {
                 transition: 'show-from-right',
                 viewProps: {
                     chatId,
-                    chatUsername: user.profile.name
+                    chatName: user.profile.name,
+                    chatType: 'private'
                 }
             });
         });
@@ -182,11 +183,11 @@ export default meteorDataContainer(ChatsView, (props) => {
             endReached: cache.private.endReached.get(),
             loadMore: loadMorePrivateChats
         },
-        tribeChats: {
-            data: tribeChats,
-            loading: tribeChatsLoading,
-            endReached: cache.tribe.endReached.get(),
-            loadMore: loadMoreTribeChats
+        networkChats: {
+            data: networkChats,
+            loading: networkChatsLoading,
+            endReached: cache.networks.endReached.get(),
+            loadMore: loadMoreNetworkChats
         },
         toggleTabs: props.toggleTabs
     };

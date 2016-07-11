@@ -90,7 +90,7 @@ const ChatView = class ChatView extends React.Component {
     }
 
     render() {
-        const {chat, chatMessages: chatMessagesProps, chatLoading, loggedInUser} = this.props;
+        const {chat, chatMessages: chatMessagesProps, chatLoading, loggedInUser, chatType} = this.props;
         const {loading, endReached, loadMore, data: messages} = chatMessagesProps || {};
 
         return (
@@ -123,7 +123,7 @@ const ChatView = class ChatView extends React.Component {
                                                     {timeboxGroup.messages.map((message, _index) => {
                                                         return (
                                                             <ListItem key={_index}>
-                                                                <ChatMessage message={message.content} />
+                                                                <ChatMessage message={message.content} showName={chatType === 'networks' && !isSend && _index === 0} name={authorGroup.author.profile.name} />
                                                             </ListItem>
                                                         );
                                                     })}
@@ -132,7 +132,6 @@ const ChatView = class ChatView extends React.Component {
                                             </ChatBox>
                                         );
                                     });
-
                                 })}
                             </div>
                         );
@@ -217,6 +216,7 @@ ChatView.getNavigation = (props, app) => {
 
 ChatView.propTypes = {
     chat: React.PropTypes.instanceOf(ChatModel),
+    chatType: React.PropTypes.oneOf(['private', 'networks']).isRequired,
     chatMessages: React.PropTypes.shape({
         data: React.PropTypes.arrayOf(React.PropTypes.instanceOf(ChatMessageModel)).isRequired,
         loading: React.PropTypes.bool.isRequired,

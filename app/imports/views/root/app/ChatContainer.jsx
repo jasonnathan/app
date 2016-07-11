@@ -14,7 +14,7 @@ const limit = new ReactiveVar(START);
 const endReached = new ReactiveVar(false);
 
 export default meteorDataContainer(ChatView, (props) => {
-    const {chatId} = props;
+    const {chatId, chatType, networkSlug} = props;
     Debug.tracker('ChatContainer');
 
     const resetInfiniteScroll = () => {
@@ -23,15 +23,25 @@ export default meteorDataContainer(ChatView, (props) => {
     };
 
     const loggedInUser = UserModel.accountsClient.user();
-    const chatLoading = !Subs.subscribe('chats.by_id', chatId, {
+
+    let chatLoading;
+    const options = {
         limit: limit.get()
-    }, {
+    };
+    const callbacks = {
         onReady: () => {
             if (chatMessages.length === getChatMessages().length) {
                 endReached.set(true);
             }
         }
-    }).ready();
+    };
+
+    if (chatType === 'private') {
+        chatLoading = !Subs.subscribe('chats.by_id', chatId, options, callbacks).ready();
+    } else if (chatType === 'networks') {
+        chatLoading = !Subs.subscribe('networks.one.chat', networkSlug, options, callbacks).ready();
+    }
+
     const chat = ChatModel.findOne(chatId);
 
     const sendChatMessage = (message) => {
@@ -63,6 +73,7 @@ export default meteorDataContainer(ChatView, (props) => {
 
     return {
         chat,
+        chatType,
         chatMessages: {
             data: chatMessages,
             loading: chatLoading,

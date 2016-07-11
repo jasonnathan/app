@@ -28,7 +28,9 @@ export default meteorDataContainer(PushNotificationView, (props) => {
                 transition: 'instant',
                 viewProps: {
                     chatId: chat._id,
-                    chatUsername: chat.username
+                    chatName: chat.username,
+                    chatType: chat.type,
+                    networkSlug: chat.networkSlug
                 }
             });
         }

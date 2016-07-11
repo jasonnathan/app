@@ -31,7 +31,7 @@ const ChatsView = class ChatsView extends React.Component {
     componentDidUpdate(previousProps) {
         if (previousProps.initialTabValue !== this.props.initialTabValue) {
             this.setState({
-                activeTab: this.props.initialTabValue
+                activeTab: this.props.initialTabValue || 'private'
             });
         }
     }
@@ -53,7 +53,7 @@ const ChatsView = class ChatsView extends React.Component {
                 <Flex.Shrink className="View--chats__tabs">
                     <ButtonGroup buttons={[
                         {key: 'private', label: <span>Personal</span>},
-                        {key: 'tribe', label: <span>Tribe</span>}
+                        {key: 'networks', label: <span>Tribe</span>}
                     ]} activeTab={this.state.activeTab} onClick={this.onTabClick.bind(this)} />
                 </Flex.Shrink>
                 <Flex.Stretch scroll className="View--chats__list" onHitBottom={onHitBottom.bind(this)}>
@@ -61,7 +61,7 @@ const ChatsView = class ChatsView extends React.Component {
                         ? this.renderSearchResults()
                         : (this.state.activeTab === 'private'
                             ? this.renderPrivateChats()
-                            : this.renderTribeChats()
+                            : this.renderNetworkChats()
                         )
                     }
                 </Flex.Stretch>
@@ -142,17 +142,17 @@ const ChatsView = class ChatsView extends React.Component {
         );
     }
 
-    renderTribeChats() {
-        const chatsProps = this.props.tribeChats;
+    renderNetworkChats() {
+        const chatsProps = this.props.networkChats;
         const {data: chats, loading} = chatsProps || {};
 
         return (
             <div>
                 {(!chats || !chats.length) &&
-                    <EmptyState type="chats-tribe" />
+                    <EmptyState type="chats-networks" />
                 }
 
-                {this.renderTribeChatsList(chats || [])}
+                {this.renderNetworkChatsList(chats || [])}
 
                 {loading &&
                     <Spinner infiniteScroll />
@@ -161,7 +161,7 @@ const ChatsView = class ChatsView extends React.Component {
         );
     }
 
-    renderTribeChatsList(chats) {
+    renderNetworkChatsList(chats) {
         return (
             <List>
                 {chats.map((chat, index) => {
@@ -174,7 +174,7 @@ const ChatsView = class ChatsView extends React.Component {
                                     lastChatMessage={chat.lastChatMessage}
                                     lastChatMessageIsOwnMessage={chat.lastChatMessage && chat.lastChatMessage.creator_id === this.props.loggedInUser._id}
                                     loggedInUser={this.props.loggedInUser}
-                                    onClick={this.onChatTileClick.bind(this, chat.document, chat.network.name, 'tribe')}
+                                    onClick={this.onChatTileClick.bind(this, chat.document, chat.network.name, 'networks', chat.network.slug)}
                                     newChatMessagesCount={chat.newChatMessagesCount} />
                             }
                         </ListItem>
@@ -203,13 +203,14 @@ const ChatsView = class ChatsView extends React.Component {
         }
     }
 
-    onChatTileClick(chat, chatName, type) {
+    onChatTileClick(chat, chatName, type, networkSlug) {
         transitionTo('app:chat', {
             transition: 'show-from-right',
             viewProps: {
                 chatId: chat._id,
                 chatName: chatName,
-                chatType: type
+                chatType: type,
+                networkSlug: networkSlug
             }
         });
     }
@@ -238,7 +239,7 @@ ChatsView.propTypes = {
     onSearchUsers: React.PropTypes.func.isRequired,
     onStartPrivateChat: React.PropTypes.func.isRequired,
     privateChats: chatsShape,
-    tribeChats: chatsShape,
+    networkChats: chatsShape,
     toggleTabs: React.PropTypes.func.isRequired
 };
 
