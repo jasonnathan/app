@@ -18,8 +18,15 @@ const TabsViewManager = class TabsViewManager extends React.Component {
         super(props);
 
         this.state = {
-            selectedTab: TabsViewManager.lastSelectedTab
+            selectedTab: TabsViewManager.lastSelectedTab,
+            hideTabs: false
         };
+    }
+
+    toggleTabs(show) {
+        this.setState({
+            hideTabs: !show
+        });
     }
 
     componentDidMount() {
@@ -56,11 +63,13 @@ const TabsViewManager = class TabsViewManager extends React.Component {
             <Container>
                 <ViewManager ref="vm" name="tabs" defaultView={this.state.selectedTab} onViewChange={this.onViewChange.bind(this)}>
                     <View name="notifications" component={NotificationsContainer} />
-                    <View name="chats" component={ChatsContainer} />
+                    <View name="chats" component={ChatsContainer} toggleTabs={this.toggleTabs.bind(this)} />
                     <View name="partups" component={PartupsContainer} />
                     <View name="tribes" component={TribesContainer} />
                 </ViewManager>
-                <UI.Tabs.Navigator>
+                <UI.Tabs.Navigator className={c('pa-Tabs', {
+                    'pa-Tabs--hidden': this.state.hideTabs
+                })}>
                     <UI.Tabs.Tab onTap={this.selectTab.bind(this, 'notifications')} selected={selectedIsOneOf(['notifications'])}>
                         <Svg name="icon_notifications" />
                         <UI.Tabs.Label>Notifications</UI.Tabs.Label>

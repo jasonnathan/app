@@ -1,0 +1,12 @@
+.pa-Tabs {
+    $tabs-height: 54px;
+    transition: margin, opacity;
+    transition-duration: $duration-move;
+
+    &--hidden {
+        margin-bottom: -$tabs-height;
+        opacity: 0;
+        pointer-events: none;
+        transition-duration: 0;
+    }
+}

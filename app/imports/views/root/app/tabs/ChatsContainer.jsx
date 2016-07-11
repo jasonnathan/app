@@ -122,6 +122,7 @@ export default meteorDataContainer(ChatsView, (props) => {
             loading: chatsLoading,
             endReached: cache.endReached.get(),
             loadMore: loadMoreChats
-        }
+        },
+        toggleTabs: props.toggleTabs
     };
 });

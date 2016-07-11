@@ -30,10 +30,13 @@ const ChatsView = class ChatsView extends React.Component {
         const chatsProps = this.props.chats;
         const {data: chats, loading, loadMore, endReached} = chatsProps || {};
 
+        const onFocus = () => this.props.toggleTabs(false);
+        const onBlur = () => this.props.toggleTabs(true);
+
         return (
             <Flex>
                 <Flex.Shrink className="View--chats__search">
-                    <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} icon='icon_search' />
+                    <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} icon='icon_search' onFocus={onFocus} onBlur={onBlur} />
                 </Flex.Shrink>
                 {this.state.searchResults ?
                     <Flex.Stretch scroll className="View--chats__list">
@@ -146,7 +149,8 @@ ChatsView.propTypes = {
         loading: React.PropTypes.bool.isRequired,
         endReached: React.PropTypes.bool.isRequired,
         loadMore: React.PropTypes.func.isRequired
-    })
+    }),
+    toggleTabs: React.PropTypes.func.isRequired
 };
 
 ChatsView.navigationBar = 'app';
