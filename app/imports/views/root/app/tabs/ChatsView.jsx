@@ -14,13 +14,15 @@ import { ChatModel, UserModel, ChatMessageModel } from '/imports/models';
 import { filter, contains, find } from 'mout/array';
 import EmptyState from '/imports/components/EmptyState';
 import Spinner from '/imports/components/Spinner';
+import ButtonGroup from '/imports/components/ButtonGroup';
 
 const ChatsView = class ChatsView extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            searchResults: undefined
+            searchResults: undefined,
+            activeTab: 'personal'
         };
 
         this.onDebouncedSearchInput = debounce(this.onDebouncedSearchInput, 500);
@@ -28,32 +30,37 @@ const ChatsView = class ChatsView extends React.Component {
 
     render() {
         const chatsProps = this.props.chats;
-        const {data: chats, loading, loadMore, endReached} = chatsProps || {};
+        const {loading, loadMore, endReached} = chatsProps || {};
 
         const onFocus = () => this.props.toggleTabs(false);
         const onBlur = () => this.props.toggleTabs(true);
 
+        const onHitBottom = () => {
+            if (!this.state.searchResults) {
+                if (!loading && !endReached) {
+                    loadMore();
+                }
+            }
+        };
+
         return (
             <Flex>
-                <Flex.Shrink className="View--chats__search">
-                    <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} icon='icon_search' onFocus={onFocus} onBlur={onBlur} />
+                <Flex.Shrink className="View--chats__tabs">
+                    <ButtonGroup buttons={[
+                        {key: 'personal', label: <span>Personal</span>},
+                        {key: 'tribe', label: <span>Tribe</span>}
+                    ]} activeTab={this.state.activeTab} onClick={this.onTabClick.bind(this)} />
                 </Flex.Shrink>
-                {this.state.searchResults ?
-                    <Flex.Stretch scroll className="View--chats__list">
-                        {this.renderSearchResults()}
-                    </Flex.Stretch> :
-                    <Flex.Stretch scroll className="View--chats__list" onHitBottom={() => !loading && !endReached && loadMore()}>
-                        {(!chats || !chats.length) &&
-                            <EmptyState type="chats" />
-                        }
+                <Flex.Stretch scroll className="View--chats__list" onHitBottom={onHitBottom.bind(this)}>
+                    <div className="View--chats__search">
+                        <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} icon='icon_search' onFocus={onFocus} onBlur={onBlur} />
+                    </div>
 
-                        {this.renderChats(chats || [])}
-
-                        {loading &&
-                            <Spinner infiniteScroll />
-                        }
-                    </Flex.Stretch>
-                }
+                    {this.state.searchResults
+                        ? this.renderSearchResults()
+                        : this.renderChats()
+                    }
+                </Flex.Stretch>
             </Flex>
         );
     }
@@ -79,7 +86,27 @@ const ChatsView = class ChatsView extends React.Component {
         );
     }
 
-    renderChats(chats) {
+    renderChats() {
+        const chatsProps = this.props.chats;
+        const {data: chats, loading} = chatsProps || {};
+
+        if (!chats || !chats.length) {
+            return <EmptyState type="chats" />;
+        }
+
+        return (
+            <div>
+                {this.renderChatsList(chats || [])}
+
+                {loading &&
+                    <Spinner infiniteScroll />
+                }
+            </div>
+        );
+
+    }
+
+    renderChatsList(chats) {
         return (
             <List>
                 {chats.map((chat, index) => {
@@ -131,6 +158,12 @@ const ChatsView = class ChatsView extends React.Component {
                 chatId: chat._id,
                 chatUsername: user.profile.name
             }
+        });
+    }
+
+    onTabClick(tab) {
+        this.setState({
+            activeTab: tab
         });
     }
 };
