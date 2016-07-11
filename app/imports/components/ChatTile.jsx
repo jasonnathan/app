@@ -6,7 +6,7 @@ import { formatDate } from 'part-up-js-helpers';
 import { get } from 'mout/object';
 import Avatar from '/imports/components/Avatar';
 import Paragraph from '/imports/components/Paragraph';
-import { UserModel, ChatModel, ChatMessageModel } from '/imports/models';
+import { UserModel, ChatModel, ChatMessageModel, NetworkModel } from '/imports/models';
 
 const ChatTile = class ChatTile extends React.Component {
     render() {
@@ -15,22 +15,29 @@ const ChatTile = class ChatTile extends React.Component {
             'pa-ChatTile--is-unread': !!this.props.newChatMessagesCount
         });
 
+        let content;
+        if (this.props.user) {
+            content = this.renderPrivateChatContent();
+        } else if (this.props.network) {
+            content = this.renderNetworkChatContent();
+        }
+
         if (this.props.onClick) {
             return (
                 <a onClick={this.onClick.bind(this)} className={className}>
-                    {this.renderContent()}
+                    {content}
                 </a>
             );
         }
 
         return (
             <div className={className}>
-                {this.renderContent()}
+                {content}
             </div>
         );
     }
 
-    renderContent() {
+    renderPrivateChatContent() {
         const {chat, user, lastChatMessage, lastChatMessageIsOwnMessage} = this.props;
         const userAvatar = user.getAvatarImage();
         const readableUpdatedAt = chat && formatDate.relativeWithThreshold(chat.updated_at, new Date());
@@ -57,6 +64,34 @@ const ChatTile = class ChatTile extends React.Component {
         );
     }
 
+    renderNetworkChatContent() {
+        const {chat, network, lastChatMessage, lastChatMessageIsOwnMessage} = this.props;
+        const image = network.getImage();
+        const readableUpdatedAt = chat && formatDate.relativeWithThreshold(chat.updated_at, new Date());
+        const newChatMessagesCountIndicator = this.props.newChatMessagesCount && `(${this.props.newChatMessagesCount})` || undefined;
+
+        return (
+            <div className="pa-ChatTile__wrapper">
+                <div className="pa-ChatTile__image pa-ChatTile__image--network">
+                    <figure style={{
+                        backgroundImage: image && `url('${image.getUrl()}')`}}>
+                    </figure>
+                </div>
+                <div className="pa-ChatTile__label">
+                    <Paragraph className="pa-ChatTile__label__title">{network.name} {newChatMessagesCountIndicator}</Paragraph>
+                    <Paragraph>{lastChatMessageIsOwnMessage ? <strong>You: </strong> : ``}{lastChatMessage && lastChatMessage.content}</Paragraph>
+                </div>
+                {readableUpdatedAt && lastChatMessage &&
+                    <span className="pa-ChatTile__time">
+                        <Paragraph>{readableUpdatedAt}</Paragraph>
+                    </span>
+                }
+                <span className="pa-ChatTile__alert">
+                </span>
+            </div>
+        );
+    }
+
     onClick(event) {
         event.preventDefault();
         this.props.onClick();
@@ -65,7 +100,8 @@ const ChatTile = class ChatTile extends React.Component {
 
 ChatTile.propTypes = {
     loggedInUser: React.PropTypes.instanceOf(UserModel).isRequired,
-    user: React.PropTypes.instanceOf(UserModel).isRequired,
+    user: React.PropTypes.instanceOf(UserModel),
+    network: React.PropTypes.instanceOf(NetworkModel),
     chat: React.PropTypes.instanceOf(ChatModel),
     lastChatMessage: React.PropTypes.instanceOf(ChatMessageModel),
     lastChatMessageIsOwnMessage: React.PropTypes.bool

@@ -33,13 +33,6 @@ export default meteorDataContainer(ChatView, (props) => {
         }
     }).ready();
     const chat = ChatModel.findOne(chatId);
-    const chatUser = chat &&
-        UserModel.query()
-            .search({
-                _id: {$ne: loggedInUser._id},
-                chats: {$in: [chat._id]}
-            })
-            .findOne();
 
     const sendChatMessage = (message) => {
         if (message) {
@@ -70,7 +63,6 @@ export default meteorDataContainer(ChatView, (props) => {
 
     return {
         chat,
-        chatUser,
         chatMessages: {
             data: chatMessages,
             loading: chatLoading,

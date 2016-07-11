@@ -22,6 +22,7 @@ import Input from '/imports/components/Input';
 import Flex from '/imports/components/Flex';
 import Spinner from '/imports/components/Spinner';
 import setCurrentBackbuttonHandler from '/imports/services/setCurrentBackbuttonHandler';
+import transitionTo from '/imports/services/transitionTo';
 
 let unsentMessagesPerChat = {};
 
@@ -89,7 +90,7 @@ const ChatView = class ChatView extends React.Component {
     }
 
     render() {
-        const {chat, chatUser, chatMessages: chatMessagesProps, chatLoading, loggedInUser} = this.props;
+        const {chat, chatMessages: chatMessagesProps, chatLoading, loggedInUser} = this.props;
         const {loading, endReached, loadMore, data: messages} = chatMessagesProps || {};
 
         return (
@@ -158,12 +159,12 @@ const ChatView = class ChatView extends React.Component {
     onMessageBoxBlur() {}
 
     groupMessagesByAuthor(messages) {
-        const {loggedInUser, chatUser} = this.props;
+        const {loggedInUser} = this.props;
 
         return groupArray(messages, (previous, current) => {
             return previous.creator_id === current.creator_id;
         }).map((messages) => ({
-            author: messages[0].creator_id === chatUser._id ? chatUser : loggedInUser,
+            author: UserModel.findOne(messages[0].creator_id),
             messages
         }));
     }
@@ -197,15 +198,18 @@ const ChatView = class ChatView extends React.Component {
 ChatView.navigationBar = 'app';
 ChatView.getNavigation = (props, app) => {
     const back = () => {
-        app.transitionTo('app:tabs:chats', {
-            transition: 'reveal-from-right'
+        transitionTo('app:tabs:chats', {
+            transition: 'reveal-from-right',
+            viewProps: {
+                initialTabValue: props.chatType
+            }
         });
     };
 
     setCurrentBackbuttonHandler(back);
 
     return {
-        title: props.chatUsername,
+        title: props.chatName,
         leftLabel: <NavButton left icon="icon_back" label="Chats" />,
         leftAction: back
     };
@@ -213,7 +217,6 @@ ChatView.getNavigation = (props, app) => {
 
 ChatView.propTypes = {
     chat: React.PropTypes.instanceOf(ChatModel),
-    chatUser: React.PropTypes.instanceOf(UserModel),
     chatMessages: React.PropTypes.shape({
         data: React.PropTypes.arrayOf(React.PropTypes.instanceOf(ChatMessageModel)).isRequired,
         loading: React.PropTypes.bool.isRequired,
