@@ -11,13 +11,13 @@
     }
 
     .pa-Svg {
-        svg,
-        svg * {
+        svg {
             fill: $color-text-on-navigation-bar;
         }
 
-        svg {
-            height: 100%;
+        &--icon_back {
+            font-size: 12px;
+            margin-top: 1px;
         }
     }
 
