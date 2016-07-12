@@ -162,10 +162,11 @@ const ChatView = class ChatView extends React.Component {
 
         return groupArray(messages, (previous, current) => {
             return previous.creator_id === current.creator_id;
-        }).map((messages) => ({
-            author: UserModel.findOne(messages[0].creator_id),
-            messages
-        }));
+        }).map((messages) => {
+            const author = UserModel.findOne(messages[0].creator_id);
+            if (!author) return {messages: []};
+            return {author, messages};
+        });
     }
 
     groupMessagesByTimebox(messages) {
