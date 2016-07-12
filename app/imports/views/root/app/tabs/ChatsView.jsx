@@ -48,12 +48,28 @@ const ChatsView = class ChatsView extends React.Component {
             }
         };
 
+        const {private: privateCount, networks: networksCount} = this.props.unreadMessages;
+
         return (
             <Flex>
                 <Flex.Shrink className="View--chats__tabs">
                     <ButtonGroup buttons={[
-                        {key: 'private', label: <span>Personal</span>},
-                        {key: 'networks', label: <span>Tribe</span>}
+                        {key: 'private', label: (
+                            <span>
+                                Personal
+                                {!!privateCount &&
+                                    <span className='pa-ButtonGroup__badge'>{privateCount}</span>
+                                }
+                            </span>
+                        )},
+                        {key: 'networks', label: (
+                            <span>
+                                Tribe
+                                {!!networksCount &&
+                                    <span className='pa-ButtonGroup__badge'>{networksCount}</span>
+                                }
+                            </span>
+                        )}
                     ]} activeTab={this.state.activeTab} onClick={this.onTabClick.bind(this)} />
                 </Flex.Shrink>
                 <Flex.Stretch scroll className="View--chats__list" onHitBottom={onHitBottom.bind(this)}>
@@ -240,7 +256,11 @@ ChatsView.propTypes = {
     onStartPrivateChat: React.PropTypes.func.isRequired,
     privateChats: chatsShape,
     networkChats: chatsShape,
-    toggleTabs: React.PropTypes.func.isRequired
+    toggleTabs: React.PropTypes.func.isRequired,
+    unreadMessages: React.PropTypes.shape({
+        private: React.PropTypes.number.isRequired,
+        networks: React.PropTypes.number.isRequired
+    }).isRequired
 };
 
 ChatsView.navigationBar = 'app';

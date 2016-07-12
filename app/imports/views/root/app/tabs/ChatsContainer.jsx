@@ -8,7 +8,7 @@ import Debug from '/imports/Debug';
 import Subs from '/imports/Subs';
 import { UserModel, ChatModel, ChatMessageModel, ImageModel, NetworkModel } from '/imports/models';
 import transitionTo from '/imports/services/transitionTo';
-import { find } from 'mout/array';
+import { find, reduce } from 'mout/array';
 import { isFunction } from 'mout/lang';
 import userCache from '/imports/services/userCache';
 
@@ -172,11 +172,43 @@ export default meteorDataContainer(ChatsView, (props) => {
         });
     };
 
+    Subs.subscribe('chats.unread_messages_for_count', {private: true, networks: true});
+    const sumChatMessages = (previousValue, chat) => {
+        return previousValue + ChatMessageModel.query()
+            .search({
+                chat_id: chat._id,
+                read_by: {$nin: [loggedInUser._id]}
+            })
+            .count()
+    };
+    const unreadMessages = {
+        private: loggedInUser && reduce(
+            ChatModel.query()
+                .search(m => m.searchPrivateForUser(loggedInUser))
+                .fetch(),
+            sumChatMessages,
+            0
+        ),
+        networks: loggedInUser && reduce(
+            NetworkModel.query()
+                .search({_id: {$in: loggedInUser.networks}})
+                .fetch()
+                .map((network) => {
+                    return ChatModel.query()
+                        .search(network.chat_id)
+                        .findOne();
+                }),
+            sumChatMessages,
+            0
+        )
+    };
+
     return {
         initialTabValue,
         loggedInUser,
         onSearchUsers,
         onStartPrivateChat,
+        unreadMessages,
         privateChats: {
             data: privateChats,
             loading: privateChatsLoading,

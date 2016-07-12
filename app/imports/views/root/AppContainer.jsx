@@ -23,7 +23,6 @@ export default meteorDataContainer(AppViewManager, (props) => {
         redirectToLogin();
     }
 
-    Subs.subscribe('chats.unread_messages_for_count', {private: true});
     Subs.subscribe('users.loggedin', {
         onReady: () => {
             if (!UserModel.accountsClient.user()) {
@@ -32,6 +31,8 @@ export default meteorDataContainer(AppViewManager, (props) => {
         }
     });
 
+    // Unread messages
+    Subs.subscribe('chats.unread_messages_for_count', {private: true, networks: true});
     ChatMessageModel.find().fetch(); // trigger re-render
 
     return {};
