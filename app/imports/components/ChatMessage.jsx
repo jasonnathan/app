@@ -11,7 +11,6 @@ const ChatMessage = class ChatMessage extends React.Component {
     render() {
         const {message, showName, name} = this.props;
         const text = autolink(parseMentions(stripHtmlTags(message).replace(/\n/g, '<br />')));
-        console.log(showName);
 
         return (
             <div className={c('pa-ChatMessage')}>
