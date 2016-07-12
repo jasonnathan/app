@@ -191,7 +191,7 @@ export default meteorDataContainer(ChatsView, (props) => {
         ),
         networks: loggedInUser && reduce(
             NetworkModel.query()
-                .search({_id: {$in: loggedInUser.networks}})
+                .search({_id: {$in: loggedInUser.networks || []}})
                 .fetch()
                 .map((network) => {
                     return ChatModel.query()
