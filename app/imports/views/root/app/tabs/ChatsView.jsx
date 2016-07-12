@@ -73,12 +73,9 @@ const ChatsView = class ChatsView extends React.Component {
                     ]} activeTab={this.state.activeTab} onClick={this.onTabClick.bind(this)} />
                 </Flex.Shrink>
                 <Flex.Stretch scroll className="View--chats__list" onHitBottom={onHitBottom.bind(this)}>
-                    {this.state.searchResults
-                        ? this.renderSearchResults()
-                        : (this.state.activeTab === 'private'
-                            ? this.renderPrivateChats()
-                            : this.renderNetworkChats()
-                        )
+                    {this.state.activeTab === 'private'
+                        ? this.renderPrivateChats()
+                        : this.renderNetworkChats()
                     }
                 </Flex.Stretch>
             </Flex>
@@ -119,15 +116,21 @@ const ChatsView = class ChatsView extends React.Component {
                     <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} icon='icon_search' onFocus={onSearchFocus} onBlur={onSearchBlur} />
                 </div>
 
-                {(!chats || !chats.length) &&
-                    <EmptyState type="chats-private" />
-                }
+                {this.state.searchResults
+                    ? this.renderSearchResults()
+                    : (
+                        <div>
+                            {(!chats || !chats.length) &&
+                                <EmptyState type="chats-private" />
+                            }
 
-                {this.renderPrivateChatsList(chats || [])}
+                            {this.renderPrivateChatsList(chats || [])}
 
-                {loading &&
-                    <Spinner infiniteScroll />
-                }
+                            {loading &&
+                                <Spinner infiniteScroll />
+                            }
+                        </div>
+                )}
             </div>
         );
     }
