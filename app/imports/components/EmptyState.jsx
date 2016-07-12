@@ -60,7 +60,7 @@ const EmptyState = class EmptyState extends React.Component {
 };
 
 EmptyState.propTypes = {
-    type: React.PropTypes.oneOf(['notifications', 'partups', 'tribes', 'chats-private', 'chats-tribe', 'chats-search-results'])
+    type: React.PropTypes.oneOf(['notifications', 'partups', 'tribes', 'chats-private', 'chats-networks', 'chats-search-results'])
 };
 
 export default EmptyState;
