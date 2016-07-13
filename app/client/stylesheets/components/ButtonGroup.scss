@@ -16,13 +16,4 @@
         left: 0;
         transition: transform $duration-appear;
     }
-
-    &__badge {
-        display: inline-block;
-        vertical-align: top;
-        margin-top: -2px;
-        margin-left: 3px;
-        font-size: 10px;
-        color: $color-brand-secondary;
-    }
 }
