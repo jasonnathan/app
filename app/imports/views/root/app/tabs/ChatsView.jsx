@@ -140,7 +140,7 @@ const ChatsView = class ChatsView extends React.Component {
         return (
             <List>
                 {this.state.searchResults.map((user, index) => {
-                    const chat = chats.find((chat) => user.equals(chat.otherUser));
+                    const chat = chats.find((chat) => chat.otherUser && user.equals(chat.otherUser));
 
                     if (chat) {
                         return (
