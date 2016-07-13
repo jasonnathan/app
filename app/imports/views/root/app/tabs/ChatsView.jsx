@@ -10,50 +10,76 @@ import NavButton from '/imports/components/NavButton';
 import Flex from '/imports/components/Flex';
 import Button from '/imports/components/Button';
 import { debounce } from 'lodash';
-import { ChatModel, UserModel, ChatMessageModel } from '/imports/models';
-import { filter, contains, find } from 'mout/array';
+import { ChatModel, UserModel, ChatMessageModel, NetworkModel } from '/imports/models';
+import { filter, contains, find, reduce } from 'mout/array';
 import EmptyState from '/imports/components/EmptyState';
 import Spinner from '/imports/components/Spinner';
+import ButtonGroup from '/imports/components/ButtonGroup';
 
 const ChatsView = class ChatsView extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            searchResults: undefined
+            searchResults: undefined,
+            activeTab: 'private'
         };
 
         this.onDebouncedSearchInput = debounce(this.onDebouncedSearchInput, 500);
     }
 
-    render() {
-        const chatsProps = this.props.chats;
-        const {data: chats, loading, loadMore, endReached} = chatsProps || {};
+    componentDidUpdate(previousProps) {
+        if (previousProps.initialTabValue !== this.props.initialTabValue) {
+            this.setState({
+                activeTab: this.props.initialTabValue || 'private'
+            });
+        }
+    }
 
-        const onFocus = () => this.props.toggleTabs(false);
-        const onBlur = () => this.props.toggleTabs(true);
+    render() {
+        const chatsProps = this.props.privateChats;
+        const {loading, loadMore, endReached} = chatsProps || {};
+
+        const onHitBottom = () => {
+            if (!this.state.searchResults) {
+                if (!loading && !endReached) {
+                    loadMore();
+                }
+            }
+        };
+
+        const sum = (chats) => reduce(chats, (prev, chat) => prev + chat.newChatMessagesCount, 0);
+        const privateCount = sum(this.props.privateChats.data);
+        const networksCount = sum(this.props.networkChats.data);
 
         return (
             <Flex>
-                <Flex.Shrink className="View--chats__search">
-                    <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} icon='icon_search' onFocus={onFocus} onBlur={onBlur} />
+                <Flex.Shrink className="View--chats__tabs">
+                    <ButtonGroup buttons={[
+                        {key: 'private', label: (
+                            <span>
+                                Personal
+                                {!!privateCount &&
+                                    <span className='pa-ButtonGroup__badge'>{privateCount}</span>
+                                }
+                            </span>
+                        )},
+                        {key: 'networks', label: (
+                            <span>
+                                Tribe
+                                {!!networksCount &&
+                                    <span className='pa-ButtonGroup__badge'>{networksCount}</span>
+                                }
+                            </span>
+                        )}
+                    ]} activeTab={this.state.activeTab} onClick={this.onTabClick.bind(this)} />
                 </Flex.Shrink>
-                {this.state.searchResults ?
-                    <Flex.Stretch scroll className="View--chats__list">
-                        {this.renderSearchResults()}
-                    </Flex.Stretch> :
-                    <Flex.Stretch scroll className="View--chats__list" onHitBottom={() => !loading && !endReached && loadMore()}>
-                        {(!chats || !chats.length) &&
-                            <EmptyState type="chats" />
-                        }
-
-                        {this.renderChats(chats || [])}
-
-                        {loading &&
-                            <Spinner infiniteScroll />
-                        }
-                    </Flex.Stretch>
-                }
+                <Flex.Stretch scroll className="View--chats__list" onHitBottom={onHitBottom.bind(this)}>
+                    {this.state.activeTab === 'private'
+                        ? this.renderPrivateChats()
+                        : this.renderNetworkChats()
+                    }
+                </Flex.Stretch>
             </Flex>
         );
     }
@@ -71,7 +97,7 @@ const ChatsView = class ChatsView extends React.Component {
                             <ChatTile
                                 user={user}
                                 loggedInUser={this.props.loggedInUser}
-                                onClick={this.props.onStartChat.bind(this, user)} />
+                                onClick={this.props.onStartPrivateChat.bind(this, user)} />
                         }
                     </ListItem>
                 ))}
@@ -79,23 +105,94 @@ const ChatsView = class ChatsView extends React.Component {
         );
     }
 
-    renderChats(chats) {
+    renderPrivateChats() {
+        const chatsProps = this.props.privateChats;
+        const {data: chats, loading} = chatsProps || {};
+
+        const onSearchFocus = () => this.props.toggleTabs(false);
+        const onSearchBlur = () => this.props.toggleTabs(true);
+
+        return (
+            <div>
+                <div className="View--chats__search">
+                    <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} icon='icon_search' onFocus={onSearchFocus} onBlur={onSearchBlur} />
+                </div>
+
+                {this.state.searchResults
+                    ? this.renderSearchResults()
+                    : (
+                        <div>
+                            {(!chats || !chats.length) &&
+                                <EmptyState type="chats-private" />
+                            }
+
+                            {this.renderPrivateChatsList(chats || [])}
+
+                            {loading &&
+                                <Spinner infiniteScroll />
+                            }
+                        </div>
+                )}
+            </div>
+        );
+    }
+
+    renderPrivateChatsList(chats) {
         return (
             <List>
                 {chats.map((chat, index) => {
-                    // Is's a 1-on-1 chat, so there's always only one other involved user
-                    const user = chat.otherInvolvedUsers[0];
-
                     return (
                         <ListItem key={index}>
-                            {chat && user &&
+                            {chat && chat.otherUser &&
                                 <ChatTile
                                     chat={chat.document}
-                                    user={user}
+                                    user={chat.otherUser}
                                     lastChatMessage={chat.lastChatMessage}
-                                    lastChatMessageIsOwnMessage={chat.lastChatMessage && chat.lastChatMessage.creator_id === this.props.loggedInUser._id}
+                                    lastChatMessageUser={chat.lastChatMessageUser}
                                     loggedInUser={this.props.loggedInUser}
-                                    onClick={this.onChatTileClick.bind(this, chat.document, user)}
+                                    onClick={this.onChatTileClick.bind(this, chat.document, chat.otherUser.profile.name, 'private')}
+                                    newChatMessagesCount={chat.newChatMessagesCount} />
+                            }
+                        </ListItem>
+                    );
+                })}
+            </List>
+        );
+    }
+
+    renderNetworkChats() {
+        const chatsProps = this.props.networkChats;
+        const {data: chats, loading} = chatsProps || {};
+
+        return (
+            <div>
+                {(!chats || !chats.length) &&
+                    <EmptyState type="chats-networks" />
+                }
+
+                {this.renderNetworkChatsList(chats || [])}
+
+                {loading &&
+                    <Spinner infiniteScroll />
+                }
+            </div>
+        );
+    }
+
+    renderNetworkChatsList(chats) {
+        return (
+            <List>
+                {chats.map((chat, index) => {
+                    return (
+                        <ListItem key={index}>
+                            {chat && chat.network &&
+                                <ChatTile
+                                    chat={chat.document}
+                                    network={chat.network}
+                                    lastChatMessage={chat.lastChatMessage}
+                                    lastChatMessageUser={chat.lastChatMessageUser}
+                                    loggedInUser={this.props.loggedInUser}
+                                    onClick={this.onChatTileClick.bind(this, chat.document, chat.network.name, 'networks', chat.network.slug)}
                                     newChatMessagesCount={chat.newChatMessagesCount} />
                             }
                         </ListItem>
@@ -112,7 +209,7 @@ const ChatsView = class ChatsView extends React.Component {
 
     onDebouncedSearchInput(input) {
         if (input) {
-            this.props.onSearch(input, (error, users) => {
+            this.props.onSearchUsers(input, (error, users) => {
                 if (error) {
                     throw error;
                 }
@@ -124,32 +221,45 @@ const ChatsView = class ChatsView extends React.Component {
         }
     }
 
-    onChatTileClick(chat, user) {
+    onChatTileClick(chat, chatName, type, networkSlug) {
         transitionTo('app:chat', {
             transition: 'show-from-right',
             viewProps: {
                 chatId: chat._id,
-                chatUsername: user.profile.name
+                chatName: chatName,
+                chatType: type,
+                networkSlug: networkSlug
             }
+        });
+    }
+
+    onTabClick(tab) {
+        this.setState({
+            activeTab: tab
         });
     }
 };
 
+const chatsShape = React.PropTypes.shape({
+    data: React.PropTypes.arrayOf(React.PropTypes.shape({
+        document: React.PropTypes.instanceOf(ChatModel).isRequired,
+        lastChatMessage: React.PropTypes.instanceOf(ChatMessageModel),
+        lastChatMessageUser: React.PropTypes.instanceOf(UserModel),
+        newChatMessagesCount: React.PropTypes.number.isRequired,
+        otherUser: React.PropTypes.instanceOf(UserModel),
+        network: React.PropTypes.instanceOf(NetworkModel)
+    })).isRequired,
+    loading: React.PropTypes.bool.isRequired,
+    endReached: React.PropTypes.bool.isRequired,
+    loadMore: React.PropTypes.func.isRequired
+});
+
 ChatsView.propTypes = {
     loggedInUser: React.PropTypes.instanceOf(UserModel).isRequired,
-    onSearch: React.PropTypes.func.isRequired,
-    onStartChat: React.PropTypes.func.isRequired,
-    chats: React.PropTypes.shape({
-        data: React.PropTypes.arrayOf(React.PropTypes.shape({
-            document: React.PropTypes.instanceOf(ChatModel).isRequired,
-            otherInvolvedUsers: React.PropTypes.arrayOf(React.PropTypes.instanceOf(UserModel)).isRequired,
-            lastChatMessage: React.PropTypes.instanceOf(ChatMessageModel),
-            newChatMessagesCount: React.PropTypes.number.isRequired
-        })).isRequired,
-        loading: React.PropTypes.bool.isRequired,
-        endReached: React.PropTypes.bool.isRequired,
-        loadMore: React.PropTypes.func.isRequired
-    }),
+    onSearchUsers: React.PropTypes.func.isRequired,
+    onStartPrivateChat: React.PropTypes.func.isRequired,
+    privateChats: chatsShape,
+    networkChats: chatsShape,
     toggleTabs: React.PropTypes.func.isRequired
 };
 

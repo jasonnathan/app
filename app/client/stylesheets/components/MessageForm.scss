@@ -13,6 +13,8 @@
 
     .pa-Button {
         margin-left: spacing(1.5);
+        margin-bottom: -18px;
+        padding-bottom: 11px + 18px;
     }
 
     &:invalid {

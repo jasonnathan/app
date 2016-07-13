@@ -22,6 +22,7 @@ import Input from '/imports/components/Input';
 import Flex from '/imports/components/Flex';
 import Spinner from '/imports/components/Spinner';
 import setCurrentBackbuttonHandler from '/imports/services/setCurrentBackbuttonHandler';
+import transitionTo from '/imports/services/transitionTo';
 
 let unsentMessagesPerChat = {};
 
@@ -47,7 +48,7 @@ const ChatView = class ChatView extends React.Component {
 
     componentDidUpdate() {
         this.triggerReversedScroll();
-        this.setReadStates();
+        this.props.markChatAsRead();
 
         if (typeof this.scrollPositionFromBottomBeforeLoadingMore === 'number') {
             const scroller = this.refs.messages.refs.flexStretch;
@@ -58,7 +59,7 @@ const ChatView = class ChatView extends React.Component {
 
     componentWillMount() {
         this.triggerReversedScroll();
-        this.setReadStates();
+        this.props.markChatAsRead();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -76,20 +77,8 @@ const ChatView = class ChatView extends React.Component {
         });
     }
 
-    setReadStates() {
-        const {chatMessages, loggedInUser} = this.props;
-
-        if (chatMessages.data) {
-            chatMessages.data.forEach((message) => {
-                if (!contains(message.read_by, loggedInUser._id)) {
-                    this.props.markMessageAsRead(message);
-                }
-            });
-        }
-    }
-
     render() {
-        const {chat, chatUser, chatMessages: chatMessagesProps, chatLoading, loggedInUser} = this.props;
+        const {chat, chatMessages: chatMessagesProps, chatLoading, loggedInUser, chatType} = this.props;
         const {loading, endReached, loadMore, data: messages} = chatMessagesProps || {};
 
         return (
@@ -100,6 +89,8 @@ const ChatView = class ChatView extends React.Component {
                     }
 
                     {this.groupMessagesByDay(messages).map((dayGroup, index) => {
+                        if (dayGroup.messages.length === 0) return;
+
                         const readableDay = moment(dayGroup.day).calendar(null, {
                             sameDay: '[Today]',
                             lastDay: '[Yesterday]',
@@ -111,10 +102,14 @@ const ChatView = class ChatView extends React.Component {
                             <div key={index}>
                                 <ChatDaySeparator>{readableDay}</ChatDaySeparator>
                                 {this.groupMessagesByAuthor(dayGroup.messages).map((authorGroup) => {
+                                    if (authorGroup.messages.length === 0) return;
+
                                     const isSend = authorGroup.author.equals(loggedInUser);
                                     const authorAvatar = authorGroup.author.getAvatarImage();
 
                                     return this.groupMessagesByTimebox(authorGroup.messages).map((timeboxGroup, index) => {
+                                        if (timeboxGroup.messages.length === 0) return;
+
                                         return (
                                             <ChatBox send={isSend} receive={!isSend} key={index}>
                                                 <Avatar src={authorAvatar && authorAvatar.getUrl()}></Avatar>
@@ -122,7 +117,7 @@ const ChatView = class ChatView extends React.Component {
                                                     {timeboxGroup.messages.map((message, _index) => {
                                                         return (
                                                             <ListItem key={_index}>
-                                                                <ChatMessage message={message.content} />
+                                                                <ChatMessage message={message.content} showName={chatType === 'networks' && !isSend && _index === 0} name={authorGroup.author.profile.name} />
                                                             </ListItem>
                                                         );
                                                     })}
@@ -131,7 +126,6 @@ const ChatView = class ChatView extends React.Component {
                                             </ChatBox>
                                         );
                                     });
-
                                 })}
                             </div>
                         );
@@ -158,14 +152,15 @@ const ChatView = class ChatView extends React.Component {
     onMessageBoxBlur() {}
 
     groupMessagesByAuthor(messages) {
-        const {loggedInUser, chatUser} = this.props;
+        const {loggedInUser} = this.props;
 
         return groupArray(messages, (previous, current) => {
             return previous.creator_id === current.creator_id;
-        }).map((messages) => ({
-            author: messages[0].creator_id === chatUser._id ? chatUser : loggedInUser,
-            messages
-        }));
+        }).map((messages) => {
+            const author = UserModel.findOne(messages[0].creator_id);
+            if (!author) return {messages: []};
+            return {author, messages};
+        });
     }
 
     groupMessagesByTimebox(messages) {
@@ -197,15 +192,18 @@ const ChatView = class ChatView extends React.Component {
 ChatView.navigationBar = 'app';
 ChatView.getNavigation = (props, app) => {
     const back = () => {
-        app.transitionTo('app:tabs:chats', {
-            transition: 'reveal-from-right'
+        transitionTo('app:tabs:chats', {
+            transition: 'reveal-from-right',
+            viewProps: {
+                initialTabValue: props.chatType
+            }
         });
     };
 
     setCurrentBackbuttonHandler(back);
 
     return {
-        title: props.chatUsername,
+        title: props.chatName,
         leftLabel: <NavButton left icon="icon_back" label="Chats" />,
         leftAction: back
     };
@@ -213,7 +211,7 @@ ChatView.getNavigation = (props, app) => {
 
 ChatView.propTypes = {
     chat: React.PropTypes.instanceOf(ChatModel),
-    chatUser: React.PropTypes.instanceOf(UserModel),
+    chatType: React.PropTypes.oneOf(['private', 'networks']).isRequired,
     chatMessages: React.PropTypes.shape({
         data: React.PropTypes.arrayOf(React.PropTypes.instanceOf(ChatMessageModel)).isRequired,
         loading: React.PropTypes.bool.isRequired,
@@ -223,7 +221,7 @@ ChatView.propTypes = {
     }),
     chatLoading: React.PropTypes.bool.isRequired,
     sendChatMessage: React.PropTypes.func.isRequired,
-    markMessageAsRead: React.PropTypes.func.isRequired,
+    markChatAsRead: React.PropTypes.func.isRequired,
     loggedInUser: React.PropTypes.instanceOf(UserModel).isRequired
 };
 

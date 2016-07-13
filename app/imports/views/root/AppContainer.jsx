@@ -6,7 +6,7 @@ import meteorDataContainer from '/imports/services/meteorDataContainer';
 import Subs from '/imports/Subs';
 import AppViewManager from '/imports/views/root/AppViewManager';
 import transitionTo from '/imports/services/transitionTo';
-import { UserModel, ChatMessageModel } from '/imports/models';
+import { UserModel, ChatModel } from '/imports/models';
 import Debug from '/imports/Debug';
 
 const redirectToLogin = () => {
@@ -23,7 +23,6 @@ export default meteorDataContainer(AppViewManager, (props) => {
         redirectToLogin();
     }
 
-    Subs.subscribe('chats.unread_messages_for_count', {private: true});
     Subs.subscribe('users.loggedin', {
         onReady: () => {
             if (!UserModel.accountsClient.user()) {
@@ -32,7 +31,9 @@ export default meteorDataContainer(AppViewManager, (props) => {
         }
     });
 
-    ChatMessageModel.find().fetch(); // trigger re-render
+    // Unread messages
+    Subs.subscribe('chats.for_loggedin_user.for_count', {private: true, networks: true});
+    ChatModel.find().fetch(); // trigger re-render
 
     return {};
 });

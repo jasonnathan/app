@@ -29,6 +29,7 @@ const collections = {
     UserModel: models.UserModel.accountsClient.users,
     ChatModel: 'chats',
     ChatMessageModel: 'chatmessages',
+    CountModel: 'counts',
 };
 
 for (let key in models) {
@@ -47,4 +48,5 @@ export const PartupUpdateModel = models.PartupUpdateModel;
 export const UserModel = models.UserModel;
 export const ChatModel = models.ChatModel;
 export const ChatMessageModel = models.ChatMessageModel;
+export const CountModel = models.CountModel;
 export default models;

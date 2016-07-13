@@ -2,4 +2,10 @@
     padding: 9px 15px;
     line-height: 20px;
     word-break: break-word;
+
+    & &__author {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 3px;
+    }
 }
