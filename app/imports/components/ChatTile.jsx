@@ -71,12 +71,14 @@ const ChatTile = class ChatTile extends React.Component {
                 </div>
                 <div className="pa-ChatTile__label">
                     <Paragraph className="pa-ChatTile__label__title">{user.profile.name} {newChatMessagesCountIndicator}</Paragraph>
-                    <Paragraph>
-                        {lastChatMessageUser.equals(loggedInUser) &&
-                            <strong>You:</strong>
-                        }
-                        {lastChatMessage && lastChatMessage.content}
-                    </Paragraph>
+                    {lastChatMessage &&
+                        <Paragraph>
+                            {lastChatMessageUser && lastChatMessageUser.equals(loggedInUser) &&
+                                <strong>You:</strong>
+                            }
+                            {lastChatMessage.content}
+                        </Paragraph>
+                    }
                 </div>
                 {readableUpdatedAt && lastChatMessage &&
                     <span className="pa-ChatTile__time">
