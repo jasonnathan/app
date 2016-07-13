@@ -118,18 +118,35 @@ const ChatsView = class ChatsView extends React.Component {
             return <EmptyState type="chats-search-results" />;
         }
 
+        const chatsProps = this.props.privateChats;
+        const {data: chats} = chatsProps || {};
+
+
         return (
             <List>
-                {this.state.searchResults.map((user, index) => (
-                    <ListItem key={index}>
-                        {user &&
-                            <ChatTile
-                                user={user}
-                                loggedInUser={this.props.loggedInUser}
-                                onClick={this.props.onStartPrivateChat.bind(this, user)} />
-                        }
-                    </ListItem>
-                ))}
+                {this.state.searchResults.map((user, index) => {
+                    const chat = chats.find((chat) => user.equals(chat.otherUser));
+
+                    if (chat) {
+                        return (
+                            <ListItem key={index}>
+                                {this.renderPrivateChat(chat)}
+                            </ListItem>
+                        );
+                    }
+
+                    return (
+                        <ListItem key={index}>
+                            {user &&
+                                <ChatTile
+                                    isUserSearchResult
+                                    user={user}
+                                    loggedInUser={this.props.loggedInUser}
+                                    onClick={this.props.onStartPrivateChat.bind(this, user)} />
+                            }
+                        </ListItem>
+                    );
+                })}
             </List>
         );
     }
@@ -174,21 +191,25 @@ const ChatsView = class ChatsView extends React.Component {
                 {chats.map((chat, index) => {
                     return (
                         <ListItem key={index}>
-                            {chat && chat.otherUser &&
-                                <ChatTile
-                                    chat={chat.document}
-                                    user={chat.otherUser}
-                                    lastChatMessage={chat.lastChatMessage}
-                                    lastChatMessageUser={chat.lastChatMessageUser}
-                                    loggedInUser={this.props.loggedInUser}
-                                    onClick={this.onChatTileClick.bind(this, chat.document, chat.otherUser.profile.name, 'private')}
-                                    newChatMessagesCount={chat.newChatMessagesCount} />
-                            }
+                            {this.renderPrivateChat(chat)}
                         </ListItem>
                     );
                 })}
             </List>
         );
+    }
+
+    renderPrivateChat(chat) {
+        if (!chat || !chat.otherUser) return;
+
+        return <ChatTile
+            chat={chat.document}
+            user={chat.otherUser}
+            lastChatMessage={chat.lastChatMessage}
+            lastChatMessageUser={chat.lastChatMessageUser}
+            loggedInUser={this.props.loggedInUser}
+            onClick={this.onChatTileClick.bind(this, chat.document, chat.otherUser.profile.name, 'private')}
+            newChatMessagesCount={chat.newChatMessagesCount} />;
     }
 
     renderNetworkChats() {

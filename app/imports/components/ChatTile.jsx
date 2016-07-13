@@ -15,8 +15,11 @@ const ChatTile = class ChatTile extends React.Component {
             'pa-ChatTile--is-unread': !!this.props.newChatMessagesCount
         });
 
+
         let content;
-        if (this.props.user) {
+        if (this.props.isUserSearchResult) {
+            content = this.renderUserSearchResultContent();
+        } else if (this.props.user) {
             content = this.renderPrivateChatContent();
         } else if (this.props.network) {
             content = this.renderNetworkChatContent();
@@ -33,6 +36,23 @@ const ChatTile = class ChatTile extends React.Component {
         return (
             <div className={className}>
                 {content}
+            </div>
+        );
+    }
+
+    renderUserSearchResultContent() {
+        const {user, loggedInUser} = this.props;
+        const userAvatar = user.getAvatarImage();
+        const isOnline = get(user, 'status.online');
+
+        return (
+            <div className="pa-ChatTile__wrapper">
+                <div className="pa-ChatTile__image">
+                    <Avatar src={userAvatar && userAvatar.getUrl('80x80')} isOnline={isOnline}></Avatar>
+                </div>
+                <div className="pa-ChatTile__label">
+                    <Paragraph className="pa-ChatTile__label__title">{user.profile.name}</Paragraph>
+                </div>
             </div>
         );
     }
@@ -112,12 +132,14 @@ const ChatTile = class ChatTile extends React.Component {
 };
 
 ChatTile.propTypes = {
+    onClick: React.PropTypes.func.isRequired,
     loggedInUser: React.PropTypes.instanceOf(UserModel).isRequired,
     user: React.PropTypes.instanceOf(UserModel),
     network: React.PropTypes.instanceOf(NetworkModel),
     chat: React.PropTypes.instanceOf(ChatModel),
     lastChatMessage: React.PropTypes.instanceOf(ChatMessageModel),
-    lastChatMessageUser: React.PropTypes.instanceOf(UserModel)
+    lastChatMessageUser: React.PropTypes.instanceOf(UserModel),
+    isUserSearchResult: React.PropTypes.bool
 };
 
 export default ChatTile;
