@@ -10,9 +10,10 @@ import { UserModel, ChatModel, ChatMessageModel, NetworkModel } from '/imports/m
 
 const ChatTile = class ChatTile extends React.Component {
     render() {
-        const {chat, loggedInUser} = this.props;
+        const {chat, loggedInUser, newChatMessagesCount, lastChatMessage} = this.props;
         const className = c('pa-ChatTile', {
-            'pa-ChatTile--is-unread': !!this.props.newChatMessagesCount
+            'pa-ChatTile--is-unread': !!newChatMessagesCount,
+            'pa-ChatTile--no-preview-message': !lastChatMessage
         });
 
 

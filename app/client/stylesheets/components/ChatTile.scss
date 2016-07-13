@@ -108,4 +108,10 @@
             display: inline;
         }
     }
+
+    &--no-preview-message {
+        .pa-ChatTile__label__title {
+            margin-top: 11px;
+        }
+    }
 }
