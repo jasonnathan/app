@@ -2,8 +2,8 @@
 
 import React from 'react';
 import c from 'classnames';
-
 import Spinner from '/imports/components/Spinner';
+import Svg from '/imports/components/Svg';
 
 const Button = class Button extends React.Component {
     render() {
@@ -17,7 +17,8 @@ const Button = class Button extends React.Component {
             'pa-Button--login--facebook': p.loginFacebook,
             'pa-Button--login--linkedin': p.loginLinkedIn,
             'pa-Button--switch': p.switch,
-            'pa-Button--switch--active': p.switchActive
+            'pa-Button--switch--active': p.switchActive,
+            'pa-Button--hint': p.hint
         });
 
         const dynamicProps = {};
@@ -29,6 +30,9 @@ const Button = class Button extends React.Component {
         return (
             <button {...dynamicProps} className={className} onClick={this.onClick.bind(this)}>
                 {p.children}
+                {p.icon &&
+                    <Svg name={p.icon} />
+                }
                 <Spinner button />
             </button>
         );
@@ -55,7 +59,8 @@ Button.propTypes = {
     loading: React.PropTypes.bool,
     switch: React.PropTypes.bool,
     switchActive: React.PropTypes.bool,
-    style: React.PropTypes.object
+    style: React.PropTypes.object,
+    icon: React.PropTypes.string
 };
 
 export default Button;

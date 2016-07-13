@@ -1,7 +1,7 @@
 .View--chats {
     &__tabs,
     &__search {
-        padding: 15px;
+        padding: spacing(1.5);
     }
 
     &__tabs {
@@ -10,6 +10,10 @@
 
     &__search {
         padding-bottom: 0;
+    }
+
+    &__search-hint {
+        padding: spacing(1.5) spacing(1.5) 0;
     }
 
     .pa-List {
@@ -29,7 +33,7 @@
                     content: '';
                     display: block;
                     position: absolute;
-                    left: 15px;
+                    left: spacing(1.5);
                     right: 0;
                     top: 0;
                     border-top: 1px solid $color-border;

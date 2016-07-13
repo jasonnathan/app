@@ -17,13 +17,16 @@ import EmptyState from '/imports/components/EmptyState';
 import Spinner from '/imports/components/Spinner';
 import ButtonGroup from '/imports/components/ButtonGroup';
 
+const SEARCHBAR_HIDE_THRESHOLD = 4;
+
 const ChatsView = class ChatsView extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             searchResults: undefined,
-            activeTab: 'private'
+            activeTab: 'private',
+            showSearchbarHint: false
         };
 
         this.onDebouncedSearchInput = debounce(this.onDebouncedSearchInput, 500);
@@ -31,10 +34,14 @@ const ChatsView = class ChatsView extends React.Component {
 
     componentDidMount() {
         this.$scroller = $(findDOMNode(this.refs.scroller));
-        this.scrollPastSearchbar();
+
+        const shouldScrollPastSearchbar = this.state.activeTab === 'private' && this.props.privateChats.data.length >= SEARCHBAR_HIDE_THRESHOLD;
+        if (shouldScrollPastSearchbar) {
+            this.scrollPastUserSearchbar();
+        }
     }
 
-    scrollPastSearchbar() {
+    scrollPastUserSearchbar() {
         const privateChatsList = findDOMNode(this.refs.privateChatsList);
 
         if (privateChatsList) {
@@ -43,11 +50,19 @@ const ChatsView = class ChatsView extends React.Component {
 
             if (this.$scroller.scrollTop() < 5) {
                 this.$scroller.scrollTop($(searchbar).outerHeight());
+
+                if (!window.localStorage.getItem('learning.chat-user-searchbar')) {
+                    this.setState({
+                        showSearchbarHint: true
+                    });
+                }
             }
         }
     }
 
     componentDidUpdate(previousProps, previousState) {
+        const shouldScrollPastSearchbar = this.state.activeTab === 'private' && this.props.privateChats.data.length >= SEARCHBAR_HIDE_THRESHOLD;
+
         if (previousProps.initialTabValue !== this.props.initialTabValue) {
             this.setState({
                 activeTab: this.props.initialTabValue || 'private'
@@ -57,9 +72,9 @@ const ChatsView = class ChatsView extends React.Component {
         if (previousState.activeTab !== this.state.activeTab) {
 
             // If tab changed to 'private', scroll past the searchbar
-            if (this.state.activeTab === 'private') {
+            if (shouldScrollPastSearchbar) {
                 setTimeout(() => {
-                    this.scrollPastSearchbar();
+                    this.scrollPastUserSearchbar();
                 }, 0);
             }
         }
@@ -164,6 +179,12 @@ const ChatsView = class ChatsView extends React.Component {
                     <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} icon='icon_search' onFocus={onSearchFocus} onBlur={onSearchBlur} />
                 </div>
 
+                {this.state.showSearchbarHint &&
+                    <div className="View--chats__search-hint">
+                        {this.renderSearchBarHint()}
+                    </div>
+                }
+
                 <div ref="privateChatsList">
                     {this.state.searchResults
                         ? this.renderSearchResults()
@@ -183,6 +204,17 @@ const ChatsView = class ChatsView extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    renderSearchBarHint() {
+        return <Button hint icon='icon_close' onClick={this.onSearchBarHintClick.bind(this)}>Scroll up to search user</Button>;
+    }
+
+    onSearchBarHintClick() {
+        window.localStorage.setItem('learning.chat-user-searchbar', true);
+        this.setState({
+            showSearchbarHint: false
+        });
     }
 
     renderPrivateChatsList(chats) {

@@ -91,4 +91,21 @@
             color: $color-text;
         }
     }
+
+
+    &--hint {
+        display: block;
+        width: 100%;
+        background-color: $color-background-brand;
+        color: $color-brand;
+        font-weight: 600;
+        font-size: 13px;
+
+        .pa-Svg {
+            float: right;
+            fill: $color-brand;
+            font-size: 10px;
+            margin-top: 1px;
+        }
+    }
 }

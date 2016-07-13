@@ -100,6 +100,8 @@ const AboutView = class AboutView extends React.Component {
                 return;
             }
 
+            window.localStorage.clear();
+
             transitionTo('root:login', {
                 transition: 'reveal-from-bottom'
             });
