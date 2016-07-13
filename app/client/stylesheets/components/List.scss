@@ -26,7 +26,17 @@
 
     &--notifications {
         > li {
-            border-bottom: 1px solid $color-border;
+            position: relative;
+
+            &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                left: 15px;
+                right: 15px;
+                top: 0;
+                border-top: 1px solid $color-border;
+            }
 
             a {
                 padding: spacing(2) spacing(1.5);
@@ -36,8 +46,10 @@
                 }
             }
 
-            &:last-child {
-                border-bottom: none;
+            &:first-child {
+                &:after {
+                    display: none;
+                }
             }
         }
     }

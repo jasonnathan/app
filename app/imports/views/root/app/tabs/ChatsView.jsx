@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import ChatTile from '/imports/components/ChatTile';
 import Input from '/imports/components/Input';
 import List from '/imports/components/List';
@@ -28,11 +29,39 @@ const ChatsView = class ChatsView extends React.Component {
         this.onDebouncedSearchInput = debounce(this.onDebouncedSearchInput, 500);
     }
 
-    componentDidUpdate(previousProps) {
+    componentDidMount() {
+        this.$scroller = $(findDOMNode(this.refs.scroller));
+        this.scrollPastSearchbar();
+    }
+
+    scrollPastSearchbar() {
+        const privateChatsList = findDOMNode(this.refs.privateChatsList);
+
+        if (privateChatsList) {
+            $(privateChatsList).outerHeight(this.$scroller.height());
+            const searchbar = findDOMNode(this.refs.searchbar);
+
+            if (this.$scroller.scrollTop() < 5) {
+                this.$scroller.scrollTop($(searchbar).outerHeight());
+            }
+        }
+    }
+
+    componentDidUpdate(previousProps, previousState) {
         if (previousProps.initialTabValue !== this.props.initialTabValue) {
             this.setState({
                 activeTab: this.props.initialTabValue || 'private'
             });
+        }
+
+        if (previousState.activeTab !== this.state.activeTab) {
+
+            // If tab changed to 'private', scroll past the searchbar
+            if (this.state.activeTab === 'private') {
+                setTimeout(() => {
+                    this.scrollPastSearchbar();
+                }, 0);
+            }
         }
     }
 
@@ -74,7 +103,7 @@ const ChatsView = class ChatsView extends React.Component {
                         )}
                     ]} activeTab={this.state.activeTab} onClick={this.onTabClick.bind(this)} />
                 </Flex.Shrink>
-                <Flex.Stretch scroll className="View--chats__list" onHitBottom={onHitBottom.bind(this)}>
+                <Flex.Stretch scroll ref="scroller" className="View--chats__list" onHitBottom={onHitBottom.bind(this)}>
                     {this.state.activeTab === 'private'
                         ? this.renderPrivateChats()
                         : this.renderNetworkChats()
@@ -114,25 +143,27 @@ const ChatsView = class ChatsView extends React.Component {
 
         return (
             <div>
-                <div className="View--chats__search">
+                <div className="View--chats__search" ref="searchbar">
                     <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} icon='icon_search' onFocus={onSearchFocus} onBlur={onSearchBlur} />
                 </div>
 
-                {this.state.searchResults
-                    ? this.renderSearchResults()
-                    : (
-                        <div>
-                            {(!chats || !chats.length) &&
-                                <EmptyState type="chats-private" />
-                            }
+                <div ref="privateChatsList">
+                    {this.state.searchResults
+                        ? this.renderSearchResults()
+                        : (
+                            <div>
+                                {(!chats || !chats.length) &&
+                                    <EmptyState type="chats-private" />
+                                }
 
-                            {this.renderPrivateChatsList(chats || [])}
+                                {this.renderPrivateChatsList(chats || [])}
 
-                            {loading &&
-                                <Spinner infiniteScroll />
-                            }
-                        </div>
-                )}
+                                {loading &&
+                                    <Spinner infiniteScroll />
+                                }
+                            </div>
+                    )}
+                </div>
             </div>
         );
     }

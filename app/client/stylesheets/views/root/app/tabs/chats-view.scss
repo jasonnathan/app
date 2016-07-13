@@ -2,7 +2,14 @@
     &__tabs,
     &__search {
         padding: 15px;
+    }
+
+    &__tabs {
         border-bottom: 1px solid $color-border;
+    }
+
+    &__search {
+        padding-bottom: 0;
     }
 
     .pa-List {
@@ -10,7 +17,17 @@
 
         .pa-ListItem {
             + .pa-ListItem {
-                border-top: 1px solid $color-border;
+                position: relative;
+
+                &:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    left: 15px;
+                    right: 15px;
+                    top: 0;
+                    border-top: 1px solid $color-border;
+                }
             }
         }
     }
