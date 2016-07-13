@@ -46,6 +46,11 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+
+            // Message author
+            strong {
+                font-weight: normal;
+            }
         }
 
         & &__title {
