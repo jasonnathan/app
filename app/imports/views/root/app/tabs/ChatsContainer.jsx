@@ -94,6 +94,10 @@ export default meteorDataContainer(ChatsView, (props) => {
 
     if (loggedInUser) {
         const mapChats = (chat) => {
+            const lastChatMessage = ChatMessageModel.query()
+                .search({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1})
+                .findOne();
+
             return {
                 document: chat,
                 otherUser: UserModel.query()
@@ -101,12 +105,13 @@ export default meteorDataContainer(ChatsView, (props) => {
                         _id: {$ne: loggedInUser._id},
                         chats: {$in: [chat._id]}
                     })
-                    .fetch().pop(),
+                    .findOne(),
                 network: NetworkModel.query()
                     .search({chat_id: chat._id})
                     .findOne(),
-                lastChatMessage: ChatMessageModel.query()
-                    .search({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1})
+                lastChatMessage,
+                lastChatMessageUser: lastChatMessage && UserModel.query()
+                    .search(lastChatMessage.creator_id)
                     .findOne(),
                 newChatMessagesCount: chat.getUnreadCountForUser(loggedInUser)
             };

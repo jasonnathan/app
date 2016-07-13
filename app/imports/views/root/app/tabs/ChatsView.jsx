@@ -148,7 +148,7 @@ const ChatsView = class ChatsView extends React.Component {
                                     chat={chat.document}
                                     user={chat.otherUser}
                                     lastChatMessage={chat.lastChatMessage}
-                                    lastChatMessageIsOwnMessage={chat.lastChatMessage && chat.lastChatMessage.creator_id === this.props.loggedInUser._id}
+                                    lastChatMessageUser={chat.lastChatMessageUser}
                                     loggedInUser={this.props.loggedInUser}
                                     onClick={this.onChatTileClick.bind(this, chat.document, chat.otherUser.profile.name, 'private')}
                                     newChatMessagesCount={chat.newChatMessagesCount} />
@@ -190,7 +190,7 @@ const ChatsView = class ChatsView extends React.Component {
                                     chat={chat.document}
                                     network={chat.network}
                                     lastChatMessage={chat.lastChatMessage}
-                                    lastChatMessageIsOwnMessage={chat.lastChatMessage && chat.lastChatMessage.creator_id === this.props.loggedInUser._id}
+                                    lastChatMessageUser={chat.lastChatMessageUser}
                                     loggedInUser={this.props.loggedInUser}
                                     onClick={this.onChatTileClick.bind(this, chat.document, chat.network.name, 'networks', chat.network.slug)}
                                     newChatMessagesCount={chat.newChatMessagesCount} />
@@ -244,6 +244,7 @@ const chatsShape = React.PropTypes.shape({
     data: React.PropTypes.arrayOf(React.PropTypes.shape({
         document: React.PropTypes.instanceOf(ChatModel).isRequired,
         lastChatMessage: React.PropTypes.instanceOf(ChatMessageModel),
+        lastChatMessageUser: React.PropTypes.instanceOf(UserModel),
         newChatMessagesCount: React.PropTypes.number.isRequired,
         otherUser: React.PropTypes.instanceOf(UserModel),
         network: React.PropTypes.instanceOf(NetworkModel)

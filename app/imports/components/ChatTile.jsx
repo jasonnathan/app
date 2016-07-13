@@ -38,7 +38,7 @@ const ChatTile = class ChatTile extends React.Component {
     }
 
     renderPrivateChatContent() {
-        const {chat, user, lastChatMessage, lastChatMessageIsOwnMessage} = this.props;
+        const {chat, user, lastChatMessage, lastChatMessageUser, loggedInUser} = this.props;
         const userAvatar = user.getAvatarImage();
         const readableUpdatedAt = chat && formatDate.relativeWithThreshold(chat.updated_at, new Date());
         const isOnline = get(user, 'status.online');
@@ -51,7 +51,12 @@ const ChatTile = class ChatTile extends React.Component {
                 </div>
                 <div className="pa-ChatTile__label">
                     <Paragraph className="pa-ChatTile__label__title">{user.profile.name} {newChatMessagesCountIndicator}</Paragraph>
-                    <Paragraph>{lastChatMessageIsOwnMessage ? <strong>You: </strong> : ``}{lastChatMessage && lastChatMessage.content}</Paragraph>
+                    <Paragraph>
+                        {lastChatMessageUser.equals(loggedInUser) &&
+                            <strong>You:</strong>
+                        }
+                        {lastChatMessage && lastChatMessage.content}
+                    </Paragraph>
                 </div>
                 {readableUpdatedAt && lastChatMessage &&
                     <span className="pa-ChatTile__time">
@@ -65,7 +70,7 @@ const ChatTile = class ChatTile extends React.Component {
     }
 
     renderNetworkChatContent() {
-        const {chat, network, lastChatMessage, lastChatMessageIsOwnMessage} = this.props;
+        const {chat, network, lastChatMessage, lastChatMessageUser, loggedInUser} = this.props;
         const image = network.getImage();
         const readableUpdatedAt = chat && formatDate.relativeWithThreshold(chat.updated_at, new Date());
         const newChatMessagesCountIndicator = this.props.newChatMessagesCount && `(${this.props.newChatMessagesCount})` || undefined;
@@ -79,7 +84,15 @@ const ChatTile = class ChatTile extends React.Component {
                 </div>
                 <div className="pa-ChatTile__label">
                     <Paragraph className="pa-ChatTile__label__title">{network.name} {newChatMessagesCountIndicator}</Paragraph>
-                    <Paragraph>{lastChatMessageIsOwnMessage ? <strong>You: </strong> : ``}{lastChatMessage && lastChatMessage.content}</Paragraph>
+                    <Paragraph>
+                        <strong>
+                            {lastChatMessageUser.equals(loggedInUser)
+                                ? `You:`
+                                : `${lastChatMessageUser.profile.name}:`
+                            }
+                        </strong>
+                        {lastChatMessage && lastChatMessage.content}
+                    </Paragraph>
                 </div>
                 {readableUpdatedAt && lastChatMessage &&
                     <span className="pa-ChatTile__time">
@@ -104,7 +117,7 @@ ChatTile.propTypes = {
     network: React.PropTypes.instanceOf(NetworkModel),
     chat: React.PropTypes.instanceOf(ChatModel),
     lastChatMessage: React.PropTypes.instanceOf(ChatMessageModel),
-    lastChatMessageIsOwnMessage: React.PropTypes.bool
+    lastChatMessageUser: React.PropTypes.instanceOf(UserModel)
 };
 
 export default ChatTile;
