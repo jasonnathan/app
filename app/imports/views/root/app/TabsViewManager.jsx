@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { contains } from 'mout/array';
+import { contains, reduce } from 'mout/array';
 import { Container, UI, View, ViewManager } from '/imports/touchstonejs/lib';
 import c from 'classnames';
 
@@ -11,7 +11,7 @@ import PartupsContainer from './tabs/PartupsContainer';
 import TribesContainer from './tabs/TribesContainer';
 import Svg from '/imports/components/Svg';
 import setCurrentBackbuttonHandler from '/imports/services/setCurrentBackbuttonHandler';
-import { ChatMessageModel, UserModel } from '/imports/models';
+import { ChatModel, UserModel, NetworkModel } from '/imports/models';
 
 const TabsViewManager = class TabsViewManager extends React.Component {
     constructor(props) {
@@ -53,11 +53,7 @@ const TabsViewManager = class TabsViewManager extends React.Component {
 
     render() {
         const selectedIsOneOf = (arr) => contains(arr, this.state.selectedTab);
-
-        const loggedInUser = UserModel.accountsClient.user();
-        const unreadChatMessagesCount = loggedInUser && ChatMessageModel.query()
-            .search({read_by: {$nin: [loggedInUser._id]}})
-            .count();
+        const unreadChatMessagesCount = this.getTotalUnreadChatMessagesCount();
 
         return (
             <Container>
@@ -92,6 +88,38 @@ const TabsViewManager = class TabsViewManager extends React.Component {
                 </UI.Tabs.Navigator>
             </Container>
         );
+    }
+
+    getTotalUnreadChatMessagesCount() {
+        const loggedInUser = UserModel.accountsClient.user();
+        if (!loggedInUser) return;
+
+        const getPrivateChats = () => {
+            return ChatModel.query()
+                .search(m => m.searchPrivateForUser(loggedInUser))
+                .fetch();
+        };
+
+        const getNetworkChats = () => {
+            return NetworkModel.query()
+                .search({
+                    uppers: {
+                        $in: [loggedInUser._id]
+                    }
+                })
+                .fetch()
+                .map(network =>
+                    ChatModel.query()
+                        .search({_id: network.chat_id})
+                        .findOne()
+                );
+        };
+
+        const allChats = getPrivateChats().concat(getNetworkChats());
+
+        return reduce(allChats, (prev, chat) => {
+            return prev + chat.getUnreadCountForUser(loggedInUser);
+        }, 0);
     }
 };
 

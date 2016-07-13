@@ -10,8 +10,8 @@ import NavButton from '/imports/components/NavButton';
 import Flex from '/imports/components/Flex';
 import Button from '/imports/components/Button';
 import { debounce } from 'lodash';
-import { ChatModel, UserModel, ChatMessageModel } from '/imports/models';
-import { filter, contains, find } from 'mout/array';
+import { ChatModel, UserModel, ChatMessageModel, NetworkModel } from '/imports/models';
+import { filter, contains, find, reduce } from 'mout/array';
 import EmptyState from '/imports/components/EmptyState';
 import Spinner from '/imports/components/Spinner';
 import ButtonGroup from '/imports/components/ButtonGroup';
@@ -48,7 +48,9 @@ const ChatsView = class ChatsView extends React.Component {
             }
         };
 
-        const {private: privateCount, networks: networksCount} = this.props.unreadMessages;
+        const sum = (chats) => reduce(chats, (prev, chat) => prev + chat.newChatMessagesCount, 0);
+        const privateCount = sum(this.props.privateChats.data);
+        const networksCount = sum(this.props.networkChats.data);
 
         return (
             <Flex>
@@ -139,19 +141,16 @@ const ChatsView = class ChatsView extends React.Component {
         return (
             <List>
                 {chats.map((chat, index) => {
-                    // Is's a 1-on-1 chat, so there's always only one other involved user
-                    const user = chat.otherInvolvedUsers[0];
-
                     return (
                         <ListItem key={index}>
-                            {chat && user &&
+                            {chat && chat.otherUser &&
                                 <ChatTile
                                     chat={chat.document}
-                                    user={user}
+                                    user={chat.otherUser}
                                     lastChatMessage={chat.lastChatMessage}
                                     lastChatMessageIsOwnMessage={chat.lastChatMessage && chat.lastChatMessage.creator_id === this.props.loggedInUser._id}
                                     loggedInUser={this.props.loggedInUser}
-                                    onClick={this.onChatTileClick.bind(this, chat.document, user.profile.name, 'private')}
+                                    onClick={this.onChatTileClick.bind(this, chat.document, chat.otherUser.profile.name, 'private')}
                                     newChatMessagesCount={chat.newChatMessagesCount} />
                             }
                         </ListItem>
@@ -244,9 +243,10 @@ const ChatsView = class ChatsView extends React.Component {
 const chatsShape = React.PropTypes.shape({
     data: React.PropTypes.arrayOf(React.PropTypes.shape({
         document: React.PropTypes.instanceOf(ChatModel).isRequired,
-        otherInvolvedUsers: React.PropTypes.arrayOf(React.PropTypes.instanceOf(UserModel)).isRequired,
         lastChatMessage: React.PropTypes.instanceOf(ChatMessageModel),
-        newChatMessagesCount: React.PropTypes.number.isRequired
+        newChatMessagesCount: React.PropTypes.number.isRequired,
+        otherUser: React.PropTypes.instanceOf(UserModel),
+        network: React.PropTypes.instanceOf(NetworkModel)
     })).isRequired,
     loading: React.PropTypes.bool.isRequired,
     endReached: React.PropTypes.bool.isRequired,
@@ -259,11 +259,7 @@ ChatsView.propTypes = {
     onStartPrivateChat: React.PropTypes.func.isRequired,
     privateChats: chatsShape,
     networkChats: chatsShape,
-    toggleTabs: React.PropTypes.func.isRequired,
-    unreadMessages: React.PropTypes.shape({
-        private: React.PropTypes.number.isRequired,
-        networks: React.PropTypes.number.isRequired
-    }).isRequired
+    toggleTabs: React.PropTypes.func.isRequired
 };
 
 ChatsView.navigationBar = 'app';

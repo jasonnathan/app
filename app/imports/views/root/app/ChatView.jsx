@@ -101,6 +101,8 @@ const ChatView = class ChatView extends React.Component {
                     }
 
                     {this.groupMessagesByDay(messages).map((dayGroup, index) => {
+                        if (dayGroup.messages.length === 0) return;
+
                         const readableDay = moment(dayGroup.day).calendar(null, {
                             sameDay: '[Today]',
                             lastDay: '[Yesterday]',
@@ -112,10 +114,14 @@ const ChatView = class ChatView extends React.Component {
                             <div key={index}>
                                 <ChatDaySeparator>{readableDay}</ChatDaySeparator>
                                 {this.groupMessagesByAuthor(dayGroup.messages).map((authorGroup) => {
+                                    if (authorGroup.messages.length === 0) return;
+
                                     const isSend = authorGroup.author.equals(loggedInUser);
                                     const authorAvatar = authorGroup.author.getAvatarImage();
 
                                     return this.groupMessagesByTimebox(authorGroup.messages).map((timeboxGroup, index) => {
+                                        if (timeboxGroup.messages.length === 0) return;
+
                                         return (
                                             <ChatBox send={isSend} receive={!isSend} key={index}>
                                                 <Avatar src={authorAvatar && authorAvatar.getUrl()}></Avatar>
