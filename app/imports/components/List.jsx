@@ -11,7 +11,8 @@ const List = class List extends React.Component {
                 'pa-List--notifications': this.props.notifications,
                 'pa-List--partup-update-comments': this.props.partupUpdateComments,
                 'pa-List--inline': this.props.inline,
-                'pa-List--stats': this.props.stats
+                'pa-List--stats': this.props.stats,
+                'pa-List--tiles': this.props.tiles
             })}>
                 {this.props.children}
             </ul>

@@ -35,3 +35,11 @@
         color: $color-brand-secondary;
     }
 }
+
+a.pa-Tile {
+    &:active {
+        background-color: $color-background-subtle;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+}

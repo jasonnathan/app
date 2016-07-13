@@ -35,7 +35,6 @@ const EmptyState = class EmptyState extends React.Component {
 
                     {type === 'chats-search-results' &&
                         <Content.Text>
-                            <img src="images/empty_states/chat.png" />
                             <Paragraph>No users found, please try another name</Paragraph>
                         </Content.Text>
                     }

@@ -45,7 +45,7 @@ const PartupsView = class PartupsView extends React.Component {
                             <EmptyState type="partups" />
                         }
 
-                        <List>
+                        <List tiles>
                             {partups.map((partup, index) => (
                                 <ListItem key={index}>
                                     {this.renderPartup(partup)}

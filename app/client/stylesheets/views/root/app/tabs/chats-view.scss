@@ -16,6 +16,12 @@
         padding-left: 0;
 
         .pa-ListItem {
+            .pa-ChatTile {
+                &:active {
+                    background-color: $color-background-subtle;
+                }
+            }
+
             + .pa-ListItem {
                 position: relative;
 
@@ -24,7 +30,7 @@
                     display: block;
                     position: absolute;
                     left: 15px;
-                    right: 15px;
+                    right: 0;
                     top: 0;
                     border-top: 1px solid $color-border;
                 }

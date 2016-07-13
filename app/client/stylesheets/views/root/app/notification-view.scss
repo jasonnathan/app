@@ -44,7 +44,7 @@
             width: 100%;
             height: spacing(1.5);
             $transparent: rgba(249, 249, 249, 0); // due to a Safari bug, this can't just be "transparent"
-            background: linear-gradient(to bottom, $transparent 0%, $color-notification-comments-background 100%);
+            background: linear-gradient(to bottom, $transparent 0%, $color-background-subtle 100%);
             z-index: 1;
         }
 
@@ -58,7 +58,7 @@
 
     .View--notification__comments,
     .View--notification__commentinput {
-        background-color: $color-notification-comments-background;
+        background-color: $color-background-subtle;
     }
 
     .View--notification--collapse {

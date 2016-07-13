@@ -26,7 +26,7 @@ const TribesView = class TribesView extends React.Component {
                             <EmptyState type="tribes" />
                         }
 
-                        <List>
+                        <List tiles>
                             {networks.map((network, index) => (
                                 <ListItem key={index}>
                                     {this.renderNetwork(network)}
