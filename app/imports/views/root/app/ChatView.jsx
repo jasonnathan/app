@@ -48,7 +48,7 @@ const ChatView = class ChatView extends React.Component {
 
     componentDidUpdate() {
         this.triggerReversedScroll();
-        this.setReadStates();
+        this.props.markChatAsRead();
 
         if (typeof this.scrollPositionFromBottomBeforeLoadingMore === 'number') {
             const scroller = this.refs.messages.refs.flexStretch;
@@ -59,7 +59,7 @@ const ChatView = class ChatView extends React.Component {
 
     componentWillMount() {
         this.triggerReversedScroll();
-        this.setReadStates();
+        this.props.markChatAsRead();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -75,18 +75,6 @@ const ChatView = class ChatView extends React.Component {
                 this.reversedScroller.contentPossiblyUpdated(this.refs.messages.refs.flexStretch);
             }
         });
-    }
-
-    setReadStates() {
-        const {chatMessages, loggedInUser} = this.props;
-
-        if (chatMessages.data) {
-            chatMessages.data.forEach((message) => {
-                if (!contains(message.read_by, loggedInUser._id)) {
-                    this.props.markMessageAsRead(message);
-                }
-            });
-        }
     }
 
     render() {
@@ -233,7 +221,7 @@ ChatView.propTypes = {
     }),
     chatLoading: React.PropTypes.bool.isRequired,
     sendChatMessage: React.PropTypes.func.isRequired,
-    markMessageAsRead: React.PropTypes.func.isRequired,
+    markChatAsRead: React.PropTypes.func.isRequired,
     loggedInUser: React.PropTypes.instanceOf(UserModel).isRequired
 };
 
