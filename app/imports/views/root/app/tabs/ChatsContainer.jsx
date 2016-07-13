@@ -169,7 +169,8 @@ export default meteorDataContainer(ChatsView, (props) => {
                 viewProps: {
                     chatId,
                     chatName: user.profile.name,
-                    chatType: 'private'
+                    chatType: 'private',
+                    networkSlug: undefined
                 }
             });
         });

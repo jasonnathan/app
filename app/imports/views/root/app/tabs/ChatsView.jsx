@@ -145,7 +145,7 @@ const ChatsView = class ChatsView extends React.Component {
                     if (chat) {
                         return (
                             <ListItem key={index}>
-                                {this.renderPrivateChat(chat)}
+                                {this.renderPrivateChatTile(chat)}
                             </ListItem>
                         );
                     }
@@ -223,7 +223,7 @@ const ChatsView = class ChatsView extends React.Component {
                 {chats.map((chat, index) => {
                     return (
                         <ListItem key={index}>
-                            {this.renderPrivateChat(chat)}
+                            {this.renderPrivateChatTile(chat)}
                         </ListItem>
                     );
                 })}
@@ -231,7 +231,7 @@ const ChatsView = class ChatsView extends React.Component {
         );
     }
 
-    renderPrivateChat(chat) {
+    renderPrivateChatTile(chat) {
         if (!chat || !chat.otherUser) return;
 
         return <ChatTile
