@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 1.4.0
+- Add tribe chat
+- Fix orange dot misplacement in chats overview
+- Add hint icon for external links
+- Add new chats indicator in bottom tabs
+- Show original message author in message-releted notifications
+- Hide bottom tabs when the keyboard is open
+- Auto-hide search bar with 4 chats or more (and show dismissable hint)
+- Improve touch feeling for buttons throughout the app
+- Improve search results
+- Add clear search button
+
 ## 1.3.0
 - Fix blank page after Facebook/LinkedIn login on iOS9
 - Add online status indicator
