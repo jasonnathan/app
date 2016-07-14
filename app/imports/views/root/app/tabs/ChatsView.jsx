@@ -26,7 +26,8 @@ const ChatsView = class ChatsView extends React.Component {
         this.state = {
             searchResults: undefined,
             activeTab: 'private',
-            showSearchbarHint: false
+            showSearchbarHint: false,
+            searchInput: ''
         };
 
         this.onDebouncedSearchInput = debounce(this.onDebouncedSearchInput, 500);
@@ -181,7 +182,7 @@ const ChatsView = class ChatsView extends React.Component {
                         onChange={this.onSearchInput.bind(this)}
                         onFocus={onSearchFocus}
                         onBlur={onSearchBlur}
-                        showClearButton
+                        showClearButton={this.state.searchInput.length > 0}
                         onClear={this.onClearSearch.bind(this)} />
                 </div>
 
@@ -294,6 +295,7 @@ const ChatsView = class ChatsView extends React.Component {
 
     onSearchInput(event) {
         const input = event.nativeEvent.target.value;
+        this.setState({searchInput: input});
         this.onDebouncedSearchInput(input);
     }
 
