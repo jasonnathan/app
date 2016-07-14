@@ -32,7 +32,7 @@ export default {
 
         push.on('registration', (data) => {
             const loginToken = UserModel.accountsClient._storedLoginToken();
-            Connection.call('users.register_pushnotifications_device', data.registrationId, device, loginToken);
+            Connection.call('users.register_pushnotifications_device', data.registrationId, device, loginToken, (AppVersion || {}).version || 'unknown');
         });
 
         push.on('notification', (data) => {

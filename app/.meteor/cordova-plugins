@@ -1,3 +1,4 @@
+cordova-plugin-appversion@1.0.0
 cordova-plugin-crosswalk-webview@1.6.1
 cordova-plugin-device@1.1.1
 cordova-plugin-inappbrowser@https://github.com/ephemer/cordova-plugin-inappbrowser.git#04091fde737519c149e7ad6316971cb6b490c5b3
