@@ -108,4 +108,9 @@
             margin-top: 1px;
         }
     }
+
+    &--icon-only {
+        background-color: transparent;
+        padding: 0;
+    }
 }

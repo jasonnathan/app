@@ -4,6 +4,7 @@ import React from 'react';
 import c from 'classnames';
 import scrollElementIntoView from '/imports/services/scrollElementIntoView';
 import Svg from '/imports/components/Svg';
+import Button from '/imports/components/Button';
 
 const Input = {
     Text: class InputText extends React.Component {
@@ -14,7 +15,8 @@ const Input = {
 
         render() {
             const className = c('pa-Input pa-Input--text', {
-                'pa-Input--hasicon': this.props.icon
+                'pa-Input--hasicon': this.props.icon,
+                'pa-Input--hasclearbutton': this.props.showClearButton
             });
 
             let type = 'text';
@@ -33,6 +35,9 @@ const Input = {
 
             return (
                 <div className={className}>
+                    {this.props.showClearButton &&
+                        <Button icon='icon_close' iconOnly onClick={this.onClear.bind(this)} />
+                    }
                     {type === 'textarea' ?
                         <textarea {...props}></textarea> :
                         <input type={type} {...props} />
@@ -42,6 +47,11 @@ const Input = {
                     }
                 </div>
             );
+        }
+
+        onClear() {
+            this.refs.input.value = '';
+            this.props.onClear();
         }
 
         onFocus(event) {
@@ -73,7 +83,9 @@ Input.Text.propTypes = {
     onChange: React.PropTypes.func,
     onFocus: React.PropTypes.func,
     onBlur: React.PropTypes.func,
-    icon: React.PropTypes.string
+    icon: React.PropTypes.string,
+    showClearButton: React.PropTypes.bool,
+    onClear: React.PropTypes.func
 };
 
 export default Input;

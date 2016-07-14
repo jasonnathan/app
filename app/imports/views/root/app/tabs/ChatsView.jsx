@@ -136,7 +136,6 @@ const ChatsView = class ChatsView extends React.Component {
         const chatsProps = this.props.privateChats;
         const {data: chats} = chatsProps || {};
 
-
         return (
             <List>
                 {this.state.searchResults.map((user, index) => {
@@ -176,7 +175,14 @@ const ChatsView = class ChatsView extends React.Component {
         return (
             <div>
                 <div className="View--chats__search" ref="searchbar">
-                    <Input.Text placeholder="Search users" onChange={this.onSearchInput.bind(this)} icon='icon_search' onFocus={onSearchFocus} onBlur={onSearchBlur} />
+                    <Input.Text
+                        icon='icon_user_add'
+                        placeholder="Search user"
+                        onChange={this.onSearchInput.bind(this)}
+                        onFocus={onSearchFocus}
+                        onBlur={onSearchBlur}
+                        showClearButton
+                        onClear={this.onClearSearch.bind(this)} />
                 </div>
 
                 {this.state.showSearchbarHint &&
@@ -289,6 +295,10 @@ const ChatsView = class ChatsView extends React.Component {
     onSearchInput(event) {
         const input = event.nativeEvent.target.value;
         this.onDebouncedSearchInput(input);
+    }
+
+    onClearSearch() {
+        this.setState({searchResults: undefined});
     }
 
     onDebouncedSearchInput(input) {

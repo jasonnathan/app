@@ -18,7 +18,8 @@ const Button = class Button extends React.Component {
             'pa-Button--login--linkedin': p.loginLinkedIn,
             'pa-Button--switch': p.switch,
             'pa-Button--switch--active': p.switchActive,
-            'pa-Button--hint': p.hint
+            'pa-Button--hint': p.hint,
+            'pa-Button--icon-only': p.iconOnly
         });
 
         const dynamicProps = {};
