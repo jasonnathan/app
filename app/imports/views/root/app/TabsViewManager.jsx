@@ -118,6 +118,10 @@ const TabsViewManager = class TabsViewManager extends React.Component {
         const allChats = getPrivateChats().concat(getNetworkChats());
 
         return reduce(allChats, (prev, chat) => {
+            if (!chat.counter) {
+                chat.counter = [];
+            }
+
             return prev + chat.getUnreadCountForUser(loggedInUser);
         }, 0);
     }

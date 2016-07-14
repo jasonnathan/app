@@ -98,6 +98,10 @@ export default meteorDataContainer(ChatsView, (props) => {
                 .search({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1})
                 .findOne();
 
+            if (!chat.counter) {
+                chat.counter = [];
+            }
+
             return {
                 document: chat,
                 otherUser: UserModel.query()
