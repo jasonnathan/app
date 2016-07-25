@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.4.1
+- Fix bug where the chat list didn't show up when there was an empty chat
+
 ## 1.4.0
 - Add tribe chat
 - Fix orange dot misplacement in chats overview
