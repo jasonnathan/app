@@ -12,6 +12,13 @@ import { NotificationModel } from '/imports/models';
 import Connection from '/imports/Connection';
 import { get } from 'mout/object';
 
+const fallback = () => {
+    transitionTo('root:app:tabs:notifications', {
+        transition: 'fade',
+        viewProps: {}
+    });
+};
+
 export default meteorDataContainer(PushNotificationView, (props) => {
     const {payload} = props;
     Debug.tracker('PushNotificationContainer', payload);
@@ -41,23 +48,32 @@ export default meteorDataContainer(PushNotificationView, (props) => {
 
             Subs.subscribe('notifications.for_upper.by_id', notification._id, {
                 onReady: () => {
-                    const _notification = NotificationModel.findOne(notification._id);
+                    try {
+                        const _notification = NotificationModel.findOne(notification._id);
 
-                    if (!_notification) {
-                        throw 'Notification not found';
-                    }
+                        if (!_notification) {
+                            throw 'Notification not found';
+                        }
 
-                    Connection.call('notifications.clicked', _notification._id);
+                        Connection.call('notifications.clicked', _notification._id);
 
-                    if (_notification.hasUpdate()) {
-                        transitionTo('root:app:notification', {
-                            transition: 'instant',
-                            viewProps: {
-                                notificationId: _notification._id
-                            }
-                        });
-                    } else {
-                        openWeb(_notification.getWebsiteUrl());
+                        if (_notification.hasUpdate()) {
+                            transitionTo('root:app:notification', {
+                                transition: 'instant',
+                                viewProps: {
+                                    notificationId: _notification._id
+                                }
+                            });
+                        } else {
+                            transitionTo('root:app:tabs:notifications', {
+                                transition: 'fade',
+                                viewProps: {}
+                            });
+                            openWeb(_notification.getWebsiteUrl());
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        fallback();
                     }
                 }
             });
@@ -68,16 +84,10 @@ export default meteorDataContainer(PushNotificationView, (props) => {
             throw 'Unable to determine notification type';
         }
 
-    } catch(err) {
+    } catch (err) {
         console.error(err);
-
-        transitionTo('root:app:tabs:notifications', {
-            transition: 'fade',
-            viewProps: {}
-        });
+        fallback();
     }
 
-    return {
-        //
-    };
+    return {};
 });
