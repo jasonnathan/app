@@ -7,7 +7,6 @@ import c from 'classnames';
 
 import openWeb from '/imports/client/services/openWeb';
 import { NotificationModel, PartupUpdateModel, ActivityModel, UserModel, PartupModel } from '/imports/client/models';
-import ReversedScroller from '/imports/client/classes/ReversedScroller';
 import List from '/imports/client/components/List';
 import ListItem from '/imports/client/components/ListItem';
 import MessageForm from '/imports/client/components/MessageForm';
@@ -28,28 +27,6 @@ const NotificationView = class NotificationView extends React.Component {
             nowDate: new Date(),
             messageBoxFocussed: false
         };
-
-        this.reversedScroller = new ReversedScroller();
-    }
-
-    componentWillUnmount() {
-        this.reversedScroller.destroy();
-    }
-
-    componentDidUpdate() {
-        this.triggerReversedScroll();
-    }
-
-    componentWillMount() {
-        this.triggerReversedScroll();
-    }
-
-    triggerReversedScroll() {
-        defer(() => {
-            if (this.refs.comments && this.refs.comments.refs.flexStretch) {
-                this.reversedScroller.contentPossiblyUpdated(this.refs.comments.refs.flexStretch);
-            }
-        });
     }
 
     render() {
@@ -66,7 +43,7 @@ const NotificationView = class NotificationView extends React.Component {
                         {this.renderNotificationDetails()}
                     </Flex.Shrink>
                     {partupUpdate && [
-                        <Flex.Stretch scroll key="comments" className="View--notification__comments" ref="comments">
+                        <Flex.Stretch scroll='reverse' key="comments" className="View--notification__comments" ref="comments">
                             {this.renderComments()}
                         </Flex.Stretch>,
                         <Flex.Shrink key="commentinput" className="View--notification__commentinput">
