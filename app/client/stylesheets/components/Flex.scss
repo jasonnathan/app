@@ -38,6 +38,16 @@
                 margin-right: auto;
                 margin-left: auto;
             }
+
+            &--reverse,
+            &--reverse > div {
+                transform: rotate(180deg) scale(-1, 1);
+            }
+
+            &--reverse > div {
+                padding-top: 1px;
+                margin-top: -1px;
+            }
         }
     }
 }

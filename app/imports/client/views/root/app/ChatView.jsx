@@ -7,7 +7,6 @@ import { contains } from 'mout/array';
 import { get, set } from 'mout/object';
 import moment from 'moment';
 import groupArray from '/imports/client/services/groupArray';
-import ReversedScroller from '/imports/client/classes/ReversedScroller';
 import { ChatModel, ChatMessageModel, UserModel } from '/imports/client/models';
 import NavButton from '/imports/client/components/NavButton';
 import Button from '/imports/client/components/Button';
@@ -32,12 +31,9 @@ const ChatView = class ChatView extends React.Component {
 
         this.scrollPositionFromBottomBeforeLoadingMore;
         props.chatMessages.reset();
-        this.reversedScroller = new ReversedScroller();
     }
 
     componentWillUnmount() {
-        this.reversedScroller.destroy();
-
         const unsentMessage = get(this, 'refs.messageForm.refs.form.elements.message.value');
         if (unsentMessage) {
             unsentMessagesPerChat[this.props.chatId] = unsentMessage;
@@ -47,34 +43,11 @@ const ChatView = class ChatView extends React.Component {
     }
 
     componentDidUpdate() {
-        this.triggerReversedScroll();
         this.props.markChatAsRead();
-
-        if (typeof this.scrollPositionFromBottomBeforeLoadingMore === 'number') {
-            const scroller = this.refs.messages.refs.flexStretch;
-            scroller.scrollTop = scroller.scrollHeight - this.scrollPositionFromBottomBeforeLoadingMore;
-            this.scrollPositionFromBottomBeforeLoadingMore = false;
-        }
     }
 
     componentWillMount() {
-        this.triggerReversedScroll();
         this.props.markChatAsRead();
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.chatMessages.data.length !== nextProps.chatMessages.data.length) {
-            const scroller = this.refs.messages.refs.flexStretch;
-            this.scrollPositionFromBottomBeforeLoadingMore = scroller.scrollHeight - scroller.scrollTop;
-        }
-    }
-
-    triggerReversedScroll() {
-        defer(() => {
-            if (this.refs.messages && this.refs.messages.refs.flexStretch) {
-                this.reversedScroller.contentPossiblyUpdated(this.refs.messages.refs.flexStretch);
-            }
-        });
     }
 
     render() {
@@ -83,53 +56,54 @@ const ChatView = class ChatView extends React.Component {
 
         return (
             <Flex>
-                <Flex.Stretch scroll className="View--chat__messages" ref="messages" onHitTop={() => !loading && !endReached && loadMore()}>
-                    {loading &&
-                        <Spinner infiniteScroll />
-                    }
+                <Flex.Stretch scroll='reverse' className="View--chat__messages" ref="messages" onHitBottom={() => !loading && !endReached && loadMore()}>
+                    <div>
+                        {loading &&
+                            <Spinner infiniteScroll />
+                        }
+                        {this.groupMessagesByDay(messages).map((dayGroup, index) => {
+                            if (dayGroup.messages.length === 0) return;
 
-                    {this.groupMessagesByDay(messages).map((dayGroup, index) => {
-                        if (dayGroup.messages.length === 0) return;
+                            const readableDay = moment(dayGroup.day).calendar(null, {
+                                sameDay: '[Today]',
+                                lastDay: '[Yesterday]',
+                                lastWeek: '[Last] dddd',
+                                sameElse: 'LL'
+                            });
 
-                        const readableDay = moment(dayGroup.day).calendar(null, {
-                            sameDay: '[Today]',
-                            lastDay: '[Yesterday]',
-                            lastWeek: '[Last] dddd',
-                            sameElse: 'LL'
-                        });
+                            return (
+                                <div key={index}>
+                                    <ChatDaySeparator>{readableDay}</ChatDaySeparator>
+                                    {this.groupMessagesByAuthor(dayGroup.messages).map((authorGroup) => {
+                                        if (authorGroup.messages.length === 0) return;
 
-                        return (
-                            <div key={index}>
-                                <ChatDaySeparator>{readableDay}</ChatDaySeparator>
-                                {this.groupMessagesByAuthor(dayGroup.messages).map((authorGroup) => {
-                                    if (authorGroup.messages.length === 0) return;
+                                        const isSend = authorGroup.author.equals(loggedInUser);
+                                        const authorAvatar = authorGroup.author.getAvatarImage();
 
-                                    const isSend = authorGroup.author.equals(loggedInUser);
-                                    const authorAvatar = authorGroup.author.getAvatarImage();
+                                        return this.groupMessagesByTimebox(authorGroup.messages).map((timeboxGroup, index) => {
+                                            if (timeboxGroup.messages.length === 0) return;
 
-                                    return this.groupMessagesByTimebox(authorGroup.messages).map((timeboxGroup, index) => {
-                                        if (timeboxGroup.messages.length === 0) return;
-
-                                        return (
-                                            <ChatBox send={isSend} receive={!isSend} key={index}>
-                                                <Avatar src={authorAvatar && authorAvatar.getUrl()}></Avatar>
-                                                <List>
-                                                    {timeboxGroup.messages.map((message, _index) => {
-                                                        return (
-                                                            <ListItem key={_index}>
-                                                                <ChatMessage message={message.content} showName={chatType === 'networks' && !isSend && _index === 0} name={authorGroup.author.profile.name} />
-                                                            </ListItem>
-                                                        );
-                                                    })}
-                                                </List>
-                                                <time>{moment(timeboxGroup.time).format('HH:mm')}</time>
-                                            </ChatBox>
-                                        );
-                                    });
-                                })}
-                            </div>
-                        );
-                    })}
+                                            return (
+                                                <ChatBox send={isSend} receive={!isSend} key={index}>
+                                                    <Avatar src={authorAvatar && authorAvatar.getUrl()}></Avatar>
+                                                    <List>
+                                                        {timeboxGroup.messages.map((message, _index) => {
+                                                            return (
+                                                                <ListItem key={_index}>
+                                                                    <ChatMessage message={message.content} showName={chatType === 'networks' && !isSend && _index === 0} name={authorGroup.author.profile.name} />
+                                                                </ListItem>
+                                                            );
+                                                        })}
+                                                    </List>
+                                                    <time>{moment(timeboxGroup.time).format('HH:mm')}</time>
+                                                </ChatBox>
+                                            );
+                                        });
+                                    })}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </Flex.Stretch>
                 <Flex.Shrink className="View--chat__box">
                     <MessageForm

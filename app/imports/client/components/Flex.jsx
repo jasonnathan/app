@@ -41,22 +41,27 @@ Flex.Stretch = class FlexStretch extends React.Component {
     render() {
         return (
             <div className={c('pa-Flex__Stretch', {
-                'pa-Flex__Stretch--scroll': this.props.scroll
+                'pa-Flex__Stretch--scroll': !!this.props.scroll,
+                'pa-Flex__Stretch--scroll--reverse': this.props.scroll === 'reverse'
             }, this.props.className)} ref="flexStretch">
-                {this.props.children}
+                <div>
+                    {this.props.children}
+                </div>
             </div>
         );
     }
 
     componentDidMount() {
+        this.$scroller = $(this.refs.flexStretch);
+
         if (this.props.onHitTop || this.props.onHitBottom) {
-            this.refs.flexStretch.addEventListener('scroll', this.onScroll.bind(this));
+            this.$scroller.on('scroll', this.onScroll.bind(this));
         }
     }
 
     componentWillUnmount() {
         if (this.props.onHitTop || this.props.onHitBottom) {
-            this.refs.flexStretch.removeEventListener('scroll', this.onScroll.bind(this));
+            this.$scroller.off('scroll', this.onScroll.bind(this));
         }
     }
 
@@ -81,7 +86,7 @@ Flex.Stretch = class FlexStretch extends React.Component {
 };
 
 Flex.Stretch.propTypes = {
-    scroll: React.PropTypes.bool,
+    scroll: React.PropTypes.any,
     className: React.PropTypes.string,
     onHitBottom: React.PropTypes.func,
     onHitTop: React.PropTypes.func
