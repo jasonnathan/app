@@ -4,8 +4,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { I18nextProvider } from 'react-i18next';
 
-import i18n from '/imports/i18n';
-import RootContainer from '/imports/views/RootContainer';
+import i18n from '/imports/client/i18n';
+import RootContainer from '/imports/client/views/RootContainer';
 
 const renderMain = () => {
     render(
