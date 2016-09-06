@@ -56,7 +56,7 @@ const ChatView = class ChatView extends React.Component {
 
         return (
             <Flex>
-                <Flex.Stretch scroll='reverse' className="View--chat__messages" ref="messages" onHitBottom={() => !loading && !endReached && loadMore()}>
+                <Flex.Stretch scroll='reverse' className="View--chat__messages" ref="messages" onHitTop={() => !loading && !endReached && loadMore()}>
                     <div>
                         {loading &&
                             <Spinner infiniteScroll />
