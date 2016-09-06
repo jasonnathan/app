@@ -73,11 +73,13 @@ const ChatsView = class ChatsView extends React.Component {
         if (previousState.activeTab !== this.state.activeTab) {
 
             // If tab changed to 'private', scroll past the searchbar
-            if (shouldScrollPastSearchbar) {
-                setTimeout(() => {
+            setTimeout(() => {
+                if (shouldScrollPastSearchbar) {
                     this.scrollPastUserSearchbar();
-                }, 0);
-            }
+                } else {
+                    this.$scroller.scrollTop(0);
+                }
+            }, 0);
         }
     }
 

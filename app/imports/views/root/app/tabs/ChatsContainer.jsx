@@ -121,11 +121,15 @@ export default meteorDataContainer(ChatsView, (props) => {
             };
         };
 
+        const sortChats = (a, b) => {
+            return b.document.updated_at - a.document.updated_at;
+        };
+
         /**
          * Get and map chats
          */
-        privateChats = getPrivateChats().map(mapChats);
-        networkChats = getNetworkChats().map(mapChats);
+        privateChats = getPrivateChats().map(mapChats).sort(sortChats);
+        networkChats = getNetworkChats().map(mapChats).sort(sortChats);
     }
 
     const loadMorePrivateChats = () => {
