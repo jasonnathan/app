@@ -67,7 +67,7 @@ Flex.Stretch = class FlexStretch extends React.Component {
 
     onScroll(event) {
         const scroller = event.target;
-        const THRESHOLD = 40;
+        const THRESHOLD = 150;
 
         const onHitPhysicalTop = this.props.scroll === 'reverse' ? this.props.onHitBottom : this.props.onHitTop;
         const onHitPhysicalBottom = this.props.scroll === 'reverse' ? this.props.onHitTop : this.props.onHitBottom;
