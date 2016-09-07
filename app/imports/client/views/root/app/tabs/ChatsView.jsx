@@ -87,14 +87,6 @@ const ChatsView = class ChatsView extends React.Component {
         const chatsProps = this.props.privateChats;
         const {loading, loadMore, endReached} = chatsProps || {};
 
-        const onHitBottom = () => {
-            if (!this.state.searchResults) {
-                if (!loading && !endReached) {
-                    loadMore();
-                }
-            }
-        };
-
         const sum = (chats) => reduce(chats, (prev, chat) => prev + chat.newChatMessagesCount, 0);
         const privateCount = sum(this.props.privateChats.data);
         const networksCount = sum(this.props.networkChats.data);
@@ -121,12 +113,10 @@ const ChatsView = class ChatsView extends React.Component {
                         )}
                     ]} activeTab={this.state.activeTab} onClick={this.onTabClick.bind(this)} />
                 </Flex.Shrink>
-                <Flex.Stretch scroll ref="scroller" className="View--chats__list" onHitBottom={onHitBottom.bind(this)}>
-                    {this.state.activeTab === 'private' ?
-                        this.renderPrivateChats() :
-                        this.renderNetworkChats()
-                    }
-                </Flex.Stretch>
+                {this.state.activeTab === 'private' ?
+                    this.renderPrivateChats() :
+                    this.renderNetworkChats()
+                }
             </Flex>
         );
     }
@@ -170,13 +160,21 @@ const ChatsView = class ChatsView extends React.Component {
 
     renderPrivateChats() {
         const chatsProps = this.props.privateChats;
-        const {data: chats, loading} = chatsProps || {};
+        const {data: chats, loading, loadMore, endReached} = chatsProps || {};
+
+        const onHitBottom = () => {
+            if (!this.state.searchResults) {
+                if (!loading && !endReached) {
+                    loadMore();
+                }
+            }
+        };
 
         const onSearchFocus = () => this.props.toggleTabs(false);
         const onSearchBlur = () => this.props.toggleTabs(true);
 
         return (
-            <div>
+            <Flex.Stretch scroll ref="scroller" className="View--chats__list" onHitBottom={onHitBottom.bind(this)}>
                 <div className="View--chats__search" ref="searchbar">
                     <Input.Text
                         icon='icon_user_add'
@@ -195,9 +193,9 @@ const ChatsView = class ChatsView extends React.Component {
                 }
 
                 <div ref="privateChatsList">
-                    {this.state.searchResults
-                        ? this.renderSearchResults()
-                        : (
+                    {this.state.searchResults ?
+                        this.renderSearchResults() :
+                        (
                             <div>
                                 {(!chats || !chats.length) &&
                                     <EmptyState type="chats-private" />
@@ -211,7 +209,7 @@ const ChatsView = class ChatsView extends React.Component {
                             </div>
                     )}
                 </div>
-            </div>
+            </Flex.Stretch>
         );
     }
 
@@ -255,10 +253,18 @@ const ChatsView = class ChatsView extends React.Component {
 
     renderNetworkChats() {
         const chatsProps = this.props.networkChats;
-        const {data: chats, loading} = chatsProps || {};
+        const {data: chats, loading, endReached, loadMore} = chatsProps || {};
+
+        const onHitBottom = () => {
+            if (!this.state.searchResults) {
+                if (!loading && !endReached) {
+                    loadMore();
+                }
+            }
+        };
 
         return (
-            <div>
+            <Flex.Stretch scroll ref="scroller" className="View--chats__list" onHitBottom={onHitBottom.bind(this)}>
                 {(!chats || !chats.length) &&
                     <EmptyState type="chats-networks" />
                 }
@@ -268,7 +274,7 @@ const ChatsView = class ChatsView extends React.Component {
                 {loading &&
                     <Spinner infiniteScroll />
                 }
-            </div>
+            </Flex.Stretch>
         );
     }
 
@@ -353,7 +359,7 @@ const chatsShape = React.PropTypes.shape({
 });
 
 ChatsView.propTypes = {
-    loggedInUser: React.PropTypes.instanceOf(UserModel).isRequired,
+    loggedInUser: React.PropTypes.instanceOf(UserModel),
     onSearchUsers: React.PropTypes.func.isRequired,
     onStartPrivateChat: React.PropTypes.func.isRequired,
     privateChats: chatsShape,
