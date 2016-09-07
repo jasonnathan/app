@@ -37,9 +37,6 @@ export default meteorDataContainer(ChatsView, (props) => {
 
     const loggedInUser = UserModel.accountsClient.user();
 
-    /**
-     * Subscribe to private chats
-     */
     const privateChatsLoading = !Subs.subscribe('chats.for_loggedin_user', {private: true}, {
         limit: cache.private.limit.get()
     }, {
@@ -49,10 +46,10 @@ export default meteorDataContainer(ChatsView, (props) => {
             }
         }
     }).ready();
+    const loadMorePrivateChats = () => {
+        cache.private.limit.set(cache.private.limit.get() + INCREASE);
+    };
 
-    /**
-     * Subscribe to network chats
-     */
     const networkChatsLoading = !Subs.subscribe('chats.for_loggedin_user', {networks: true}, {
         limit: cache.networks.limit.get()
     }, {
@@ -62,18 +59,52 @@ export default meteorDataContainer(ChatsView, (props) => {
             }
         }
     }).ready();
+    const loadMoreNetworkChats = () => {
+        cache.networks.limit.set(cache.networks.limit.get() + INCREASE);
+    };
 
     /**
-     * Function to get private chats
+     * Shared functionalities (both network-chat and private-chat)
      */
+    const getLastChatMessage = (chatId) => {
+        return ChatMessageModel.query()
+            .search({chat_id: chatId}, {sort: {created_at: -1}, limit: 1})
+            .findOne();
+    };
+    const getChatMessageUser = (chatMessage) => {
+        return UserModel.query()
+            .search(chatMessage.creator_id)
+            .findOne();
+    };
+    const getCommonProps = (chat) => {
+        const lastChatMessage = getLastChatMessage(chat._id);
+
+        return {
+            lastChatMessage,
+            lastChatMessageUser: lastChatMessage && getChatMessageUser(lastChatMessage),
+            newChatMessagesCount: chat.getUnreadCountForUser(loggedInUser)
+        };
+    };
+    const chatSorter = (a, b) => {
+        return b.document.updated_at - a.document.updated_at;
+    };
+
     const getPrivateChats = () =>
         ChatModel.query()
             .search(m => m.searchPrivateForUser(loggedInUser))
-            .fetch();
+            .fetch()
+            .map((chat) => {
+                const otherUser = UserModel.query()
+                    .search({
+                        _id: {$ne: loggedInUser._id},
+                        chats: {$in: [chat._id]}
+                    })
+                    .findOne();
 
-    /**
-     * Function to get network chats
-     */
+                return {document: chat, otherUser, ...getCommonProps(chat)};
+            })
+            .sort(chatSorter);
+
     const getNetworkChats = () => {
         return NetworkModel.query()
             .search({
@@ -82,63 +113,18 @@ export default meteorDataContainer(ChatsView, (props) => {
                 }
             })
             .fetch()
-            .map(network =>
-                ChatModel.query()
+            .map((network) => {
+                var chat = ChatModel.query()
                     .search({_id: network.chat_id})
-                    .findOne()
-            );
+                    .findOne();
+
+                return {document: chat, network, ...getCommonProps(chat)};
+            })
+            .sort(chatSorter);
     };
 
-    let privateChats = [];
-    let networkChats = [];
-
-    if (loggedInUser) {
-        const mapChats = (chat) => {
-            const lastChatMessage = ChatMessageModel.query()
-                .search({chat_id: chat._id}, {sort: {created_at: -1}, limit: 1})
-                .findOne();
-
-            if (!chat.counter) {
-                chat.counter = [];
-            }
-
-            return {
-                document: chat,
-                otherUser: UserModel.query()
-                    .search({
-                        _id: {$ne: loggedInUser._id},
-                        chats: {$in: [chat._id]}
-                    })
-                    .findOne(),
-                network: NetworkModel.query()
-                    .search({chat_id: chat._id})
-                    .findOne(),
-                lastChatMessage,
-                lastChatMessageUser: lastChatMessage && UserModel.query()
-                    .search(lastChatMessage.creator_id)
-                    .findOne(),
-                newChatMessagesCount: chat.getUnreadCountForUser(loggedInUser)
-            };
-        };
-
-        const sortChats = (a, b) => {
-            return b.document.updated_at - a.document.updated_at;
-        };
-
-        /**
-         * Get and map chats
-         */
-        privateChats = getPrivateChats().map(mapChats).sort(sortChats);
-        networkChats = getNetworkChats().map(mapChats).sort(sortChats);
-    }
-
-    const loadMorePrivateChats = () => {
-        cache.private.limit.set(cache.private.limit.get() + INCREASE);
-    };
-
-    const loadMoreNetworkChats = () => {
-        cache.networks.limit.set(cache.networks.limit.get() + INCREASE);
-    };
+    const privateChats = loggedInUser ? getPrivateChats() : [];
+    const networkChats = loggedInUser ? getNetworkChats() : [];
 
     const onSearchUsers = (input, callback) => {
         Connection.call('users.autocomplete', input, undefined, undefined, {chatSearch: true}, (error, users) => {

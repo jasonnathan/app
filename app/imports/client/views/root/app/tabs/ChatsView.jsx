@@ -122,9 +122,9 @@ const ChatsView = class ChatsView extends React.Component {
                     ]} activeTab={this.state.activeTab} onClick={this.onTabClick.bind(this)} />
                 </Flex.Shrink>
                 <Flex.Stretch scroll ref="scroller" className="View--chats__list" onHitBottom={onHitBottom.bind(this)}>
-                    {this.state.activeTab === 'private'
-                        ? this.renderPrivateChats()
-                        : this.renderNetworkChats()
+                    {this.state.activeTab === 'private' ?
+                        this.renderPrivateChats() :
+                        this.renderNetworkChats()
                     }
                 </Flex.Stretch>
             </Flex>
