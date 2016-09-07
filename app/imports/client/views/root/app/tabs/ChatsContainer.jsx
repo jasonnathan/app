@@ -68,6 +68,9 @@ export default meteorDataContainer(ChatsView, (props) => {
             .search({
                 uppers: {
                     $in: [loggedInUser._id]
+                },
+                archived_at: {
+                    $exists: false
                 }
             }, {
                 limit: cache.networks.limit.curValue
