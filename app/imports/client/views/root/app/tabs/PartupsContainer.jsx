@@ -93,12 +93,12 @@ const myAsyncDataContainer = asyncDataContainer(PartupsView, {}, (props, cb, isM
             propsHaveChanged();
         }
 
-        cache.partnerPagination = new HttpPagination({start: 15, increase: 10}, (skip, limit) => {
+        cache.partnerPagination = new HttpPagination({start: 8, increase: 20}, (skip, limit) => {
             return getPartupsPromise(`${baseUrl}/upperpartups/${getQueryString(skip, limit)}`)
                 .then((partups) => partups);
         });
 
-        cache.supporterPagination = new HttpPagination({start: 15, increase: 10}, (skip, limit) => {
+        cache.supporterPagination = new HttpPagination({start: 8, increase: 20}, (skip, limit) => {
             return getPartupsPromise(`${baseUrl}/supporterpartups/${getQueryString(skip, limit)}`)
                 .then((partups) => partups);
         });

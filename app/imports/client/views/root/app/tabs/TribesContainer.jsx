@@ -55,7 +55,7 @@ const myAsyncDataContainer = asyncDataContainer(TribesView, {}, (props, cb, isMo
             propsHaveChanged();
         }
 
-        cache.tribesPagination = new HttpPagination({start: 10, increase: 10}, (skip, limit) => {
+        cache.tribesPagination = new HttpPagination({start: 8, increase: 20}, (skip, limit) => {
             return new Promise((resolve, reject) => {
                 HTTP.get(`${baseUrl}/networks/${getQueryString(skip, limit)}`, function(error, response) {
                     if (error) {
