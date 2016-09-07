@@ -9,27 +9,19 @@ import transitionTo from '/imports/client/services/transitionTo';
 import { UserModel, ChatModel } from '/imports/client/models';
 import Debug from '/imports/client/Debug';
 
-const redirectToLogin = () => {
-    transitionTo('root:login', {
-        transition: 'show-from-right'
-    });
-};
-
 export default meteorDataContainer(AppViewManager, (props) => {
     const {} = props;
     Debug.tracker('AppContainer');
 
-    if (!UserModel.accountsClient.userId()) {
-        redirectToLogin();
-    }
-
-    Subs.subscribe('users.loggedin', {
-        onReady: () => {
-            if (!UserModel.accountsClient.user()) {
-                redirectToLogin();
-            }
+    const loggedInSub = Subs.subscribe('users.loggedin');
+    const user = UserModel.accountsClient.user();
+    if (loggedInSub.ready()) {
+        if (!user) {
+            transitionTo('root:login', {
+                transition: 'show-from-right'
+            });
         }
-    });
+    }
 
     // Unread messages
     Subs.subscribe('chats.for_loggedin_user.for_count', {private: true, networks: true});
