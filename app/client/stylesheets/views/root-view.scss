@@ -16,11 +16,3 @@ body {
         line-height: $line-height;
     }
 }
-
-strong, span, em, img {
-    + strong, + span, + em, + img {
-        &::before {
-            content: ' ';
-        }
-    }
-}

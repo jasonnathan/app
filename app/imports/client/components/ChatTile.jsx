@@ -75,7 +75,7 @@ const ChatTile = class ChatTile extends React.Component {
                     {lastChatMessage &&
                         <Paragraph>
                             {lastChatMessageUser && lastChatMessageUser.equals(loggedInUser) &&
-                                <strong>You:</strong>
+                                <strong>You: </strong>
                             }
                             {lastChatMessage.content}
                         </Paragraph>
@@ -110,9 +110,8 @@ const ChatTile = class ChatTile extends React.Component {
                     <Paragraph>
                         {lastChatMessageUser &&
                             <strong>
-                                {lastChatMessageUser.equals(loggedInUser)
-                                    ? `You:`
-                                    : `${lastChatMessageUser.profile.name}:`
+                                {lastChatMessageUser.equals(loggedInUser) ?
+                                    `You: ` : `${lastChatMessageUser.profile.name}: `
                                 }
                             </strong>
                         }

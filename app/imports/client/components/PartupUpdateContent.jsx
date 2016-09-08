@@ -6,6 +6,8 @@ import { contains } from 'mout/array';
 import { get } from 'mout/object';
 import { stripHtmlTags } from 'mout/string';
 import translate from '/imports/client/services/translate';
+import marked from 'marked';
+import highlightJs from 'highlight.js';
 
 import Button from '/imports/client/components/Button';
 import parseMentions from '/imports/client/services/parseMentions';
@@ -30,9 +32,28 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
     renderContent() {
         const {t, update: u, updateData: d} = this.props;
 
-
         if (contains(['partups_message_added'], u.type)) {
-            const textParts = autolink(parseMentions(stripHtmlTags(u.type_data.new_value).replace(/\n/g, '<br />')));
+            let renderer = new marked.Renderer();
+            renderer.paragraph = function(text) {
+                return '<p class="pa-Paragraph">' + text + '</p>';
+            };
+
+            marked.setOptions({
+                renderer: renderer,
+                highlight: function(code) {
+                    return highlightJs.highlightAuto(code).value;
+                }
+            });
+
+            const textParts = autolink(
+                parseMentions(
+                    marked(
+                        stripHtmlTags(u.type_data.new_value)
+                    ).replace(/\n/g, '<br />')
+                )
+            );
+
+            const text = u.type_data.new_value;
 
             if (!d.user || !d.partup) return;
 
@@ -55,7 +76,7 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
                     </div>
 
                     <Content.Text>
-                        <Paragraph>{textParts}</Paragraph>
+                        {textParts}
                     </Content.Text>
                 </Content>
             );

@@ -34,7 +34,7 @@ const PartupUpdateComment = class PartupUpdateComment extends React.Component {
                 </div>
                 <div>
                     <Paragraph>
-                        <strong>{author.profile.name}</strong>
+                        <strong>{author.profile.name}: </strong>
                         {text}
                     </Paragraph>
                     <Paragraph meta>{readableCreatedAt}</Paragraph>

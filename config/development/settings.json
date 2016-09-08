@@ -4,7 +4,7 @@
         "environment": "development",
         "aws": {
             "region": "eu-west-1",
-            "bucket": "partup-development"
+            "bucket": "partup-production"
         }
     }
 }
