@@ -3,12 +3,27 @@
     color: $color-text-on-navigation-bar;
     height: 53px;
 
+    .NavigationBarTitle {
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 130px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     &::after {
         display: none;
     }
 
     &--detail {
         background-color: $color-navigation-bar-detail;
+    }
+
+    @media screen and (min-width: 380px) {
+        .NavigationBarTitle {
+            max-width: 220px;
+        }
     }
 }
 

@@ -124,7 +124,7 @@ LoginWithEmailView.getNavigation = (props, app) => {
     return {
         leftLabel: <NavButton left icon="icon_back" />,
         leftAction: back,
-        title: 'Sign in with email'
+        title: 'Sign in'
     };
 };
 
