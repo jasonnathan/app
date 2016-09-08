@@ -26,7 +26,9 @@ export default {
 
                 // Quick way to automatically increase the badge for every notification
                 badge: true,
-                clearBadge: true
+                clearBadge: true,
+                sound: true,
+                vibrate: true
             }
         });
 
