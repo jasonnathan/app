@@ -16,7 +16,10 @@ import Content from '/imports/client/components/Content';
 import Paragraph from '/imports/client/components/Paragraph';
 import Heading from '/imports/client/components/Heading';
 import Avatar from '/imports/client/components/Avatar';
+import List from '/imports/client/components/List';
+import ListItem from '/imports/client/components/ListItem';
 import autolink from '/imports/client/services/autolink';
+import openWeb from '/imports/client/services/openWeb';
 
 const PartupUpdateContent = class PartupUpdateContent extends React.Component {
     render() {
@@ -31,6 +34,8 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
 
     renderContent() {
         const {t, update: u, updateData: d} = this.props;
+
+        console.log(u, ImageModel);
 
         if (contains(['partups_message_added'], u.type)) {
             let renderer = new marked.Renderer();
@@ -59,6 +64,11 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
 
             const image = d.user.getAvatarImage();
 
+            // Partup update images
+            const imageIds = u.type_data.images || [];
+            const images = imageIds.map((imageId) => ImageModel.findOne(imageId));
+            const imageUrls = images.map((image) => image.getUrl());
+
             return (
                 <Content>
 
@@ -78,6 +88,21 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
                     <Content.Text>
                         {textParts}
                     </Content.Text>
+
+                    <Content.Block>
+                        <List inline partupUpdateImages>
+                            {imageUrls.map((url, index) => (
+                                <ListItem key={index}>
+                                    <a href='' onClick={(event) => {
+                                        event.preventDefault();
+                                        openWeb(url);
+                                    }} style={{
+                                        backgroundImage: `url('${url}')`
+                                    }} />
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Content.Block>
                 </Content>
             );
         }
