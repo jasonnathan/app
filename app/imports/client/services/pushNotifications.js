@@ -19,8 +19,9 @@ export default {
 
         const push = PushNotification.init({
             android: {
-                senderID: "963161275015",
-                forceShow: true
+                senderID: '963161275015',
+                sound: true,
+                vibrate: true
             },
             ios: {
 
