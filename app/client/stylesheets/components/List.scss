@@ -93,7 +93,7 @@
 
     &--partup-update-images {
         border-top: 1px solid $color-border;
-        padding-top: spacing();
+        padding: spacing() 0;
         @include addSpacing(spacing(1));
 
         > li {
@@ -109,6 +109,40 @@
                 &:active {
                     transform: scale(.95);
                 }
+            }
+        }
+    }
+
+    &--partup-update-documents {
+        border-top: 1px solid $color-border;
+        padding-top: spacing();
+        padding-bottom: spacing() - 3px;
+        @include addSpacing(spacing(1));
+
+        > li {
+            a {
+                display: table-row;
+                transition: transform 100ms;
+
+                &:active {
+                    transform: scale(.95);
+                }
+            }
+
+            img {
+                display: table-cell;
+                vertical-align: top;
+                margin-right: 10px;
+                height: 20px;
+            }
+
+            span {
+                display: table-cell;
+                vertical-align: top;
+                padding-top: 1px;
+                font-weight: bold;
+                color: $color-text;
+                line-height: 1.4em;
             }
         }
     }

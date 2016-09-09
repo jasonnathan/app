@@ -11,6 +11,7 @@ const List = class List extends React.Component {
                 'pa-List--notifications': this.props.notifications,
                 'pa-List--partup-update-comments': this.props.partupUpdateComments,
                 'pa-List--partup-update-images': this.props.partupUpdateImages,
+                'pa-List--partup-update-documents': this.props.partupUpdateDocuments,
                 'pa-List--inline': this.props.inline,
                 'pa-List--stats': this.props.stats,
                 'pa-List--tiles': this.props.tiles
@@ -25,7 +26,8 @@ List.propTypes = {
     buttons: React.PropTypes.bool,
     notifications: React.PropTypes.bool,
     partupUpdateComments: React.PropTypes.bool,
-    partupUpdateImages: React.PropTypes.bool
+    partupUpdateImages: React.PropTypes.bool,
+    partupUpdateDocuments: React.PropTypes.bool
 };
 
 List.defaultProps = {

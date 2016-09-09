@@ -20,6 +20,7 @@ import List from '/imports/client/components/List';
 import ListItem from '/imports/client/components/ListItem';
 import autolink from '/imports/client/services/autolink';
 import openWeb from '/imports/client/services/openWeb';
+import getSvgForDocument from '/imports/client/services/getSvgForDocument';
 
 const PartupUpdateContent = class PartupUpdateContent extends React.Component {
     render() {
@@ -34,8 +35,6 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
 
     renderContent() {
         const {t, update: u, updateData: d} = this.props;
-
-        console.log(u, ImageModel);
 
         if (contains(['partups_message_added'], u.type)) {
             let renderer = new marked.Renderer();
@@ -69,6 +68,9 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
             const images = imageIds.map((imageId) => ImageModel.findOne(imageId));
             const imageUrls = images.map((image) => image.getUrl());
 
+            // Partup update documents
+            const documents = u.type_data.documents || [];
+
             return (
                 <Content>
 
@@ -89,20 +91,40 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
                         {textParts}
                     </Content.Text>
 
-                    <Content.Block>
-                        <List inline partupUpdateImages>
-                            {imageUrls.map((url, index) => (
-                                <ListItem key={index}>
-                                    <a href='' onClick={(event) => {
-                                        event.preventDefault();
-                                        openWeb(url);
-                                    }} style={{
-                                        backgroundImage: `url('${url}')`
-                                    }} />
-                                </ListItem>
-                            ))}
-                        </List>
-                    </Content.Block>
+                    {imageUrls.length > 0 &&
+                        <Content.Block>
+                            <List inline partupUpdateImages>
+                                {imageUrls.map((url, index) => (
+                                    <ListItem key={index}>
+                                        <a href='' onClick={(event) => {
+                                            event.preventDefault();
+                                            openWeb(url);
+                                        }} style={{
+                                            backgroundImage: `url('${url}')`
+                                        }} />
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Content.Block>
+                    }
+
+                    {documents.length > 0 &&
+                        <Content.Block>
+                            <List inline partupUpdateDocuments>
+                                {documents.map((doc, index) => (
+                                    <ListItem key={index}>
+                                        <a href='' onClick={(event) => {
+                                            event.preventDefault();
+                                            openWeb(doc.link);
+                                        }}>
+                                            <img src={getSvgForDocument(doc)} />
+                                            <span>{doc.name}</span>
+                                        </a>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Content.Block>
+                    }
                 </Content>
             );
         }
