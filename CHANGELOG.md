@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 1.5.0
+- Great chat performance and usage improvements
+- Add Quick Actions using 3D Touch
+- Show images and documents in notification messages
+- Render Markdown in notification content
+- Add sound and vibration to push notifications
+- Order Part-ups by amount of updates
+- Fix overflowing names in navigation bar
+- Fix blank screen when receiving notification
+
 ## 1.4.1
 - Fix bug where the chat list didn't show up when there was an empty chat
 
