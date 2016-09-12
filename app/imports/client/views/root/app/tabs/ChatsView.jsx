@@ -99,7 +99,7 @@ const ChatsView = class ChatsView extends React.Component {
                             <span>
                                 Personal
                                 {!!privateCount &&
-                                    <span>{`(${privateCount})`}</span>
+                                    <span> {`(${privateCount})`}</span>
                                 }
                             </span>
                         )},
@@ -107,7 +107,7 @@ const ChatsView = class ChatsView extends React.Component {
                             <span>
                                 Tribe
                                 {!!networksCount &&
-                                    <span>{`(${networksCount})`}</span>
+                                    <span> {`(${networksCount})`}</span>
                                 }
                             </span>
                         )}
