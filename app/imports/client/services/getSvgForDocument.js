@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { contains } from 'mout/array';
 
 const matchExtension = (fileName) => {
     return fileName.match(/\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/);
@@ -42,15 +42,15 @@ export default function getSvgForDocument(doc) {
     if (matchExtension(doc.name)) {
         var extension = getExtensionFromFileName(doc.name);
 
-        if (_.include(fallbackFileExtensions, extension)) {
+        if (contains(fallbackFileExtensions, extension)) {
             svgFileName = 'file.svg';
-        } else if (_.include(presentationExtensions, extension)) {
+        } else if (contains(presentationExtensions, extension)) {
             svgFileName = 'ppt.svg';
-        } else if (_.include(docExtensions, extension)) {
+        } else if (contains(docExtensions, extension)) {
             svgFileName = 'doc.svg';
-        } else if (_.include(pdfExtensions, extension)) {
+        } else if (contains(pdfExtensions, extension)) {
             svgFileName = 'pdf.svg';
-        } else if (_.include(spreadSheetExtensions, extension)) {
+        } else if (contains(spreadSheetExtensions, extension)) {
             svgFileName = 'xls.svg';
         }
         // otherwise fallback to file.svg
