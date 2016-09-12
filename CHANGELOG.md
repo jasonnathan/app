@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.1
+- Fix bug where some notification detail pages crashed
+- Fix some lost whitespaces in copy
+
 ## 1.5.0
 - Great chat performance and usage improvements
 - Add Quick Actions using 3D Touch
