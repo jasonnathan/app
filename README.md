@@ -87,7 +87,7 @@ Releasing
 - Test your build by running it on an Android device:
     - Connect an Android device.
     - Remove the app from the Android device if the app already exists.
-    - Install the app using `adb install part-up.apk`.
+    - Install the app using `adb install -r part-up.apk` (`-r` takes care of previously installed versions).
     - Start the app.
 - If you are satisfied with the APK, publish it to Google Play:
     - Go to Google Play's Developer Console: **https://play.google.com/apps/publish**
