@@ -54,25 +54,50 @@ Releasing
 
 ### iOS
 
-- `$ cd app`
-- `$ meteor npm install`
-- `$ meteor build ../output --mobile-settings ../config/<environment>/settings.json --server <partup-url>` (replace <environment> with acceptance or production and <partup-url> with the part-up server url)
-- Open the project **/output/ios/project/Part-up.xcodeproj** in Xcode.
-- Go to Part-up's General settings
+1. `$ cd app`
+2. `$ meteor npm install`
+3. `$ meteor build ../output --mobile-settings ../config/<environment>/settings.json --server <partup-url>` (replace <environment> with acceptance or production and <partup-url> with the part-up server url)
+4. Open the project **/output/ios/project/Part-up.xcodeproj** in Xcode.
+    - If Xcode asks **Convert to Current Swift Syntax?**, click *Convert* and select **Convert to Swift 3**.
+    - Next
+    - Check only **Part-up.app**
+    - After converting Xcode should tell you **No source changes necessary**
+    - Click **Update**
+5. Go to Part-up's General settings
     - Select "8.0" (under Deployment Info > Deployment Target)
     - Select "iPhone" (under Deployment Info > Devices)
     - Uncheck "Upside Down" (under Deployment Info > Device Orientation)
     - Select "Light" (under Deployment Info > Status Bar Style)
     - Check "Hide status bar" (under Deployment Info > Status Bar Style)
-- Go to Part-up's Capabilities settings
+6. Go to Part-up's Capabilities settings
     - Enable Push Notifications for Part-up B.V.
-- From the top menu, select "Product > Archive" and wait untill the process completes
-- An archives window should pop up.
-- Select the latest version and hit "Upload to App Store..."
-- When asked, choose the correct Development Team.
-- Check the Binary and Entitlements and hit Upload.
-- Wait until the build is processed by Apple at itunesconnect.apple.com.
-- Release the build for internal testing, external testing or production.
+7. Make sure you increase the version number in General settings
+8. Since iOS 10 and Xcode 8, it is no longer possible to test the production version of the app by building it directly to a device. In **step 11** after archiving we will do this the new way.
+9. From the top menu, select "Product > Archive" and wait untill the process completes
+10. An archives window should pop up.
+11. Before submitting to the App Store, test the build on an iPhone.
+    - In the archiver, select the archived build you wish to test
+    - Click **Export...** under the upload to appstore button
+    - Select **Save for Ad Hoc Deployment**
+    - Choose **Part-up BV**
+    - Select **Export one app for all compatible devices**
+    - Important: Under **Binary and Entitlements** Make sure **aps-environment** says `production`. Then click **Next**
+    - Export to a location you can easily find in finder
+    - Open Itunes
+    - Connect the device you wish to test on
+    - In the top-left, select **Apps**
+    - Drag the exported Part-up.ipa into Itunes
+    - Click on the device icon next to the top-left selector
+    - Go to **Apps**
+    - Click on **Install** next to Part-up
+    - On the bottom-right click **Done** and apply
+    - Voilla, Itunes will install the app on your device
+    - Test the app and pray Apple won't make our lives more difficult when iOS 11 comes out
+12. Select the latest version and hit "Upload to App Store..."
+13. When asked, choose the correct Development Team.
+14. Check the Binary and Entitlements and hit Upload.
+15. Wait until the build is processed by Apple at itunesconnect.apple.com.
+16. Release the build for internal testing, external testing or production.
 
 ### Android
 
