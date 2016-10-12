@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.5.3
+- Futureproofed the notifications
+
 ## 1.5.2
 - Added support for iOS 10
 - Fix bug where notifications wouldn't show on iOS 10
