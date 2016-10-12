@@ -28,5 +28,9 @@
     "notification-partup_created_in_network": "__creator__ has created __partup__ in __network__",
     "notification-partups_unarchived": "__unarchiver__ reactivated __partup__",
     "notification-updates_first_comment": "__commenter__ commented on an update",
+    "notification-upper_mentioned_in_network_chat": "__mentioning_upper__ noemde je in de chat",
+    "notification-partups_partner_request": "__requester__ wil partner worden",
+    "notification-partups_partner_accepted": "__accepter__ heeft je partner aanvraag geaccepteerd",
+    "notification-partups_partner_rejected": "__rejecter__ heeft je partner aanvraag geweigerd",
     "update-metatext": "__time__ in __location__"
 }
