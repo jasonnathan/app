@@ -27,7 +27,7 @@
     "mout": "^1.0.0",
     "os": "^0.1.1",
     "part-up-js-helpers": "git://github.com/part-up/js-helpers.git#1.0.4",
-    "part-up-js-models": "git://github.com/part-up/js-models.git#1.0.9",
+    "part-up-js-models": "git://github.com/part-up/js-models.git#1.1.4",
     "powercheck": "^1.0.3",
     "react": "^0.14.8",
     "react-addons-css-transition-group": "^0.14.3",

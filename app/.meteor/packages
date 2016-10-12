@@ -1,21 +1,21 @@
 meteor-base@1.0.4                     # Packages every Meteor app needs to have
-fastclick@1.0.12                       # Remove 300ms click delay
-mongo@1.1.12                           # The database Meteor supports right now
-tracker@1.1.0                         # Meteor's client-side reactive programming library
+fastclick@1.0.13-beta.9                       # Remove 300ms click delay
+mongo@1.1.13-beta.9                           # The database Meteor supports right now
+tracker@1.1.1-beta.9                         # Meteor's client-side reactive programming library
 
-standard-minifier-js@1.2.0            # JS
-standard-minifier-css@1.2.0           # CSS
-es5-shim@4.6.14                        # ECMAScript 5 compatibility for older browsers
-ecmascript@0.5.9-beta.4                      # Enable ECMAScript2015+ syntax in app code
+standard-minifier-js@1.2.1-beta.9            # JS
+standard-minifier-css@1.2.2-beta.9           # CSS
+es5-shim@4.6.15-beta.9                        # ECMAScript 5 compatibility for older browsers
+ecmascript@0.5.9-beta.9                      # Enable ECMAScript2015+ syntax in app code
 static-html@1.1.12                     # Render static HTML files
 react-meteor-data@=0.2.7        # Easily use a Meteor tracker inside React
-jquery@1.11.9
-accounts-base@1.2.12-beta.4
-accounts-password@1.3.1-beta.4
+jquery@1.11.10-beta.9
+accounts-base@1.2.12-beta.9
+accounts-password@1.3.1-beta.9
 pauli:accounts-linkedin
-accounts-facebook@1.0.11-beta.4
-service-configuration@1.0.10
-http@1.2.9
+accounts-facebook@1.0.11-beta.9
+service-configuration@1.0.11-beta.9
+http@1.2.10-beta.9
 meteorhacks:subs-manager
 shell-server@0.2.1
 fourseven:scss
