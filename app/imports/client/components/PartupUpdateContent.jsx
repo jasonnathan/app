@@ -8,6 +8,7 @@ import { stripHtmlTags } from 'mout/string';
 import translate from '/imports/client/services/translate';
 import marked from 'marked';
 import highlightJs from 'highlight.js';
+import Connection from '/imports/client/Connection';
 
 import Button from '/imports/client/components/Button';
 import parseMentions from '/imports/client/services/parseMentions';
@@ -23,6 +24,28 @@ import openWeb from '/imports/client/services/openWeb';
 import getSvgForDocument from '/imports/client/services/getSvgForDocument';
 
 const PartupUpdateContent = class PartupUpdateContent extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    this.checkDocuments(nextProps.update);
+  }
+
+  checkDocuments({ type_data = {} }) {
+    const documentIds = (type_data.documents || []).filter((d) => typeof d === 'string');
+
+    if (documentIds.length > 0) {
+      Connection.call('files.get', documentIds, (e, r) => {
+        if (!e && Array.isArray(r)) {
+          this.setState({
+            documents: r,
+          });
+        }
+      });
+    } else {
+      this.setState({
+        documents: type_data.documents || [],
+      })
+    }
+  }
+
     render() {
         const content = this.renderContent();
 
@@ -68,9 +91,6 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
             const images = imageIds.map((imageId) => ImageModel.findOne(imageId));
             const imageUrls = images.map((image) => image.getUrl());
 
-            // Partup update documents
-            const documents = u.type_data.documents || [];
-
             return (
                 <Content>
 
@@ -108,10 +128,10 @@ const PartupUpdateContent = class PartupUpdateContent extends React.Component {
                         </Content.Block>
                     }
 
-                    {documents.length > 0 &&
+                    {this.state.documents.length > 0 &&
                         <Content.Block>
                             <List inline partupUpdateDocuments>
-                                {documents.map((doc, index) => (
+                                {this.state.documents.map((doc, index) => (
                                     <ListItem key={index}>
                                         <a href='' onClick={(event) => {
                                             event.preventDefault();
